@@ -9,6 +9,7 @@ const Routes = (app) => {
   app.get('/users', usersController.list);
   app.get('/users/:id', usersController.search);
   app.put('/users/:id', usersController.update);
+  app.delete('/users/:id', usersController.destroy);
 
 };
 export default Routes;
