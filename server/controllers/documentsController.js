@@ -1,6 +1,8 @@
-const Document = require('../models').Document;
+import models from '../models/';
 
-module.exports = {
+const Document =  models.Documents;
+
+ export default {
   create(req, res) {
     return Document
       .create({

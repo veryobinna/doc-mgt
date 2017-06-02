@@ -1,6 +1,6 @@
-'use strict';
-module.exports = function(sequelize, DataTypes) {
-  var Users = sequelize.define('Users', {
+import bcrypt from 'bcrypt'
+export default (sequelize, DataTypes) => {
+  const Users = sequelize.define('Users', {
     firstName: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -36,7 +36,19 @@ module.exports = function(sequelize, DataTypes) {
           foreignKey: 'roleID',
         });
       }
-    }
+    },
+    instanceMethods: {
+      hashPassword(){
+        console.log("inside instancesfdfdfdfdfdf")
+        return bcrypt.hashSync(this.password)
+      }
+    },
+  hooks: {
+    beforeCreate (user) {
+      console.log(user.password)
+      user.password = bcrypt.hashSync(user.password,7)
+    },
+  }
   });
   return Users;
 };

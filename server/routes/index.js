@@ -1,11 +1,14 @@
-var usersController = require('../controllers').users;
+import usersController from '../controllers/usersController';
 
-module.exports = (app) => {
+const Routes = (app) => {
   app.get('/test', (req, res) => res.status(200).send({
     message: 'Welcome to the API!',
   }));
 
   app.post('/users', usersController.create);
   app.get('/users', usersController.list);
+  app.get('/users/:id', usersController.search);
+  app.put('/users/:id', usersController.update);
 
 };
+export default Routes;
