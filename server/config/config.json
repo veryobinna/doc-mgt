@@ -1,23 +1,24 @@
 {
   "development": {
-    "username": "root",
+    "username": "obinna",
     "password": null,
-    "database": "database_development",
+    "database": "doc-mgt-dev",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "port": 5432,
+    "dialect": "postgres"
   },
   "test": {
-    "username": "root",
+    "username": "obinna",
     "password": null,
-    "database": "database_test",
+    "database": "doc-mgt_test",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "postgres"
   },
   "production": {
-    "username": "root",
+    "username": "obinna",
     "password": null,
-    "database": "database_production",
+    "database": "doc-mgt",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "postgres"
   }
 }
