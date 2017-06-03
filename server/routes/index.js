@@ -13,8 +13,13 @@ const Routes = (app) => {
   app.delete('/users/:id', usersController.destroy);
 
   app.post('/documents', documentsController.create);
-
   app.get('/documents', documentsController.list);
+  app.get('/documents/:id', documentsController.search);
+  app.put('/documents/:id', documentsController.update);
+  app.delete('/documents/:id', documentsController.destroy);
+
+
+
 
 
 };

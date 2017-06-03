@@ -21,4 +21,50 @@ const Document =  models.Documents;
     .then(document => res.status(200).send(document))
     .catch(error => res.status(400).send(error));
 },
+search(req, res){
+    return Document
+      .findById(req.params.id)
+      .then(document => {
+        if (!document) {
+          return res.status(404).send({
+            message: 'Document not found, please check the ID and try again'
+          });
+        }
+        return res.status(200).send(document);
+      })
+      .catch(error => res.status(400).send(error));
+  },
+  update(req, res){
+    return Document
+      .findById(req.params.id)
+
+    .then(document => {
+      if (!document) {
+        return res.status(404).send({
+          message: 'Document Not Found, please try again',
+        });
+      }
+      return document
+        .update(req.body, { fields: Object.keys(req.body) })
+        .then(() => res.status(200).send(document))  // Send back the updated document.
+        .catch((error) => res.status(400).send(error));
+    })
+    .catch((error) => res.status(400).send(error));
+ },
+ destroy(req, res) {
+  return Document
+    .findById(req.params.id)
+    .then(document => {
+      if (!document) {
+        return res.status(400).send({
+          message: 'Document Not Found',
+        });
+      }
+      return document
+        .destroy()
+        .then(() => res.status(204).send())
+        .catch(error => res.status(400).send(error));
+    })
+    .catch(error => res.status(400).send(error));
+},
  };

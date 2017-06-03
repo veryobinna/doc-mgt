@@ -49,14 +49,7 @@ export default {
         });
       }
       return user
-        .update({
-          firstName: req.body.firstName,
-          lastName: req.body.lastName,
-          username: req.body.username,
-          email: req.body.email,
-          password: req.body.password,
-          roleID: req.body.roleID,
-        })
+        .update(req.body, { fields: Object.keys(req.body) })
         .then(() => res.status(200).send(user))  // Send back the updated user.
         .catch((error) => res.status(400).send(error));
     })
