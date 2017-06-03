@@ -17,7 +17,7 @@ module.exports = {
       content: {
         type: Sequelize.TEXT
       },
-      userID: {
+      ownerID: {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
         references: {

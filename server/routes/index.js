@@ -1,4 +1,5 @@
 import usersController from '../controllers/usersController';
+import documentsController from '../controllers/documentsController'
 
 const Routes = (app) => {
   app.get('/test', (req, res) => res.status(200).send({
@@ -10,6 +11,11 @@ const Routes = (app) => {
   app.get('/users/:id', usersController.search);
   app.put('/users/:id', usersController.update);
   app.delete('/users/:id', usersController.destroy);
+
+  app.post('/documents', documentsController.create);
+
+  app.get('/documents', documentsController.list);
+
 
 };
 export default Routes;

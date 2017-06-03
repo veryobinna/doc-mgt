@@ -62,6 +62,14 @@ export default {
     })
     .catch((error) => res.status(400).send(error));
 },
+
+/**
+ * 
+ * 
+ * @param {any} req 
+ * @param {any} res 
+ * @returns 
+ */
 destroy(req, res) {
   return User
     .findById(req.params.id)
