@@ -1,14 +1,14 @@
-export default(sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   var Roles = sequelize.define('Roles', {
     name: DataTypes.STRING
   }, {
     classMethods: {
-      associate: function(models) {
+      associate: (models)=> {
         // associations can be defined here
         Roles.hasMany(models.Users, {
           foreignKey: 'roleID',
 
-        })
+        });
       }
     }
   });

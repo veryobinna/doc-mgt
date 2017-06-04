@@ -22,7 +22,7 @@ export default(sequelize, DataTypes) => {
     },
   }, {
     classMethods: {
-      associate: function(models) {
+      associate: (models) => {
         // associations can be defined here
         Documents.belongsTo(models.Users,{
           foreignKey: 'ownerID',

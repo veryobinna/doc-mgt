@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt'
 
 
 const User =  models.Users;
+const Document =  models.Documents;
 
 export default {
   create(req, res) {
@@ -22,7 +23,11 @@ export default {
   },
   list(req, res) {
   return User
-    .all()
+    .findAll({
+      include: [{
+        model: Document,
+      }],
+    })
     .then(user => res.status(200).send(user))
     .catch(error => res.status(400).send(error));
 }, search(req, res){
