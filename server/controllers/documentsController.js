@@ -1,8 +1,8 @@
 import models from '../models/';
 
-const Document =  models.Documents;
+const Document = models.Documents;
 
- export default {
+export default {
   create(req, res) {
     return Document
       .create({
@@ -10,18 +10,18 @@ const Document =  models.Documents;
         content: req.body.content,
         access: req.body.access,
         ownerID: req.body.ownerID,
-        roleID: req.body.roleID,       
+        roleID: req.body.roleID,
       })
       .then(document => res.status(201).send(document))
       .catch(error => res.status(400).send(error));
   },
   list(req, res) {
-  return Document
-    .all()
-    .then(document => res.status(200).send(document))
-    .catch(error => res.status(400).send(error));
-},
-search(req, res){
+    return Document
+      .all()
+      .then(document => res.status(200).send(document))
+      .catch(error => res.status(400).send(error));
+  },
+  find(req, res) {
     return Document
       .findById(req.params.id)
       .then(document => {
@@ -34,37 +34,61 @@ search(req, res){
       })
       .catch(error => res.status(400).send(error));
   },
-  update(req, res){
+  search(req, res) {
+    console.log('req.decode is ', req.decoded)
+    return Document
+      .findAll({
+        where: {
+          $and: {
+            title: { $ilike: `%${req.query.q}%` },
+            $or: {
+              ownerID: `${req.decoded.id}`,
+              $or: {
+                access: 'public',
+                $and: { access: 'role' },
+                roleID: {
+                  $lte: `${req.decoded.roleID}`
+                }
+              },
+            }
+            
+          }
+        }
+      })
+      .then(document => res.status(200).send({ document }))
+      .catch(error => res.status(401).send({ error }));
+  },
+  update(req, res) {
     return Document
       .findById(req.params.id)
 
-    .then(document => {
-      if (!document) {
-        return res.status(404).send({
-          message: 'Document Not Found, please try again',
-        });
-      }
-      return document
-        .update(req.body, { fields: Object.keys(req.body) })
-        .then(() => res.status(200).send(document))  // Send back the updated document.
-        .catch((error) => res.status(400).send(error));
-    })
-    .catch((error) => res.status(400).send(error));
- },
- destroy(req, res) {
-  return Document
-    .findById(req.params.id)
-    .then(document => {
-      if (!document) {
-        return res.status(400).send({
-          message: 'Document Not Found',
-        });
-      }
-      return document
-        .destroy()
-        .then(() => res.status(204).send())
-        .catch(error => res.status(400).send(error));
-    })
-    .catch(error => res.status(400).send(error));
-},
- };
+      .then(document => {
+        if (!document) {
+          return res.status(404).send({
+            message: 'Document Not Found, please try again',
+          });
+        }
+        return document
+          .update(req.body, { fields: Object.keys(req.body) })
+          .then(() => res.status(200).send(document))  // Send back the updated document.
+          .catch((error) => res.status(400).send(error));
+      })
+      .catch((error) => res.status(400).send(error));
+  },
+  destroy(req, res) {
+    return Document
+      .findById(req.params.id)
+      .then(document => {
+        if (!document) {
+          return res.status(400).send({
+            message: 'Document Not Found',
+          });
+        }
+        return document
+          .destroy()
+          .then(() => res.status(204).send())
+          .catch(error => res.status(400).send(error));
+      })
+      .catch(error => res.status(400).send(error));
+  },
+};

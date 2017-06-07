@@ -9,7 +9,6 @@ const secret = 'sinzu';
 
 export default {
   create(req, res) {
-    console.log(req.body);
     return User
       .create({
         firstName: req.body.firstName,
@@ -55,7 +54,7 @@ export default {
             email: user.email,
             roleID: user.roleID
           }
-          const token = jwt.sign(userData, secret, { expiresIn: '1h' });
+          const token = jwt.sign(userData, secret, { expiresIn: '1hr' });
           res.status(200).json({
             userData,
             message: 'User logged in successfully',
@@ -70,12 +69,9 @@ export default {
       .catch(error => res.status(400).send(error));
   },
   logout(req, res) {
-    res.setHeader['x-access-token'] = ' ';
-    res.status(200)
-      .json({
-        success: true,
-        message: 'User logged out'
-      });
+    res.status(200).json({
+      message: 'User logged out'
+    });
   },
   list(req, res) {
     return User
@@ -86,7 +82,8 @@ export default {
       })
       .then(user => res.status(200).send(user))
       .catch(error => res.status(400).send(error));
-  }, search(req, res) {
+  },
+  find(req, res) {
     return User
       .findById(req.params.id)
       .then(user => {
@@ -98,6 +95,20 @@ export default {
         return res.status(200).send(user);
       })
       .catch(error => res.status(400).send(error));
+  },
+  search(req, res) {
+    return User
+      .findAll({
+        where: {
+          $or: [
+            { firstName: { $ilike: `%${req.query.q}%` } },
+            { lastName: { $ilike: `%${req.query.q}%` } }
+          ]
+        }
+      })
+      .then( users => {
+        console.log('the password is ',users[0].password), res.status(200).send({ users })})
+      .catch(error => res.status(401).send({ error }));
   },
   update(req, res) {
     return User
