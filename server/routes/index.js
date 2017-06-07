@@ -1,6 +1,7 @@
 import usersController from '../controllers/usersController';
 import documentsController from '../controllers/documentsController'
 import rolesController from '../controllers/rolesController'
+import authenticate from '../middleware/Aunthenticate'
 
 
 const Routes = (app) => {
@@ -8,23 +9,27 @@ const Routes = (app) => {
     message: 'Welcome to the API!',
   }));
 
-  app.post('/users', usersController.create);
-  app.get('/users', usersController.list);
-  app.get('/users/:id', usersController.search);
-  app.put('/users/:id', usersController.update);
-  app.delete('/users/:id', usersController.destroy);
+  app.post('/users', authenticate.verifyToken, usersController.create);
+  app.get('/users',authenticate.verifyToken, usersController.list);
+  app.get('/users/:id', authenticate.verifyToken, usersController.search);
+  app.put('/users/:id',authenticate.verifyToken, usersController.update);
+  app.delete('/users/:id',authenticate.verifyToken, usersController.destroy);
 
-  app.post('/documents', documentsController.create);
-  app.get('/documents', documentsController.list);
-  app.get('/documents/:id', documentsController.search);
-  app.put('/documents/:id', documentsController.update);
-  app.delete('/documents/:id', documentsController.destroy);
+  app.post('/login', usersController.login);
 
-  app.post('/roles', rolesController.create);
-  app.get('/roles', rolesController.list);
-  app.get('/roles/:id', rolesController.search);
-  app.put('/roles/:id', rolesController.update);
+
+  app.post('/documents',authenticate.verifyToken, documentsController.create);
+  app.get('/documents',authenticate.verifyToken, documentsController.list);
+  app.get('/documents/:id', authenticate.verifyToken, documentsController.search);
+  app.put('/documents/:id', authenticate.verifyToken, documentsController.update);
+  app.delete('/documents/:id',authenticate.verifyToken, documentsController.destroy);
+
+  app.post('/roles',authenticate.verifyToken, rolesController.create);
+  app.get('/roles',authenticate.verifyToken, rolesController.list);
+  app.get('/roles/:id',authenticate.verifyToken, rolesController.search);
+  app.put('/roles/:id',authenticate.verifyToken, rolesController.update);
   app.delete('/roles/:id', rolesController.destroy);
+
 
 
 

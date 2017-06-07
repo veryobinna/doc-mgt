@@ -40,7 +40,10 @@ export default (sequelize, DataTypes) => {
       instanceMethods: {
         hashPassword() {
           console.log("inside instancesfdfdfdfdfdf")
-          return bcrypt.hashSync(this.password)
+          return bcrypt.hashSync(this.password);
+        },
+        isVerified(submmitedPassword){
+          return bcrypt.compareSync(submmitedPassword, this.password);
         }
       },
       hooks: {
