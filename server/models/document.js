@@ -1,4 +1,3 @@
-'use strict';
 export default(sequelize, DataTypes) => {
   const Documents = sequelize.define('Documents', {
     title: {
@@ -24,7 +23,7 @@ export default(sequelize, DataTypes) => {
     classMethods: {
       associate: (models) => {
         // associations can be defined here
-        Documents.belongsTo(models.Users,{
+        Documents.belongsTo(models.Users, {
           foreignKey: 'ownerID',
           onDelete: 'CASCADE',
         });

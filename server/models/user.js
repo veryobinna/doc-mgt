@@ -1,4 +1,5 @@
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt';
+
 export default (sequelize, DataTypes) => {
   const Users = sequelize.define('Users', {
     firstName: {
@@ -26,32 +27,30 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
     },
   }, {
-      classMethods: {
-        associate: (models) =>{
-          // associations can be defined here
-          Users.hasMany(models.Documents, {
-            foreignKey: 'ownerID',
-          });
-          Users.belongsTo(models.Roles, {
-            foreignKey: 'roleID',
-          });
-        }
-      },
-      instanceMethods: {
-        hashPassword() {
-          console.log("inside instancesfdfdfdfdfdf")
-          return bcrypt.hashSync(this.password);
-        },
-        isVerified(submmitedPassword){
-          return bcrypt.compareSync(submmitedPassword, this.password);
-        }
-      },
-      hooks: {
-        beforeCreate(user) {
-          console.log(user.password)
-          user.password = bcrypt.hashSync(user.password, 7)
-        },
+    classMethods: {
+      associate: (models) => {
+        // associations can be defined here
+        Users.hasMany(models.Documents, {
+          foreignKey: 'ownerID',
+        });
+        Users.belongsTo(models.Roles, {
+          foreignKey: 'roleID',
+        });
       }
-    });
+    },
+    instanceMethods: {
+      hashPassword() {
+        return bcrypt.hashSync(this.password);
+      },
+      isVerified(submmitedPassword) {
+        return bcrypt.compareSync(submmitedPassword, this.password);
+      }
+    },
+    hooks: {
+      beforeCreate(user) {
+        user.password = bcrypt.hashSync(user.password, 7);
+      },
+    }
+  });
   return Users;
 };

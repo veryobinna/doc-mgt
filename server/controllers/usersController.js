@@ -1,6 +1,5 @@
-import models from '../models/';
-import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import models from '../models/';
 
 
 const User = models.Users;
@@ -45,7 +44,6 @@ export default {
             message: 'User not found'
           });
         } else if (user.isVerified(req.body.password)) {
-          console.log('we got to the login')
           const userData = {
             id: user.id,
             firstName: user.firstName,
@@ -53,7 +51,7 @@ export default {
             username: user.username,
             email: user.email,
             roleID: user.roleID
-          }
+          };
           const token = jwt.sign(userData, secret, { expiresIn: '1hr' });
           res.status(200).json({
             userData,
@@ -86,7 +84,7 @@ export default {
   find(req, res) {
     return User
       .findById(req.params.id)
-      .then(user => {
+      .then((user) => {
         if (!user) {
           return res.status(404).send({
             message: 'User not found, please check the ID and try again'
@@ -106,15 +104,16 @@ export default {
           ]
         }
       })
-      .then( users => {
-        console.log('the password is ',users[0].password), res.status(200).send({ users })})
+      .then((users) => {
+        res.status(200).send({ users });
+      })
       .catch(error => res.status(401).send({ error }));
   },
   update(req, res) {
     return User
       .findById(req.params.id)
 
-      .then(user => {
+      .then((user) => {
         if (!user) {
           return res.status(404).send({
             message: 'User Not Found, please try again',
@@ -122,23 +121,22 @@ export default {
         }
         return user
           .update(req.body, { fields: Object.keys(req.body) })
-          .then(() => res.status(200).send(user))  // Send back the updated user.
-          .catch((error) => res.status(400).send(error));
+          .then(() => res.status(200).send(user))
+          .catch(error => res.status(400).send(error));
       })
-      .catch((error) => res.status(400).send(error));
+      .catch(error => res.status(400).send(error));
   },
 
   /**
-   * 
-   * 
-   * @param {any} req 
-   * @param {any} res 
-   * @returns 
+   *
+   * @param {any} req
+   * @param {any} res
+   * @returns
    */
   destroy(req, res) {
     return User
       .findById(req.params.id)
-      .then(user => {
+      .then((user) => {
         if (!user) {
           return res.status(400).send({
             message: 'User Not Found',

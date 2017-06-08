@@ -24,7 +24,7 @@ export default {
   find(req, res) {
     return Document
       .findById(req.params.id)
-      .then(document => {
+      .then((document) => {
         if (!document) {
           return res.status(404).send({
             message: 'Document not found, please check the ID and try again'
@@ -35,7 +35,7 @@ export default {
       .catch(error => res.status(400).send(error));
   },
   search(req, res) {
-    console.log('req.decode is ', req.decoded)
+    console.log('req.decode is ', req.decoded);
     return Document
       .findAll({
         where: {
@@ -51,7 +51,6 @@ export default {
                 }
               },
             }
-            
           }
         }
       })
@@ -62,7 +61,7 @@ export default {
     return Document
       .findById(req.params.id)
 
-      .then(document => {
+      .then((document) => {
         if (!document) {
           return res.status(404).send({
             message: 'Document Not Found, please try again',
@@ -70,15 +69,15 @@ export default {
         }
         return document
           .update(req.body, { fields: Object.keys(req.body) })
-          .then(() => res.status(200).send(document))  // Send back the updated document.
-          .catch((error) => res.status(400).send(error));
+          .then(() => res.status(200).send(document))
+          .catch(error => res.status(400).send(error));
       })
-      .catch((error) => res.status(400).send(error));
+      .catch(error => res.status(400).send(error));
   },
   destroy(req, res) {
     return Document
       .findById(req.params.id)
-      .then(document => {
+      .then((document) => {
         if (!document) {
           return res.status(400).send({
             message: 'Document Not Found',

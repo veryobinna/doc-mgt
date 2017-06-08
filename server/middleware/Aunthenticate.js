@@ -4,8 +4,8 @@ const secret = 'sinzu';
 
 const Authenticate = {
   verifyToken(req, res, next) {
-    const token = req.headers.authorization || req.query.token 
-    || req.body.token || req.headers['x-access-token'] 
+    const token = req.headers.authorization || req.query.token
+    || req.body.token || req.headers['x-access-token'];
     if (token) {
       jwt.verify(token, secret, (error, decoded) => {
         if (error) {
@@ -17,7 +17,7 @@ const Authenticate = {
         next();
       });
     } else {
-        return res.status(403).send({
+      return res.status(403).send({
         message: 'No Token provided'
       });
     }
