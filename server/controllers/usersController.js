@@ -40,12 +40,13 @@ export default {
 
       })
       .then((user) => {
+                  console.log('we got to the login, and isVerified is', user.isVerified(req.body.password))
+
         if (!user) {
           return res.status(404).send({
             message: 'User not found'
           });
         } else if (user.isVerified(req.body.password)) {
-          console.log('we got to the login')
           const userData = {
             id: user.id,
             firstName: user.firstName,
@@ -85,7 +86,7 @@ export default {
   },
   find(req, res) {
     return User
-      .findById(req.params.id)
+      .findById(Number.parseInt(req.params.id, 10))
       .then(user => {
         if (!user) {
           return res.status(404).send({
@@ -112,20 +113,17 @@ export default {
   },
   update(req, res) {
     return User
-      .findById(req.params.id)
-
-      .then(user => {
-        if (!user) {
+      .findById(Number.parseInt(req.params.id, 10)).then(user => {
+        if(!user) {
           return res.status(404).send({
-            message: 'User Not Found, please try again',
+            message: 'Usre not found, check the ID and try again',
           });
         }
-        return user
-          .update(req.body, { fields: Object.keys(req.body) })
-          .then(() => res.status(200).send(user))  // Send back the updated user.
-          .catch((error) => res.status(400).send(error));
+       user.update(req.body, {fields: Object.keys(req.body)})
+       .then(user => res.status(200).send(user))
+       .catch((error) => res.status(400).send(error) )
       })
-      .catch((error) => res.status(400).send(error));
+       .catch((error) => res.status(400).send(error) )
   },
 
   /**
@@ -137,7 +135,7 @@ export default {
    */
   destroy(req, res) {
     return User
-      .findById(req.params.id)
+      .findById(Number.parseInt(req.params.id, 10))
       .then(user => {
         if (!user) {
           return res.status(400).send({

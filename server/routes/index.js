@@ -13,7 +13,7 @@ const Routes = (app) => {
   app.get('/users',authenticate.verifyToken, usersController.list);
   app.get('/users/:id', authenticate.verifyToken, usersController.find);
   app.get('/search/users/', authenticate.verifyToken, usersController.search);
-  app.put('/users/:id',authenticate.verifyToken, usersController.update);
+  app.put('/users/:id', usersController.update);
   app.delete('/users/:id',authenticate.verifyToken, usersController.destroy);
 
   app.post('/login', usersController.login);

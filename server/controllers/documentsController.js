@@ -17,13 +17,30 @@ export default {
   },
   list(req, res) {
     return Document
-      .all()
+      .findAll({
+        where: {
+          $or: [
+            {
+              ownerID: `${req.decoded.id}`
+            },
+            {
+              access: 'public'
+            },
+            {
+              access: 'role',
+              roleID: {
+                $lte: `${req.decoded.roleID}`
+              }
+            }
+          ]
+        }
+      })
       .then(document => res.status(200).send(document))
       .catch(error => res.status(400).send(error));
   },
   find(req, res) {
     return Document
-      .findById(req.params.id)
+      .findById(Number.parseInt(req.params.id, 10))
       .then(document => {
         if (!document) {
           return res.status(404).send({
@@ -41,17 +58,21 @@ export default {
         where: {
           $and: {
             title: { $ilike: `%${req.query.q}%` },
-            $or: {
-              ownerID: `${req.decoded.id}`,
-              $or: {
-                access: 'public',
-                $and: { access: 'role' },
-                roleID: {
-                  $lte: `${req.decoded.roleID}`
-                }
-              },
+            $or: [
+            {
+              ownerID: `${req.decoded.id}`
+            },
+            {
+              access: 'public'
+            },
+            {
+              access: 'role',
+              roleID: {
+                $lte: `${req.decoded.roleID}`
+              }
             }
-            
+          ]
+
           }
         }
       })
@@ -60,7 +81,7 @@ export default {
   },
   update(req, res) {
     return Document
-      .findById(req.params.id)
+      .findById(Number.parseInt(req.params.id, 10))
 
       .then(document => {
         if (!document) {
@@ -77,7 +98,7 @@ export default {
   },
   destroy(req, res) {
     return Document
-      .findById(req.params.id)
+      .findById(Number.parseInt(req.params.id, 10))
       .then(document => {
         if (!document) {
           return res.status(400).send({

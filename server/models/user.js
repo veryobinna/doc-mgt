@@ -27,7 +27,7 @@ export default (sequelize, DataTypes) => {
     },
   }, {
       classMethods: {
-        associate: (models) =>{
+        associate: (models) => {
           // associations can be defined here
           Users.hasMany(models.Documents, {
             foreignKey: 'ownerID',
@@ -40,17 +40,21 @@ export default (sequelize, DataTypes) => {
       instanceMethods: {
         hashPassword() {
           console.log("inside instancesfdfdfdfdfdf")
-          return bcrypt.hashSync(this.password);
+          return this.password = bcrypt.hashSync(this.password, 7);
         },
-        isVerified(submmitedPassword){
+        isVerified(submmitedPassword) {
+          //hashPassword()
           return bcrypt.compareSync(submmitedPassword, this.password);
         }
       },
       hooks: {
         beforeCreate(user) {
           console.log(user.password)
-          user.password = bcrypt.hashSync(user.password, 7)
+          user.hashPassword();
         },
+        beforeUpdate(user) {
+            user.hashPassword();
+        }
       }
     });
   return Users;
