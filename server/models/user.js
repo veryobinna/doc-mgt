@@ -40,7 +40,8 @@ export default (sequelize, DataTypes) => {
     },
     instanceMethods: {
       hashPassword() {
-        return bcrypt.hashSync(this.password);
+        this.password = bcrypt.hashSync(this.password, 7);
+        return this.password;
       },
       isVerified(submmitedPassword) {
         return bcrypt.compareSync(submmitedPassword, this.password);
@@ -48,9 +49,13 @@ export default (sequelize, DataTypes) => {
     },
     hooks: {
       beforeCreate(user) {
-        user.password = bcrypt.hashSync(user.password, 7);
+        user.hashPassword();
       },
+      beforeUpdate(user) {
+        user.hashPassword();
+      }
     }
   });
   return Users;
 };
+

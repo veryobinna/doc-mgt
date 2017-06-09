@@ -83,7 +83,7 @@ export default {
   },
   find(req, res) {
     return User
-      .findById(req.params.id)
+      .findById(Number.parseInt(req.params.id, 10))
       .then((user) => {
         if (!user) {
           return res.status(404).send({
@@ -111,20 +111,17 @@ export default {
   },
   update(req, res) {
     return User
-      .findById(req.params.id)
-
-      .then((user) => {
+      .findById(Number.parseInt(req.params.id, 10)).then((user) => {
         if (!user) {
           return res.status(404).send({
-            message: 'User Not Found, please try again',
+            message: 'Usre not found, check the ID and try again',
           });
         }
-        return user
-          .update(req.body, { fields: Object.keys(req.body) })
-          .then(() => res.status(200).send(user))
-          .catch(error => res.status(400).send(error));
+        user.update(req.body, { fields: Object.keys(req.body) })
+       .then(userUpadate => res.status(200).send(userUpadate))
+       .catch(error => res.status(400).send(error));
       })
-      .catch(error => res.status(400).send(error));
+       .catch(error => res.status(400).send(error));
   },
 
   /**
@@ -135,7 +132,7 @@ export default {
    */
   destroy(req, res) {
     return User
-      .findById(req.params.id)
+      .findById(Number.parseInt(req.params.id, 10))
       .then((user) => {
         if (!user) {
           return res.status(400).send({
