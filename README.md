@@ -1,2 +1,2 @@
 # doc-mgt
-A document management system.
+A full stack document management system.
