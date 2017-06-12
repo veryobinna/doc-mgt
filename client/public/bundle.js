@@ -13088,12 +13088,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var routes = _react2.default.createElement(
   'hashRouter',
   null,
-  _react2.default.createElement(
-    _reactRouterDom.Switch,
-    null,
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/signup', component: _Signup2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/login', component: _Login2.default })
-  )
+  _react2.default.createElement(_reactRouterDom.Route, { path: '/login', component: _Login2.default }),
+  _react2.default.createElement(_reactRouterDom.Route, { path: '/signup', component: _Signup2.default })
 );
 exports.default = routes;
 
@@ -14082,7 +14078,7 @@ var signupDetails = function signupDetails(payload) {
 
 var signup = function signup(userParams) {
   return function (dispatch) {
-    _axios2.default.post('/users', userParams).then(function (res) {
+    return _axios2.default.post('/users', userParams).then(function (res) {
       dispatch(signupDetails(res.data));
     }).catch(function (error) {
       throw error;
@@ -14247,6 +14243,8 @@ var _reactRedux = __webpack_require__(41);
 
 var _redux = __webpack_require__(32);
 
+var _reactRouterDom = __webpack_require__(70);
+
 var _SignupAction = __webpack_require__(141);
 
 var _SignupAction2 = _interopRequireDefault(_SignupAction);
@@ -14278,6 +14276,8 @@ var Signup = function (_Component) {
     };
     _this.onInputChange = _this.onInputChange.bind(_this);
     _this.onFormSubmit = _this.onFormSubmit.bind(_this);
+    _this.redirect = _this.redirect.bind(_this);
+
     return _this;
   }
 
@@ -14293,7 +14293,12 @@ var Signup = function (_Component) {
     key: 'onFormSubmit',
     value: function onFormSubmit(event) {
       event.preventDefault();
-      this.props.SignupAction(this.state);
+      this.props.SignupAction(this.state).then(this.props.history.replace('/login'));
+    }
+  }, {
+    key: 'redirect',
+    value: function redirect() {
+      return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/login' });
     }
   }, {
     key: 'render',

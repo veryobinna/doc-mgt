@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Redirect } from 'react-router-dom';
 import SignupAction from '../actions/SignupAction';
 
 class Signup extends Component {
@@ -15,6 +16,8 @@ class Signup extends Component {
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.redirect = this.redirect.bind(this);
+
   }
   onInputChange(event) {
     const name = event.target.id;
@@ -24,8 +27,13 @@ class Signup extends Component {
   }
   onFormSubmit(event) {
     event.preventDefault();
-    this.props.SignupAction(this.state);
+    this.props.SignupAction(this.state).then(
+      this.props.history.replace('/login')
+    )
   }
+   redirect () {
+     return (<Redirect to="/login" />);
+   }
 
   render() {
     return (
@@ -74,6 +82,7 @@ class Signup extends Component {
 
         <button> Submit </button>
       </form>
+         
     );
   }
 

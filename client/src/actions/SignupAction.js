@@ -10,13 +10,11 @@ const signupDetails = payload => ({
   type: types.SIGNUP_DETAILS, payload
 });
 
-const signup = userParams => (dispatch) => {
-  axios
+const signup = userParams => dispatch => axios
   .post('/users', userParams)
   .then((res) => {
     dispatch(signupDetails(res.data));
   })
     .catch((error) => { throw (error); });
-};
 
 export default signup;
