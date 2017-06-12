@@ -1,0 +1,5 @@
+export default {
+  LOGIN_DETAILS: 'LOGIN_DETAILS',
+  SIGNUP_DETAILS: 'SIGNUP_DETAILS'
+
+};

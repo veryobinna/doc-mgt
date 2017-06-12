@@ -15,7 +15,7 @@ export default {
         username: req.body.username,
         email: req.body.email,
         password: req.body.password,
-        roleID: req.body.roleID,
+        roleID: 1,
 
       })
       .then(user => res.status(201).send(user))
