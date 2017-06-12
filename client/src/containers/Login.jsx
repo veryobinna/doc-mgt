@@ -38,30 +38,39 @@ class Login extends Component {
   }
   render() {
     return (
-      <form onSubmit={this.onFormSubmit}>
-        <label htmlFor="loginID">LoginID</label>
-        <input
-          id="loginID"
-          type="text"
-          placeholder="email or username"
-          value={this.state.loginID}
-          onChange={this.onInputChange}
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          id="password"
-          type="password"
-          value={this.state.password}
-          onChange={this.onInputChange}
-        />
-        <button> Submit </button>
-      </form>
+      <div className="container landing-page">
+        <div className="row">
+          <div className="col s6 offset-s6">
+            <form onSubmit={this.onFormSubmit}>
+              <label htmlFor="loginID" data-error="wrong"
+                data-success="right"
+              >LoginID</label>
+              <input
+                id="loginID"
+                type="text"
+                placeholder="email or username"
+                className="validate"
+                value={this.state.loginID}
+                onChange={this.onInputChange}
+              />
+              <label htmlFor="password">Password</label>
+              <input
+                id="password"
+                type="password"
+                value={this.state.password}
+                onChange={this.onInputChange}
+              />
+              <button className="btn waves-effect waves-light"> Submit </button>
+            </form>
+          </div>
+        </div>
+      </div>
     );
   }
 }
 
 const mapDispatchToProps =
-dispatch => bindActionCreators({ LoginAction }, dispatch);
+  dispatch => bindActionCreators({ LoginAction }, dispatch);
 
 // state is a function param that reps the state within our redux store
 // state.login refs what is in index reducer
