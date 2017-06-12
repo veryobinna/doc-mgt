@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // load the client side
-app.use(express.static(path.join(__dirname, './client/public/')))
+app.use(express.static(path.join(__dirname, './client/public/')));
 
 // Require our routes into the application.
 route(app);

@@ -1,13 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from '../src/components/app';
-import Login from '../src/components/Login';
+import { Provider } from 'react-redux';
+import { HashRouter as Router } from 'react-router-dom';
+import createBrowserHistory from 'history/createBrowserHistory';
+import configureStore from '../src/store/configureStore';
+import routes from '../src/utils/Routes';
+
+
+const store = configureStore();
+const history = createBrowserHistory();
 
 
 ReactDOM.render(
-  <div>
-    <Login />
-    <App />
-  </div>,
+  <Provider store={store}>
+    <Router history={history}>
+      {routes}
+    </Router>
+  </Provider>,
   document.getElementById('container'),
 );
