@@ -73,7 +73,7 @@ const mapDispatchToProps =
   dispatch => bindActionCreators({ LoginAction }, dispatch);
 
 // state is a function param that reps the state within our redux store
-// state.login refs what is in index reducer
+// state.login refs what's in index reducer
 const mapStateToProps = state => ({
   status: state.login
 });

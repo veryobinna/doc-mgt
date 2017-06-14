@@ -31,9 +31,6 @@ class Signup extends Component {
       this.props.history.replace('/login')
     )
   }
-  redirect() {
-    return (<Redirect to="/login" />);
-  }
 
   render() {
     return (

@@ -5,12 +5,18 @@ import { HashRouter as Router } from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
 import configureStore from '../src/store/configureStore';
 import routes from '../src/utils/Routes';
+import setAuthorizationToken from '../src/utils/Authenticate';
+
 import './index.scss';
+
 
 
 
 const store = configureStore();
 const history = createBrowserHistory();
+
+const token = localStorage.getItem('token');
+setAuthorizationToken(token);
 
 
 ReactDOM.render(

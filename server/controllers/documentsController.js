@@ -9,8 +9,8 @@ export default {
         title: req.body.title,
         content: req.body.content,
         access: req.body.access,
-        ownerID: req.body.ownerID,
-        roleID: req.body.roleID,
+        ownerID: req.decoded.id,
+        roleID: req.decoded.roleID,
       })
       .then(document => res.status(201).send(document))
       .catch(error => res.status(400).send(error));
