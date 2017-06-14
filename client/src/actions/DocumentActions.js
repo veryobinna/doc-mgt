@@ -15,6 +15,12 @@ const addDocument = payload => dispatch => axios
 const getDocumentSuccess = payload => ({
   type: types.GET_DOCUMENTS, payload
 });
+const deleteDocumentSuccess = payload => ({
+  type: types.DELETE_DOCUMENTS, payload
+});
+const getSingleDocumentSuccess = payload => ({
+  type: types.GET_SINGLE_DOCUMENTS, payload
+});
 
 const getDocument = () => dispatch => axios
   .get('/documents')
@@ -23,4 +29,18 @@ const getDocument = () => dispatch => axios
   })
   .catch((error) => { throw (error); });
 
-export { addDocument, getDocument };
+const deleteDocument = id => dispatch => axios
+  .delete(`documents/${id}`)
+  .then((res) => {
+    dispatch(deleteDocumentSuccess(res.data));
+  })
+  .catch((error) => { throw (error); });
+
+const getSingleDocument = id => dispatch => axios
+  .get(`documents/${id}`)
+  .then((res) => {
+    dispatch(getSingleDocumentSuccess(res.data));
+  })
+  .catch((error) => { throw (error); });
+
+export { addDocument, getDocument, getSingleDocument, deleteDocument };

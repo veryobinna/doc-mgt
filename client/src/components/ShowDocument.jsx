@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const ShowDocument = ({title, content, access, id}) => (
+const ShowDocument = ({title, content, access, id, deleteDocument}) => (
   <div className="col s3 m3">
     <div className="card blue">
       <div className="card-content yellow-text">
@@ -15,17 +15,14 @@ const ShowDocument = ({title, content, access, id}) => (
           className=" waves-effect waves-light"
           role="button"
           tabIndex="-1"
-          onClick={(e) => { e.preventDefault(); deleteDocument(id); }}
+          onClick={(e) => { deleteDocument(id); }}
         >
           <i className="material-icons">delete</i>
-        </a>
-        <a className=" waves-effect waves-light">
-          <i className="material-icons">pageview</i>
         </a>
         <Link
           to={`documents/${id}`}
           className=" waves-effect waves-light"
-        ><i className="material-icons">mode_edit</i></Link>
+        ><i className="material-icons">pageview</i></Link>
       </div>
     </div>
   </div>

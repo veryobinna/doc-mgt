@@ -35,6 +35,7 @@ class Login extends Component {
   onFormSubmit(event) {
     event.preventDefault();
     this.props.LoginAction(this.state);
+    console.log('proops',this.props)
   }
   render() {
     return (
