@@ -1,6 +1,11 @@
 const path = require('path');
 
 module.exports = {
+  node: {
+    net: 'empty',
+    tls: 'empty',
+    dns: 'empty'
+  },
   entry: './client/public/index.jsx',
   output: {
     filename: 'public/bundle.js',
