@@ -40,7 +40,26 @@ export default {
       .then(document => res.status(200).send(document))
       .catch(error => res.status(400).send(error));
   },
-  
+  listUsersDocuments(req, res) {
+    return User.findById(Number.parseInt(req.params.id, 10))
+      .then((user) => {
+        if (user) {
+          Document
+            .findAll({
+              where: {
+                ownerID: `${Number.parseInt(req.params.id, 10)}`
+              }
+            })
+            .then(document => res.status(200).send(document))
+            .catch(error => res.status(400).send(error));
+        } else {
+          res.status(404)
+            .json({
+              error: 'UserNotFoundError'
+            });
+        }
+      });
+  },
   find(req, res) {
     return Document
 
