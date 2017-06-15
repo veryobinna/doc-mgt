@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 import LoginAction from '../actions/LoginAction';
 
 
@@ -34,8 +35,9 @@ class Login extends Component {
   }
   onFormSubmit(event) {
     event.preventDefault();
-    this.props.LoginAction(this.state);
-    console.log('proops',this.props)
+    this.props.LoginAction(this.state).then(
+      this.props.history.replace('/dashboard')
+      );
   }
   render() {
     return (
@@ -43,7 +45,9 @@ class Login extends Component {
         <div className="row">
           <div className="col s6 offset-s6">
             <form onSubmit={this.onFormSubmit}>
-              <label htmlFor="loginID" data-error="wrong"
+              <label
+                htmlFor="loginID"
+                data-error="wrong"
                 data-success="right"
               >LoginID</label>
               <input
@@ -78,6 +82,15 @@ const mapDispatchToProps =
 const mapStateToProps = state => ({
   status: state.login
 });
+
+Login.getDefaultProps = {
+  LoginAction: () => { },
+  history: {}
+};
+Login.propTypes = {
+  LoginAction: PropTypes.func,
+  history: PropTypes.object // eslint-disable-line react/forbid-prop-types
+};
 
 // take the result of the first fuction with two parameter,
 // then pass the second guy,login, to the result

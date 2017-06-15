@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import SignupAction from '../actions/SignupAction';
 
 class Signup extends Component {
@@ -16,20 +16,17 @@ class Signup extends Component {
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
-    this.redirect = this.redirect.bind(this);
-
   }
   onInputChange(event) {
     const name = event.target.id;
     const value = event.target.value;
     this.setState({ [name]: value });
-    console.log(this.state);
   }
   onFormSubmit(event) {
     event.preventDefault();
     this.props.SignupAction(this.state).then(
-      this.props.history.replace('/login')
-    )
+    this.props.history.replace('/login')
+    );
   }
 
   render() {
@@ -49,10 +46,10 @@ class Signup extends Component {
             </div>
             <div className="input-field col s6">
               <input
-                id="firstName"
+                id="lastName"
                 type="text"
                 className="valdate"
-                value={this.state.firstName}
+                value={this.state.lastName}
                 onChange={this.onInputChange}
               />
               <label htmlFor="lastName">Last Name</label>
@@ -108,63 +105,15 @@ const mapStateToProps = state => ({
   status: state.signup
 });
 
+Signup.getDefaultProps = {
+  documents: {},
+  history: {},
+  SignupAction: () => { },
+
+};
+Signup.propTypes = {
+  history: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  SignupAction: PropTypes.func
+};
+
 export default connect(mapStateToProps, mapDispatchToProps)(Signup);
-
-
-
-
-
-
-
-           /*<div className="container landing-page">
-        <div className="row">
-          <div className="col s6 offset-s6">
-            <form onSubmit={this.onFormSubmit}>
-              <label htmlFor="firstName">firstName</label>
-
-              <input
-                id="firstName"
-                type="text"
-                placeholder="first name"
-                value={this.state.firstName}
-                onChange={this.onInputChange}
-              />
-              <label htmlFor="lastName">lastName</label>
-              <input
-                id="lastName"
-                type="text"
-                placeholder="last name"
-                value={this.state.lastName}
-                onChange={this.onInputChange}
-              />
-              <label htmlFor="username">username</label>
-              <input
-                id="username"
-                type="text"
-                placeholder="username"
-                value={this.state.username}
-                onChange={this.onInputChange}
-              />
-
-              <label htmlFor="email">email</label>
-              <input
-                id="email"
-                type="text"
-                placeholder="email"
-                value={this.state.email}
-                onChange={this.onInputChange}
-              />
-
-              <label htmlFor="password">Password</label>
-              <input
-                id="password"
-                type="password"
-                value={this.state.password}
-                onChange={this.onInputChange}
-              />
-
-              <button> Submit </button>
-            </form>
-          </div>
-        </div>
-      </div>*/

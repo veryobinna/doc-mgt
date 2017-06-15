@@ -1,20 +1,23 @@
 import types from '../actions/ActionTypes';
 
-const documentReducer = (state = { documents: [] }, action) => {
+const documentReducer = (state = { documents: {} }, action) => {
+  let docs;
   switch (action.type) {
     case types.GET_DOCUMENTS:
-      console.log(action.payload, 'payload');
-      const docs = { documents: action.payload };
+      docs = { documents: action.payload };
+      return { ...state, ...docs };
 
-      return action.payload
+    case types.GET_SINGLE_DOCUMENT:
+      docs = { documents: action.payload };
+      return { ...state, ...docs };
 
-    case types.GET_SINGLE_DOCUMENTS:
-      console.log('document Reducer', action.payload);
-      return action.payload;
+    case types.UPDATE_DOCUMENT:
+      docs = { documents: action.payload };
+      return { ...state, ...docs };
 
     case types.ADD_DOCUMENTS:
-
-      return action.payload;
+      docs = { documents: action.payload };
+      return { ...state, ...docs };
 
     default:
       return state;

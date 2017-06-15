@@ -2,19 +2,23 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import { addDocument } from '../actions/DocumentActions';
+import { updateDocument } from '../actions/DocumentActions';
 
-class AddDocument extends Component {
+class UpdateDocument extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: '',
-      content: '',
-      access: ''
+      id: this.props.documents.id,
+      title: this.props.documents.title,
+      content: this.props.documents.content,
+      access: this.props.documents.access
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
+componentWillMount() {
+  this.setState({ title: this.props.documents.title });
+}
   onInputChange(event) {
     const name = event.target.id;
     const value = event.target.value;
@@ -22,8 +26,7 @@ class AddDocument extends Component {
   }
   onFormSubmit(event) {
     event.preventDefault();
-    this.props.addDocument(this.state);
-
+    this.props.updateDocument(this.state);
   }
 
   render() {
@@ -39,7 +42,7 @@ class AddDocument extends Component {
                 value={this.state.title}
                 onChange={this.onInputChange}
               />
-              <label htmlFor="title">Title</label>
+              <label htmlFor="title">.</label>
             </div>
             <div className="row">
               <div className="input-field col s12">
@@ -49,14 +52,14 @@ class AddDocument extends Component {
                   value={this.state.content}
                   onChange={this.onInputChange}
                 />
-                <label htmlFor="content">content</label>
+                <label htmlFor="content">.</label>
               </div>
             </div>
             <div className="input-field col s12">
               <select
                 className="browser-default"
                 id="access"
-                value={`${this.state.access}`}
+                value={this.state.access}
                 onChange={this.onInputChange}
               >
                 <option value="" disabled>Choose your option</option>
@@ -67,25 +70,31 @@ class AddDocument extends Component {
               <label htmlFor="access" className="active" >Access</label>
             </div>
           </div>
-          <button className="waves-effect waves-light btn">Submit</button>
+          <button className="waves-effect waves-light btn">Update</button>
         </form>
       </div>
     );
   }
 }
 
-AddDocument.getDefaultProps = {
-  addDocument: () => { },
-};
-AddDocument.propTypes = {
-  addDocument: PropTypes.func
-};
-
 const mapDispatchToProps =
-  dispatch => bindActionCreators({ addDocument }, dispatch);
+  dispatch => bindActionCreators({ updateDocument }, dispatch);
 
 const mapStateToProps = state => ({
   documents: state.documentReducer.documents
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddDocument);
+UpdateDocument.getDefaultProps = {
+  documents: {},
+  title: '',
+  content: '',
+  updateDocument: () => { },
+};
+UpdateDocument.propTypes = {
+  documents: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  title: PropTypes.string,
+  content: PropTypes.string,
+  updateDocument: PropTypes.func
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UpdateDocument);

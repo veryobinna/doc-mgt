@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { getSingleDocument } from '../actions/DocumentActions';
 import ShowSingleDocument from '../components/ShowSingleDocument';
+import EditDocument from '../containers/EditDocument';
 
 
 class GetSingleDocument extends Component {
@@ -12,6 +13,7 @@ class GetSingleDocument extends Component {
     this.state = {
       document: {}
     };
+    this.updateDocument = this.updateDocument.bind(this);
   }
 
   componentWillMount() {
@@ -19,35 +21,55 @@ class GetSingleDocument extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('nextprops', nextProps);
     // if (this.props.documents.length !== nextProps.documents.length) {
     //   console.log(nextProps.documents);
     //   // const documents =
     this.setState({ document: nextProps.documents });
-    //   console.log(this.state);
-    // }
+  }
+
+  updateDocument() {
+    this.props.history.replace('/editdocument');
+    return <EditDocument document={this.state} />;
   }
 
 
   render() {
-    console.log('props', this.props)
-    console.log('state', this.state)
     return (
       <div>
         <div>Single view</div>
-        <ShowSingleDocument document={this.state.document} />
+        <ShowSingleDocument
+          document={this.state.document}
+          updateDocument={this.updateDocument}
+        />
       </div>
-    )
+    );
   }
 }
 const mapDispatchToProps =
   dispatch => bindActionCreators({ getSingleDocument }, dispatch);
 
 const mapStateToProps = state => ({
-  documents: state.documents
+  documents: state.documentReducer.documents
 });
 // GetSingleDocument.contextTypes = {
 //   router: Proptypes.object.isRequired
 // }
+
+GetSingleDocument.getDefaultProps = {
+  documents: {},
+  history: {},
+  match: {},
+  params: {},
+  id: '',
+  deleteDocument: () => { },
+
+};
+GetSingleDocument.propTypes = {
+  documents: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  history: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  match: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  params: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  id: PropTypes.string,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(GetSingleDocument);

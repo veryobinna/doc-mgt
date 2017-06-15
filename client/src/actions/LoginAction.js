@@ -11,8 +11,7 @@ const loginDetails = payload => ({
   type: types.LOGIN_DETAILS, payload
 });
 
-const login = userParams => (dispatch) => {
-  axios
+const login = userParams => dispatch => axios
   .post('/login', userParams)
   .then((res) => {
     const { token } = res.data;
@@ -21,6 +20,6 @@ const login = userParams => (dispatch) => {
     dispatch(loginDetails(res.data));
   })
     .catch((error) => { throw (error); });
-};
+
 
 export default login;

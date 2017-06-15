@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import toastr from 'toastr';
+import PropTypes from 'prop-types';
 import { getDocument, deleteDocument } from '../actions/DocumentActions';
 import ShowDocument from '../components/ShowDocument';
 
@@ -19,26 +20,21 @@ class GetDocument extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('nextprops', nextProps);
     if (this.props.documents.length !== nextProps.documents.length) {
-      console.log(nextProps.documents);
-      // const documents =
       this.setState({ documents: nextProps.documents });
-      console.log(this.state);
     }
   }
 
   deleteDocument(id) {
     this.props.deleteDocument(id)
       .then(() => {
-            this.props.getDocument();
+        this.props.getDocument();
 
         toastr.success('Document deleted');
       });
-      //this.props.getDocument()
   }
   render() {
-    const documents = this.state.documents.map((document, index) => {
+    const documents = this.state.documents.map((document) => {
       const items = {
         id: document.id,
         title: document.title,
@@ -46,7 +42,7 @@ class GetDocument extends Component {
         access: document.access,
         deleteDocument: this.deleteDocument
       };
-      return <ShowDocument key={index} {...items} />;
+      return <ShowDocument key={Math.random()} {...items} />;
     });
     return (
       <div>
@@ -63,7 +59,19 @@ const mapDispatchToProps =
   dispatch => bindActionCreators({ getDocument, deleteDocument }, dispatch);
 
 const mapStateToProps = state => ({
-  documents: state.documents
+  documents: state.documentReducer.documents
 });
+
+GetDocument.getDefaultProps = {
+  documents: {},
+  getDocument: () => { },
+  deleteDocument: () => { },
+
+};
+GetDocument.propTypes = {
+  documents: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  getDocument: PropTypes.func,
+  deleteDocument: PropTypes.func
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(GetDocument);
