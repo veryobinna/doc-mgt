@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import LoginAction from '../actions/LoginAction';
-
+import TokenValidator from '../utils/TokenValidator';
 
 /**
  *
@@ -38,6 +38,7 @@ class Login extends Component {
     this.props.LoginAction(this.state).then(
       this.props.history.replace('/dashboard')
       );
+TokenValidator();
   }
   render() {
     return (

@@ -1,11 +1,12 @@
 import jwt from 'jsonwebtoken';
 
 const token = window.localStorage.getItem('token');
+//console.log('validator',token)
 
 const TokenValidator = () => {
   if (!token) {
     return {
-      valid: false,
+      valid: 'no token',
       user: null
     };
   } else if (token) {

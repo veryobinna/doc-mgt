@@ -26383,6 +26383,10 @@ var _LoginAction = __webpack_require__(365);
 
 var _LoginAction2 = _interopRequireDefault(_LoginAction);
 
+var _TokenValidator = __webpack_require__(377);
+
+var _TokenValidator2 = _interopRequireDefault(_TokenValidator);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -26434,6 +26438,7 @@ var Login = function (_Component) {
     value: function onFormSubmit(event) {
       event.preventDefault();
       this.props.LoginAction(this.state).then(this.props.history.replace('/dashboard'));
+      (0, _TokenValidator2.default)();
     }
   }, {
     key: 'render',
@@ -49273,46 +49278,64 @@ var _Signup = __webpack_require__(134);
 
 var _Signup2 = _interopRequireDefault(_Signup);
 
+var _TokenValidator = __webpack_require__(377);
+
+var _TokenValidator2 = _interopRequireDefault(_TokenValidator);
+
+var _GetDocument = __webpack_require__(371);
+
+var _GetDocument2 = _interopRequireDefault(_GetDocument);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Dashboard = function Dashboard() {
   return _react2.default.createElement(
     'div',
-    { className: 'navbar-fixed' },
+    null,
     _react2.default.createElement(
-      'nav',
-      null,
+      'div',
+      { className: 'navbar-fixed' },
       _react2.default.createElement(
-        'div',
-        { className: 'nav-wrapper' },
+        'nav',
+        null,
+        console.log((0, _TokenValidator2.default)()),
         _react2.default.createElement(
-          _reactRouterDom.Link,
-          { to: '/documents', className: 'brand-logo' },
-          'Logo'
-        ),
-        _react2.default.createElement(
-          'ul',
-          { className: 'right hide-on-med-and-down' },
+          'div',
+          { className: 'nav-wrapper' },
           _react2.default.createElement(
-            'li',
-            null,
-            _react2.default.createElement(
-              'a',
-              { href: 'sass.html' },
-              'Sass'
-            )
+            _reactRouterDom.Link,
+            { to: '/documents', className: 'brand-logo' },
+            'Logo'
           ),
           _react2.default.createElement(
-            'li',
-            null,
+            'ul',
+            { className: 'right hide-on-med-and-down' },
             _react2.default.createElement(
-              'a',
-              { href: 'badges.html' },
-              'Components'
+              'li',
+              null,
+              _react2.default.createElement(
+                'a',
+                { href: 'sass.html' },
+                'Sass'
+              )
+            ),
+            _react2.default.createElement(
+              'li',
+              null,
+              _react2.default.createElement(
+                'a',
+                { href: 'badges.html' },
+                'Components'
+              )
             )
           )
         )
       )
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'container' },
+      _react2.default.createElement(_GetDocument2.default, null)
     )
   );
 };
@@ -49349,59 +49372,63 @@ var ShowDocument = function ShowDocument(_ref) {
       deleteDocument = _ref.deleteDocument;
   return _react2.default.createElement(
     'div',
-    { className: 'col s3 m3' },
+    { className: ' n' },
     _react2.default.createElement(
       'div',
-      { className: 'card blue' },
+      { className: 'col s4 m4' },
       _react2.default.createElement(
         'div',
-        { className: 'card-content yellow-text' },
+        { className: 'card blue' },
         _react2.default.createElement(
-          'span',
-          { className: 'card-title' },
-          title
-        ),
-        _react2.default.createElement(
-          'p',
-          null,
-          content
-        ),
-        _react2.default.createElement(
-          'p',
-          null,
-          'access: ',
-          access
-        )
-      ),
-      _react2.default.createElement(
-        'div',
-        { className: 'card-action' },
-        _react2.default.createElement(
-          'a',
-          {
-            className: ' waves-effect waves-light',
-            role: 'button',
-            tabIndex: '-1',
-            onClick: function onClick() {
-              deleteDocument(id);
-            }
-          },
+          'div',
+          { className: 'card-content yellow-text' },
           _react2.default.createElement(
-            'i',
-            { className: 'material-icons' },
-            'delete'
+            'span',
+            { className: 'card-title' },
+            title
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            content
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            'access: ',
+            access
           )
         ),
         _react2.default.createElement(
-          _reactRouterDom.Link,
-          {
-            to: 'document/' + id,
-            className: ' waves-effect waves-light'
-          },
+          'div',
+          { className: 'card-action' },
           _react2.default.createElement(
-            'i',
-            { className: 'material-icons' },
-            'pageview'
+            'a',
+            {
+              className: ' waves-effect waves-light',
+              role: 'button',
+              tabIndex: '-1',
+              onClick: function onClick() {
+                deleteDocument(id);
+              }
+            },
+            _react2.default.createElement(
+              'i',
+              { className: 'material-icons' },
+              'delete'
+            )
+          ),
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            {
+              to: 'document/' + id,
+              className: ' waves-effect waves-light'
+            },
+            _react2.default.createElement(
+              'i',
+              { className: 'material-icons' },
+              'pageview'
+            )
           )
         )
       )
@@ -50126,11 +50153,12 @@ var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var token = window.localStorage.getItem('token');
+//console.log('validator',token)
 
 var TokenValidator = function TokenValidator() {
   if (!token) {
     return {
-      valid: false,
+      valid: 'no token',
       user: null
     };
   } else if (token) {
