@@ -15287,7 +15287,8 @@ exports.default = {
   DELETE_DOCUMENT: 'DELETE_DOCUMENT',
   GET_SINGLE_DOCUMENT: 'GET_SINGLE_DOCUMENT',
   UPDATE_DOCUMENT: 'UPDATE_DOCUMENT',
-  GET_USERS: 'GET_USERS'
+  GET_USERS: 'GET_USERS',
+  DELETE_USER: 'DELETE_USER'
 
 };
 
@@ -89625,7 +89626,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getUsers = undefined;
+exports.deleteUser = exports.getUsers = undefined;
 
 var _axios = __webpack_require__(61);
 
@@ -89653,17 +89654,21 @@ var getUsers = function getUsers() {
   };
 };
 
-// const deleteDocumentSuccess = payload => ({
-//   type: types.DELETE_DOCUMENT, payload
-// });
+var deleteUserSuccess = function deleteUserSuccess(payload) {
+  return {
+    type: _ActionTypes2.default.DELETE_USER, payload: payload
+  };
+};
 
-// const deleteDocument = id => dispatch => axios
-//   .delete(`documents/${id}`)
-//   .then((res) => {
-//     dispatch(deleteDocumentSuccess(res.data));
-//   })
-//   .catch((error) => { throw (error); });
-
+var deleteUser = function deleteUser(id) {
+  return function (dispatch) {
+    return _axios2.default.delete('users/' + id).then(function (res) {
+      dispatch(deleteUserSuccess(res.data));
+    }).catch(function (error) {
+      throw error;
+    });
+  };
+};
 
 // const updateDocumentSuccess = payload => ({
 //   type: types.UPDATE_DOCUMENT, payload
@@ -89689,6 +89694,7 @@ var getUsers = function getUsers() {
 
 
 exports.getUsers = getUsers;
+exports.deleteUser = deleteUser;
 
 /***/ }),
 /* 632 */
@@ -89719,7 +89725,8 @@ var ShowUsers = function ShowUsers(_ref) {
       lastName = _ref.lastName,
       username = _ref.username,
       email = _ref.email,
-      roleID = _ref.roleID;
+      roleID = _ref.roleID,
+      deleteUser = _ref.deleteUser;
   return _react2.default.createElement(
     'div',
     { className: ' n' },
@@ -89774,7 +89781,7 @@ var ShowUsers = function ShowUsers(_ref) {
               role: 'button',
               tabIndex: '-1',
               onClick: function onClick() {
-                'deleteDocument(id)';
+                deleteUser(id);
               }
             },
             _react2.default.createElement(
@@ -89878,7 +89885,7 @@ var GetUsers = function (_Component) {
     _this.state = {
       users: [{}]
     };
-    _this.deleteDocument = _this.deleteDocument.bind(_this);
+    _this.deleteUser = _this.deleteUser.bind(_this);
     return _this;
   }
 
@@ -89895,19 +89902,21 @@ var GetUsers = function (_Component) {
       }
     }
   }, {
-    key: 'deleteDocument',
-    value: function deleteDocument(id) {
+    key: 'deleteUser',
+    value: function deleteUser(id) {
       var _this2 = this;
 
-      this.props.deleteDocument(id).then(function () {
-        _this2.props.getDocument();
+      this.props.deleteUser(id).then(function () {
+        _this2.props.getUsers();
 
-        _toastr2.default.success('Document deleted');
+        _toastr2.default.success('User deleted');
       });
     }
   }, {
     key: 'render',
     value: function render() {
+      var _this3 = this;
+
       console.log('this.props', this.props);
       var users = this.state.users.map(function (user) {
         var items = {
@@ -89916,7 +89925,8 @@ var GetUsers = function (_Component) {
           lastName: user.lastName,
           username: user.username,
           email: user.email,
-          roleID: user.roleID
+          roleID: user.roleID,
+          deleteUser: _this3.deleteUser
         };
         return _react2.default.createElement(_ShowUsers2.default, _extends({ key: Math.random() }, items));
       });
@@ -89941,7 +89951,7 @@ var GetUsers = function (_Component) {
 }(_react.Component);
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return (0, _redux.bindActionCreators)({ getUsers: _UserActions.getUsers }, dispatch);
+  return (0, _redux.bindActionCreators)({ getUsers: _UserActions.getUsers, deleteUser: _UserActions.deleteUser }, dispatch);
 };
 
 var mapStateToProps = function mapStateToProps(state) {

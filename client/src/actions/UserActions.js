@@ -15,16 +15,16 @@ const getUsers = () => dispatch => axios
   .catch((error) => { throw (error); });
 
 
-// const deleteDocumentSuccess = payload => ({
-//   type: types.DELETE_DOCUMENT, payload
-// });
+const deleteUserSuccess = payload => ({
+  type: types.DELETE_USER, payload
+});
 
-// const deleteDocument = id => dispatch => axios
-//   .delete(`documents/${id}`)
-//   .then((res) => {
-//     dispatch(deleteDocumentSuccess(res.data));
-//   })
-//   .catch((error) => { throw (error); });
+const deleteUser = id => dispatch => axios
+  .delete(`users/${id}`)
+  .then((res) => {
+    dispatch(deleteUserSuccess(res.data));
+  })
+  .catch((error) => { throw (error); });
 
 
 // const updateDocumentSuccess = payload => ({
@@ -51,4 +51,4 @@ const getUsers = () => dispatch => axios
 
 
 export {
-  getUsers };
+  getUsers, deleteUser };

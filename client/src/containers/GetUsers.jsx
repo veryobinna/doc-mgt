@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import toastr from 'toastr';
 import PropTypes from 'prop-types';
-import { getUsers } from '../actions/UserActions';
+import { getUsers, deleteUser } from '../actions/UserActions';
 import ShowDocument from '../components/ShowDocument';
 import ShowUsers from '../components/ShowUsers'
 
@@ -13,7 +13,7 @@ class GetUsers extends Component {
     this.state = {
       users: [{}],
     };
-    this.deleteDocument = this.deleteDocument.bind(this);
+    this.deleteUser = this.deleteUser.bind(this);
   }
 
   componentWillMount() {
@@ -26,12 +26,12 @@ class GetUsers extends Component {
     }
   }
 
-  deleteDocument(id) {
-    this.props.deleteDocument(id)
+  deleteUser(id) {
+    this.props.deleteUser(id)
       .then(() => {
-        this.props.getDocument();
+        this.props.getUsers();
 
-        toastr.success('Document deleted');
+        toastr.success('User deleted');
       });
   }
   render() {
@@ -43,7 +43,8 @@ class GetUsers extends Component {
         lastName: user.lastName,
         username: user.username,
         email: user.email,
-        roleID: user.roleID
+        roleID: user.roleID,
+        deleteUser: this.deleteUser
       };
       return <ShowUsers key={Math.random()} {...items} />;
     });
@@ -59,7 +60,7 @@ class GetUsers extends Component {
 }
 
 const mapDispatchToProps =
-  dispatch => bindActionCreators({ getUsers }, dispatch);
+  dispatch => bindActionCreators({ getUsers, deleteUser }, dispatch);
 
 const mapStateToProps = state => ({
   users: state.usersReducer

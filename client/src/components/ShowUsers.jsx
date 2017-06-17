@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const ShowUsers = ({ id, firstName, lastName, username, email, roleID }) => (
+const ShowUsers = ({ id, firstName, lastName, username, email, roleID, deleteUser }) => (
   <div className=" n">
     <div className="col s4 m4">
       <div className="card blue">
@@ -19,7 +19,7 @@ const ShowUsers = ({ id, firstName, lastName, username, email, roleID }) => (
             className=" waves-effect waves-light"
             role="button"
             tabIndex="-1"
-            onClick={() => { 'deleteDocument(id)' }}
+            onClick={() => { deleteUser(id) }}
           >
             <i className="material-icons">delete</i>
           </a>
