@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Redirect, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import LoginAction from '../actions/LoginAction';
-import TokenValidator from '../utils/TokenValidator';
 
 /**
  *
@@ -36,11 +36,18 @@ class Login extends Component {
   onFormSubmit(event) {
     event.preventDefault();
     this.props.LoginAction(this.state).then(
-      this.props.history.replace('/dashboard')
+      //this.props.history.replace('/dashboard')
       );
-TokenValidator();
   }
   render() {
+    if(this.props.status.valid){
+      return (<Redirect
+        push
+        to={{
+          pathname: '/dashboard',
+        }}
+      />);
+    }
     return (
       <div className="container landing-page">
         <div className="row">

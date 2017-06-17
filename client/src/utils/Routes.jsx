@@ -1,6 +1,6 @@
 import React from 'react';
 import { hashRouter, Route } from 'react-router-dom';
-import Dashboard from '../components/Dashboard';
+import Dashboard from '../containers/Dashboard';
 import Signup from '../containers/Signup';
 import Login from '../containers/Login';
 import GetDocument from '../containers/GetDocument';

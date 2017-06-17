@@ -64,7 +64,7 @@ export default {
     return Document
 
       .findById(Number.parseInt(req.params.id, 10))
-      .then(document => {
+      .then((document) => {
         if (!document) {
           return res.status(404).send({
             message: 'Document not found, please check the ID and try again'

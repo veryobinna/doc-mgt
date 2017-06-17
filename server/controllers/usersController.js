@@ -74,9 +74,9 @@ export default {
   list(req, res) {
     return User
       .findAll({
-        include: [{
-          model: Document,
-        }],
+        // include: [{
+        //   model: Document,
+        // }],
       })
       .then(user => res.status(200).send(user))
       .catch(error => res.status(400).send(error));
