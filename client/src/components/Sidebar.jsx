@@ -4,7 +4,7 @@ import Documents from '../containers/GetDocument';
 
 const Sidebar = () => (
   <div>
-    <ul id="slide-outt" className="side-nav">
+    <ul id="slide-out" className="side-nav">
       <li>
         <div className="userView">
           <div className="background">

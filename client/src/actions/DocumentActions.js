@@ -1,6 +1,6 @@
 import axios from 'axios';
+import toastr from 'toastr';
 import types from './ActionTypes';
-
 
 const addDocumentSuccess = payload => ({
   type: types.ADD_DOCUMENT, payload
@@ -11,7 +11,9 @@ const addDocument = payload => dispatch => axios
   .then((res) => {
     dispatch(addDocumentSuccess(res.data));
   })
-  .catch((error) => { throw (error); });
+  .catch((error) => {
+    toastr.error(error.response.data.message);
+  });
 
 
 const getDocumentSuccess = payload => ({
@@ -23,7 +25,9 @@ const getDocument = () => dispatch => axios
   .then((res) => {
     dispatch(getDocumentSuccess(res.data));
   })
-  .catch((error) => { throw (error); });
+  .catch((error) => {
+    toastr.error(error.response.data.message);
+  });
 
 
 const deleteDocumentSuccess = payload => ({
@@ -35,7 +39,10 @@ const deleteDocument = id => dispatch => axios
   .then((res) => {
     dispatch(deleteDocumentSuccess(res.data));
   })
-  .catch((error) => { throw (error); });
+  .catch((error) => {
+    console.log('deleete error', error.response)
+    toastr.error(error.response.data.message);
+  });
 
 
 const updateDocumentSuccess = payload => ({
@@ -46,7 +53,9 @@ const updateDocument = data => dispatch => axios
   .then((res) => {
     dispatch(updateDocumentSuccess(res.data));
   })
-  .catch((error) => { throw (error); });
+  .catch((error) => {
+    toastr.error(error.response.data.message);
+  });
 
 
 const getSingleDocumentSuccess = payload => ({
@@ -58,7 +67,9 @@ const getSingleDocument = id => dispatch => axios
   .then((res) => {
     dispatch(getSingleDocumentSuccess(res.data));
   })
-  .catch((error) => { throw (error); });
+  .catch((error) => {
+    toastr.error(error.response.data.message);
+  });
 
 
 export {

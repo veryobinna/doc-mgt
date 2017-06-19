@@ -15,7 +15,9 @@ export default {
         roleID: req.decoded.roleID,
       })
       .then(document => res.status(201).send(document))
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(400).json({
+        message: error
+      }));
   },
   list(req, res) {
     return Document
@@ -38,7 +40,9 @@ export default {
         }
       })
       .then(document => res.status(200).send(document))
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(400).json({
+        message: error
+      }));
   },
   listUsersDocuments(req, res) {
     return User.findById(Number.parseInt(req.params.id, 10))
@@ -55,7 +59,7 @@ export default {
         } else {
           res.status(404)
             .json({
-              error: 'UserNotFoundError'
+              message: 'UserNotFoundError'
             });
         }
       });
@@ -72,7 +76,9 @@ export default {
         }
         return res.status(200).send(document);
       })
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(400).json({
+        message: error
+      }));
   },
 
   search(req, res) {
@@ -100,7 +106,9 @@ export default {
         }
       })
       .then(document => res.status(200).send({ document }))
-      .catch(error => res.status(401).send({ error }));
+      .catch(error => res.status(401).json({
+        message: error
+      }));
   },
   update(req, res) {
     return Document
@@ -115,9 +123,13 @@ export default {
         return document
           .update(req.body, { fields: Object.keys(req.body) })
           .then(() => res.status(200).send(document))
-          .catch(error => res.status(400).send(error));
+          .catch(error => res.status(400).json({
+            message: error
+          }));
       })
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(400).json({
+        message: error
+      }));
   },
   destroy(req, res) {
     return Document
@@ -131,8 +143,12 @@ export default {
         return document
           .destroy()
           .then(() => res.status(204).send())
-          .catch(error => res.status(400).send(error));
+          .catch(error => res.status(400).json({
+            message: error
+          }));
       })
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(400).json({
+        message: error
+      }));
   },
 };
