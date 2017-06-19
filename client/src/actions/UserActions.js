@@ -13,7 +13,7 @@ const getUsers = () => dispatch => axios
     dispatch(getUsersSuccess(res.data));
   })
   .catch((error) => {
-      toastr.error(error.response.data.message);
+    toastr.error(error.response.data.message);
   });
 
 
@@ -27,8 +27,8 @@ const deleteUser = id => dispatch => axios
     dispatch(deleteUserSuccess(res.data));
   })
   .catch((error) => {
-    console.log('delete user',error.response.data.error)
-      toastr.error(error.response.data.message);
+    console.log('delete user', error.response.data.error)
+    toastr.error(error.response.data.message);
   });
 
 
@@ -40,8 +40,8 @@ const updateUser = data => dispatch => axios
   .then((res) => {
     dispatch(updateUserSuccess(res.data));
   })
-  .catch((error) => { 
-      toastr.error(error.response.data.message);
+  .catch((error) => {
+    toastr.error(error.response.data.message);
   });
 
 
@@ -54,10 +54,11 @@ const getSingleUser = id => dispatch => axios
   .then((res) => {
     dispatch(getSingleUserSuccess(res.data));
   })
-  .catch((error) => { 
-      toastr.error(error.response.data.message);
+  .catch((error) => {
+    toastr.error(error.response.data.message);
   });
 
 
 export {
-  getUsers, deleteUser, updateUser, getSingleUser };
+  getUsers, deleteUser, updateUser, getSingleUser
+};
