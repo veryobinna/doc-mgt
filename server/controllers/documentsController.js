@@ -1,6 +1,8 @@
 import models from '../models/';
 
 const Document = models.Documents;
+const User = models.Users;
+
 
 export default {
   create(req, res) {
@@ -38,11 +40,31 @@ export default {
       .then(document => res.status(200).send(document))
       .catch(error => res.status(400).send(error));
   },
+  listUsersDocuments(req, res) {
+    return User.findById(Number.parseInt(req.params.id, 10))
+      .then((user) => {
+        if (user) {
+          Document
+            .findAll({
+              where: {
+                ownerID: `${Number.parseInt(req.params.id, 10)}`
+              }
+            })
+            .then(document => res.status(200).send(document))
+            .catch(error => res.status(400).send(error));
+        } else {
+          res.status(404)
+            .json({
+              error: 'UserNotFoundError'
+            });
+        }
+      });
+  },
   find(req, res) {
     return Document
 
       .findById(Number.parseInt(req.params.id, 10))
-      .then(document => {
+      .then((document) => {
         if (!document) {
           return res.status(404).send({
             message: 'Document not found, please check the ID and try again'
@@ -52,27 +74,27 @@ export default {
       })
       .catch(error => res.status(400).send(error));
   },
+
   search(req, res) {
-    console.log('req.decode is ', req.decoded);
     return Document
       .findAll({
         where: {
           $and: {
             title: { $ilike: `%${req.query.q}%` },
             $or: [
-            {
-              ownerID: `${req.decoded.id}`
-            },
-            {
-              access: 'public'
-            },
-            {
-              access: 'role',
-              roleID: {
-                $lte: `${req.decoded.roleID}`
+              {
+                ownerID: `${req.decoded.id}`
+              },
+              {
+                access: 'public'
+              },
+              {
+                access: 'role',
+                roleID: {
+                  $lte: `${req.decoded.roleID}`
+                }
               }
-            }
-          ]
+            ]
 
           }
         }

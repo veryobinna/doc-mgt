@@ -74,9 +74,9 @@ export default {
   list(req, res) {
     return User
       .findAll({
-        include: [{
-          model: Document,
-        }],
+        // include: [{
+        //   model: Document,
+        // }],
       })
       .then(user => res.status(200).send(user))
       .catch(error => res.status(400).send(error));
@@ -131,6 +131,7 @@ export default {
    * @returns
    */
   destroy(req, res) {
+    if(req.params.id != req.decoded.id && req.decoded.roleID == 3){
     return User
       .findById(Number.parseInt(req.params.id, 10))
       .then((user) => {
@@ -145,6 +146,11 @@ export default {
           .catch(error => res.status(400).send(error));
       })
       .catch(error => res.status(400).send(error));
+    } else {
+      res.status(404).json({
+        error: 'No access to delete user'
+      })
+    }
   },
 
 };

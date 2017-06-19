@@ -26,6 +26,8 @@ const Routes = (app) => {
   authenticate.verifyToken, documentsController.list);
   app.get('/documents/:id',
   authenticate.verifyToken, documentsController.find);
+  app.get('/users/:id/documents/',
+  authenticate.verifyToken, documentsController.listUsersDocuments);
   app.get('/search/documents/',
   authenticate.verifyToken, documentsController.search);
   app.put('/documents/:id',

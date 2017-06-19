@@ -2,21 +2,24 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const ShowDocument = ({ title, content, access, id, deleteDocument }) => (
+const ShowUsers = ({ id, firstName, lastName, username, email, roleID, deleteUser }) => (
   <div className=" n">
     <div className="col s4 m4">
       <div className="card blue">
         <div className="card-content yellow-text">
-          <span className="card-title">{title}</span>
-          <p>{content}</p>
-          <p>access: {access}</p>
+          <span className="card-title">ID: {id}</span>
+          <p>{firstName}</p>
+          <p>{lastName}</p>
+          <p>{username}</p>
+          <p>{email}</p>
+          <p>{roleID}</p>
         </div>
         <div className="card-action">
           <a
             className=" waves-effect waves-light"
             role="button"
             tabIndex="-1"
-            onClick={() => { deleteDocument(id); }}
+            onClick={() => { deleteUser(id) }}
           >
             <i className="material-icons">delete</i>
           </a>
@@ -29,7 +32,7 @@ const ShowDocument = ({ title, content, access, id, deleteDocument }) => (
     </div>
   </div>
 );
-ShowDocument.getDefaultProps = {
+/*ShowUsers.getDefaultProps = {
   document: {},
   title: '',
   content: '',
@@ -37,13 +40,13 @@ ShowDocument.getDefaultProps = {
   access: '',
   deleteDocument: () => { },
 };
-ShowDocument.propTypes = {
+ShowUsers.propTypes = {
   title: PropTypes.string,
   content: PropTypes.string,
   access: PropTypes.string,
   id: PropTypes.number,
   deleteDocument: PropTypes.func
-};
+};*/
 
 
-export default ShowDocument;
+export default ShowUsers;
