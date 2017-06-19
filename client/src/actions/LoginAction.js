@@ -1,4 +1,5 @@
 import axios from 'axios';
+import toastr from 'toastr';
 import setAuthorizationToken from '../utils/Authenticate';
 import types from './ActionTypes';
 /**
@@ -18,8 +19,12 @@ const login = userParams => dispatch => axios
     setAuthorizationToken(token);
     localStorage.setItem('token', token);
     dispatch(loginDetails(res.data));
+    toastr.success('successful');
+
   })
-    .catch((error) => { throw (error); });
+    .catch((error) => { 
+      toastr.error(error.response.data.message);
+       });
 
 
 export default login;

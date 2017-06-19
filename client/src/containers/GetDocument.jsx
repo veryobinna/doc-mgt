@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import toastr from 'toastr';
 import PropTypes from 'prop-types';
 import { getDocument, deleteDocument } from '../actions/DocumentActions';
 import ShowDocument from '../components/ShowDocument';
@@ -29,8 +28,6 @@ class GetDocument extends Component {
     this.props.deleteDocument(id)
       .then(() => {
         this.props.getDocument();
-
-        toastr.success('Document deleted');
       });
   }
   render() {

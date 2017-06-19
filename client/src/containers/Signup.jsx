@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import SignupAction from '../actions/SignupAction';
+import { Redirect, Link } from 'react-router-dom';
 
 class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: '',
       firstName: '',
       lastName: '',
       username: '',
@@ -17,6 +19,12 @@ class Signup extends Component {
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      id: nextProps.status.id
+    });
+    console.log('the next props', nextProps);
+  }
   onInputChange(event) {
     const name = event.target.id;
     const value = event.target.value;
@@ -24,12 +32,20 @@ class Signup extends Component {
   }
   onFormSubmit(event) {
     event.preventDefault();
-    this.props.SignupAction(this.state).then(
-    this.props.history.replace('/login')
-    );
+    this.props.SignupAction(this.state);
+    console.log('this signup props', this.props.status);
   }
 
   render() {
+    if (typeof this.state.id === 'number') {
+      return (<Redirect
+        push
+        to={{
+          pathname: '/dashboard',
+        }}
+      />);
+    }
+
     return (
       <div className="row container landing-page">
         <form onSubmit={this.onFormSubmit} className="col s12">

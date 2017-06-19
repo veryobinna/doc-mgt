@@ -1,4 +1,6 @@
 import axios from 'axios';
+import toastr from 'toastr';
+
 import types from './ActionTypes';
 /**
  * payload has no parenthesis because it is a single function argument
@@ -14,7 +16,12 @@ const signup = userParams => dispatch => axios
   .post('/users', userParams)
   .then((res) => {
     dispatch(signupDetails(res.data));
+    toastr.success('successful');
+    console.log('signup res',res.data)
   })
-    .catch((error) => { throw (error); });
+    .catch((error) => {
+      console.log('errorr message ', error.response.data.message)
+      toastr.error(error.response.data.message);
+    });
 
 export default signup;

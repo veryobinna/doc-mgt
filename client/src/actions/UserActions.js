@@ -1,6 +1,6 @@
 import axios from 'axios';
 import types from './ActionTypes';
-
+import toastr from 'toastr';
 
 
 const getUsersSuccess = payload => ({
@@ -12,7 +12,9 @@ const getUsers = () => dispatch => axios
   .then((res) => {
     dispatch(getUsersSuccess(res.data));
   })
-  .catch((error) => { throw (error); });
+  .catch((error) => {
+      toastr.error(error.response.data.message);
+  });
 
 
 const deleteUserSuccess = payload => ({
@@ -24,7 +26,10 @@ const deleteUser = id => dispatch => axios
   .then((res) => {
     dispatch(deleteUserSuccess(res.data));
   })
-  .catch((error) => { throw (error); });
+  .catch((error) => {
+    console.log('delete user',error.response.data.error)
+      toastr.error(error.response.data.message);
+  });
 
 
 const updateUserSuccess = payload => ({
@@ -35,7 +40,9 @@ const updateUser = data => dispatch => axios
   .then((res) => {
     dispatch(updateUserSuccess(res.data));
   })
-  .catch((error) => { throw (error); });
+  .catch((error) => { 
+      toastr.error(error.response.data.message);
+  });
 
 
 const getSingleUserSuccess = payload => ({
@@ -47,7 +54,9 @@ const getSingleUser = id => dispatch => axios
   .then((res) => {
     dispatch(getSingleUserSuccess(res.data));
   })
-  .catch((error) => { throw (error); });
+  .catch((error) => { 
+      toastr.error(error.response.data.message);
+  });
 
 
 export {

@@ -31,8 +31,7 @@ class GetUsers extends Component {
       .then(() => {
         this.props.getUsers();
 
-        toastr.success('User deleted');
-      });
+     });
   }
   render() {
     console.log('this.props', this.props)

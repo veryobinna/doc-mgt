@@ -19,7 +19,9 @@ export default {
 
       })
       .then(user => res.status(201).send(user))
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(400).json({
+        message: error
+      }));
   },
   login(req, res) {
     if (req.body.loginId === '' || req.body.password === '') {
@@ -64,7 +66,9 @@ export default {
           });
         }
       })
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(400).json({
+        message: error
+      }));
   },
   logout(req, res) {
     res.status(200).json({
@@ -79,7 +83,9 @@ export default {
         // }],
       })
       .then(user => res.status(200).send(user))
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(400).json({
+        message: error
+      }));
   },
   find(req, res) {
     return User
@@ -92,7 +98,9 @@ export default {
         }
         return res.status(200).send(user);
       })
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(400).json({
+        message: error
+      }));
   },
   search(req, res) {
     return User
@@ -107,7 +115,9 @@ export default {
       .then((users) => {
         res.status(200).send({ users });
       })
-      .catch(error => res.status(401).send({ error }));
+      .catch(error => res.status(401).json({
+        message: error
+      }));
   },
   update(req, res) {
     return User
@@ -118,10 +128,12 @@ export default {
           });
         }
         user.update(req.body, { fields: Object.keys(req.body) })
-       .then(userUpadate => res.status(200).send(userUpadate))
-       .catch(error => res.status(400).send(error));
+          .then(userUpadate => res.status(200).send(userUpadate))
+          .catch(error => res.status(400).send(error));
       })
-       .catch(error => res.status(400).send(error));
+      .catch(error => res.status(400).json({
+        message: error
+      }));
   },
 
   /**
@@ -131,24 +143,28 @@ export default {
    * @returns
    */
   destroy(req, res) {
-    if(req.params.id != req.decoded.id && req.decoded.roleID == 3){
-    return User
-      .findById(Number.parseInt(req.params.id, 10))
-      .then((user) => {
-        if (!user) {
-          return res.status(400).send({
-            message: 'User Not Found',
-          });
-        }
-        return user
-          .destroy()
-          .then(() => res.status(204).send())
-          .catch(error => res.status(400).send(error));
-      })
-      .catch(error => res.status(400).send(error));
+    if (req.params.id != req.decoded.id && req.decoded.roleID == 3) {
+      return User
+        .findById(Number.parseInt(req.params.id, 10))
+        .then((user) => {
+          if (!user) {
+            return res.status(400).send({
+              message: 'User Not Found',
+            });
+          }
+          return user
+            .destroy()
+            .then(() => res.status(204).send())
+            .catch(error => res.status(400).json({
+              message: error
+            }));
+        })
+        .catch(error => res.status(400).json({
+          message: error
+        }));
     } else {
       res.status(404).json({
-        error: 'No access to delete user'
+        message: 'No access to delete user'
       })
     }
   },
