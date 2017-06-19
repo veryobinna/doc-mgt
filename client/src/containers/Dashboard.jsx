@@ -22,17 +22,17 @@ class Dashboard extends Component {
     return (
       <div>
         <div className="navbar-fixed">
-      <nav>
-        <div className="nav-wrapper">
-          <Link to="/documents" className="brand-logo">Logo</Link>
-          <ul className="right hide-on-med-and-down">
-            <li><a href="sass.html">Sass</a></li>
-            <li><a href="badges.html">Components</a></li>
-          </ul>
+          <nav>
+            <div className="nav-wrapper">
+              <Link to="/documents" className="brand-logo">Logo</Link>
+              <ul className="right hide-on-med-and-down">
+                <li><a href="sass.html">Sass</a></li>
+                <li><a href="badges.html">Components</a></li>
+              </ul>
+            </div>
+          </nav>
         </div>
-      </nav>
-    </div>
-        <div>name: {this.props.status.user.firstName} </div>
+        <Sidebar {...this.props.status.user} />
         <div className="container document-container">
           <Documents />
           <GetUsers />

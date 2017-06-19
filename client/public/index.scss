@@ -5,7 +5,18 @@
     background-position: left;
     color: black
 }
+nav{
+    width: 77%;
+    background-color: #901111;
+}
+.navbar-fixed nav{
+    position: fixed;
+    left:23.5%
+}
 .document-container{
     margin-left: 28%;
     background-color: lightcoral
+}
+.header{
+    margin-top: 0px;
 }
