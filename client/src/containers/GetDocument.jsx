@@ -43,7 +43,7 @@ class GetDocument extends Component {
     });
     return (
       <div>
-        <h1 className="header">Documents</h1>
+        <h1 className="header">Search</h1>
         <div key={documents.id} className="row">
           {documents}
         </div>

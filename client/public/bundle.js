@@ -20300,7 +20300,7 @@ var GetDocument = function (_Component) {
         _react2.default.createElement(
           'h1',
           { className: 'header' },
-          'Documents'
+          'Search'
         ),
         _react2.default.createElement(
           'div',
@@ -47253,14 +47253,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var routes = _react2.default.createElement(
   'hashRouter',
   null,
-  _react2.default.createElement(_reactRouterDom.Route, { path: '/login', component: _Login2.default }),
-  _react2.default.createElement(_reactRouterDom.Route, { path: '/dashboard', component: _Dashboard2.default }),
-  _react2.default.createElement(_reactRouterDom.Route, { path: '/signup', component: _Signup2.default }),
-  _react2.default.createElement(_reactRouterDom.Route, { path: '/documents', component: _GetDocument2.default }),
-  _react2.default.createElement(_reactRouterDom.Route, { path: '/adddocument', component: _AddDocument2.default }),
-  _react2.default.createElement(_reactRouterDom.Route, { path: '/document/:id', component: _GetSingleDocument2.default }),
-  _react2.default.createElement(_reactRouterDom.Route, { path: '/editdocument', component: _EditDocument2.default }),
-  _react2.default.createElement(_reactRouterDom.Route, { path: '/users/:id', component: _EditUser2.default })
+  _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/login', component: _Login2.default }),
+  _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Dashboard2.default }),
+  _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signup', component: _Signup2.default }),
+  _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/documents', component: _GetDocument2.default }),
+  _react2.default.createElement(_reactRouterDom.Route, { exactpath: '/adddocument', component: _AddDocument2.default }),
+  _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/document/:id', component: _GetSingleDocument2.default }),
+  _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/editdocument', component: _EditDocument2.default }),
+  _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/users/:id', component: _EditUser2.default })
 );
 exports.default = routes;
 
@@ -49235,7 +49235,7 @@ var signup = function signup(userParams) {
       console.log('signup res', res.data);
     }).catch(function (error) {
       console.log('errorr message ', error.response.data.message);
-      _toastr2.default.error(error.response.data.message);
+      _toastr2.default.error(error.response.data.message.errors[0].message);
     });
   };
 };
@@ -52396,7 +52396,7 @@ exports = module.exports = __webpack_require__(402)(undefined);
 
 
 // module
-exports.push([module.i, ".landing-page {\n  background-size: 50%;\n  height: 100vh;\n  background-position: left;\n  color: black; }\n\nnav {\n  width: 77%;\n  background-color: #901111; }\n\n.navbar-fixed nav {\n  position: fixed;\n  left: 23.5%; }\n\n.document-container {\n  margin-left: 28%;\n  background-color: lightcoral; }\n\n.header {\n  margin-top: 0px; }\n", ""]);
+exports.push([module.i, ".landing-page {\n  background-size: 50%;\n  height: 100vh;\n  background-position: left;\n  color: black; }\n\nnav {\n  width: 77%;\n  background-color: #901111; }\n\n.navbar-fixed nav {\n  position: fixed;\n  left: 23.5%; }\n\n.document-container {\n  margin-left: 28%;\n  background-color: white;\n  width: 50%; }\n\n.header {\n  margin-top: 0px;\n  font-size: 3.2rem;\n  text-align: center; }\n", ""]);
 
 // exports
 

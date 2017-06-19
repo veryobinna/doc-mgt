@@ -12,14 +12,14 @@ import EditUser from '../containers/EditUser';
 
 const routes = (
   <hashRouter>
-    <Route path="/login" component={Login} />
-    <Route path="/dashboard" component={Dashboard} />
-    <Route path="/signup" component={Signup} />
-    <Route path="/documents" component={GetDocument} />
-    <Route path="/adddocument" component={AddDocument} />
-    <Route path="/document/:id" component={GetSingleDocument} />
-    <Route path="/editdocument" component={EditDocument} />
-    <Route path="/users/:id" component={EditUser} />
+    <Route exact path="/login" component={Login} />
+    <Route exact path="/" component={Dashboard} />
+    <Route exact path="/signup" component={Signup} />
+    <Route exact path="/documents" component={GetDocument} />
+    <Route exactpath="/adddocument" component={AddDocument} />
+    <Route exact path="/document/:id" component={GetSingleDocument} />
+    <Route exact path="/editdocument" component={EditDocument} />
+    <Route exact path="/users/:id" component={EditUser} />
 
   </hashRouter>
 );

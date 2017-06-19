@@ -22,7 +22,7 @@ const login = userParams => dispatch => axios
     toastr.success('successful');
 
   })
-    .catch((error) => { 
+    .catch((error) => {
       toastr.error(error.response.data.message);
        });
 
