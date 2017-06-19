@@ -24,9 +24,9 @@ const ShowUsers = ({ id, firstName, lastName, username, email, roleID, deleteUse
             <i className="material-icons">delete</i>
           </a>
           <Link
-            to={`document/${id}`}
+            to={`users/${id}`}
             className=" waves-effect waves-light"
-          ><i className="material-icons">pageview</i></Link>
+          ><i className="material-icons">mode_edit</i></Link>
         </div>
       </div>
     </div>

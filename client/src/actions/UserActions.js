@@ -27,28 +27,28 @@ const deleteUser = id => dispatch => axios
   .catch((error) => { throw (error); });
 
 
-// const updateDocumentSuccess = payload => ({
-//   type: types.UPDATE_DOCUMENT, payload
-// });
-// const updateDocument = data => dispatch => axios
-//   .put(`documents/${data.id}`, data)
-//   .then((res) => {
-//     dispatch(updateDocumentSuccess(res.data));
-//   })
-//   .catch((error) => { throw (error); });
+const updateUserSuccess = payload => ({
+  type: types.UPDATE_USER, payload
+});
+const updateUser = data => dispatch => axios
+  .put(`users/${data.id}`, data)
+  .then((res) => {
+    dispatch(updateUserSuccess(res.data));
+  })
+  .catch((error) => { throw (error); });
 
 
-// const getSingleDocumentSuccess = payload => ({
-//   type: types.GET_SINGLE_DOCUMENT, payload
-// });
+const getSingleUserSuccess = payload => ({
+  type: types.GET_SINGLE_USER, payload
+});
 
-// const getSingleDocument = id => dispatch => axios
-//   .get(`documents/${id}`)
-//   .then((res) => {
-//     dispatch(getSingleDocumentSuccess(res.data));
-//   })
-//   .catch((error) => { throw (error); });
+const getSingleUser = id => dispatch => axios
+  .get(`users/${id}`)
+  .then((res) => {
+    dispatch(getSingleUserSuccess(res.data));
+  })
+  .catch((error) => { throw (error); });
 
 
 export {
-  getUsers, deleteUser };
+  getUsers, deleteUser, updateUser, getSingleUser };
