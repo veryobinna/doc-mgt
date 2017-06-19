@@ -15288,7 +15288,9 @@ exports.default = {
   GET_SINGLE_DOCUMENT: 'GET_SINGLE_DOCUMENT',
   UPDATE_DOCUMENT: 'UPDATE_DOCUMENT',
   GET_USERS: 'GET_USERS',
-  DELETE_USER: 'DELETE_USER'
+  DELETE_USER: 'DELETE_USER',
+  UPDATE_USER: 'UPDATE_USER',
+  GET_SINGLE_USER: 'GET_SINGLE_USER'
 
 };
 
@@ -47416,6 +47418,10 @@ var _EditDocument = __webpack_require__(136);
 
 var _EditDocument2 = _interopRequireDefault(_EditDocument);
 
+var _EditUser = __webpack_require__(635);
+
+var _EditUser2 = _interopRequireDefault(_EditUser);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var routes = _react2.default.createElement(
@@ -47427,7 +47433,8 @@ var routes = _react2.default.createElement(
   _react2.default.createElement(_reactRouterDom.Route, { path: '/documents', component: _GetDocument2.default }),
   _react2.default.createElement(_reactRouterDom.Route, { path: '/adddocument', component: _AddDocument2.default }),
   _react2.default.createElement(_reactRouterDom.Route, { path: '/document/:id', component: _GetSingleDocument2.default }),
-  _react2.default.createElement(_reactRouterDom.Route, { path: '/editdocument', component: _EditDocument2.default })
+  _react2.default.createElement(_reactRouterDom.Route, { path: '/editdocument', component: _EditDocument2.default }),
+  _react2.default.createElement(_reactRouterDom.Route, { path: '/users/:id', component: _EditUser2.default })
 );
 exports.default = routes;
 
@@ -89626,7 +89633,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.deleteUser = exports.getUsers = undefined;
+exports.getSingleUser = exports.updateUser = exports.deleteUser = exports.getUsers = undefined;
 
 var _axios = __webpack_require__(61);
 
@@ -89670,31 +89677,41 @@ var deleteUser = function deleteUser(id) {
   };
 };
 
-// const updateDocumentSuccess = payload => ({
-//   type: types.UPDATE_DOCUMENT, payload
-// });
-// const updateDocument = data => dispatch => axios
-//   .put(`documents/${data.id}`, data)
-//   .then((res) => {
-//     dispatch(updateDocumentSuccess(res.data));
-//   })
-//   .catch((error) => { throw (error); });
+var updateUserSuccess = function updateUserSuccess(payload) {
+  return {
+    type: _ActionTypes2.default.UPDATE_USER, payload: payload
+  };
+};
+var updateUser = function updateUser(data) {
+  return function (dispatch) {
+    return _axios2.default.put('users/' + data.id, data).then(function (res) {
+      dispatch(updateUserSuccess(res.data));
+    }).catch(function (error) {
+      throw error;
+    });
+  };
+};
 
+var getSingleUserSuccess = function getSingleUserSuccess(payload) {
+  return {
+    type: _ActionTypes2.default.GET_SINGLE_USER, payload: payload
+  };
+};
 
-// const getSingleDocumentSuccess = payload => ({
-//   type: types.GET_SINGLE_DOCUMENT, payload
-// });
-
-// const getSingleDocument = id => dispatch => axios
-//   .get(`documents/${id}`)
-//   .then((res) => {
-//     dispatch(getSingleDocumentSuccess(res.data));
-//   })
-//   .catch((error) => { throw (error); });
-
+var getSingleUser = function getSingleUser(id) {
+  return function (dispatch) {
+    return _axios2.default.get('users/' + id).then(function (res) {
+      dispatch(getSingleUserSuccess(res.data));
+    }).catch(function (error) {
+      throw error;
+    });
+  };
+};
 
 exports.getUsers = getUsers;
 exports.deleteUser = deleteUser;
+exports.updateUser = updateUser;
+exports.getSingleUser = getSingleUser;
 
 /***/ }),
 /* 632 */
@@ -89793,13 +89810,13 @@ var ShowUsers = function ShowUsers(_ref) {
           _react2.default.createElement(
             _reactRouterDom.Link,
             {
-              to: 'document/' + id,
+              to: 'users/' + id,
               className: ' waves-effect waves-light'
             },
             _react2.default.createElement(
               'i',
               { className: 'material-icons' },
-              'pageview'
+              'mode_edit'
             )
           )
         )
@@ -89956,7 +89973,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    users: state.usersReducer
+    users: state.usersReducer.users
   };
 };
 
@@ -89985,6 +90002,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _ActionTypes = __webpack_require__(39);
 
 var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
@@ -89999,15 +90018,15 @@ var usersReducer = function usersReducer() {
   switch (action.type) {
     case _ActionTypes2.default.GET_USERS:
       users = { users: action.payload };
-      return action.payload;
+      return _extends({}, state, users);
 
-    // case types.GET_SINGLE_DOCUMENT:
-    //   docs = { documents: action.payload };
-    //   return { ...state, ...docs };
+    case _ActionTypes2.default.GET_SINGLE_USER:
+      users = { users: action.payload };
+      return _extends({}, state, users);
 
-    // case types.UPDATE_DOCUMENT:
-    //   docs = { documents: action.payload };
-    //   return { ...state, ...docs };
+    case _ActionTypes2.default.UPDATE_USER:
+      users = { users: action.payload };
+      return _extends({}, state, users);
 
     // case types.ADD_DOCUMENTS:
     //   docs = { documents: action.payload };
@@ -90018,6 +90037,241 @@ var usersReducer = function usersReducer() {
   }
 };
 exports.default = usersReducer;
+
+/***/ }),
+/* 635 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(7);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(30);
+
+var _redux = __webpack_require__(26);
+
+var _propTypes = __webpack_require__(9);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _UserActions = __webpack_require__(631);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UpdateUser = function (_Component) {
+  _inherits(UpdateUser, _Component);
+
+  function UpdateUser(props) {
+    _classCallCheck(this, UpdateUser);
+
+    var _this = _possibleConstructorReturn(this, (UpdateUser.__proto__ || Object.getPrototypeOf(UpdateUser)).call(this, props));
+
+    _this.state = {
+      id: '',
+      firstName: '',
+      lastName: '',
+      username: '',
+      email: '',
+      roleID: ''
+    };
+    _this.onInputChange = _this.onInputChange.bind(_this);
+    _this.onFormSubmit = _this.onFormSubmit.bind(_this);
+    return _this;
+  }
+
+  _createClass(UpdateUser, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      //this.setState({ getUser(this.props.match.params.id) });
+      console.log('get user and set to props via next props');
+      this.props.getSingleUser(this.props.match.params.id);
+      console.log('the proops are', this.props.match.params.id);
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      this.setState({
+        id: nextProps.users.id,
+        firstName: nextProps.users.firstName,
+        lastName: nextProps.users.lastName,
+        username: nextProps.users.username,
+        email: nextProps.users.email,
+        roleID: nextProps.users.roleID
+      });
+      console.log('the next props', nextProps);
+    }
+  }, {
+    key: 'onInputChange',
+    value: function onInputChange(event) {
+      var name = event.target.id;
+      var value = event.target.value;
+      this.setState(_defineProperty({}, name, value));
+    }
+  }, {
+    key: 'onFormSubmit',
+    value: function onFormSubmit(event) {
+      event.preventDefault();
+      this.props.updateUser(this.state);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'row container landing-page' },
+        _react2.default.createElement(
+          'form',
+          { onSubmit: this.onFormSubmit, className: 'col s12' },
+          _react2.default.createElement(
+            'div',
+            { className: 'row' },
+            _react2.default.createElement(
+              'div',
+              { className: 'input-field col s6' },
+              _react2.default.createElement('input', {
+                id: 'firstName',
+                type: 'text',
+                className: 'valdate',
+                value: this.state.firstName,
+                onChange: this.onInputChange
+              }),
+              _react2.default.createElement(
+                'label',
+                { htmlFor: 'firstName' },
+                'First Name'
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'input-field col s6' },
+              _react2.default.createElement('input', {
+                id: 'lastName',
+                type: 'text',
+                className: 'valdate',
+                value: this.state.lastName,
+                onChange: this.onInputChange
+              }),
+              _react2.default.createElement(
+                'label',
+                { htmlFor: 'lastName' },
+                'Last Name'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'row' },
+            _react2.default.createElement(
+              'div',
+              { className: 'input-field col s12' },
+              _react2.default.createElement('input', {
+                id: 'username',
+                type: 'text',
+                className: 'validate',
+                value: this.state.username,
+                onChange: this.onInputChange
+              }),
+              _react2.default.createElement(
+                'label',
+                { htmlFor: 'username' },
+                'Username'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'row' },
+            _react2.default.createElement(
+              'div',
+              { className: 'input-field col s12' },
+              _react2.default.createElement('input', {
+                id: 'roleID',
+                type: 'text',
+                className: 'validate',
+                value: this.state.roleID,
+                onChange: this.onInputChange
+              }),
+              _react2.default.createElement(
+                'label',
+                { htmlFor: 'roleID' },
+                'RoleID'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'row' },
+            _react2.default.createElement(
+              'div',
+              { className: 'input-field col s12' },
+              _react2.default.createElement('input', {
+                id: 'email',
+                type: 'text',
+                className: 'validate',
+                value: this.state.email,
+                onChange: this.onInputChange
+              }),
+              _react2.default.createElement(
+                'label',
+                { htmlFor: 'email' },
+                'Email'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'button',
+            { className: 'btn' },
+            'Update'
+          )
+        )
+      );
+    }
+  }]);
+
+  return UpdateUser;
+}(_react.Component);
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return (0, _redux.bindActionCreators)({ updateUser: _UserActions.updateUser, getSingleUser: _UserActions.getSingleUser }, dispatch);
+};
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    users: state.usersReducer.users
+  };
+};
+
+// UpdateDocument.getDefaultProps = {
+//   documents: {},
+//   title: '',
+//   content: '',
+//   updateDocument: () => { },
+// };
+// UpdateDocument.propTypes = {
+//   documents: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+//   title: PropTypes.string,
+//   content: PropTypes.string,
+//   updateDocument: PropTypes.func
+// };
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(UpdateUser);
 
 /***/ })
 /******/ ]);

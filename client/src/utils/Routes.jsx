@@ -7,6 +7,7 @@ import GetDocument from '../containers/GetDocument';
 import AddDocument from '../containers/AddDocument';
 import GetSingleDocument from '../containers/GetSingleDocument';
 import EditDocument from '../containers/EditDocument';
+import EditUser from '../containers/EditUser';
 
 
 const routes = (
@@ -18,6 +19,8 @@ const routes = (
     <Route path="/adddocument" component={AddDocument} />
     <Route path="/document/:id" component={GetSingleDocument} />
     <Route path="/editdocument" component={EditDocument} />
+    <Route path="/users/:id" component={EditUser} />
+
   </hashRouter>
 );
 export default routes;

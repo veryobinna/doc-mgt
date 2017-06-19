@@ -63,7 +63,7 @@ const mapDispatchToProps =
   dispatch => bindActionCreators({ getUsers, deleteUser }, dispatch);
 
 const mapStateToProps = state => ({
-  users: state.usersReducer
+  users: state.usersReducer.users
 });
 
 // GetDocument.getDefaultProps = {
