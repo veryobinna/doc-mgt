@@ -20,11 +20,10 @@ const login = userParams => dispatch => axios
     localStorage.setItem('token', token);
     dispatch(loginDetails(res.data));
     toastr.success('successful');
-
   })
-    .catch((error) => {
-      toastr.error(error.response.data.message);
-       });
+  .catch((error) => {
+    toastr.error(error.response.data.message);
+  });
 
 
 export default login;

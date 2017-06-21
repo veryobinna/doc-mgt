@@ -15,6 +15,9 @@ class AddDocument extends Component {
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
+  componentDidMount(){
+      CKEDITOR.replace('content');
+  }
   onInputChange(event) {
     const name = event.target.id;
     const value = event.target.value;
@@ -28,7 +31,7 @@ class AddDocument extends Component {
 
   render() {
     return (
-      <div className="row">
+      <div className="row component-render">
         <form className="col s10" onSubmit={this.onFormSubmit}>
           <div className="row">
             <div className="input-field col s12">
@@ -49,7 +52,6 @@ class AddDocument extends Component {
                   value={this.state.content}
                   onChange={this.onInputChange}
                 />
-                <label htmlFor="content">content</label>
               </div>
             </div>
             <div className="input-field col s12">

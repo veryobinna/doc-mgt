@@ -49,7 +49,7 @@ componentWillReceiveProps(nextProps) {
 
   render() {
     return (
-      <div className="row container landing-page">
+      <div className="row container landing-page component-render">
         <form onSubmit={this.onFormSubmit} className="col s12">
           <div className="row">
             <div className="input-field col s6">
@@ -60,7 +60,6 @@ componentWillReceiveProps(nextProps) {
                 value={this.state.firstName}
                 onChange={this.onInputChange}
               />
-              <label htmlFor="firstName">First Name</label>
             </div>
             <div className="input-field col s6">
               <input
@@ -70,7 +69,6 @@ componentWillReceiveProps(nextProps) {
                 value={this.state.lastName}
                 onChange={this.onInputChange}
               />
-              <label htmlFor="lastName">Last Name</label>
             </div>
           </div>
           <div className="row">
@@ -82,7 +80,6 @@ componentWillReceiveProps(nextProps) {
                 value={this.state.username}
                 onChange={this.onInputChange}
               />
-              <label htmlFor="username">Username</label>
             </div>
           </div>
 
@@ -95,7 +92,6 @@ componentWillReceiveProps(nextProps) {
                 value={this.state.roleID}
                 onChange={this.onInputChange}
               />
-              <label htmlFor="roleID">RoleID</label>
             </div>
           </div>
 
@@ -108,7 +104,6 @@ componentWillReceiveProps(nextProps) {
                 value={this.state.email}
                 onChange={this.onInputChange}
               />
-              <label htmlFor="email">Email</label>
             </div>
           </div>
           <button className="btn">Update</button>

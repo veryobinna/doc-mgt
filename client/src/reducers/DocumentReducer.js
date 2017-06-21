@@ -5,6 +5,7 @@ const documentReducer = (state = { documents: {} }, action) => {
   switch (action.type) {
     case types.GET_DOCUMENTS:
       docs = { documents: action.payload };
+      console.log(docs,'action payload')
       return { ...state, ...docs };
 
     case types.GET_SINGLE_DOCUMENT:

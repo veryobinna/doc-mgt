@@ -16,10 +16,32 @@ nav{
 .document-container{
     margin-left: 28%;
     background-color: white;
-    width: 50%
+    //width: 100%
 }
+.component-render{
+position: fixed;
+    left: 25%;
+    width: 75%;
+    }
 .header{
     margin-top: 0px;
     font-size: 3.2rem;
     text-align: center
+}
+#mode-edit{
+    margin-top: 20px
+}
+.side-bar-top{
+    background-image: url('/dist/img/bookshelf2.jpg');
+    height: 10rem;
+    text-align: center;
+}
+.side-bar-top-icon{
+    font-size:6rem;
+       margin-top: 20px;
+
+}
+#side-bar-top-text{
+    margin-top: -10px;
+
 }

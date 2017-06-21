@@ -120,20 +120,26 @@ export default {
       }));
   },
   update(req, res) {
-    return User
-      .findById(Number.parseInt(req.params.id, 10)).then((user) => {
-        if (!user) {
-          return res.status(404).send({
-            message: 'Usre not found, check the ID and try again',
-          });
-        }
-        user.update(req.body, { fields: Object.keys(req.body) })
-          .then(userUpadate => res.status(200).send(userUpadate))
-          .catch(error => res.status(400).send(error));
+    if (req.params.id !== req.decoded.id && req.decoded.roleID === 3) {
+      return User
+        .findById(Number.parseInt(req.params.id, 10)).then((user) => {
+          if (!user) {
+            return res.status(404).send({
+              message: 'Usre not found, check the ID and try again',
+            });
+          }
+          user.update(req.body, { fields: Object.keys(req.body) })
+            .then(userUpadate => res.status(200).send(userUpadate))
+            .catch(error => res.status(400).send(error));
+        })
+        .catch(error => res.status(400).json({
+          message: error
+        }));
+    } else {
+      res.status(404).json({
+        message: 'No access to edit user'
       })
-      .catch(error => res.status(400).json({
-        message: error
-      }));
+    }
   },
 
   /**

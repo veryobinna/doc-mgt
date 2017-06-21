@@ -44,7 +44,7 @@ class Login extends Component {
       return (<Redirect
         push
         to={{
-          pathname: '/dashboard',
+          pathname: '/documents',
         }}
       />);
     }
