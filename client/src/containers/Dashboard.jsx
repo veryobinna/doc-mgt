@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Redirect, Link, Route } from 'react-router-dom';
-import loginAction from '../actions/LoginAction';
+import {LoginAction, LogoutAction} from '../actions/LoginAction';
 import Documents from '../containers/GetDocument';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
@@ -24,7 +24,7 @@ class Dashboard extends Component {
     return (
       <div>{console.log(this.props.match.url)}
         <Navbar />
-        <Sidebar {...this.props.status.user} />
+        <Sidebar {...this.props} />
         <div>
         </div>
         <div className="container document-container" />
@@ -35,7 +35,7 @@ class Dashboard extends Component {
 
 
 const mapDispatchToProps =
-  dispatch => bindActionCreators({ loginAction }, dispatch);
+  dispatch => bindActionCreators({ LoginAction, LogoutAction }, dispatch);
 
 const mapStateToProps = state => ({
   status: state.login

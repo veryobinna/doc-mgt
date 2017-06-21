@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Redirect, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import LoginAction from '../actions/LoginAction';
+import {LoginAction} from '../actions/LoginAction';
 
 /**
  *
@@ -35,9 +35,7 @@ class Login extends Component {
   }
   onFormSubmit(event) {
     event.preventDefault();
-    this.props.LoginAction(this.state).then(
-      //this.props.history.replace('/dashboard')
-      );
+    this.props.LoginAction(this.state)
   }
   render() {
     if(this.props.status.valid){

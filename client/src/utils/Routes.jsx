@@ -23,6 +23,7 @@ const routes = (
     <Route exact path="/users/:id" component={EditUser} />
     <Route exact path="/users" component={GetUsers} />
 
+
   </hashRouter>
 );
 export default routes;
