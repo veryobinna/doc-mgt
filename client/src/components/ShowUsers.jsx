@@ -10,6 +10,9 @@ const ShowUsers = ({ id, firstName, lastName, username, email, roleID, deleteUse
       <i className="material-icons circle">perm_identity</i>
       <span className="title">{firstName+' '+lastName}</span>
       <p>{email}</p>
+      <p>user level:{roleID}</p>
+      {  
+      <div>
       <a
             className=" waves-effect waves-light secondary-content"
             role="button"
@@ -23,6 +26,7 @@ const ShowUsers = ({ id, firstName, lastName, username, email, roleID, deleteUse
             to={`users/${id}`}
             className=" waves-effect waves-light secondary-content"
           ><i className="material-icons">mode_edit</i></Link>
+          </div>}
     </li>
   </ul>
 

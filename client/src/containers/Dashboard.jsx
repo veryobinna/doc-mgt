@@ -22,12 +22,9 @@ class Dashboard extends Component {
       />);
     }
     return (
-      <div>{console.log(this.props.match.url)}
+      <div className="app-container">
         <Navbar />
         <Sidebar {...this.props} />
-        <div>
-        </div>
-        <div className="container document-container" />
       </div>
     );
   }

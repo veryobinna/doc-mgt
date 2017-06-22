@@ -47,7 +47,6 @@ class GetUsers extends Component {
     });
     return (
       <div className="component-render">
-        <h1>Users</h1>
         <div className="row">
           {users}
         </div>

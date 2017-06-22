@@ -30,7 +30,6 @@ class GetDocument extends Component {
       });
   }
   render() {
-    console.log('render', this.state.documents);
     const documents = this.state.documents.map((document) => {
       const items = {
         id: document.id,
@@ -44,7 +43,7 @@ class GetDocument extends Component {
     return (
       <div className="component-render">
         <h1 className="header">Search</h1>
-        <div key={documents.id} className="row">
+        <div className="row">
           {documents}
         </div>
       </div>

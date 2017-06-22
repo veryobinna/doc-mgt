@@ -8,7 +8,7 @@ export default(sequelize, DataTypes) => {
           msg: 'Title cannot be empty'
         },
         is: {
-          args: /^[a-zA-Z0-9_]*$/,
+          args: /^[a-zA-Z0-9_\s]*$/,
           msg: 'No special characters'
         }
       }
@@ -17,7 +17,7 @@ export default(sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       validate: {
         notEmpty: {
-          msg: 'Title cannot be empty'
+          msg: 'Content cannot be empty'
         }
       }
     },

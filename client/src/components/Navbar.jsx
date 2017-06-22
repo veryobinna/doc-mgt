@@ -5,9 +5,8 @@ const Navbar = () => (
   <div className="navbar-fixed">
     <nav>
       <div className="nav-wrapper">
-        <Link to="/documents" className="brand-logo">Logo</Link>
+        <div className="brand-logo">Doc-mgt</div>
         <ul className="right hide-on-med-and-down">
-          <li><a href="sass.html">Sass</a></li>
           <li><a href="badges.html">Components</a></li>
         </ul>
       </div>

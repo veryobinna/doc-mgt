@@ -1,10 +1,24 @@
 .landing-page{
     //background-image: url('/img/books1.jpg');
-    background-size: 50%;
+   background-size: 50%;
     height: 100vh;
     background-position: left;
     color: black
 }
+html{
+height: 100%
+}
+
+    header, main, footer {
+      padding-left: 300px;
+    }
+
+    @media only screen and (max-width : 992px) {
+      header, main, footer {
+        padding-left: 0;
+      }
+    }
+    
 nav{
     width: 77%;
     background-color: #901111;
@@ -19,9 +33,8 @@ nav{
     //width: 100%
 }
 .component-render{
-position: fixed;
-    left: 25%;
-    width: 75%;
+        width: 70%;
+    margin-left: 23rem;
     }
 .header{
     margin-top: 0px;
@@ -29,19 +42,56 @@ position: fixed;
     text-align: center
 }
 #mode-edit{
-    margin-top: 20px
+    margin-top: 2.5rem
 }
-.side-bar-top{
-    background-image: url('/dist/img/bookshelf2.jpg');
-    height: 10rem;
-    text-align: center;
-}
+
 .side-bar-top-icon{
     font-size:6rem;
-       margin-top: 20px;
+    margin-bottom: 0rem
 
 }
-#side-bar-top-text{
-    margin-top: -10px;
+.side-bar-top-text{
+    margin-top: -2rem;
+    margin-bottom: 0rem
 
 }
+.side-bar-top-email{
+    margin-top: -1rem;
+        margin-bottom: 0rem
+
+}
+.loginPS{
+    margin-left: 2rem
+}
+.image-holder{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+        width: 4.3rem;
+    height: 4.3rem;
+  
+}
+.sidebar-top{
+        background-image: url('/dist/img/office.jpg');
+        color: rgba(255, 255, 255, 0.81);
+    text-align: center;
+    margin-bottom: -1rem;
+    }
+    .modal{
+        display: block;
+    }
+    .card-content{
+        height: 9rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .card-title{
+      overflow: hidden;
+        text-overflow: ellipsis;  
+    }
+    .app-container{
+        width: 80%;
+    }
+    .secondary-content{
+        color: #901111
+    }

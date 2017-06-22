@@ -12,7 +12,9 @@ const addDocument = payload => dispatch => axios
     dispatch(addDocumentSuccess(res.data));
   })
   .catch((error) => {
-    toastr.error(error.response.data.message);
+        console.log('add document error', error.response.data.message.errors)
+
+    toastr.error(error.response.data.message.errors[0].message);
   });
 
 

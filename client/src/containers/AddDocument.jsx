@@ -16,16 +16,27 @@ class AddDocument extends Component {
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
   componentDidMount(){
-      CKEDITOR.replace('content');
+     CKEDITOR.replace('content');
+
   }
+
+  componentWillReceiveProps(nextProps) {
+        this.props.history.replace('/documents');
+
+  }
+
+
   onInputChange(event) {
     const name = event.target.id;
     const value = event.target.value;
-    this.setState({ [name]: value });
+    this.setState({ [name]: value});
   }
   onFormSubmit(event) {
     event.preventDefault();
-    this.props.addDocument(this.state);
+    const data = CKEDITOR.instances.content.getData();
+    const newDocument = this.state
+    newDocument.content= data
+    this.props.addDocument(newDocument);
 
   }
 

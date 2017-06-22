@@ -53,8 +53,6 @@ class Login extends Component {
             <form onSubmit={this.onFormSubmit}>
               <label
                 htmlFor="loginID"
-                data-error="wrong"
-                data-success="right"
               >LoginID</label>
               <input
                 id="loginID"
@@ -72,6 +70,7 @@ class Login extends Component {
                 onChange={this.onInputChange}
               />
               <button className="btn waves-effect waves-light"> Submit </button>
+              <span className="loginPS"> Have no account? <Link to="/signup">signup here</Link></span>
             </form>
           </div>
         </div>

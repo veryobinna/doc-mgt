@@ -8,7 +8,7 @@ const ShowDocument = ({ title, content, access, id, deleteDocument }) => (
       <div className="card blue">
         <div className="card-content yellow-text">
           <span className="card-title">{title}</span>
-          <p>{content}</p>
+          <p dangerouslySetInnerHTML={{__html:content}} />
           <p>access: {access}</p>
         </div>
         <div className="card-action">
