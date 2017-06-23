@@ -16,9 +16,14 @@ class UpdateDocument extends Component {
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
-componentWillMount() {
+componentDidMount() {
   this.setState({ title: this.props.documents.title });
+  CKEDITOR.replace('content');
 }
+componentWillReceiveProps(nextProps) {
+        this.props.history.replace('/documents');
+
+  }
   onInputChange(event) {
     const name = event.target.id;
     const value = event.target.value;
@@ -26,12 +31,15 @@ componentWillMount() {
   }
   onFormSubmit(event) {
     event.preventDefault();
-    this.props.updateDocument(this.state);
+    const data = CKEDITOR.instances.content.getData();
+    const newDocument = this.state
+    newDocument.content= data
+    this.props.updateDocument(newDocument);
   }
 
   render() {
     return (
-      <div className="row">
+      <div className="row component-render">
         <form className="col s10" onSubmit={this.onFormSubmit}>
           <div className="row">
             <div className="input-field col s12">

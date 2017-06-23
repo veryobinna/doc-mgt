@@ -1,5 +1,5 @@
 export default (sequelize, DataTypes) => {
-  var Roles = sequelize.define('Roles', {
+  const Roles = sequelize.define('Roles', {
     name: DataTypes.STRING
   }, {
     classMethods: {

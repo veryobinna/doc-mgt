@@ -21,7 +21,7 @@ const signup = userParams => dispatch => axios
   })
     .catch((error) => {
       console.log('errorr message ', error.response.data.message)
-      toastr.error(error.response.data.message);
+      toastr.error(error.response.data.message.errors[0].message);
     });
 
 export default signup;

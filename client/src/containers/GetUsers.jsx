@@ -17,13 +17,11 @@ class GetUsers extends Component {
   }
 
   componentWillMount() {
-     this.props.getUsers()
+     this.props.getUsers();
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.users.length !== nextProps.users.length) {
       this.setState({ users: nextProps.users });
-    }
   }
 
   deleteUser(id) {
@@ -48,8 +46,8 @@ class GetUsers extends Component {
       return <ShowUsers key={Math.random()} {...items} />;
     });
     return (
-      <div>
-        <h1>Users</h1>
+      <div className="component-render">
+        <h4>Users</h4>
         <div className="row">
           {users}
         </div>

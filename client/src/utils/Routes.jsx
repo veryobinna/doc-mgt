@@ -8,18 +8,21 @@ import AddDocument from '../containers/AddDocument';
 import GetSingleDocument from '../containers/GetSingleDocument';
 import EditDocument from '../containers/EditDocument';
 import EditUser from '../containers/EditUser';
+import GetUsers from '../containers/GetUsers';
 
 
 const routes = (
   <hashRouter>
-    <Route path="/login" component={Login} />
-    <Route path="/dashboard" component={Dashboard} />
-    <Route path="/signup" component={Signup} />
+    <Route exact path="/login" component={Login} />
+    <Route path="/" component={Dashboard} />
+    <Route exact path="/signup" component={Signup} />
     <Route path="/documents" component={GetDocument} />
-    <Route path="/adddocument" component={AddDocument} />
-    <Route path="/document/:id" component={GetSingleDocument} />
-    <Route path="/editdocument" component={EditDocument} />
-    <Route path="/users/:id" component={EditUser} />
+    <Route exact path="/adddocument" component={AddDocument} />
+    <Route exact path="/document/:id" component={GetSingleDocument} />
+    <Route exact path="/editdocument" component={EditDocument} />
+    <Route exact path="/users/:id" component={EditUser} />
+    <Route exact path="/users" component={GetUsers} />
+
 
   </hashRouter>
 );

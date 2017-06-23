@@ -35,8 +35,7 @@ class GetSingleDocument extends Component {
 
   render() {
     return (
-      <div>
-        <div>Single view</div>
+      <div className="row component-render">
         <ShowSingleDocument
           document={this.state.document}
           updateDocument={this.updateDocument}

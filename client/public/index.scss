@@ -1,11 +1,89 @@
 .landing-page{
     //background-image: url('/img/books1.jpg');
-    background-size: 50%;
+   background-size: 50%;
     height: 100vh;
     background-position: left;
     color: black
 }
+
+nav{
+    width: 77%;
+    background-color: #901111;
+}
+.navbar-fixed nav{
+    position: fixed;
+    left:23.5%
+}
 .document-container{
     margin-left: 28%;
-    background-color: lightcoral
+    background-color: white;
+    //width: 100%
 }
+.component-render{
+        width: 70%;
+    margin-left: 23rem;
+    }
+.header{
+    margin-top: 0px;
+    font-size: 3.2rem;
+    text-align: center
+}
+#mode-edit{
+    margin-top: 2.5rem
+}
+
+.side-bar-top-icon{
+    font-size:6rem;
+    margin-bottom: 0rem
+
+}
+.side-bar-top-text{
+    margin-top: -2rem;
+    margin-bottom: 0rem
+
+}
+.side-bar-top-email{
+    margin-top: -1rem;
+        margin-bottom: 0rem
+
+}
+.loginPS{
+    margin-left: 2rem
+}
+.image-holder{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+        width: 4.3rem;
+    height: 4.3rem;
+  
+}
+.sidebar-top{
+        background-image: url('/dist/img/office.jpg');
+        color: rgba(255, 255, 255, 0.81);
+    text-align: center;
+    margin-bottom: -1rem;
+    }
+    .modal{
+        display: block;
+            margin-left: 34%;
+    margin-top: 2%;
+    }
+    .card-content{
+        height: 9rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .card .card-title{
+      overflow: hidden;
+        text-overflow: ellipsis;  
+        font-weight: 500;
+    }
+    .card .card-action{
+    }
+    .app-container{
+        width: 80%;
+    }
+    .secondary-content{
+        color: #901111
+    }

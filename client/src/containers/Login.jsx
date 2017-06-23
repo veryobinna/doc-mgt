@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Redirect, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import LoginAction from '../actions/LoginAction';
+import {LoginAction} from '../actions/LoginAction';
 
 /**
  *
@@ -35,16 +35,14 @@ class Login extends Component {
   }
   onFormSubmit(event) {
     event.preventDefault();
-    this.props.LoginAction(this.state).then(
-      //this.props.history.replace('/dashboard')
-      );
+    this.props.LoginAction(this.state)
   }
   render() {
     if(this.props.status.valid){
       return (<Redirect
         push
         to={{
-          pathname: '/dashboard',
+          pathname: '/documents',
         }}
       />);
     }
@@ -55,8 +53,6 @@ class Login extends Component {
             <form onSubmit={this.onFormSubmit}>
               <label
                 htmlFor="loginID"
-                data-error="wrong"
-                data-success="right"
               >LoginID</label>
               <input
                 id="loginID"
@@ -74,6 +70,7 @@ class Login extends Component {
                 onChange={this.onInputChange}
               />
               <button className="btn waves-effect waves-light"> Submit </button>
+              <span className="loginPS"> Have no account? <Link to="/signup">signup here</Link></span>
             </form>
           </div>
         </div>

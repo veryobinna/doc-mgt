@@ -41,7 +41,7 @@ class Signup extends Component {
       return (<Redirect
         push
         to={{
-          pathname: '/dashboard',
+          pathname: '/login',
         }}
       />);
     }
@@ -108,6 +108,8 @@ class Signup extends Component {
             </div>
           </div>
           <button className="btn">Submit</button>
+          <span className="loginPS"> Have an account? <Link to="/login">login here</Link></span>
+
         </form>
       </div>
     );

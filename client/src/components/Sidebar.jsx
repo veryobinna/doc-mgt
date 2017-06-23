@@ -1,27 +1,26 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import Documents from '../containers/GetDocument';
 
-const Sidebar = () => (
-  <div>
-    <ul id="slide-out" className="side-nav">
-      <li>
-        <div className="userView">
-          <div className="background">
-            <img src="images/office.jpg" alt="office" />
-          </div>
-          <a href="#!user"><img className="circle" src="images/yuna.jpg" /></a>
-          <a href="#!name"><span className="white-text name">John Doe</span></a>
-          <a href="#!email"><span className="white-text email">jdandturk@gmail.com</span></a>
-        </div>
+const Sidebar = (props) => (
+  <div className="side-bar">
+    <ul  className="side-nav fixed">
+      <li><div className="sidebar-top">
+        <img className="image-holder" src={'/dist/img/image-holder.jpg'} />
+      <h5 className="side-bar-top-text"> {props.status.user.firstName + ' ' + props.status.user.lastName}</h5>
+      <p className="side-bar-top-email">{props.status.user.email}</p>
+      <p className="side-bar-top-text">User level: {props.status.user.roleID}</p>
+      </div>
       </li>
-      <li><a href="#!"><i className="material-icons">cloud</i>First Link With Icon</a></li>
-      <li><a href="#!">Second Link</a></li>
-      <li><div className="divider"></div></li>
-      <li><a className="subheader">Subheader</a></li>
-      <li><a className="waves-effect" href="#!">Third Link With Waves</a></li>
+      <li><div className="divider"></div></li>             
+      <li><Link to="/documents" className="waves-effect" >Public Documents</Link></li>
+      {props.status.user.roleID===3 &&       
+      <li><Link to="/users" className="waves-effect" >Users</Link></li>}
+      <li><Link to="/adddocument" className="waves-effect" >New Document</Link></li>
+      <li><a onClick={props.LogoutAction} className="waves-effect" >Logout</a></li>
+
+
     </ul>
-    <a href="#" data-activates="slide-out" className="button-collapse"><i className="material-icons">menu</i></a>
   </div>
 );
 export default Sidebar;

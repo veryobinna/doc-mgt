@@ -12,7 +12,7 @@ const loginDetails = payload => ({
   type: types.LOGIN_DETAILS, payload
 });
 
-const login = userParams => dispatch => axios
+const LoginAction = userParams => dispatch => axios
   .post('/login', userParams)
   .then((res) => {
     const { token } = res.data;
@@ -20,11 +20,17 @@ const login = userParams => dispatch => axios
     localStorage.setItem('token', token);
     dispatch(loginDetails(res.data));
     toastr.success('successful');
-
   })
-    .catch((error) => { 
-      toastr.error(error.response.data.message);
-       });
+  .catch((error) => {
+    toastr.error(error.response.data.message);
+  });
+
+const LogoutAction = () => {
+  window.localStorage.removeItem('token');
+  return {
+    type: types.LOG_OUT, payload: { user: null }
+  };
+};
 
 
-export default login;
+export { LoginAction, LogoutAction };

@@ -19,9 +19,8 @@ class GetDocument extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.documents.length !== nextProps.documents.length) {
       this.setState({ documents: nextProps.documents });
-    }
+    
   }
 
   deleteDocument(id) {
@@ -42,9 +41,9 @@ class GetDocument extends Component {
       return <ShowDocument key={Math.random()} {...items} />;
     });
     return (
-      <div>
-        <h1>Documents</h1>
-        <div key={documents.id} className="row">
+      <div className="component-render">
+        <h1 className="header">Search</h1>
+        <div className="row">
           {documents}
         </div>
       </div>
