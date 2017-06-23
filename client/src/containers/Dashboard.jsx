@@ -21,6 +21,7 @@ class Dashboard extends Component {
         }}
       />);
     }
+    
     return (
       <div className="app-container">
         <Navbar />

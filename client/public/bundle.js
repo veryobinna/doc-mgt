@@ -26502,22 +26502,22 @@ var ShowDocument = function ShowDocument(_ref) {
       { className: 'col s4 m4' },
       _react2.default.createElement(
         'div',
-        { className: 'card blue' },
+        { className: 'card white' },
         _react2.default.createElement(
           'div',
-          { className: 'card-content yellow-text' },
+          { className: 'card-content black-text' },
           _react2.default.createElement(
             'span',
             { className: 'card-title' },
             title
           ),
-          _react2.default.createElement('p', { dangerouslySetInnerHTML: { __html: content } }),
           _react2.default.createElement(
-            'p',
+            'div',
             null,
-            'access: ',
+            'Access: ',
             access
-          )
+          ),
+          _react2.default.createElement('p', { dangerouslySetInnerHTML: { __html: content } })
         ),
         _react2.default.createElement(
           'div',
@@ -26884,6 +26884,11 @@ var GetUsers = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'component-render' },
+        _react2.default.createElement(
+          'h4',
+          null,
+          'Users'
+        ),
         _react2.default.createElement(
           'div',
           { className: 'row' },
@@ -49736,7 +49741,7 @@ var Sidebar = function Sidebar(props) {
           'Public Documents'
         )
       ),
-      _react2.default.createElement(
+      props.status.user.roleID === 3 && _react2.default.createElement(
         'li',
         null,
         _react2.default.createElement(
@@ -50032,6 +50037,7 @@ var Dashboard = function (_Component) {
           }
         });
       }
+
       return _react2.default.createElement(
         'div',
         { className: 'app-container' },
@@ -52427,7 +52433,7 @@ exports = module.exports = __webpack_require__(403)(undefined);
 
 
 // module
-exports.push([module.i, ".landing-page {\n  background-size: 50%;\n  height: 100vh;\n  background-position: left;\n  color: black; }\n\nhtml {\n  height: 100%; }\n\nheader, main, footer {\n  padding-left: 300px; }\n\n@media only screen and (max-width: 992px) {\n  header, main, footer {\n    padding-left: 0; } }\n\nnav {\n  width: 77%;\n  background-color: #901111; }\n\n.navbar-fixed nav {\n  position: fixed;\n  left: 23.5%; }\n\n.document-container {\n  margin-left: 28%;\n  background-color: white; }\n\n.component-render {\n  width: 70%;\n  margin-left: 23rem; }\n\n.header {\n  margin-top: 0px;\n  font-size: 3.2rem;\n  text-align: center; }\n\n#mode-edit {\n  margin-top: 2.5rem; }\n\n.side-bar-top-icon {\n  font-size: 6rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-text {\n  margin-top: -2rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-email {\n  margin-top: -1rem;\n  margin-bottom: 0rem; }\n\n.loginPS {\n  margin-left: 2rem; }\n\n.image-holder {\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n  border-radius: 50%;\n  width: 4.3rem;\n  height: 4.3rem; }\n\n.sidebar-top {\n  background-image: url(\"/dist/img/office.jpg\");\n  color: rgba(255, 255, 255, 0.81);\n  text-align: center;\n  margin-bottom: -1rem; }\n\n.modal {\n  display: block; }\n\n.card-content {\n  height: 9rem;\n  overflow: hidden;\n  text-overflow: ellipsis; }\n\n.card-title {\n  overflow: hidden;\n  text-overflow: ellipsis; }\n\n.app-container {\n  width: 80%; }\n\n.secondary-content {\n  color: #901111; }\n", ""]);
+exports.push([module.i, ".landing-page {\n  background-size: 50%;\n  height: 100vh;\n  background-position: left;\n  color: black; }\n\nnav {\n  width: 77%;\n  background-color: #901111; }\n\n.navbar-fixed nav {\n  position: fixed;\n  left: 23.5%; }\n\n.document-container {\n  margin-left: 28%;\n  background-color: white; }\n\n.component-render {\n  width: 70%;\n  margin-left: 23rem; }\n\n.header {\n  margin-top: 0px;\n  font-size: 3.2rem;\n  text-align: center; }\n\n#mode-edit {\n  margin-top: 2.5rem; }\n\n.side-bar-top-icon {\n  font-size: 6rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-text {\n  margin-top: -2rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-email {\n  margin-top: -1rem;\n  margin-bottom: 0rem; }\n\n.loginPS {\n  margin-left: 2rem; }\n\n.image-holder {\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n  border-radius: 50%;\n  width: 4.3rem;\n  height: 4.3rem; }\n\n.sidebar-top {\n  background-image: url(\"/dist/img/office.jpg\");\n  color: rgba(255, 255, 255, 0.81);\n  text-align: center;\n  margin-bottom: -1rem; }\n\n.modal {\n  display: block;\n  margin-left: 34%;\n  margin-top: 2%; }\n\n.card-content {\n  height: 9rem;\n  overflow: hidden;\n  text-overflow: ellipsis; }\n\n.card .card-title {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  font-weight: 500; }\n\n.app-container {\n  width: 80%; }\n\n.secondary-content {\n  color: #901111; }\n", ""]);
 
 // exports
 

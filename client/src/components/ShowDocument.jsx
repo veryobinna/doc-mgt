@@ -5,11 +5,12 @@ import PropTypes from 'prop-types';
 const ShowDocument = ({ title, content, access, id, deleteDocument }) => (
   <div className=" n">
     <div className="col s4 m4">
-      <div className="card blue">
-        <div className="card-content yellow-text">
+      <div className="card white">
+        <div className="card-content black-text">
           <span className="card-title">{title}</span>
+          <div>Access: {access}</div>
+
           <p dangerouslySetInnerHTML={{__html:content}} />
-          <p>access: {access}</p>
         </div>
         <div className="card-action">
           <a

@@ -14,7 +14,8 @@ const Sidebar = (props) => (
       </li>
       <li><div className="divider"></div></li>             
       <li><Link to="/documents" className="waves-effect" >Public Documents</Link></li>
-      <li><Link to="/users" className="waves-effect" >Users</Link></li>
+      {props.status.user.roleID===3 &&       
+      <li><Link to="/users" className="waves-effect" >Users</Link></li>}
       <li><Link to="/adddocument" className="waves-effect" >New Document</Link></li>
       <li><a onClick={props.LogoutAction} className="waves-effect" >Logout</a></li>
 

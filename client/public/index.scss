@@ -5,20 +5,7 @@
     background-position: left;
     color: black
 }
-html{
-height: 100%
-}
 
-    header, main, footer {
-      padding-left: 300px;
-    }
-
-    @media only screen and (max-width : 992px) {
-      header, main, footer {
-        padding-left: 0;
-      }
-    }
-    
 nav{
     width: 77%;
     background-color: #901111;
@@ -79,15 +66,20 @@ nav{
     }
     .modal{
         display: block;
+            margin-left: 34%;
+    margin-top: 2%;
     }
     .card-content{
         height: 9rem;
         overflow: hidden;
         text-overflow: ellipsis;
     }
-    .card-title{
+    .card .card-title{
       overflow: hidden;
         text-overflow: ellipsis;  
+        font-weight: 500;
+    }
+    .card .card-action{
     }
     .app-container{
         width: 80%;
