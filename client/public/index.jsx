@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { HashRouter as Router } from 'react-router-dom';
-import createBrowserHistory from 'history/createBrowserHistory';
+// import createBrowserHistory from 'history/createBrowserHistory';
 import toastr from 'toastr';
 import configureStore from '../src/store/configureStore';
 import routes from '../src/utils/Routes';
@@ -11,7 +11,7 @@ import './index.scss';
 
 toastr.options.timeOut = 3;
 const store = configureStore();
-const history = createBrowserHistory();
+//const history = createBrowserHistory();
 
 const token = localStorage.getItem('token');
 setAuthorizationToken(token);
@@ -19,9 +19,7 @@ setAuthorizationToken(token);
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={history}>
-      {routes}
-    </Router>
+    {routes}
   </Provider>,
   document.getElementById('container'),
 );

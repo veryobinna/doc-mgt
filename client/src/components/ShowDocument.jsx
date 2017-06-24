@@ -21,10 +21,10 @@ const ShowDocument = ({ title, content, access, id, deleteDocument }) => (
           >
             <i className="material-icons">delete</i>
           </a>
-          <Link
-            to={`document/${id}`}
+          <a
+            href={`/#/document/${id}`}
             className=" waves-effect waves-light"
-          ><i className="material-icons">pageview</i></Link>
+          ><i className="material-icons">visibility</i></a>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import { getDocument, deleteDocument } from '../actions/DocumentActions';
+import { getDocument, getMyDocument, deleteDocument } from '../actions/DocumentActions';
 import ShowDocument from '../components/ShowDocument';
 
 class GetDocument extends Component {
@@ -15,12 +15,22 @@ class GetDocument extends Component {
   }
 
   componentWillMount() {
-    this.props.getDocument();
+    console.log('the props', this.props.match.params.id)
+    if (this.props.match.params.id) {
+      console.log('we got to the getMyDocument area')
+      this.props.getMyDocument(this.props.match.params.id);
+    }
+    if (this.props.match.url === '/documents') {
+
+      this.props.getDocument();
+    }
+
   }
 
   componentWillReceiveProps(nextProps) {
-      this.setState({ documents: nextProps.documents });
-    
+    console.log('we even recieved nextprops');
+    this.setState({ documents: nextProps.documents });
+
   }
 
   deleteDocument(id) {
@@ -52,7 +62,7 @@ class GetDocument extends Component {
 }
 
 const mapDispatchToProps =
-  dispatch => bindActionCreators({ getDocument, deleteDocument }, dispatch);
+  dispatch => bindActionCreators({ getDocument, getMyDocument, deleteDocument }, dispatch);
 
 const mapStateToProps = state => ({
   documents: state.documentReducer.documents
@@ -61,12 +71,14 @@ const mapStateToProps = state => ({
 GetDocument.getDefaultProps = {
   documents: {},
   getDocument: () => { },
+  getMyDocument: () => { },
   deleteDocument: () => { },
 
 };
 GetDocument.propTypes = {
   documents: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   getDocument: PropTypes.func,
+  getMyDocument: PropTypes.func,
   deleteDocument: PropTypes.func
 };
 

@@ -14271,6 +14271,7 @@ exports.default = {
   SIGNUP_DETAILS: 'SIGNUP_DETAILS',
   ADD_DOCUMENT: 'ADD_DOCUMENT',
   GET_DOCUMENTS: 'GET_DOCUMENTS',
+  GET_MY_DOCUMENTS: 'GET_MY_DOCUMENTS',
   DELETE_DOCUMENT: 'DELETE_DOCUMENT',
   GET_SINGLE_DOCUMENT: 'GET_SINGLE_DOCUMENT',
   UPDATE_DOCUMENT: 'UPDATE_DOCUMENT',
@@ -18051,7 +18052,7 @@ function hasOwnProperty(obj, prop) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updateDocument = exports.deleteDocument = exports.getSingleDocument = exports.getDocument = exports.addDocument = undefined;
+exports.getMyDocument = exports.updateDocument = exports.deleteDocument = exports.getSingleDocument = exports.getDocument = exports.addDocument = undefined;
 
 var _axios = __webpack_require__(49);
 
@@ -18095,6 +18096,23 @@ var getDocument = function getDocument() {
   return function (dispatch) {
     return _axios2.default.get('/documents').then(function (res) {
       dispatch(getDocumentSuccess(res.data));
+    }).catch(function (error) {
+      _toastr2.default.error(error.response.data.message);
+    });
+  };
+};
+
+var getMyDocumentSuccess = function getMyDocumentSuccess(payload) {
+  return {
+    type: _ActionTypes2.default.GET_MY_DOCUMENTS, payload: payload
+  };
+};
+
+var getMyDocument = function getMyDocument(id) {
+  return function (dispatch) {
+    return _axios2.default.get('/users/' + id + '/documents/').then(function (res) {
+      console.log('getmydocument data action', res.data);
+      dispatch(getMyDocumentSuccess(res.data));
     }).catch(function (error) {
       _toastr2.default.error(error.response.data.message);
     });
@@ -18154,6 +18172,7 @@ exports.getDocument = getDocument;
 exports.getSingleDocument = getSingleDocument;
 exports.deleteDocument = deleteDocument;
 exports.updateDocument = updateDocument;
+exports.getMyDocument = getMyDocument;
 
 /***/ }),
 /* 64 */
@@ -20264,11 +20283,20 @@ var GetDocument = function (_Component) {
   _createClass(GetDocument, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
-      this.props.getDocument();
+      console.log('the props', this.props.match.params.id);
+      if (this.props.match.params.id) {
+        console.log('we got to the getMyDocument area');
+        this.props.getMyDocument(this.props.match.params.id);
+      }
+      if (this.props.match.url === '/documents') {
+
+        this.props.getDocument();
+      }
     }
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
+      console.log('we even recieved nextprops');
       this.setState({ documents: nextProps.documents });
     }
   }, {
@@ -20316,7 +20344,7 @@ var GetDocument = function (_Component) {
 }(_react.Component);
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return (0, _redux.bindActionCreators)({ getDocument: _DocumentActions.getDocument, deleteDocument: _DocumentActions.deleteDocument }, dispatch);
+  return (0, _redux.bindActionCreators)({ getDocument: _DocumentActions.getDocument, getMyDocument: _DocumentActions.getMyDocument, deleteDocument: _DocumentActions.deleteDocument }, dispatch);
 };
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -20328,12 +20356,14 @@ var mapStateToProps = function mapStateToProps(state) {
 GetDocument.getDefaultProps = {
   documents: {},
   getDocument: function getDocument() {},
+  getMyDocument: function getMyDocument() {},
   deleteDocument: function deleteDocument() {}
 
 };
 GetDocument.propTypes = {
   documents: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
   getDocument: _propTypes2.default.func,
+  getMyDocument: _propTypes2.default.func,
   deleteDocument: _propTypes2.default.func
 };
 
@@ -26539,15 +26569,15 @@ var ShowDocument = function ShowDocument(_ref) {
             )
           ),
           _react2.default.createElement(
-            _reactRouterDom.Link,
+            'a',
             {
-              to: 'document/' + id,
+              href: '/#/document/' + id,
               className: ' waves-effect waves-light'
             },
             _react2.default.createElement(
               'i',
               { className: 'material-icons' },
-              'pageview'
+              'visibility'
             )
           )
         )
@@ -47415,17 +47445,22 @@ var _GetUsers2 = _interopRequireDefault(_GetUsers);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var routes = _react2.default.createElement(
-  'hashRouter',
+  _reactRouterDom.HashRouter,
   null,
-  _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/login', component: _Login2.default }),
-  _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _Dashboard2.default }),
-  _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signup', component: _Signup2.default }),
-  _react2.default.createElement(_reactRouterDom.Route, { path: '/documents', component: _GetDocument2.default }),
-  _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/adddocument', component: _AddDocument2.default }),
-  _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/document/:id', component: _GetSingleDocument2.default }),
-  _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/editdocument', component: _EditDocument2.default }),
-  _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/users/:id', component: _EditUser2.default }),
-  _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/users', component: _GetUsers2.default })
+  _react2.default.createElement(
+    'div',
+    null,
+    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/login', component: _Login2.default }),
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _Dashboard2.default }),
+    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signup', component: _Signup2.default }),
+    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/documents', component: _GetDocument2.default }),
+    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/mydocuments/:id', component: _GetDocument2.default }),
+    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/adddocument', component: _AddDocument2.default }),
+    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/document/:id', component: _GetSingleDocument2.default }),
+    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/editdocument', component: _EditDocument2.default }),
+    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/users/:id', component: _EditUser2.default }),
+    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/users', component: _GetUsers2.default })
+  )
 );
 exports.default = routes;
 
@@ -49314,10 +49349,6 @@ var _reactRedux = __webpack_require__(21);
 
 var _reactRouterDom = __webpack_require__(26);
 
-var _createBrowserHistory = __webpack_require__(123);
-
-var _createBrowserHistory2 = _interopRequireDefault(_createBrowserHistory);
-
 var _toastr = __webpack_require__(41);
 
 var _toastr2 = _interopRequireDefault(_toastr);
@@ -49339,8 +49370,10 @@ __webpack_require__(341);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _toastr2.default.options.timeOut = 3;
+// import createBrowserHistory from 'history/createBrowserHistory';
+
 var store = (0, _configureStore2.default)();
-var history = (0, _createBrowserHistory2.default)();
+//const history = createBrowserHistory();
 
 var token = localStorage.getItem('token');
 (0, _Authenticate2.default)(token);
@@ -49348,11 +49381,7 @@ var token = localStorage.getItem('token');
 _reactDom2.default.render(_react2.default.createElement(
   _reactRedux.Provider,
   { store: store },
-  _react2.default.createElement(
-    _reactRouterDom.HashRouter,
-    { history: history },
-    _Routes2.default
-  )
+  _Routes2.default
 ), document.getElementById('container'));
 
 /***/ }),
@@ -49739,6 +49768,15 @@ var Sidebar = function Sidebar(props) {
           _reactRouterDom.Link,
           { to: '/documents', className: 'waves-effect' },
           'Public Documents'
+        )
+      ),
+      _react2.default.createElement(
+        'li',
+        null,
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: '/mydocuments/' + props.status.user.roleID, className: 'waves-effect' },
+          ' My Documents'
         )
       ),
       props.status.user.roleID === 3 && _react2.default.createElement(
@@ -50847,7 +50885,10 @@ var documentReducer = function documentReducer() {
   switch (action.type) {
     case _ActionTypes2.default.GET_DOCUMENTS:
       docs = { documents: action.payload };
-      console.log(docs, 'action payload');
+      return _extends({}, state, docs);
+
+    case _ActionTypes2.default.GET_MY_DOCUMENTS:
+      docs = { documents: action.payload };
       return _extends({}, state, docs);
 
     case _ActionTypes2.default.GET_SINGLE_DOCUMENT:

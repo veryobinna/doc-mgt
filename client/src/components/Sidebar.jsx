@@ -14,6 +14,7 @@ const Sidebar = (props) => (
       </li>
       <li><div className="divider"></div></li>             
       <li><Link to="/documents" className="waves-effect" >Public Documents</Link></li>
+      <li><Link to={`/mydocuments/${props.status.user.roleID}`} className="waves-effect" > My Documents</Link></li>
       {props.status.user.roleID===3 &&       
       <li><Link to="/users" className="waves-effect" >Users</Link></li>}
       <li><Link to="/adddocument" className="waves-effect" >New Document</Link></li>
