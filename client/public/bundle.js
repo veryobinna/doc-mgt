@@ -14279,7 +14279,8 @@ exports.default = {
   DELETE_USER: 'DELETE_USER',
   UPDATE_USER: 'UPDATE_USER',
   GET_SINGLE_USER: 'GET_SINGLE_USER',
-  SEARCH_DOCUMENTS: 'SEARCHs_DOCUMENTS'
+  SEARCH_DOCUMENTS: 'SEARCH_DOCUMENTS',
+  SEARCH_USERS: 'SEARCH_USERS'
 
 };
 
@@ -26437,7 +26438,7 @@ exports.LogoutAction = LogoutAction;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getSingleUser = exports.updateUser = exports.deleteUser = exports.getUsers = undefined;
+exports.searchUsers = exports.getSingleUser = exports.updateUser = exports.deleteUser = exports.getUsers = undefined;
 
 var _axios = __webpack_require__(49);
 
@@ -26463,6 +26464,23 @@ var getUsers = function getUsers() {
   return function (dispatch) {
     return _axios2.default.get('/users').then(function (res) {
       dispatch(getUsersSuccess(res.data));
+    }).catch(function (error) {
+      _toastr2.default.error(error.response.data.message);
+    });
+  };
+};
+
+var searchUsersSuccess = function searchUsersSuccess(payload) {
+  return {
+    type: _ActionTypes2.default.GET_USERS, payload: payload
+  };
+};
+
+var searchUsers = function searchUsers(value) {
+  return function (dispatch) {
+    return _axios2.default.get('/search/users/?q=' + value).then(function (res) {
+      console.log('the searche users are ', res);
+      dispatch(searchUsersSuccess(res.data.users));
     }).catch(function (error) {
       _toastr2.default.error(error.response.data.message);
     });
@@ -26521,6 +26539,7 @@ exports.getUsers = getUsers;
 exports.deleteUser = deleteUser;
 exports.updateUser = updateUser;
 exports.getSingleUser = getSingleUser;
+exports.searchUsers = searchUsers;
 
 /***/ }),
 /* 135 */
@@ -26902,6 +26921,7 @@ var GetUsers = function (_Component) {
       users: [{}]
     };
     _this.deleteUser = _this.deleteUser.bind(_this);
+    _this.onSearch = _this.onSearch.bind(_this);
     return _this;
   }
 
@@ -26914,6 +26934,13 @@ var GetUsers = function (_Component) {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
       this.setState({ users: nextProps.users });
+    }
+  }, {
+    key: 'onSearch',
+    value: function onSearch(e) {
+      console.log('the search value', e.target.value);
+      var value = e.target.value;
+      this.props.searchUsers(value);
     }
   }, {
     key: 'deleteUser',
@@ -26945,7 +26972,7 @@ var GetUsers = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'component-render' },
-        _react2.default.createElement(_SearchBar2.default, null),
+        _react2.default.createElement(_SearchBar2.default, { onSearch: this.onSearch }),
         _react2.default.createElement(
           'div',
           { className: 'row' },
@@ -26959,7 +26986,7 @@ var GetUsers = function (_Component) {
 }(_react.Component);
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return (0, _redux.bindActionCreators)({ getUsers: _UserActions.getUsers, deleteUser: _UserActions.deleteUser }, dispatch);
+  return (0, _redux.bindActionCreators)({ getUsers: _UserActions.getUsers, deleteUser: _UserActions.deleteUser, searchUsers: _UserActions.searchUsers }, dispatch);
 };
 
 var mapStateToProps = function mapStateToProps(state) {

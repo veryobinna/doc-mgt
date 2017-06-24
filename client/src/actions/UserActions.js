@@ -16,6 +16,20 @@ const getUsers = () => dispatch => axios
     toastr.error(error.response.data.message);
   });
 
+const searchUsersSuccess = payload => ({
+  type: types.GET_USERS, payload
+});
+
+const searchUsers = value => dispatch => axios
+  .get(`/search/users/?q=${value}`)
+  .then((res) => {
+    console.log('the searche users are ',res)
+    dispatch(searchUsersSuccess(res.data.users));
+  })
+  .catch((error) => {
+    toastr.error(error.response.data.message);
+  });
+
 
 const deleteUserSuccess = payload => ({
   type: types.DELETE_USER, payload
@@ -60,5 +74,5 @@ const getSingleUser = id => dispatch => axios
 
 
 export {
-  getUsers, deleteUser, updateUser, getSingleUser
+  getUsers, deleteUser, updateUser, getSingleUser, searchUsers
 };
