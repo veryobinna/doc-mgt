@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import toastr from 'toastr';
 import PropTypes from 'prop-types';
-import { getUsers, deleteUser } from '../actions/UserActions';
+import { getUsers, deleteUser, searchUsers } from '../actions/UserActions';
 import ShowDocument from '../components/ShowDocument';
-import ShowUsers from '../components/ShowUsers'
+import ShowUsers from '../components/ShowUsers';
+import SearchBar from '../components/SearchBar';
 
 class GetUsers extends Component {
   constructor(props) {
@@ -14,22 +15,28 @@ class GetUsers extends Component {
       users: [{}],
     };
     this.deleteUser = this.deleteUser.bind(this);
+    this.onSearch = this.onSearch.bind(this);
   }
 
   componentWillMount() {
-     this.props.getUsers();
+    this.props.getUsers();
   }
 
   componentWillReceiveProps(nextProps) {
-      this.setState({ users: nextProps.users });
+    this.setState({ users: nextProps.users });
   }
 
+  onSearch(e){
+    console.log('the search value', e.target.value);
+    const value = e.target.value;
+    this.props.searchUsers(value);
+  }
   deleteUser(id) {
     this.props.deleteUser(id)
       .then(() => {
         this.props.getUsers();
 
-     });
+      });
   }
   render() {
     console.log('this.props', this.props)
@@ -47,7 +54,7 @@ class GetUsers extends Component {
     });
     return (
       <div className="component-render">
-        <h4>Users</h4>
+        <SearchBar onSearch={this.onSearch} />
         <div className="row">
           {users}
         </div>
@@ -57,7 +64,7 @@ class GetUsers extends Component {
 }
 
 const mapDispatchToProps =
-  dispatch => bindActionCreators({ getUsers, deleteUser }, dispatch);
+  dispatch => bindActionCreators({ getUsers, deleteUser, searchUsers }, dispatch);
 
 const mapStateToProps = state => ({
   users: state.usersReducer.users

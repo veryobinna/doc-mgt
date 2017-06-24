@@ -87,3 +87,18 @@ nav{
     .secondary-content{
         color: #901111
     }
+    .search-wrapper{
+    margin-top: 1px;
+    padding: 1px 0 0 0;
+    z-index: 2;
+        height: 46px;
+    }
+    .search-wrapper i.material-icons{
+        position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    }
+    #search{
+        height: 45px;
+    }

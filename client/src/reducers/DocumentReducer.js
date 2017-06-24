@@ -7,6 +7,10 @@ const documentReducer = (state = { documents: {} }, action) => {
       docs = { documents: action.payload };
       return { ...state, ...docs };
 
+    case types.SEARCH_DOCUMENTS:
+      docs = { documents: action.payload };
+      return { ...state, ...docs };
+
     case types.GET_MY_DOCUMENTS:
       docs = { documents: action.payload };
       return { ...state, ...docs };
