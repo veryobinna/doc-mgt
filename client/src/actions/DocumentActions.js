@@ -12,8 +12,6 @@ const addDocument = payload => dispatch => axios
     dispatch(addDocumentSuccess(res.data));
   })
   .catch((error) => {
-    console.log('add document error', error.response.data.message.errors);
-
     toastr.error(error.response.data.message.errors[0].message);
   });
 
@@ -38,8 +36,21 @@ const getMyDocumentSuccess = payload => ({
 const getMyDocument = id => dispatch => axios
   .get(`/users/${id}/documents/`)
   .then((res) => {
-    console.log('getmydocument data action', res.data);
     dispatch(getMyDocumentSuccess(res.data));
+  })
+  .catch((error) => {
+    toastr.error(error.response.data.message);
+  });
+
+const searchDocumentSuccess = payload => ({
+  type: types.SEARCH_DOCUMENTS, payload
+});
+
+const searchDocument = value => dispatch => axios
+  .get(`/search/documents/?q=${value}`)
+  .then((res) => {
+    console.log('we got to the search document area', res)
+    dispatch(searchDocumentSuccess(res.data.document));
   })
   .catch((error) => {
     toastr.error(error.response.data.message);
@@ -90,5 +101,6 @@ const getSingleDocument = id => dispatch => axios
 
 export {
   addDocument, getDocument, getSingleDocument,
-  deleteDocument, updateDocument, getMyDocument
+  deleteDocument, updateDocument, getMyDocument,
+  searchDocument
 };

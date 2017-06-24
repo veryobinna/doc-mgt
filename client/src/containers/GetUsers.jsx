@@ -5,7 +5,8 @@ import toastr from 'toastr';
 import PropTypes from 'prop-types';
 import { getUsers, deleteUser } from '../actions/UserActions';
 import ShowDocument from '../components/ShowDocument';
-import ShowUsers from '../components/ShowUsers'
+import ShowUsers from '../components/ShowUsers';
+import SearchBar from '../components/SearchBar';
 
 class GetUsers extends Component {
   constructor(props) {
@@ -17,11 +18,11 @@ class GetUsers extends Component {
   }
 
   componentWillMount() {
-     this.props.getUsers();
+    this.props.getUsers();
   }
 
   componentWillReceiveProps(nextProps) {
-      this.setState({ users: nextProps.users });
+    this.setState({ users: nextProps.users });
   }
 
   deleteUser(id) {
@@ -29,7 +30,7 @@ class GetUsers extends Component {
       .then(() => {
         this.props.getUsers();
 
-     });
+      });
   }
   render() {
     console.log('this.props', this.props)
@@ -47,7 +48,7 @@ class GetUsers extends Component {
     });
     return (
       <div className="component-render">
-        <h4>Users</h4>
+        <SearchBar />
         <div className="row">
           {users}
         </div>

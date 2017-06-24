@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import { getDocument, getMyDocument, deleteDocument } from '../actions/DocumentActions';
+import { getDocument, getMyDocument, deleteDocument,searchDocument } from '../actions/DocumentActions';
 import ShowDocument from '../components/ShowDocument';
 import SearchBar from '../components/SearchBar';
 
@@ -13,6 +13,7 @@ class GetDocument extends Component {
       documents: [{}],
     };
     this.deleteDocument = this.deleteDocument.bind(this);
+    this.onSearch = this.onSearch.bind(this);
   }
 
   componentWillMount() {
@@ -32,6 +33,11 @@ class GetDocument extends Component {
     console.log('we even recieved nextprops');
     this.setState({ documents: nextProps.documents });
 
+  }
+  onSearch(e){
+    console.log('the search value', e.target.value);
+    const value = e.target.value;
+    this.props.searchDocument(value);
   }
 
   deleteDocument(id) {
@@ -53,7 +59,7 @@ class GetDocument extends Component {
     });
     return (
       <div className="component-render">
-        <SearchBar />
+        <SearchBar onSearch={this.onSearch} />
         <div className="row">
           {documents}
         </div>
@@ -63,7 +69,7 @@ class GetDocument extends Component {
 }
 
 const mapDispatchToProps =
-  dispatch => bindActionCreators({ getDocument, getMyDocument, deleteDocument }, dispatch);
+  dispatch => bindActionCreators({ getDocument, getMyDocument, deleteDocument, searchDocument }, dispatch);
 
 const mapStateToProps = state => ({
   documents: state.documentReducer.documents
@@ -74,13 +80,16 @@ GetDocument.getDefaultProps = {
   getDocument: () => { },
   getMyDocument: () => { },
   deleteDocument: () => { },
+  searchDocument: () => { },
 
 };
 GetDocument.propTypes = {
   documents: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   getDocument: PropTypes.func,
   getMyDocument: PropTypes.func,
-  deleteDocument: PropTypes.func
+  deleteDocument: PropTypes.func,
+  searchDocument: PropTypes.func
+
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GetDocument);
