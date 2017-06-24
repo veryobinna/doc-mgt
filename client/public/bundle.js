@@ -20257,6 +20257,10 @@ var _ShowDocument = __webpack_require__(135);
 
 var _ShowDocument2 = _interopRequireDefault(_ShowDocument);
 
+var _SearchBar = __webpack_require__(635);
+
+var _SearchBar2 = _interopRequireDefault(_SearchBar);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20326,11 +20330,7 @@ var GetDocument = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'component-render' },
-        _react2.default.createElement(
-          'h1',
-          { className: 'header' },
-          'Search'
-        ),
+        _react2.default.createElement(_SearchBar2.default, null),
         _react2.default.createElement(
           'div',
           { className: 'row' },
@@ -52474,7 +52474,7 @@ exports = module.exports = __webpack_require__(403)(undefined);
 
 
 // module
-exports.push([module.i, ".landing-page {\n  background-size: 50%;\n  height: 100vh;\n  background-position: left;\n  color: black; }\n\nnav {\n  width: 77%;\n  background-color: #901111; }\n\n.navbar-fixed nav {\n  position: fixed;\n  left: 23.5%; }\n\n.document-container {\n  margin-left: 28%;\n  background-color: white; }\n\n.component-render {\n  width: 70%;\n  margin-left: 23rem; }\n\n.header {\n  margin-top: 0px;\n  font-size: 3.2rem;\n  text-align: center; }\n\n#mode-edit {\n  margin-top: 2.5rem; }\n\n.side-bar-top-icon {\n  font-size: 6rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-text {\n  margin-top: -2rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-email {\n  margin-top: -1rem;\n  margin-bottom: 0rem; }\n\n.loginPS {\n  margin-left: 2rem; }\n\n.image-holder {\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n  border-radius: 50%;\n  width: 4.3rem;\n  height: 4.3rem; }\n\n.sidebar-top {\n  background-image: url(\"/dist/img/office.jpg\");\n  color: rgba(255, 255, 255, 0.81);\n  text-align: center;\n  margin-bottom: -1rem; }\n\n.modal {\n  display: block;\n  margin-left: 34%;\n  margin-top: 2%; }\n\n.card-content {\n  height: 9rem;\n  overflow: hidden;\n  text-overflow: ellipsis; }\n\n.card .card-title {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  font-weight: 500; }\n\n.app-container {\n  width: 80%; }\n\n.secondary-content {\n  color: #901111; }\n", ""]);
+exports.push([module.i, ".landing-page {\n  background-size: 50%;\n  height: 100vh;\n  background-position: left;\n  color: black; }\n\nnav {\n  width: 77%;\n  background-color: #901111; }\n\n.navbar-fixed nav {\n  position: fixed;\n  left: 23.5%; }\n\n.document-container {\n  margin-left: 28%;\n  background-color: white; }\n\n.component-render {\n  width: 70%;\n  margin-left: 23rem; }\n\n.header {\n  margin-top: 0px;\n  font-size: 3.2rem;\n  text-align: center; }\n\n#mode-edit {\n  margin-top: 2.5rem; }\n\n.side-bar-top-icon {\n  font-size: 6rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-text {\n  margin-top: -2rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-email {\n  margin-top: -1rem;\n  margin-bottom: 0rem; }\n\n.loginPS {\n  margin-left: 2rem; }\n\n.image-holder {\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n  border-radius: 50%;\n  width: 4.3rem;\n  height: 4.3rem; }\n\n.sidebar-top {\n  background-image: url(\"/dist/img/office.jpg\");\n  color: rgba(255, 255, 255, 0.81);\n  text-align: center;\n  margin-bottom: -1rem; }\n\n.modal {\n  display: block;\n  margin-left: 34%;\n  margin-top: 2%; }\n\n.card-content {\n  height: 9rem;\n  overflow: hidden;\n  text-overflow: ellipsis; }\n\n.card .card-title {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  font-weight: 500; }\n\n.app-container {\n  width: 80%; }\n\n.secondary-content {\n  color: #901111; }\n\n.search-wrapper {\n  margin-top: 1px;\n  padding: 1px 0 0 0;\n  z-index: 2;\n  height: 46px; }\n\n.search-wrapper i.material-icons {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  cursor: pointer; }\n\n#search {\n  height: 45px; }\n", ""]);
 
 // exports
 
@@ -90328,6 +90328,48 @@ module.exports = function() {
 /***/ (function(module, exports) {
 
 /* (ignored) */
+
+/***/ }),
+/* 635 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(26);
+
+var _propTypes = __webpack_require__(8);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var SearchBar = function SearchBar(_ref) {
+  var onSearch = _ref.onSearch;
+  return _react2.default.createElement(
+    'div',
+    { className: 'search-wrapper card' },
+    _react2.default.createElement('input', {
+      onChange: onSearch,
+      id: 'search'
+    }),
+    _react2.default.createElement(
+      'i',
+      { className: 'material-icons' },
+      'search'
+    )
+  );
+};
+
+exports.default = SearchBar;
 
 /***/ })
 /******/ ]);

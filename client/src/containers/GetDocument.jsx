@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { getDocument, getMyDocument, deleteDocument } from '../actions/DocumentActions';
 import ShowDocument from '../components/ShowDocument';
+import SearchBar from '../components/SearchBar';
 
 class GetDocument extends Component {
   constructor(props) {
@@ -52,7 +53,7 @@ class GetDocument extends Component {
     });
     return (
       <div className="component-render">
-        <h1 className="header">Search</h1>
+        <SearchBar />
         <div className="row">
           {documents}
         </div>
