@@ -12,20 +12,29 @@ class GetDocument extends Component {
     super(props);
     this.state = {
       documents: [{}],
+      query: '',
+      offset: 0,
+      limit: 6,
+      search: false,
+      getDocument: false,
+      getMyDocument: false,
     };
     this.deleteDocument = this.deleteDocument.bind(this);
     this.onSearch = this.onSearch.bind(this);
+    this.getDocument = this.getDocument.bind(this);
+    this.getMyDocument = this.getMyDocument.bind(this);
+    this.onPageClick = this.onPageClick.bind(this);
   }
 
   componentWillMount() {
     console.log('the props', this.props.match.params.id)
     if (this.props.match.params.id) {
+      this.getMyDocument()
       console.log('we got to the getMyDocument area')
-      this.props.getMyDocument(this.props.match.params.id);
     }
     if (this.props.match.url === '/documents') {
 
-      this.props.getDocument();
+      this.getDocument()
     }
 
   }
@@ -35,10 +44,29 @@ class GetDocument extends Component {
     this.setState({ documents: nextProps.documents });
 
   }
-  onSearch(e) {
-    console.log('the search value', e.target.value);
-    const value = e.target.value;
-    this.props.searchDocument(value);
+
+  getMyDocument() {
+    this.setState({ search: true, getDocument: false, getMyDocument: false });
+    this.props.getMyDocument(this.props.match.params.id);
+
+  }
+  getDocument() {
+    this.props.getDocument();
+
+  }
+
+
+  onSearch(event) {
+    if (event) {
+      this.state.query = event.target.value;
+    }
+    this.setState({
+      search: true,
+      getDocument: false,
+      getMyDocument: false,
+    })
+    console.log('query, limit and offset', this.state.query, this.state.limit, this.state.offset);
+    this.props.searchDocument(this.state.query, this.state.limit, this.state.offset);
   }
 
   deleteDocument(id) {
@@ -46,6 +74,17 @@ class GetDocument extends Component {
       .then(() => {
         this.props.getDocument();
       });
+  }
+  onPageClick(event) {
+    const selected = event.selected;
+    const offset = selected * 6;
+
+    if (this.state.search) {
+      this.setState({ offset },
+        this.onSearch // callback
+        );
+        
+    }
   }
   render() {
     const documents = this.state.documents.map((document) => {
@@ -65,15 +104,15 @@ class GetDocument extends Component {
           {documents}
         </div>
         <ReactPaginate
-          initialPage={0}
+          initialPage={this.state.initialPage}
           previousLabel={'previous'}
           nextLabel={'next'}
           breakLabel={<a href="">...</a>}
           breakClassName={'break-me'}
-          pageCount={5}
+          pageCount={this.state.pageCount}
           marginPagesDisplayed={2}
           pageRangeDisplayed={5}
-          onPageChange={this.onSearch}
+          onPageChange={this.onPageClick}
           containerClassName={'pagination'}
           subContainerClassName={'pages pagination'}
           activeClassName={'active'}

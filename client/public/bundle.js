@@ -18124,10 +18124,7 @@ var searchDocumentSuccess = function searchDocumentSuccess(payload) {
   };
 };
 
-var searchDocument = function searchDocument(_ref) {
-  var query = _ref.query,
-      limit = _ref.limit,
-      offset = _ref.offset;
+var searchDocument = function searchDocument(query, limit, offset) {
   return function (dispatch) {
     return _axios2.default.get('/search/documents/?q=' + query + '&limit=' + limit + '&offset=' + offset).then(function (res) {
       console.log('we got to the search document area', res);
@@ -20302,10 +20299,19 @@ var GetDocument = function (_Component) {
     var _this = _possibleConstructorReturn(this, (GetDocument.__proto__ || Object.getPrototypeOf(GetDocument)).call(this, props));
 
     _this.state = {
-      documents: [{}]
+      documents: [{}],
+      query: '',
+      offset: 0,
+      limit: 6,
+      search: false,
+      getDocument: false,
+      getMyDocument: false
     };
     _this.deleteDocument = _this.deleteDocument.bind(_this);
     _this.onSearch = _this.onSearch.bind(_this);
+    _this.getDocument = _this.getDocument.bind(_this);
+    _this.getMyDocument = _this.getMyDocument.bind(_this);
+    _this.onPageClick = _this.onPageClick.bind(_this);
     return _this;
   }
 
@@ -20314,12 +20320,12 @@ var GetDocument = function (_Component) {
     value: function componentWillMount() {
       console.log('the props', this.props.match.params.id);
       if (this.props.match.params.id) {
+        this.getMyDocument();
         console.log('we got to the getMyDocument area');
-        this.props.getMyDocument(this.props.match.params.id);
       }
       if (this.props.match.url === '/documents') {
 
-        this.props.getDocument();
+        this.getDocument();
       }
     }
   }, {
@@ -20329,11 +20335,29 @@ var GetDocument = function (_Component) {
       this.setState({ documents: nextProps.documents });
     }
   }, {
+    key: 'getMyDocument',
+    value: function getMyDocument() {
+      this.setState({ search: true, getDocument: false, getMyDocument: false });
+      this.props.getMyDocument(this.props.match.params.id);
+    }
+  }, {
+    key: 'getDocument',
+    value: function getDocument() {
+      this.props.getDocument();
+    }
+  }, {
     key: 'onSearch',
-    value: function onSearch(e) {
-      console.log('the search value', e.target.value);
-      var value = e.target.value;
-      this.props.searchDocument(value);
+    value: function onSearch(event) {
+      if (event) {
+        this.state.query = event.target.value;
+      }
+      this.setState({
+        search: true,
+        getDocument: false,
+        getMyDocument: false
+      });
+      console.log('query, limit and offset', this.state.query, this.state.limit, this.state.offset);
+      this.props.searchDocument(this.state.query, this.state.limit, this.state.offset);
     }
   }, {
     key: 'deleteDocument',
@@ -20343,6 +20367,17 @@ var GetDocument = function (_Component) {
       this.props.deleteDocument(id).then(function () {
         _this2.props.getDocument();
       });
+    }
+  }, {
+    key: 'onPageClick',
+    value: function onPageClick(event) {
+      var selected = event.selected;
+      var offset = selected * 6;
+
+      if (this.state.search) {
+        this.setState({ offset: offset }, this.onSearch // callback
+        );
+      }
     }
   }, {
     key: 'render',
@@ -20369,7 +20404,7 @@ var GetDocument = function (_Component) {
           documents
         ),
         _react2.default.createElement(_reactPaginate2.default, {
-          initialPage: 0,
+          initialPage: this.state.initialPage,
           previousLabel: 'previous',
           nextLabel: 'next',
           breakLabel: _react2.default.createElement(
@@ -20378,10 +20413,10 @@ var GetDocument = function (_Component) {
             '...'
           ),
           breakClassName: 'break-me',
-          pageCount: 5,
+          pageCount: this.state.pageCount,
           marginPagesDisplayed: 2,
           pageRangeDisplayed: 5,
-          onPageChange: this.onSearch,
+          onPageChange: this.onPageClick,
           containerClassName: 'pagination',
           subContainerClassName: 'pages pagination',
           activeClassName: 'active'
