@@ -20337,12 +20337,14 @@ var GetDocument = function (_Component) {
   }, {
     key: 'getMyDocument',
     value: function getMyDocument() {
-      this.setState({ search: true, getDocument: false, getMyDocument: false });
+      this.setState({ search: false, getDocument: false, getMyDocument: true });
       this.props.getMyDocument(this.props.match.params.id);
     }
   }, {
     key: 'getDocument',
     value: function getDocument() {
+      this.setState({ search: true, getDocument: false, getMyDocument: false });
+
       this.props.getDocument();
     }
   }, {
@@ -20350,6 +20352,7 @@ var GetDocument = function (_Component) {
     value: function onSearch(event) {
       if (event) {
         this.state.query = event.target.value;
+        //this.setState({query:event.target.value})
       }
       this.setState({
         search: true,

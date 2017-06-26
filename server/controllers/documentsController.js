@@ -21,7 +21,9 @@ export default {
   },
   list(req, res) {
     return Document
-      .findAll({
+      .findAndCountAll({
+        limit: Number.parseInt(req.query.limit, 10) || null,
+        offset: Number.parseInt(req.query.offset, 10) || null,
         where: {
           $or: [
             {
@@ -39,7 +41,10 @@ export default {
           ]
         }
       })
-      .then(document => res.status(200).send(document))
+      .then(document => res.status(200).send({
+        document: document.rows,
+        count: document.count,
+      }))
       .catch(error => res.status(400).json({
         message: error
       }));
@@ -49,12 +54,17 @@ export default {
       .then((user) => {
         if (user) {
           Document
-            .findAll({
+            .findAndCountAll({
+              limit: Number.parseInt(req.query.limit, 10) || null,
+              offset: Number.parseInt(req.query.offset, 10) || null,
               where: {
                 ownerID: `${Number.parseInt(req.params.id, 10)}`
               }
             })
-            .then(document => res.status(200).send(document))
+            .then(document => res.status(200).send({
+              document: document.rows,
+              count: document.count,
+            }))
             .catch(error => res.status(400).send(error));
         } else {
           res.status(404)

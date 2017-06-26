@@ -46,11 +46,14 @@ class GetDocument extends Component {
   }
 
   getMyDocument() {
-    this.setState({ search: true, getDocument: false, getMyDocument: false });
+    this.setState({ search: false, getDocument: false, getMyDocument: true });
     this.props.getMyDocument(this.props.match.params.id);
+
 
   }
   getDocument() {
+        this.setState({ search: true, getDocument: false, getMyDocument: false});
+
     this.props.getDocument();
 
   }
@@ -59,6 +62,7 @@ class GetDocument extends Component {
   onSearch(event) {
     if (event) {
       this.state.query = event.target.value;
+      //this.setState({query:event.target.value})
     }
     this.setState({
       search: true,
