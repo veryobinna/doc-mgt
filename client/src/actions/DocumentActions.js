@@ -20,10 +20,13 @@ const getDocumentSuccess = payload => ({
   type: types.GET_DOCUMENTS, payload
 });
 
-const getDocument = () => dispatch => axios
-  .get('/documents')
+const getDocument = (limit, offset) => dispatch => axios
+  .get(`/documents/?limit=${limit}&offset=${offset}`)
   .then((res) => {
+        console.log('we got to the get document area', res);
+
     dispatch(getDocumentSuccess(res.data));
+
   })
   .catch((error) => {
     toastr.error(error.response.data.message);
@@ -33,8 +36,8 @@ const getMyDocumentSuccess = payload => ({
   type: types.GET_MY_DOCUMENTS, payload
 });
 
-const getMyDocument = id => dispatch => axios
-  .get(`/users/${id}/documents/`)
+const getMyDocument = (id, limit, offset) => dispatch => axios
+  .get(`/users/${id}/documents/?limit=${limit}&offset=${offset}`)
   .then((res) => {
     dispatch(getMyDocumentSuccess(res.data));
   })
@@ -50,7 +53,7 @@ const searchDocument = (query, limit, offset) => dispatch => axios
   .get(`/search/documents/?q=${query}&limit=${limit}&offset=${offset}`)
   .then((res) => {
     console.log('we got to the search document area', res);
-    dispatch(searchDocumentSuccess(res.data.document));
+    dispatch(searchDocumentSuccess(res.data));
   })
   .catch((error) => {
     toastr.error(error.response.data.message);

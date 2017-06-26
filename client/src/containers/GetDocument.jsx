@@ -47,14 +47,15 @@ class GetDocument extends Component {
 
   getMyDocument() {
     this.setState({ search: false, getDocument: false, getMyDocument: true });
-    this.props.getMyDocument(this.props.match.params.id);
+    this.props.getMyDocument(this.props.match.params.id, this.state.limit, this.state.offset);
 
 
   }
   getDocument() {
-        this.setState({ search: true, getDocument: false, getMyDocument: false});
+    this.setState({ search: false, getDocument: true, getMyDocument: false });
+    console.log(' limit and offset', this.state.limit, this.state.offset);
 
-    this.props.getDocument();
+    this.props.getDocument(this.state.limit, this.state.offset);
 
   }
 
@@ -86,8 +87,17 @@ class GetDocument extends Component {
     if (this.state.search) {
       this.setState({ offset },
         this.onSearch // callback
-        );
-        
+      );
+    }
+    if (this.state.getDocument) {
+      this.setState({ offset },
+        this.getDocument // callback
+      );
+    }
+    if (this.state.getMyDocument) {
+      this.setState({ offset },
+        this.getMyDocument // callback
+      );
     }
   }
   render() {
@@ -130,7 +140,9 @@ const mapDispatchToProps =
   dispatch => bindActionCreators({ getDocument, getMyDocument, deleteDocument, searchDocument }, dispatch);
 
 const mapStateToProps = state => ({
-  documents: state.documentReducer.documents
+  documents: state.documentReducer.documents.document,
+  count: state.documentReducer.documents.count
+
 });
 
 GetDocument.getDefaultProps = {

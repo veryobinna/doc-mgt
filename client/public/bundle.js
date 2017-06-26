@@ -18092,9 +18092,11 @@ var getDocumentSuccess = function getDocumentSuccess(payload) {
   };
 };
 
-var getDocument = function getDocument() {
+var getDocument = function getDocument(limit, offset) {
   return function (dispatch) {
-    return _axios2.default.get('/documents').then(function (res) {
+    return _axios2.default.get('/documents/?limit=' + limit + '&offset=' + offset).then(function (res) {
+      console.log('we got to the get document area', res);
+
       dispatch(getDocumentSuccess(res.data));
     }).catch(function (error) {
       _toastr2.default.error(error.response.data.message);
@@ -18108,9 +18110,9 @@ var getMyDocumentSuccess = function getMyDocumentSuccess(payload) {
   };
 };
 
-var getMyDocument = function getMyDocument(id) {
+var getMyDocument = function getMyDocument(id, limit, offset) {
   return function (dispatch) {
-    return _axios2.default.get('/users/' + id + '/documents/').then(function (res) {
+    return _axios2.default.get('/users/' + id + '/documents/?limit=' + limit + '&offset=' + offset).then(function (res) {
       dispatch(getMyDocumentSuccess(res.data));
     }).catch(function (error) {
       _toastr2.default.error(error.response.data.message);
@@ -18128,7 +18130,7 @@ var searchDocument = function searchDocument(query, limit, offset) {
   return function (dispatch) {
     return _axios2.default.get('/search/documents/?q=' + query + '&limit=' + limit + '&offset=' + offset).then(function (res) {
       console.log('we got to the search document area', res);
-      dispatch(searchDocumentSuccess(res.data.document));
+      dispatch(searchDocumentSuccess(res.data));
     }).catch(function (error) {
       _toastr2.default.error(error.response.data.message);
     });
@@ -20338,14 +20340,15 @@ var GetDocument = function (_Component) {
     key: 'getMyDocument',
     value: function getMyDocument() {
       this.setState({ search: false, getDocument: false, getMyDocument: true });
-      this.props.getMyDocument(this.props.match.params.id);
+      this.props.getMyDocument(this.props.match.params.id, this.state.limit, this.state.offset);
     }
   }, {
     key: 'getDocument',
     value: function getDocument() {
-      this.setState({ search: true, getDocument: false, getMyDocument: false });
+      this.setState({ search: false, getDocument: true, getMyDocument: false });
+      console.log(' limit and offset', this.state.limit, this.state.offset);
 
-      this.props.getDocument();
+      this.props.getDocument(this.state.limit, this.state.offset);
     }
   }, {
     key: 'onSearch',
@@ -20379,6 +20382,14 @@ var GetDocument = function (_Component) {
 
       if (this.state.search) {
         this.setState({ offset: offset }, this.onSearch // callback
+        );
+      }
+      if (this.state.getDocument) {
+        this.setState({ offset: offset }, this.getDocument // callback
+        );
+      }
+      if (this.state.getMyDocument) {
+        this.setState({ offset: offset }, this.getMyDocument // callback
         );
       }
     }
@@ -20437,7 +20448,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    documents: state.documentReducer.documents
+    documents: state.documentReducer.documents.document,
+    count: state.documentReducer.documents.count
+
   };
 };
 
