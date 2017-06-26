@@ -46,8 +46,8 @@ const searchDocumentSuccess = payload => ({
   type: types.SEARCH_DOCUMENTS, payload
 });
 
-const searchDocument = value => dispatch => axios
-  .get(`/search/documents/?q=${value}`)
+const searchDocument = ({ query, limit, offset }) => dispatch => axios
+  .get(`/search/documents/?q=${query}&limit=${limit}&offset=${offset}`)
   .then((res) => {
     console.log('we got to the search document area', res)
     dispatch(searchDocumentSuccess(res.data.document));

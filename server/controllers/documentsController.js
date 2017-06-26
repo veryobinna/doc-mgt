@@ -83,7 +83,9 @@ export default {
 
   search(req, res) {
     return Document
-      .findAll({
+      .findAndCountAll({
+        limit: Number.parseInt(req.query.limit, 10) || null,
+        offset: Number.parseInt(req.query.offset, 10) || null,
         where: {
           $and: {
             title: { $ilike: `%${req.query.q}%` },
@@ -105,7 +107,10 @@ export default {
           }
         }
       })
-      .then(document => res.status(200).send({ document }))
+      .then(document => res.status(200).send({
+        document: document.rows,
+        count: document.count
+      }))
       .catch(error => res.status(401).json({
         message: error
       }));

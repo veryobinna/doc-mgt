@@ -2,18 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const ShowSingleDocument = props => (
-  <div>{console.log('errrrrr',props.document.title)}
+  <div>{console.log('errrrrr', props.document.title)}
     <div id="modal1" className="modal modal-fixed-footer">
       <div className="modal-content">
         <h4>{props.document.title}</h4>
-        <p dangerouslySetInnerHTML={{__html:props.document.content}} />
+        <p dangerouslySetInnerHTML={{ __html: props.document.content }} />
       </div>
       <div className="modal-footer">
         <a onClick={props.updateDocument} className="modal-action modal-close waves-effect waves-green btn-flat "><i className="large material-icons">mode_edit</i></a>
       </div>
     </div>
   </div>
-  
+
 );
 
 ShowSingleDocument.getDefaultProps = {

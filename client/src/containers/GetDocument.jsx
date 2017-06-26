@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import { getDocument, getMyDocument, deleteDocument,searchDocument } from '../actions/DocumentActions';
+import ReactPaginate from 'react-paginate';
+import { getDocument, getMyDocument, deleteDocument, searchDocument } from '../actions/DocumentActions';
 import ShowDocument from '../components/ShowDocument';
 import SearchBar from '../components/SearchBar';
 
@@ -34,7 +35,7 @@ class GetDocument extends Component {
     this.setState({ documents: nextProps.documents });
 
   }
-  onSearch(e){
+  onSearch(e) {
     console.log('the search value', e.target.value);
     const value = e.target.value;
     this.props.searchDocument(value);
@@ -63,6 +64,20 @@ class GetDocument extends Component {
         <div className="row">
           {documents}
         </div>
+        <ReactPaginate
+          initialPage={0}
+          previousLabel={'previous'}
+          nextLabel={'next'}
+          breakLabel={<a href="">...</a>}
+          breakClassName={'break-me'}
+          pageCount={5}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={5}
+          onPageChange={this.onSearch}
+          containerClassName={'pagination'}
+          subContainerClassName={'pages pagination'}
+          activeClassName={'active'}
+        />
       </div>
     );
   }
