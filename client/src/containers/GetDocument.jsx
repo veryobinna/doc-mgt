@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import { getDocument, getMyDocument, deleteDocument,searchDocument } from '../actions/DocumentActions';
+import ReactPaginate from 'react-paginate';
+import { getDocument, getMyDocument, deleteDocument, searchDocument } from '../actions/DocumentActions';
 import ShowDocument from '../components/ShowDocument';
 import SearchBar from '../components/SearchBar';
 
@@ -11,33 +12,67 @@ class GetDocument extends Component {
     super(props);
     this.state = {
       documents: [{}],
+      query: '',
+      offset: 0,
+      limit: 6,
+      search: false,
+      getDocument: false,
+      getMyDocument: false,
+      count:''
     };
     this.deleteDocument = this.deleteDocument.bind(this);
     this.onSearch = this.onSearch.bind(this);
+    this.getDocument = this.getDocument.bind(this);
+    this.getMyDocument = this.getMyDocument.bind(this);
+    this.onPageClick = this.onPageClick.bind(this);
   }
 
   componentWillMount() {
     console.log('the props', this.props.match.params.id)
     if (this.props.match.params.id) {
+      this.getMyDocument()
       console.log('we got to the getMyDocument area')
-      this.props.getMyDocument(this.props.match.params.id);
     }
     if (this.props.match.url === '/documents') {
 
-      this.props.getDocument();
+      this.getDocument()
     }
 
   }
 
   componentWillReceiveProps(nextProps) {
     console.log('we even recieved nextprops');
-    this.setState({ documents: nextProps.documents });
+    this.setState({ documents: nextProps.documents, count: nextProps.count });
 
   }
-  onSearch(e){
-    console.log('the search value', e.target.value);
-    const value = e.target.value;
-    this.props.searchDocument(value);
+
+  getMyDocument() {
+    this.setState({ search: false, getDocument: false, getMyDocument: true });
+    this.props.getMyDocument(this.props.match.params.id, this.state.limit, this.state.offset);
+
+
+  }
+  getDocument() {
+    this.setState({ search: false, getDocument: true, getMyDocument: false });
+    console.log(' limit and offset', this.state.limit, this.state.offset);
+
+    this.props.getDocument(this.state.limit, this.state.offset);
+
+  }
+
+
+  onSearch(event) {
+    if (event) {
+      this.state.query = event.target.value;
+      //this.setState({query:event.target.value})
+    }
+    this.setState({
+      search: true,
+      getDocument: false,
+      getMyDocument: false,
+    })
+    console.log('query, limit and offset', this.state.query, this.state.limit, this.state.offset);
+    this.props.searchDocument(this.state.query, this.state.limit, this.state.offset);
   }
 
   deleteDocument(id) {
@@ -46,7 +81,28 @@ class GetDocument extends Component {
         this.props.getDocument();
       });
   }
+  onPageClick(event) {
+    const selected = event.selected;
+    const offset = selected * 6;
+
+    if (this.state.search) {
+      this.setState({ offset },
+        this.onSearch // callback
+      );
+    }
+    if (this.state.getDocument) {
+      this.setState({ offset },
+        this.getDocument // callback
+      );
+    }
+    if (this.state.getMyDocument) {
+      this.setState({ offset },
+        this.getMyDocument // callback
+      );
+    }
+  }
   render() {
+    console.log('count', this.state.count)
     const documents = this.state.documents.map((document) => {
       const items = {
         id: document.id,
@@ -63,6 +119,20 @@ class GetDocument extends Component {
         <div className="row">
           {documents}
         </div>
+        <ReactPaginate
+          initialPage={this.state.initialPage}
+          previousLabel={'previous'}
+          nextLabel={'next'}
+          breakLabel={<a href="">...</a>}
+          breakClassName={'break-me'}
+          pageCount={Math.ceil(this.state.count / 6)}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={5}
+          onPageChange={this.onPageClick}
+          containerClassName={'pagination'}
+          subContainerClassName={'pages pagination'}
+          activeClassName={'active'}
+        />
       </div>
     );
   }
@@ -72,7 +142,9 @@ const mapDispatchToProps =
   dispatch => bindActionCreators({ getDocument, getMyDocument, deleteDocument, searchDocument }, dispatch);
 
 const mapStateToProps = state => ({
-  documents: state.documentReducer.documents
+  documents: state.documentReducer.documents.document,
+  count: state.documentReducer.documents.count
+
 });
 
 GetDocument.getDefaultProps = {

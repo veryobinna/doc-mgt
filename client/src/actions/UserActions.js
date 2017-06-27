@@ -7,8 +7,8 @@ const getUsersSuccess = payload => ({
   type: types.GET_USERS, payload
 });
 
-const getUsers = () => dispatch => axios
-  .get('/users')
+const getUsers = (limit, offset) => dispatch => axios
+  .get(`/users/?limit=${limit}&offset=${offset}`)
   .then((res) => {
     dispatch(getUsersSuccess(res.data));
   })
@@ -20,11 +20,11 @@ const searchUsersSuccess = payload => ({
   type: types.GET_USERS, payload
 });
 
-const searchUsers = value => dispatch => axios
-  .get(`/search/users/?q=${value}`)
+const searchUsers = (query, limit, offset) => dispatch => axios
+  .get(`/search/users/?q=${query}&limit=${limit}&offset=${offset}`)
   .then((res) => {
     console.log('the searche users are ',res)
-    dispatch(searchUsersSuccess(res.data.users));
+    dispatch(searchUsersSuccess(res.data));
   })
   .catch((error) => {
     toastr.error(error.response.data.message);
