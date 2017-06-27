@@ -20307,7 +20307,8 @@ var GetDocument = function (_Component) {
       limit: 6,
       search: false,
       getDocument: false,
-      getMyDocument: false
+      getMyDocument: false,
+      count: ''
     };
     _this.deleteDocument = _this.deleteDocument.bind(_this);
     _this.onSearch = _this.onSearch.bind(_this);
@@ -20334,7 +20335,7 @@ var GetDocument = function (_Component) {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
       console.log('we even recieved nextprops');
-      this.setState({ documents: nextProps.documents });
+      this.setState({ documents: nextProps.documents, count: nextProps.count });
     }
   }, {
     key: 'getMyDocument',
@@ -20398,6 +20399,7 @@ var GetDocument = function (_Component) {
     value: function render() {
       var _this3 = this;
 
+      console.log('count', this.state.count);
       var documents = this.state.documents.map(function (document) {
         var items = {
           id: document.id,
@@ -20427,7 +20429,7 @@ var GetDocument = function (_Component) {
             '...'
           ),
           breakClassName: 'break-me',
-          pageCount: this.state.pageCount,
+          pageCount: Math.ceil(this.state.count / 6),
           marginPagesDisplayed: 2,
           pageRangeDisplayed: 5,
           onPageChange: this.onPageClick,
@@ -26536,9 +26538,9 @@ var getUsersSuccess = function getUsersSuccess(payload) {
   };
 };
 
-var getUsers = function getUsers() {
+var getUsers = function getUsers(limit, offset) {
   return function (dispatch) {
-    return _axios2.default.get('/users').then(function (res) {
+    return _axios2.default.get('/users/?limit=' + limit + '&offset=' + offset).then(function (res) {
       dispatch(getUsersSuccess(res.data));
     }).catch(function (error) {
       _toastr2.default.error(error.response.data.message);
@@ -26552,11 +26554,11 @@ var searchUsersSuccess = function searchUsersSuccess(payload) {
   };
 };
 
-var searchUsers = function searchUsers(value) {
+var searchUsers = function searchUsers(query, limit, offset) {
   return function (dispatch) {
-    return _axios2.default.get('/search/users/?q=' + value).then(function (res) {
+    return _axios2.default.get('/search/users/?q=' + query + '&limit=' + limit + '&offset=' + offset).then(function (res) {
       console.log('the searche users are ', res);
-      dispatch(searchUsersSuccess(res.data.users));
+      dispatch(searchUsersSuccess(res.data));
     }).catch(function (error) {
       _toastr2.default.error(error.response.data.message);
     });
@@ -26963,6 +26965,10 @@ var _propTypes = __webpack_require__(8);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _reactPaginate = __webpack_require__(641);
+
+var _reactPaginate2 = _interopRequireDefault(_reactPaginate);
+
 var _UserActions = __webpack_require__(134);
 
 var _ShowDocument = __webpack_require__(135);
@@ -26994,29 +27000,70 @@ var GetUsers = function (_Component) {
     var _this = _possibleConstructorReturn(this, (GetUsers.__proto__ || Object.getPrototypeOf(GetUsers)).call(this, props));
 
     _this.state = {
-      users: [{}]
+      users: [{}],
+      query: '',
+      offset: 0,
+      limit: 5,
+      count: '',
+      search: false,
+      getUsers: false
+
     };
     _this.deleteUser = _this.deleteUser.bind(_this);
     _this.onSearch = _this.onSearch.bind(_this);
+    _this.onPageClick = _this.onPageClick.bind(_this);
+    _this.getUsers = _this.getUsers.bind(_this);
     return _this;
   }
 
   _createClass(GetUsers, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
-      this.props.getUsers();
+      this.getUsers();
+    }
+  }, {
+    key: 'getUsers',
+    value: function getUsers() {
+      this.setState({
+        search: false,
+        getUsers: true
+      });
+      this.props.getUsers(this.state.limit, this.state.offset);
+      console.log('the search qury, limit and offset', this.state.query, this.state.limit, this.state.offset);
     }
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
-      this.setState({ users: nextProps.users });
+      this.setState({ users: nextProps.users, count: nextProps.count });
     }
   }, {
     key: 'onSearch',
-    value: function onSearch(e) {
-      console.log('the search value', e.target.value);
-      var value = e.target.value;
-      this.props.searchUsers(value);
+    value: function onSearch(event) {
+      if (event) {
+        this.state.query = event.target.value;
+      }
+      this.setState({
+        search: true,
+        getUsers: false
+      });
+      console.log('the search qury, limit and offset', this.state.query, this.state.limit, this.state.offset);
+
+      this.props.searchUsers(this.state.query, this.state.limit, this.state.offset);
+    }
+  }, {
+    key: 'onPageClick',
+    value: function onPageClick(event) {
+      var selected = event.selected;
+      var offset = selected * 5;
+
+      if (this.state.search) {
+        this.setState({ offset: offset }, this.onSearch // callback
+        );
+      }
+      if (this.state.getUsers) {
+        this.setState({ offset: offset }, this.getUsers // callback
+        );
+      }
     }
   }, {
     key: 'deleteUser',
@@ -27053,7 +27100,25 @@ var GetUsers = function (_Component) {
           'div',
           { className: 'row' },
           users
-        )
+        ),
+        _react2.default.createElement(_reactPaginate2.default, {
+          initialPage: this.state.initialPage,
+          previousLabel: 'previous',
+          nextLabel: 'next',
+          breakLabel: _react2.default.createElement(
+            'a',
+            { href: '' },
+            '...'
+          ),
+          breakClassName: 'break-me',
+          pageCount: Math.ceil(this.state.count / 5),
+          marginPagesDisplayed: 2,
+          pageRangeDisplayed: 5,
+          onPageChange: this.onPageClick,
+          containerClassName: 'pagination',
+          subContainerClassName: 'pages pagination',
+          activeClassName: 'active'
+        })
       );
     }
   }]);
@@ -27067,7 +27132,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    users: state.usersReducer.users
+    users: state.usersReducer.users.users,
+    count: state.usersReducer.users.count
   };
 };
 

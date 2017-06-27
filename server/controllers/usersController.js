@@ -77,12 +77,17 @@ export default {
   },
   list(req, res) {
     return User
-      .findAll({
+      .findAndCountAll({
+        limit: Number.parseInt(req.query.limit, 10) || null,
+        offset: Number.parseInt(req.query.offset, 10) || null
         // include: [{
         //   model: Document,
         // }],
       })
-      .then(user => res.status(200).send(user))
+      .then(users => res.status(200).send({
+        users: users.rows,
+        count: users.count
+      }))
       .catch(error => res.status(400).json({
         message: error
       }));
@@ -104,7 +109,9 @@ export default {
   },
   search(req, res) {
     return User
-      .findAll({
+      .findAndCountAll({
+        limit: Number.parseInt(req.query.limit, 10) || null,
+        offset: Number.parseInt(req.query.offset, 10) || null,
         where: {
           $or: [
             { firstName: { $ilike: `%${req.query.q}%` } },
@@ -113,7 +120,10 @@ export default {
         }
       })
       .then((users) => {
-        res.status(200).send({ users });
+        res.status(200).send({
+          users: users.rows,
+          count: users.count
+        });
       })
       .catch(error => res.status(401).json({
         message: error

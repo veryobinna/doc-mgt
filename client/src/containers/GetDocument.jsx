@@ -18,6 +18,7 @@ class GetDocument extends Component {
       search: false,
       getDocument: false,
       getMyDocument: false,
+      count:''
     };
     this.deleteDocument = this.deleteDocument.bind(this);
     this.onSearch = this.onSearch.bind(this);
@@ -41,7 +42,7 @@ class GetDocument extends Component {
 
   componentWillReceiveProps(nextProps) {
     console.log('we even recieved nextprops');
-    this.setState({ documents: nextProps.documents });
+    this.setState({ documents: nextProps.documents, count: nextProps.count });
 
   }
 
@@ -101,6 +102,7 @@ class GetDocument extends Component {
     }
   }
   render() {
+    console.log('count', this.state.count)
     const documents = this.state.documents.map((document) => {
       const items = {
         id: document.id,
@@ -123,7 +125,7 @@ class GetDocument extends Component {
           nextLabel={'next'}
           breakLabel={<a href="">...</a>}
           breakClassName={'break-me'}
-          pageCount={this.state.pageCount}
+          pageCount={Math.ceil(this.state.count / 6)}
           marginPagesDisplayed={2}
           pageRangeDisplayed={5}
           onPageChange={this.onPageClick}
