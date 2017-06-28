@@ -7,7 +7,7 @@ services:
  - postgresql
 postgres:
  adapter: postgresql
- database: doc-mgt-db
+ database: doc-mgt-test
  username: postgres
 before_script:
   - psql -c 'create database travis;' -U postgres
