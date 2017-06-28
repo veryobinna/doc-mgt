@@ -48,7 +48,7 @@ class SeedData {
     const roles = [
       fakeData.adminRole, fakeData.regularRole, fakeData.moderatorRole
     ];
-    return db.Role.bulkCreate(roles);
+    return db.Roles.bulkCreate(roles);
   }
   /**
    * @desc it populates the user table
@@ -57,10 +57,10 @@ class SeedData {
    * @memberof SeedData
    */
   static populateUserTable() {
-    return db.User.create(validAdmin)
-     .then(() => db.User.create(validRegularUser1)
-       .then(() => db.User.create(validRegularUser2)
-         .then(() => db.User.create(validRegularUser3))));
+    return db.Users.create(validAdmin)
+     .then(() => db.Users.create(validRegularUser1)
+       .then(() => db.Users.create(validRegularUser2)
+         .then(() => db.Users.create(validRegularUser3))));
   }
   /**
    * @desc it popultes the document table
@@ -81,7 +81,7 @@ class SeedData {
       fakeData.document9,
       fakeData.document10,
     ];
-    return db.Document.bulkCreate(documents);
+    return db.Documents.bulkCreate(documents);
   }
 }
 export default SeedData;

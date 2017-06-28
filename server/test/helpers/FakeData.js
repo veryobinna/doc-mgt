@@ -4,7 +4,7 @@ const fakeData = {
   invalidEmailUser: {
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
-    username: faker.internet.userName(),
+    username: faker.name.firstName(),
     email: 'wrong data',
     password: faker.internet.password(),
     roleID: 1,
@@ -12,7 +12,7 @@ const fakeData = {
   invalidPasswordUser: {
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
-    username: faker.internet.userName(),
+    username: faker.name.firstName(),
     email: faker.internet.email(),
     password: '',
     roleID: 1,
@@ -21,7 +21,7 @@ const fakeData = {
   validAdmin: {
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
-    username: faker.internet.userName(),
+    username: faker.name.firstName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
     roleID: 3,
@@ -29,7 +29,7 @@ const fakeData = {
   validRegularUser1: {
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
-    username: faker.internet.userName(),
+    username: faker.name.firstName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
     roleID: 1,
@@ -37,7 +37,7 @@ const fakeData = {
   validRegularUser2: {
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
-    username: faker.internet.userName(),
+    username: faker.name.firstName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
     roleID: 1,
@@ -45,7 +45,7 @@ const fakeData = {
   validRegularUser3: {
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
-    username: faker.internet.userName(),
+    username: faker.name.firstName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
     roleID: 1,
@@ -53,7 +53,7 @@ const fakeData = {
   validRegularUser4: {
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
-    username: faker.internet.userName(),
+    username: faker.name.firstName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
     roleID: 1,
@@ -61,7 +61,7 @@ const fakeData = {
   validRegularUser5: {
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
-    username: faker.internet.userName(),
+    username: faker.name.firstName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
     roleID: 1,
@@ -110,7 +110,6 @@ const fakeData = {
     roleID: 1
   },
   document5: {
-    userId: 3,
     title: faker.lorem.word(),
     content: faker.lorem.paragraphs(),
     access: 'private',
@@ -136,14 +135,14 @@ const fakeData = {
     content: faker.lorem.paragraphs(),
     access: 'role',
     ownerID: 4,
-    roleID: 2
+    roleID: 1
   },
   document9: {
     title: faker.lorem.word(),
     content: faker.lorem.paragraphs(),
-    access: 'role',
-    ownerID: 5,
-    roleID: 2,
+    access: 'private',
+    ownerID: 2,
+    roleID: 1,
   },
   document10: {
     title: faker.lorem.word(),
@@ -171,7 +170,7 @@ const fakeData = {
     return {
       firstName: faker.name.firstName(),
       lastName: faker.name.lastName(),
-      username: faker.internet.userName(),
+      username: faker.name.firstName(),
       email: faker.internet.email(),
       roleID,
       password: faker.internet.password()

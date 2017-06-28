@@ -10,7 +10,7 @@
   "test": {
     "username": "obinna",
     "password": null,
-    "database": "doc-mgt_test",
+    "database": "doc-mgt-test",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
