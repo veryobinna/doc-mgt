@@ -12,12 +12,10 @@ const request = chai.request(app),
   adminUser = fakeData.validAdmin,
   validRegularUser1 = fakeData.validRegularUser1,
   validRegularUser2 = fakeData.validRegularUser2,
+  publicDocument1 = fakeData.generateRandomDocument('public'),
   privateDocument1 = fakeData.generateRandomDocument('private');
-  console.log('validate user1', adminUser)
-
   // emtptyTitleDocument = fakeData.emtptyTitleDocument,
   // emtptyContentDocument = fakeData.emtptyContentDocument,
-  // publicDocument1 = fakeData.generateRandomDocument('public'),
   // roleDocument1 = fakeData.generateRandomDocument('role'),
   // updateDocument1 = fakeData.generateRandomDocument('role'),
   // invalidAccessDocument = fakeData.generateRandomDocument('radnom');
@@ -51,7 +49,7 @@ describe('Documents', () => {
         });
      });
   });
-  after(() => {
+  after((done) => {
     log.info('message :  ', 'reseting Database...');
     db.sequelize.sync({ force: true }).then(() => {
       log.info('message :  ', 'Database reset succesful');
@@ -68,6 +66,18 @@ describe('Documents', () => {
           expect(res).to.have.status(201);
           expect(res.body.createdAt).to.not.equal(undefined);
           expect(res.body.title).to.equal(privateDocument1.title);
+          done();
+        });
+    });
+    it('it should allow users to create private access documents', (done) => {
+      request
+        .post('/documents')
+        .set({ 'x-access-token': regular1Token })
+        .send(publicDocument1)
+        .end((err, res) => {
+          expect(res).to.have.status(201);
+          expect(res.body.createdAt).to.not.equal(undefined);
+          expect(res.body.title).to.equal(publicDocument1.title);
           done();
         });
     });
