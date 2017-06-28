@@ -28,3 +28,4 @@ app.get('*', (req, res) => res.status(200).send({
 app.listen(port, () => {
   console.log(`Express is up on port ${port}`);
 });
+export default app;
