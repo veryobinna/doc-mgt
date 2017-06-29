@@ -21,26 +21,26 @@ const request = chai.request(app),
   // invalidAccessDocument = fakeData.generateRandomDocument('radnom');
 
 let adminToken, regular1Token, regular2Token;
- 
+
 
 describe('Documents', () => {
   before((done) => {
-     SeedData.init().then(() => {
-       console.log('fghkjl;',adminUser.email)
-      request
+    SeedData.init().then(() => {
+       console.log('fghkjl;', adminUser.email);
+       request
         .post('/login')
         .send({ loginID: adminUser.email, password: adminUser.password })
         .end((err, res) => {
-           console.log('fghkjlhjhjhjhjhj;',adminUser.email)
+          console.log('fghkjlhjhjhjhjhj;', adminUser.email);
           adminToken = res.body.token;
         });
-      request
+       request
         .post('/login')
         .send({ loginID: validRegularUser1.email, password: validRegularUser1.password })
         .end((err, res) => {
           regular1Token = res.body.token;
         });
-      request
+       request
         .post('/login')
         .send({ loginID: validRegularUser2.email, password: validRegularUser2.password })
         .end((err, res) => {
