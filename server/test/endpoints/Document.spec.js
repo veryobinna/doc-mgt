@@ -26,7 +26,6 @@ let adminToken, regular1Token, regular2Token;
 describe('Documents', () => {
   before((done) => {
     SeedData.init().then(() => {
-       console.log('fghkjl;', adminUser.email);
        request
         .post('/login')
         .send({ loginID: adminUser.email, password: adminUser.password })

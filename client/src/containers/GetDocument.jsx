@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
-import { getDocument, getMyDocument, deleteDocument, searchDocument } from '../actions/DocumentActions';
+import { getDocument, getMyDocument,
+  deleteDocument, searchDocument } from '../actions/DocumentActions';
 import ShowDocument from '../components/ShowDocument';
 import SearchBar from '../components/SearchBar';
 
@@ -18,7 +19,7 @@ class GetDocument extends Component {
       search: false,
       getDocument: false,
       getMyDocument: false,
-      count:''
+      count: ''
     };
     this.deleteDocument = this.deleteDocument.bind(this);
     this.onSearch = this.onSearch.bind(this);
@@ -78,7 +79,7 @@ class GetDocument extends Component {
   deleteDocument(id) {
     this.props.deleteDocument(id)
       .then(() => {
-        this.props.getDocument();
+        this.getDocument();
       });
   }
   onPageClick(event) {
