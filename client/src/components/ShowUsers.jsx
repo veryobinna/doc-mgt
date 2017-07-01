@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const ShowUsers = ({ id, firstName, lastName, username, email, roleID, deleteUser }) => (
+const ShowUsers = ({ id, firstName, lastName, username, email, roleID, roleName, deleteUser }) => (
   
 
 <ul className="collection">
@@ -10,7 +10,7 @@ const ShowUsers = ({ id, firstName, lastName, username, email, roleID, deleteUse
       <i className="material-icons circle">perm_identity</i>
       <span className="title">{firstName+' '+lastName}</span>
       <p>{email}</p>
-      <p>user level:{roleID}</p>
+      <p>user type:{roleName}</p>
       {  
       <div>
       <a

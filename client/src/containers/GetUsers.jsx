@@ -80,7 +80,7 @@ class GetUsers extends Component {
       });
   }
   render() {
-    console.log('this.props', this.props)
+    console.log('this.users details.......', this.state.users)
     const users = this.state.users.map((user) => {
       const items = {
         id: user.id,
@@ -89,6 +89,7 @@ class GetUsers extends Component {
         username: user.username,
         email: user.email,
         roleID: user.roleID,
+        roleName: `${user.Role}`,
         deleteUser: this.deleteUser
       };
       return <ShowUsers key={Math.random()} {...items} />;

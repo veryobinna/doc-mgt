@@ -8,8 +8,6 @@ const ShowDocument = ({ title, content, access, id, deleteDocument }) => (
       <div className="card white">
         <div className="card-content black-text">
           <span className="card-title">{title}</span>
-          <div>Access: {access}</div>
-
           <p dangerouslySetInnerHTML={{ __html: content }} />
         </div>
         <div className="card-action">
@@ -25,6 +23,8 @@ const ShowDocument = ({ title, content, access, id, deleteDocument }) => (
             href={`/#/document/${id}`}
             className=" waves-effect waves-light"
           ><i className="material-icons">visibility</i></a>
+                    <span>{access}</span>
+
         </div>
       </div>
     </div>

@@ -20,6 +20,7 @@ export default {
       }));
   },
   list(req, res) {
+    console.log('the role id from req is............', req.decoded.roleID);
     return Document
       .findAndCountAll({
         limit: Number.parseInt(req.query.limit, 10) || null,
@@ -35,7 +36,7 @@ export default {
             {
               access: 'role',
               roleID: {
-                $lte: `${req.decoded.roleID}`
+                $gte: `${req.decoded.roleID}`
               }
             }
           ]
@@ -109,13 +110,18 @@ export default {
               {
                 access: 'role',
                 roleID: {
-                  $lte: `${req.decoded.roleID}`
+                  $gte: `${req.decoded.roleID}`
                 }
               }
             ]
 
           }
-        }
+        },
+        include: {
+          model: User,
+          attributes: ['firstName', 'lastName']
+        },
+        order: [['updatedAt', 'DESC']]
       })
       .then(document => res.status(200).send({
         document: document.rows,

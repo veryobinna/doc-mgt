@@ -11,7 +11,7 @@ const loginReducer = (state = TokenValidator(), action) => {
     case types.LOG_OUT:
       logs = { login: action.payload };
 
-      return { ...state, ...TokenValidator(), ...logs};
+      return { ...state, ...TokenValidator(), ...logs };
     default:
       return state;
   }

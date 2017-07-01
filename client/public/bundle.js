@@ -20372,7 +20372,7 @@ var GetDocument = function (_Component) {
       var _this2 = this;
 
       this.props.deleteDocument(id).then(function () {
-        _this2.props.getDocument();
+        _this2.getDocument();
       });
     }
   }, {
@@ -26393,12 +26393,6 @@ var ShowDocument = function ShowDocument(_ref) {
             { className: 'card-title' },
             title
           ),
-          _react2.default.createElement(
-            'div',
-            null,
-            'Access: ',
-            access
-          ),
           _react2.default.createElement('p', { dangerouslySetInnerHTML: { __html: content } })
         ),
         _react2.default.createElement(
@@ -26431,6 +26425,11 @@ var ShowDocument = function ShowDocument(_ref) {
               { className: 'material-icons' },
               'visibility'
             )
+          ),
+          _react2.default.createElement(
+            'span',
+            null,
+            access
           )
         )
       )
@@ -26807,7 +26806,7 @@ var GetUsers = function (_Component) {
     value: function render() {
       var _this3 = this;
 
-      console.log('this.props', this.props);
+      console.log('this.users details.......', this.state.users);
       var users = this.state.users.map(function (user) {
         var items = {
           id: user.id,
@@ -26816,6 +26815,7 @@ var GetUsers = function (_Component) {
           username: user.username,
           email: user.email,
           roleID: user.roleID,
+          roleName: '' + user.Role,
           deleteUser: _this3.deleteUser
         };
         return _react2.default.createElement(_ShowUsers2.default, _extends({ key: Math.random() }, items));
@@ -47325,7 +47325,7 @@ var _reducers2 = _interopRequireDefault(_reducers);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (initialState) {
-    return (0, _redux.createStore)(_reducers2.default, (0, _redux.applyMiddleware)(_reduxLogger2.default, _reduxThunk2.default));
+    return (0, _redux.createStore)(_reducers2.default, initialState, (0, _redux.applyMiddleware)(_reduxLogger2.default, _reduxThunk2.default));
 };
 // import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
 
@@ -49530,6 +49530,7 @@ var ShowUsers = function ShowUsers(_ref) {
       username = _ref.username,
       email = _ref.email,
       roleID = _ref.roleID,
+      roleName = _ref.roleName,
       deleteUser = _ref.deleteUser;
   return _react2.default.createElement(
     'ul',
@@ -49555,8 +49556,8 @@ var ShowUsers = function ShowUsers(_ref) {
       _react2.default.createElement(
         'p',
         null,
-        'user level:',
-        roleID
+        'user type:',
+        roleName
       ),
       _react2.default.createElement(
         'div',
@@ -49691,8 +49692,8 @@ var Sidebar = function Sidebar(props) {
           _react2.default.createElement(
             'p',
             { className: 'side-bar-top-text' },
-            'User level: ',
-            props.status.user.roleID
+            'User type: ',
+            props.status.user.roleName
           )
         )
       ),
@@ -49719,7 +49720,7 @@ var Sidebar = function Sidebar(props) {
           ' My Documents'
         )
       ),
-      props.status.user.roleID === 3 && _react2.default.createElement(
+      props.status.user.roleID === 1 && _react2.default.createElement(
         'li',
         null,
         _react2.default.createElement(

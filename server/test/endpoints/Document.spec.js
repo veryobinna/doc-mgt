@@ -50,10 +50,11 @@ describe('Documents', () => {
   });
   after((done) => {
     log.info('message :  ', 'reseting Database...');
-    db.sequelize.sync({ force: true }).then(() => {
-      log.info('message :  ', 'Database reset succesful');
-      done();
-    });
+    // db.sequelize.sync({ force: true }).then(() => {
+    //   log.info('message :  ', 'Database reset succesful');
+    //   done();
+    // });
+    done();
   });
   describe('POST /documents/', () => {
     it('it should allow users to create private access documents', (done) => {

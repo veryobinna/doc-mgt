@@ -21,6 +21,13 @@ const Authenticate = {
         message: 'No Token provided'
       });
     }
+  },
+  verifyAdmin(req, res, next) {
+    if (req.decoded.roleID === 1) {
+      next();
+    } else {
+      res.status(401).send({ message: 'access denied' });
+    }
   }
 };
 

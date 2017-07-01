@@ -3,7 +3,8 @@ import models from '../models/';
 
 
 const User = models.Users;
-const Document = models.Documents;
+const Role = models.Roles;
+
 const secret = 'sinzu';
 
 export default {
@@ -37,6 +38,10 @@ export default {
           }, {
             email: req.body.loginID
           }]
+        },
+        include: {
+          model: Role,
+          attributes: ['name']
         }
 
       })
@@ -52,9 +57,10 @@ export default {
             lastName: user.lastName,
             username: user.username,
             email: user.email,
-            roleID: user.roleID
+            roleID: user.roleID,
+            roleName: user.Role.name
           };
-          const token = jwt.sign(userData, secret, { expiresIn: '1hr' });
+          const token = jwt.sign(userData, secret, { expiresIn: '12hr' });
           res.status(200).json({
             userData,
             message: 'User logged in successfully',
@@ -70,19 +76,15 @@ export default {
         message: error
       }));
   },
-  logout(req, res) {
-    res.status(200).json({
-      message: 'User logged out'
-    });
-  },
   list(req, res) {
     return User
       .findAndCountAll({
         limit: Number.parseInt(req.query.limit, 10) || null,
-        offset: Number.parseInt(req.query.offset, 10) || null
-        // include: [{
-        //   model: Document,
-        // }],
+        offset: Number.parseInt(req.query.offset, 10) || null,
+        include: {
+          model: Role,
+          attributes: ['name']
+        }
       })
       .then(users => res.status(200).send({
         users: users.rows,
@@ -130,12 +132,12 @@ export default {
       }));
   },
   update(req, res) {
-    if (req.params.id !== req.decoded.id && req.decoded.roleID === 3) {
+    if (req.params.id !== req.decoded.id && req.decoded.roleID === 1) {
       return User
         .findById(Number.parseInt(req.params.id, 10)).then((user) => {
           if (!user) {
             return res.status(404).send({
-              message: 'Usre not found, check the ID and try again',
+              message: 'User not found',
             });
           }
           user.update(req.body, { fields: Object.keys(req.body) })
@@ -159,7 +161,7 @@ export default {
    * @returns
    */
   destroy(req, res) {
-    if (req.params.id != req.decoded.id && req.decoded.roleID == 3) {
+    if (req.params.id != req.decoded.id && req.decoded.roleID == 1) {
       return User
         .findById(Number.parseInt(req.params.id, 10))
         .then((user) => {

@@ -25,9 +25,14 @@ route(app);
 app.get('*', (req, res) => res.status(200).send({
   message: 'Welcome to doc-mgt',
 }));
-db.sequelize.sync().done(() => {
-  app.listen(port, () => {
-    console.log(`Express is up on port ${port}`);
-  });
+
+app.listen(port, () => {
+  console.log(`Express is up on port ${port}`);
 });
 export default app;
+
+// db.sequelize.sync().done(() => {
+//   app.listen(port, () => {
+//     console.log(`Express is up on port ${port}`);
+//   });
+// });
