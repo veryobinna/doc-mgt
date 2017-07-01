@@ -20,7 +20,6 @@ export default {
       }));
   },
   list(req, res) {
-    console.log('the role id from req is............', req.decoded.roleID);
     return Document
       .findAndCountAll({
         limit: Number.parseInt(req.query.limit, 10) || null,
@@ -29,6 +28,9 @@ export default {
           $or: [
             {
               ownerID: `${req.decoded.id}`
+            },
+            {
+              roleID: 1
             },
             {
               access: 'public'
@@ -70,7 +72,7 @@ export default {
         } else {
           res.status(404)
             .json({
-              message: 'UserNotFoundError'
+              message: 'User Not Found'
             });
         }
       });
@@ -82,7 +84,7 @@ export default {
       .then((document) => {
         if (!document) {
           return res.status(404).send({
-            message: 'Document not found, please check the ID and try again'
+            message: 'Document not found'
           });
         }
         return res.status(200).send(document);
@@ -138,7 +140,7 @@ export default {
       .then((document) => {
         if (!document) {
           return res.status(404).send({
-            message: 'Document Not Found, please try again',
+            message: 'Document Not Found',
           });
         }
         return document

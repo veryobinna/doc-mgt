@@ -23,8 +23,7 @@ const ShowDocument = ({ title, content, access, id, deleteDocument }) => (
             href={`/#/document/${id}`}
             className=" waves-effect waves-light"
           ><i className="material-icons">visibility</i></a>
-                    <span>{access}</span>
-
+          <span>{access}</span>
         </div>
       </div>
     </div>
