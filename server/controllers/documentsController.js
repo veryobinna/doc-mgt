@@ -20,10 +20,12 @@ export default {
       }));
   },
   list(req, res) {
+    const offset = Number.parseInt(req.query.offset, 10),
+      limit = Number.parseInt(req.query.limit, 10);
     return Document
       .findAndCountAll({
-        limit: Number.parseInt(req.query.limit, 10) || null,
-        offset: Number.parseInt(req.query.offset, 10) || null,
+        limit,
+        offset,
         where: {
           $or: [
             {
@@ -44,30 +46,50 @@ export default {
           ]
         }
       })
-      .then(document => res.status(200).send({
-        document: document.rows,
-        count: document.count,
-      }))
+      .then((document) => {
+        const paginate = {
+          page: Math.floor(offset / limit) + 1,
+          pageSize: document.rows.length,
+          totalCount: document.count,
+          pageCount: Math.ceil(document.count / limit)
+
+        };
+        res.status(200).send({
+          document: document.rows,
+          paginate
+        });
+      })
       .catch(error => res.status(400).json({
         message: error
       }));
   },
   listUsersDocuments(req, res) {
+    const offset = Number.parseInt(req.query.offset, 10),
+      limit = Number.parseInt(req.query.limit, 10);
     return User.findById(Number.parseInt(req.params.id, 10))
       .then((user) => {
         if (user) {
           Document
             .findAndCountAll({
-              limit: Number.parseInt(req.query.limit, 10) || null,
-              offset: Number.parseInt(req.query.offset, 10) || null,
+              limit,
+              offset,
               where: {
                 ownerID: `${Number.parseInt(req.params.id, 10)}`
               }
             })
-            .then(document => res.status(200).send({
-              document: document.rows,
-              count: document.count,
-            }))
+            .then((document) => {
+              const paginate = {
+                page: Math.floor(offset / limit) + 1,
+                pageSize: document.rows.length,
+                totalCount: document.count,
+                pageCount: Math.ceil(document.count / limit)
+
+              };
+              res.status(200).send({
+                document: document.rows,
+                paginate
+              });
+            })
             .catch(error => res.status(400).send(error));
         } else {
           res.status(404)
@@ -78,9 +100,41 @@ export default {
       });
   },
   find(req, res) {
+    if (req.decoded.roleID === 1) {
+      return Document.findById(Number.parseInt(req.params.id, 10))
+      .then((document) => {
+        if (!document) {
+          return res.status(404).send({
+            message: 'Document not found'
+          });
+        }
+        return res.status(200).send(document);
+      })
+      .catch(error => res.status(400).json({
+        message: error
+      }));
+    }
     return Document
+      .findOne({
+        where: {
+          $and: {
+            id: Number.parseInt(req.params.id, 10),
+            $or: [
+              {
+                ownerID: `${req.decoded.id}`
+              },
+              {
+                access: 'public'
+              },
+              {
+                access: 'role',
+                roleID: `${req.decoded.roleID}`
+              }
+            ]
 
-      .findById(Number.parseInt(req.params.id, 10))
+          }
+        }
+      })
       .then((document) => {
         if (!document) {
           return res.status(404).send({
@@ -95,10 +149,16 @@ export default {
   },
 
   search(req, res) {
+    const offset = Number.parseInt(req.query.offset, 10),
+      limit = Number.parseInt(req.query.limit, 10);
+    if (req.decoded.roleId === 1) {
+
+    }
+
     return Document
       .findAndCountAll({
-        limit: Number.parseInt(req.query.limit, 10) || null,
-        offset: Number.parseInt(req.query.offset, 10) || null,
+        limit,
+        offset,
         where: {
           $and: {
             title: { $ilike: `%${req.query.q}%` },
@@ -111,9 +171,7 @@ export default {
               },
               {
                 access: 'role',
-                roleID: {
-                  $gte: `${req.decoded.roleID}`
-                }
+                roleID: `${req.decoded.roleID}`
               }
             ]
 
@@ -125,10 +183,19 @@ export default {
         },
         order: [['updatedAt', 'DESC']]
       })
-      .then(document => res.status(200).send({
-        document: document.rows,
-        count: document.count
-      }))
+      .then((document) => {
+        const paginate = {
+          page: Math.floor(offset / limit) + 1,
+          pageSize: document.rows.length,
+          totalCount: document.count,
+          pageCount: Math.ceil(document.count / limit)
+
+        };
+        res.status(200).send({
+          document: document.rows,
+          paginate
+        });
+      })
       .catch(error => res.status(401).json({
         message: error
       }));

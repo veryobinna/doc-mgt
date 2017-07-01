@@ -16,7 +16,7 @@ export default {
         username: req.body.username,
         email: req.body.email,
         password: req.body.password,
-        roleID: 1,
+        roleID: 3,
 
       })
       .then(user => res.status(201).send(user))
@@ -77,19 +77,30 @@ export default {
       }));
   },
   list(req, res) {
+    const offset = Number.parseInt(req.query.offset, 10),
+      limit = Number.parseInt(req.query.limit, 10);
     return User
       .findAndCountAll({
-        limit: Number.parseInt(req.query.limit, 10) || null,
-        offset: Number.parseInt(req.query.offset, 10) || null,
+        limit,
+        offset,
         include: {
           model: Role,
           attributes: ['name']
         }
       })
-      .then(users => res.status(200).send({
-        users: users.rows,
-        count: users.count
-      }))
+     .then((users) => {
+       const paginate = {
+         page: Math.floor(offset / limit) + 1,
+         pageSize: users.rows.length,
+         totalCount: users.count,
+         pageCount: Math.ceil(users.count / limit)
+
+       };
+       res.status(200).send({
+         users: users.rows,
+         paginate
+       });
+     })
       .catch(error => res.status(400).json({
         message: error
       }));
@@ -110,10 +121,12 @@ export default {
       }));
   },
   search(req, res) {
+    const offset = Number.parseInt(req.query.offset, 10),
+      limit = Number.parseInt(req.query.limit, 10);
     return User
       .findAndCountAll({
-        limit: Number.parseInt(req.query.limit, 10) || null,
-        offset: Number.parseInt(req.query.offset, 10) || null,
+        limit,
+        offset,
         where: {
           $or: [
             { firstName: { $ilike: `%${req.query.q}%` } },
@@ -122,9 +135,16 @@ export default {
         }
       })
       .then((users) => {
+        const paginate = {
+          page: Math.floor(offset / limit) + 1,
+          pageSize: users.rows.length,
+          totalCount: users.count,
+          pageCount: Math.ceil(users.count / limit)
+
+        };
         res.status(200).send({
           users: users.rows,
-          count: users.count
+          paginate
         });
       })
       .catch(error => res.status(401).json({
@@ -147,11 +167,10 @@ export default {
         .catch(error => res.status(400).json({
           message: error
         }));
-    } else {
-      res.status(404).json({
-        message: 'No access to edit user'
-      })
     }
+    res.status(404).json({
+      message: 'No access to edit user'
+    });
   },
 
   /**
@@ -180,11 +199,10 @@ export default {
         .catch(error => res.status(400).json({
           message: error
         }));
-    } else {
-      res.status(404).json({
-        message: 'No access to delete user'
-      })
     }
+    res.status(404).json({
+      message: 'No access to delete user'
+    });
   },
 
 };

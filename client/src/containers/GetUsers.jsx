@@ -17,7 +17,7 @@ class GetUsers extends Component {
       query: '',
       offset: 0,
       limit: 5,
-      count: '',
+      paginate: '',
       search: false,
       getUsers: false
 
@@ -42,7 +42,7 @@ class GetUsers extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ users: nextProps.users, count: nextProps.count });
+    this.setState({ users: nextProps.users, paginate: nextProps.paginate });
   }
 
   onSearch(event) {
@@ -106,7 +106,7 @@ class GetUsers extends Component {
           nextLabel={'next'}
           breakLabel={<a href="">...</a>}
           breakClassName={'break-me'}
-          pageCount={Math.ceil(this.state.count / 5)}
+          pageCount={this.state.paginate.pageCount}
           marginPagesDisplayed={2}
           pageRangeDisplayed={5}
           onPageChange={this.onPageClick}
@@ -124,7 +124,7 @@ const mapDispatchToProps =
 
 const mapStateToProps = state => ({
   users: state.usersReducer.users.users,
-  count: state.usersReducer.users.count
+  paginate: state.usersReducer.users.paginate
 });
 
 // GetDocument.getDefaultProps = {

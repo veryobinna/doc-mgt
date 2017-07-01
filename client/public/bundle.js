@@ -20308,7 +20308,7 @@ var GetDocument = function (_Component) {
       search: false,
       getDocument: false,
       getMyDocument: false,
-      count: ''
+      paginate: ''
     };
     _this.deleteDocument = _this.deleteDocument.bind(_this);
     _this.onSearch = _this.onSearch.bind(_this);
@@ -20335,7 +20335,7 @@ var GetDocument = function (_Component) {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
       console.log('we even recieved nextprops');
-      this.setState({ documents: nextProps.documents, count: nextProps.count });
+      this.setState({ documents: nextProps.documents, paginate: nextProps.paginate });
     }
   }, {
     key: 'getMyDocument',
@@ -20399,7 +20399,6 @@ var GetDocument = function (_Component) {
     value: function render() {
       var _this3 = this;
 
-      console.log('count', this.state.count);
       var documents = this.state.documents.map(function (document) {
         var items = {
           id: document.id,
@@ -20429,7 +20428,7 @@ var GetDocument = function (_Component) {
             '...'
           ),
           breakClassName: 'break-me',
-          pageCount: Math.ceil(this.state.count / 6),
+          pageCount: this.state.paginate.pageCount,
           marginPagesDisplayed: 2,
           pageRangeDisplayed: 5,
           onPageChange: this.onPageClick,
@@ -20451,7 +20450,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     documents: state.documentReducer.documents.document,
-    count: state.documentReducer.documents.count
+    paginate: state.documentReducer.documents.paginate
 
   };
 };
@@ -26731,7 +26730,7 @@ var GetUsers = function (_Component) {
       query: '',
       offset: 0,
       limit: 5,
-      count: '',
+      paginate: '',
       search: false,
       getUsers: false
 
@@ -26761,7 +26760,7 @@ var GetUsers = function (_Component) {
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
-      this.setState({ users: nextProps.users, count: nextProps.count });
+      this.setState({ users: nextProps.users, paginate: nextProps.paginate });
     }
   }, {
     key: 'onSearch',
@@ -26839,7 +26838,7 @@ var GetUsers = function (_Component) {
             '...'
           ),
           breakClassName: 'break-me',
-          pageCount: Math.ceil(this.state.count / 5),
+          pageCount: this.state.paginate.pageCount,
           marginPagesDisplayed: 2,
           pageRangeDisplayed: 5,
           onPageChange: this.onPageClick,
@@ -26861,7 +26860,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     users: state.usersReducer.users.users,
-    count: state.usersReducer.users.count
+    paginate: state.usersReducer.users.paginate
   };
 };
 
@@ -49716,7 +49715,7 @@ var Sidebar = function Sidebar(props) {
         null,
         _react2.default.createElement(
           _reactRouterDom.Link,
-          { to: '/mydocuments/' + props.status.user.roleID, className: 'waves-effect' },
+          { to: '/mydocuments/' + props.status.user.id, className: 'waves-effect' },
           ' My Documents'
         )
       ),
