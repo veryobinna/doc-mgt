@@ -50489,13 +50489,13 @@ var Login = function (_Component) {
       }
       return _react2.default.createElement(
         'div',
-        { className: 'container landing-page s-12' },
+        { className: 'landing-page' },
         _react2.default.createElement(
           'div',
           { className: 'row' },
           _react2.default.createElement(
             'div',
-            { className: 'col s6 offset-s6' },
+            { className: ' row-container col s6 m6 offset-s3 offset-m3 ' },
             _react2.default.createElement(
               'form',
               { onSubmit: this.onFormSubmit },
@@ -50673,118 +50673,122 @@ var Signup = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'row container landing-page' },
+        { className: 'row landing-page' },
         _react2.default.createElement(
-          'form',
-          { onSubmit: this.onFormSubmit, className: 'col s12' },
+          'div',
+          { className: 'row-container col s6 m6 offset-s3 offset-m3' },
           _react2.default.createElement(
-            'div',
-            { className: 'row' },
+            'form',
+            { onSubmit: this.onFormSubmit, className: 'col s12' },
             _react2.default.createElement(
               'div',
-              { className: 'input-field col s6' },
-              _react2.default.createElement('input', {
-                id: 'firstName',
-                type: 'text',
-                className: 'valdate',
-                value: this.state.firstName,
-                onChange: this.onInputChange
-              }),
+              { className: 'row' },
               _react2.default.createElement(
-                'label',
-                { htmlFor: 'firstName' },
-                'First Name'
+                'div',
+                { className: 'input-field col s6' },
+                _react2.default.createElement('input', {
+                  id: 'firstName',
+                  type: 'text',
+                  className: 'valdate',
+                  value: this.state.firstName,
+                  onChange: this.onInputChange
+                }),
+                _react2.default.createElement(
+                  'label',
+                  { htmlFor: 'firstName' },
+                  'First Name'
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'input-field col s6' },
+                _react2.default.createElement('input', {
+                  id: 'lastName',
+                  type: 'text',
+                  className: 'valdate',
+                  value: this.state.lastName,
+                  onChange: this.onInputChange
+                }),
+                _react2.default.createElement(
+                  'label',
+                  { htmlFor: 'lastName' },
+                  'Last Name'
+                )
               )
             ),
             _react2.default.createElement(
               'div',
-              { className: 'input-field col s6' },
-              _react2.default.createElement('input', {
-                id: 'lastName',
-                type: 'text',
-                className: 'valdate',
-                value: this.state.lastName,
-                onChange: this.onInputChange
-              }),
+              { className: 'row' },
               _react2.default.createElement(
-                'label',
-                { htmlFor: 'lastName' },
-                'Last Name'
+                'div',
+                { className: 'input-field col s12' },
+                _react2.default.createElement('input', {
+                  id: 'username',
+                  type: 'text',
+                  className: 'validate',
+                  value: this.state.username,
+                  onChange: this.onInputChange
+                }),
+                _react2.default.createElement(
+                  'label',
+                  { htmlFor: 'username' },
+                  'Username'
+                )
               )
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'row' },
+            ),
             _react2.default.createElement(
               'div',
-              { className: 'input-field col s12' },
-              _react2.default.createElement('input', {
-                id: 'username',
-                type: 'text',
-                className: 'validate',
-                value: this.state.username,
-                onChange: this.onInputChange
-              }),
+              { className: 'row' },
               _react2.default.createElement(
-                'label',
-                { htmlFor: 'username' },
-                'Username'
+                'div',
+                { className: 'input-field col s12' },
+                _react2.default.createElement('input', {
+                  id: 'email',
+                  type: 'text',
+                  className: 'validate',
+                  value: this.state.email,
+                  onChange: this.onInputChange
+                }),
+                _react2.default.createElement(
+                  'label',
+                  { htmlFor: 'email' },
+                  'Email'
+                )
               )
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'row' },
+            ),
             _react2.default.createElement(
               'div',
-              { className: 'input-field col s12' },
-              _react2.default.createElement('input', {
-                id: 'email',
-                type: 'text',
-                className: 'validate',
-                value: this.state.email,
-                onChange: this.onInputChange
-              }),
+              { className: 'row' },
               _react2.default.createElement(
-                'label',
-                { htmlFor: 'email' },
-                'Email'
+                'div',
+                { className: 'input-field col s12' },
+                _react2.default.createElement('input', {
+                  id: 'password',
+                  type: 'password',
+                  value: this.state.password,
+                  onChange: this.onInputChange
+                }),
+                _react2.default.createElement(
+                  'label',
+                  { htmlFor: 'password' },
+                  'Password'
+                )
               )
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'row' },
+            ),
             _react2.default.createElement(
-              'div',
-              { className: 'input-field col s12' },
-              _react2.default.createElement('input', {
-                id: 'password',
-                type: 'password',
-                value: this.state.password,
-                onChange: this.onInputChange
-              }),
+              'button',
+              { className: 'btn' },
+              'Submit'
+            ),
+            _react2.default.createElement(
+              'span',
+              { className: 'loginPS' },
+              ' Have an account? ',
               _react2.default.createElement(
-                'label',
-                { htmlFor: 'password' },
-                'Password'
+                _reactRouterDom.Link,
+                { to: '/login' },
+                'login here'
               )
-            )
-          ),
-          _react2.default.createElement(
-            'button',
-            { className: 'btn' },
-            'Submit'
-          ),
-          _react2.default.createElement(
-            'span',
-            { className: 'loginPS' },
-            ' Have an account? ',
-            _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/login' },
-              'login here'
             )
           )
         )
@@ -52493,7 +52497,7 @@ exports = module.exports = __webpack_require__(406)(undefined);
 
 
 // module
-exports.push([module.i, ".landing-page {\n  background-image: url(\"/dist/img/books.jpg\");\n  height: 100vh;\n  width: 300vh;\n  background-position: left;\n  color: black; }\n\nnav {\n  width: 77%;\n  background-color: #901111; }\n\n.navbar-fixed nav {\n  position: fixed;\n  left: 23.5%; }\n\n.document-container {\n  margin-left: 28%;\n  background-color: white; }\n\n.component-render {\n  width: 70%;\n  margin-left: 23rem; }\n\n.header {\n  margin-top: 0px;\n  font-size: 3.2rem;\n  text-align: center; }\n\n#mode-edit {\n  margin-top: 2.5rem; }\n\n.side-bar-top-icon {\n  font-size: 6rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-text {\n  margin-top: -2rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-email {\n  margin-top: -1rem;\n  margin-bottom: 0rem; }\n\n.loginPS {\n  margin-left: 2rem; }\n\n.image-holder {\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n  border-radius: 50%;\n  width: 4.3rem;\n  height: 4.3rem; }\n\n.sidebar-top {\n  background-image: url(\"/dist/img/office.jpg\");\n  color: rgba(255, 255, 255, 0.81);\n  text-align: center;\n  margin-bottom: -1rem; }\n\n.modal {\n  display: block;\n  margin-left: 34%;\n  margin-top: 2%; }\n\n.card-content {\n  height: 9rem;\n  overflow: hidden;\n  text-overflow: ellipsis; }\n\n.card .card-title {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  font-weight: 500; }\n\n.app-container {\n  width: 80%; }\n\n.secondary-content {\n  color: #901111; }\n\n.search-wrapper {\n  margin-top: 1px;\n  padding: 1px 0 0 0;\n  z-index: 2;\n  height: 46px; }\n\n.search-wrapper i.material-icons {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  cursor: pointer; }\n\n#search {\n  height: 45px; }\n\nbody {\n  display: flex;\n  min-height: 100vh;\n  flex-direction: column; }\n\nmain {\n  flex: 1 0 auto; }\n\n.page-footer {\n  background-color: #901111; }\n\n.pagination li.active {\n  background-color: #901111; }\n", ""]);
+exports.push([module.i, ".landing-page {\n  background-image: url(\"/dist/img/books.jpg\");\n  height: 100vh;\n  width: 100vw;\n  background-position: left;\n  color: white; }\n\n.row-container {\n  margin-top: 10%;\n  background-color: rgba(0, 0, 0, 0.3); }\n\nnav {\n  width: 77%;\n  background-color: #901111; }\n\n.navbar-fixed nav {\n  position: fixed;\n  left: 23.5%; }\n\n.document-container {\n  margin-left: 28%;\n  background-color: white; }\n\n.component-render {\n  width: 70%;\n  margin-left: 23rem; }\n\n.header {\n  margin-top: 0px;\n  font-size: 3.2rem;\n  text-align: center; }\n\n#mode-edit {\n  margin-top: 2.5rem; }\n\n.side-bar-top-icon {\n  font-size: 6rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-text {\n  margin-top: -2rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-email {\n  margin-top: -1rem;\n  margin-bottom: 0rem; }\n\n.loginPS {\n  margin-left: 2rem; }\n\n.image-holder {\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n  border-radius: 50%;\n  width: 4.3rem;\n  height: 4.3rem; }\n\n.sidebar-top {\n  background-image: url(\"/dist/img/office.jpg\");\n  color: rgba(255, 255, 255, 0.81);\n  text-align: center;\n  margin-bottom: -1rem; }\n\n.modal {\n  display: block;\n  margin-left: 34%;\n  margin-top: 2%; }\n\n.card-content {\n  height: 9rem;\n  overflow: hidden;\n  text-overflow: ellipsis; }\n\n.card .card-title {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  font-weight: 500; }\n\n.app-container {\n  width: 80%; }\n\n.secondary-content {\n  color: #901111; }\n\n.search-wrapper {\n  margin-top: 1px;\n  padding: 1px 0 0 0;\n  z-index: 2;\n  height: 46px; }\n\n.search-wrapper i.material-icons {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  cursor: pointer; }\n\n#search {\n  height: 45px; }\n\nbody {\n  display: flex;\n  min-height: 100vh;\n  flex-direction: column; }\n\nmain {\n  flex: 1 0 auto; }\n\n.page-footer {\n  background-color: #901111; }\n\n.pagination li.active {\n  background-color: #901111; }\n", ""]);
 
 // exports
 
