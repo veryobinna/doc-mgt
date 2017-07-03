@@ -8,9 +8,10 @@ const ShowSingleDocument = props => (
         <h4>{props.document.title}</h4>
         <p dangerouslySetInnerHTML={{ __html: props.document.content }} />
       </div>
+      {props.status.user.id===props.document.ownerID &&
       <div className="modal-footer">
         <a onClick={props.updateDocument} className="modal-action modal-close waves-effect waves-green btn-flat "><i className="large material-icons">mode_edit</i></a>
-      </div>
+      </div>}
     </div>
   </div>
 

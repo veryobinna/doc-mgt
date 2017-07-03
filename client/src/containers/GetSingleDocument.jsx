@@ -39,6 +39,7 @@ class GetSingleDocument extends Component {
         <ShowSingleDocument
           document={this.state.document}
           updateDocument={this.updateDocument}
+          status={this.props.status}
         />
       </div>
     );
@@ -48,7 +49,9 @@ const mapDispatchToProps =
   dispatch => bindActionCreators({ getSingleDocument }, dispatch);
 
 const mapStateToProps = state => ({
-  documents: state.documentReducer.documents
+  documents: state.documentReducer.documents,
+  status: state.login
+
 });
 // GetSingleDocument.contextTypes = {
 //   router: Proptypes.object.isRequired

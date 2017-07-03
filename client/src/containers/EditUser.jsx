@@ -49,7 +49,7 @@ componentWillReceiveProps(nextProps) {
 
   render() {
     return (
-      <div className="row container landing-page component-render">
+      <div className="row container  component-render">
         <form onSubmit={this.onFormSubmit} className="col s12">
           <div className="row">
             <div className="input-field col s6">

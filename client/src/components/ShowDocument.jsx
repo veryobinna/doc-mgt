@@ -15,7 +15,7 @@ const ShowDocument = ({ title, content, access, id, deleteDocument, firstName, l
           <span>{`${firstName} ${lastName}`}</span>
           <span className="doc-access">{access}</span>
           <div><a
-            className="waves-effect card-button-delete btn"
+            className="btn-floating waves-effect card-btn-delete btn"
             role="button"
             tabIndex="-1"
             onClick={() => { deleteDocument(id); }}
@@ -24,7 +24,7 @@ const ShowDocument = ({ title, content, access, id, deleteDocument, firstName, l
           </a> </div>
           <a
             href={`/#/document/${id}`}
-            className=" waves-effect card-button-view btn"
+            className="btn-floating waves-effect  btn"
           ><i className="material-icons left">visibility</i>View</a>
           <div className="clear"></div>
         </div>

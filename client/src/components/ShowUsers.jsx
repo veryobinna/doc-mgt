@@ -13,7 +13,7 @@ const ShowUsers = ({ id, firstName, lastName, username, email, roleID, roleName,
       <p>user type:{roleName}</p>
       <div>
       <a
-            className=" waves-effect waves-light secondary-content"
+            className="btn-floating btn-large waves-effect waves-light secondary-content"
             role="button"
             tabIndex="-1"
             onClick={() => { deleteUser(id) }}
@@ -23,7 +23,7 @@ const ShowUsers = ({ id, firstName, lastName, username, email, roleID, roleName,
           <Link
           id="mode-edit"
             to={`users/${id}`}
-            className=" waves-effect waves-light secondary-content"
+            className="btn-floating btn-large waves-effect waves-light secondary-content"
           ><i className="material-icons">mode_edit</i></Link>
           </div>
     </li>

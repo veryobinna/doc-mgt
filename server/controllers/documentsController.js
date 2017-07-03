@@ -283,18 +283,17 @@ export default {
       }));
   },
   update(req, res) {
-    return Document
-      .findOne({
-        where: {
-          id: Number.parseInt(req.params.id, 10),
-          ownerID: `${req.decoded.id}`
-        }
-      })
 
+    return Document
+      .findById(Number.parseInt(req.params.id, 10))
       .then((document) => {
         if (!document) {
           return res.status(404).send({
             message: 'Document Not Found',
+          });
+        } else if (document.ownerID !== req.decoded.id) {
+          return res.status(401).send({
+            message: 'Access Denied',
           });
         }
         return document

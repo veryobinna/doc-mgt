@@ -122,7 +122,7 @@ nav{
     background-color: #901111;
 }
 .btn{
-    background-color: #901111
+    background-color: #009999
 }
 .btn:hover{
       background-color: #b71111
@@ -131,22 +131,16 @@ nav{
 .pagination li a {
 cursor: pointer; 
 }
-.material-icons{
-        margin-right: 8px;
-    margin-left: -23px;
-}
+// .material-icons{
+//         margin-right: 8px;
+//     margin-left: -23px;
+// }
 .doc-access{
 float: right;
  }
- .card-button-delete{
-     font-size: 9px;
-    float: left;
-    width: 48%;
- }
- .card-button-view{
-    font-size: 9px;
-     float: right
- }
+.card-btn-delete{
+    float: right;
+}
  .clear{
      clear:both;
  }
