@@ -3,6 +3,7 @@ import logger from 'morgan';
 import bodyParser from 'body-parser';
 import path from 'path';
 import route from './server/routes/index';
+import db from './server/models/';
 
 // Set up the express app
 const app = express();
@@ -25,7 +26,18 @@ app.get('*', (req, res) => res.status(200).send({
   message: 'Welcome to doc-mgt',
 }));
 
+if (process.env.NODE_ENV === "test"){
 app.listen(port, () => {
   console.log(`Express is up on port ${port}`);
 });
+}else{
+db.sequelize.sync().done(() => {
+  app.listen(port, () => {
+    console.log(`Express is up on port ${port}`);
+  });
+});
+}
+
+
 export default app;
+

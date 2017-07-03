@@ -47,7 +47,8 @@ class Signup extends Component {
     }
 
     return (
-      <div className="row container landing-page">
+      <div className="row landing-page">
+        <div className="row-container col s6 m6 offset-s3 offset-m3">
         <form onSubmit={this.onFormSubmit} className="col s12">
           <div className="row">
             <div className="input-field col s6">
@@ -111,6 +112,7 @@ class Signup extends Component {
           <span className="loginPS"> Have an account? <Link to="/login">login here</Link></span>
 
         </form>
+        </div>
       </div>
     );
   }

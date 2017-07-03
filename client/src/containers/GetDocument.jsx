@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
-import { getDocument, getMyDocument, deleteDocument, searchDocument } from '../actions/DocumentActions';
+import {
+  getDocument, getMyDocument,
+  deleteDocument, searchDocument
+} from '../actions/DocumentActions';
 import ShowDocument from '../components/ShowDocument';
 import SearchBar from '../components/SearchBar';
 
@@ -11,14 +14,14 @@ class GetDocument extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      documents: [{}],
+      documents: [{ User: {} }],
       query: '',
       offset: 0,
       limit: 6,
       search: false,
       getDocument: false,
       getMyDocument: false,
-      count:''
+      paginate: ''
     };
     this.deleteDocument = this.deleteDocument.bind(this);
     this.onSearch = this.onSearch.bind(this);
@@ -42,7 +45,7 @@ class GetDocument extends Component {
 
   componentWillReceiveProps(nextProps) {
     console.log('we even recieved nextprops');
-    this.setState({ documents: nextProps.documents, count: nextProps.count });
+    this.setState({ documents: nextProps.documents, paginate: nextProps.paginate });
 
   }
 
@@ -78,7 +81,7 @@ class GetDocument extends Component {
   deleteDocument(id) {
     this.props.deleteDocument(id)
       .then(() => {
-        this.props.getDocument();
+        this.getDocument();
       });
   }
   onPageClick(event) {
@@ -102,13 +105,15 @@ class GetDocument extends Component {
     }
   }
   render() {
-    console.log('count', this.state.count)
+    console.log('the latest of ha we re doing......', this.state.documents)
     const documents = this.state.documents.map((document) => {
       const items = {
         id: document.id,
         title: document.title,
         content: document.content,
         access: document.access,
+        firstName: document.User.firstName,
+        lastName: document.User.lastName,
         deleteDocument: this.deleteDocument
       };
       return <ShowDocument key={Math.random()} {...items} />;
@@ -125,7 +130,7 @@ class GetDocument extends Component {
           nextLabel={'next'}
           breakLabel={<a href="">...</a>}
           breakClassName={'break-me'}
-          pageCount={Math.ceil(this.state.count / 6)}
+          pageCount={this.state.paginate.pageCount}
           marginPagesDisplayed={2}
           pageRangeDisplayed={5}
           onPageChange={this.onPageClick}
@@ -143,7 +148,7 @@ const mapDispatchToProps =
 
 const mapStateToProps = state => ({
   documents: state.documentReducer.documents.document,
-  count: state.documentReducer.documents.count
+  paginate: state.documentReducer.documents.paginate
 
 });
 

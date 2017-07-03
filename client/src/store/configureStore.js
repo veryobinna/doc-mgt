@@ -6,5 +6,6 @@ import rootReducer from '../reducers';
 
 export default initialState => createStore(
     rootReducer,
+    initialState,
     applyMiddleware(logger, thunk),
   );

@@ -3,7 +3,8 @@ import models from '../models/';
 
 
 const User = models.Users;
-const Document = models.Documents;
+const Role = models.Roles;
+
 const secret = 'sinzu';
 
 export default {
@@ -15,7 +16,7 @@ export default {
         username: req.body.username,
         email: req.body.email,
         password: req.body.password,
-        roleID: 1,
+        roleID: 3,
 
       })
       .then(user => res.status(201).send(user))
@@ -37,6 +38,10 @@ export default {
           }, {
             email: req.body.loginID
           }]
+        },
+        include: {
+          model: Role,
+          attributes: ['name']
         }
 
       })
@@ -52,9 +57,10 @@ export default {
             lastName: user.lastName,
             username: user.username,
             email: user.email,
-            roleID: user.roleID
+            roleID: user.roleID,
+            roleName: user.Role.name
           };
-          const token = jwt.sign(userData, secret, { expiresIn: '1hr' });
+          const token = jwt.sign(userData, secret, { expiresIn: '12hr' });
           res.status(200).json({
             userData,
             message: 'User logged in successfully',
@@ -70,24 +76,31 @@ export default {
         message: error
       }));
   },
-  logout(req, res) {
-    res.status(200).json({
-      message: 'User logged out'
-    });
-  },
   list(req, res) {
+    const offset = Number.parseInt(req.query.offset, 10) || 0,
+      limit = Number.parseInt(req.query.limit, 10) || 12;
     return User
       .findAndCountAll({
-        limit: Number.parseInt(req.query.limit, 10) || null,
-        offset: Number.parseInt(req.query.offset, 10) || null
-        // include: [{
-        //   model: Document,
-        // }],
+        limit,
+        offset,
+        include: {
+          model: Role,
+          attributes: ['name']
+        }
       })
-      .then(users => res.status(200).send({
-        users: users.rows,
-        count: users.count
-      }))
+     .then((users) => {
+       const paginate = {
+         page: Math.floor(offset / limit) + 1,
+         pageSize: users.rows.length,
+         totalCount: users.count,
+         pageCount: Math.ceil(users.count / limit)
+
+       };
+       res.status(200).send({
+         users: users.rows,
+         paginate
+       });
+     })
       .catch(error => res.status(400).json({
         message: error
       }));
@@ -108,10 +121,12 @@ export default {
       }));
   },
   search(req, res) {
+    const offset = Number.parseInt(req.query.offset, 10),
+      limit = Number.parseInt(req.query.limit, 10);
     return User
       .findAndCountAll({
-        limit: Number.parseInt(req.query.limit, 10) || null,
-        offset: Number.parseInt(req.query.offset, 10) || null,
+        limit,
+        offset,
         where: {
           $or: [
             { firstName: { $ilike: `%${req.query.q}%` } },
@@ -120,9 +135,16 @@ export default {
         }
       })
       .then((users) => {
+        const paginate = {
+          page: Math.floor(offset / limit) + 1,
+          pageSize: users.rows.length,
+          totalCount: users.count,
+          pageCount: Math.ceil(users.count / limit)
+
+        };
         res.status(200).send({
           users: users.rows,
-          count: users.count
+          paginate
         });
       })
       .catch(error => res.status(401).json({
@@ -130,12 +152,12 @@ export default {
       }));
   },
   update(req, res) {
-    if (req.params.id !== req.decoded.id && req.decoded.roleID === 3) {
+    if (req.params.id !== req.decoded.id && req.decoded.roleID === 1) {
       return User
         .findById(Number.parseInt(req.params.id, 10)).then((user) => {
           if (!user) {
             return res.status(404).send({
-              message: 'Usre not found, check the ID and try again',
+              message: 'User not found',
             });
           }
           user.update(req.body, { fields: Object.keys(req.body) })
@@ -145,11 +167,10 @@ export default {
         .catch(error => res.status(400).json({
           message: error
         }));
-    } else {
-      res.status(404).json({
-        message: 'No access to edit user'
-      })
     }
+    res.status(404).json({
+      message: 'No access to edit user'
+    });
   },
 
   /**
@@ -159,7 +180,7 @@ export default {
    * @returns
    */
   destroy(req, res) {
-    if (req.params.id != req.decoded.id && req.decoded.roleID == 3) {
+    if (req.params.id != req.decoded.id && req.decoded.roleID == 1) {
       return User
         .findById(Number.parseInt(req.params.id, 10))
         .then((user) => {
@@ -178,11 +199,10 @@ export default {
         .catch(error => res.status(400).json({
           message: error
         }));
-    } else {
-      res.status(404).json({
-        message: 'No access to delete user'
-      })
     }
+    res.status(404).json({
+      message: 'No access to delete user'
+    });
   },
 
 };

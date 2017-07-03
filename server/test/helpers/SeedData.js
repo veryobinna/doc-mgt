@@ -46,7 +46,7 @@ class SeedData {
    */
   static populateRoleTable() {
     const roles = [
-      fakeData.adminRole, fakeData.regularRole, fakeData.moderatorRole
+      fakeData.adminRole, fakeData.moderatorRole, fakeData.regularRole
     ];
     return db.Roles.bulkCreate(roles);
   }

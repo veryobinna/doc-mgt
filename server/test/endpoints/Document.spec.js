@@ -13,41 +13,42 @@ const request = chai.request(app),
   validRegularUser1 = fakeData.validRegularUser1,
   validRegularUser2 = fakeData.validRegularUser2,
   publicDocument1 = fakeData.generateRandomDocument('public'),
-  privateDocument1 = fakeData.generateRandomDocument('private');
-  // emtptyTitleDocument = fakeData.emtptyTitleDocument,
-  // emtptyContentDocument = fakeData.emtptyContentDocument,
-  // roleDocument1 = fakeData.generateRandomDocument('role'),
-  // updateDocument1 = fakeData.generateRandomDocument('role'),
+  roleDocument1 = fakeData.generateRandomDocument('role'),
+  invalidAccessDocument = fakeData.generateRandomDocument('random'),
+  privateDocument = fakeData.generateRandomDocument('private'),
+  updateDocument = fakeData.generateRandomDocument('role'),
+  emtptyTitleDocument = fakeData.emtptyTitleDocument,
+  emtptyContentDocument = fakeData.emtptyContentDocument;
   // invalidAccessDocument = fakeData.generateRandomDocument('radnom');
 
-let adminToken, regular1Token, regular2Token;
+let adminToken, regular1Token, regular2Token,
+  publicDocId, roleDocId, privateDocId,
+  adminDocsCount, regularDocsCount;
 
 
 describe('Documents', () => {
   before((done) => {
     SeedData.init().then(() => {
-       console.log('fghkjl;', adminUser.email);
-       request
+      request
         .post('/login')
         .send({ loginID: adminUser.email, password: adminUser.password })
         .end((err, res) => {
-          console.log('fghkjlhjhjhjhjhj;', adminUser.email);
           adminToken = res.body.token;
         });
-       request
+      request
         .post('/login')
         .send({ loginID: validRegularUser1.email, password: validRegularUser1.password })
         .end((err, res) => {
           regular1Token = res.body.token;
         });
-       request
+      request
         .post('/login')
         .send({ loginID: validRegularUser2.email, password: validRegularUser2.password })
         .end((err, res) => {
           regular2Token = res.body.token;
           done();
         });
-     });
+    });
   });
   after((done) => {
     log.info('message :  ', 'reseting Database...');
@@ -61,15 +62,16 @@ describe('Documents', () => {
       request
         .post('/documents')
         .set({ 'x-access-token': regular1Token })
-        .send(privateDocument1)
+        .send(privateDocument)
         .end((err, res) => {
           expect(res).to.have.status(201);
           expect(res.body.createdAt).to.not.equal(undefined);
-          expect(res.body.title).to.equal(privateDocument1.title);
+          expect(res.body.title).to.equal(privateDocument.title);
+          privateDocId = res.body.id;
           done();
         });
     });
-    it('it should allow users to create private access documents', (done) => {
+    it('it should allow users to create public access documents', (done) => {
       request
         .post('/documents')
         .set({ 'x-access-token': regular1Token })
@@ -78,8 +80,197 @@ describe('Documents', () => {
           expect(res).to.have.status(201);
           expect(res.body.createdAt).to.not.equal(undefined);
           expect(res.body.title).to.equal(publicDocument1.title);
+          publicDocId = res.body.id;
+          done();
+        });
+    });
+    it('it should allow users to create role access documents', (done) => {
+      request
+        .post('/documents')
+        .set({ 'x-access-token': regular1Token })
+        .send(roleDocument1)
+        .end((err, res) => {
+          expect(res).to.have.status(201);
+          expect(res.body.createdAt).to.not.equal(undefined);
+          expect(res.body.title).to.equal(roleDocument1.title);
+          roleDocId = res.body.id;
+          done();
+        });
+    });
+    it('it should not allow users to create documents without specifying role access', (done) => {
+      request
+        .post('/documents')
+        .set({ 'x-access-token': regular1Token })
+        .send(invalidAccessDocument)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.message.errors[0].message).to.equal(
+            'Access can either be public ,private or role');
+          done();
+        });
+    });
+    it('it should not allow users update documents that dont exist', (done) => {
+      request
+        .put('/documents/0')
+        .set({ 'x-access-token': regular1Token })
+        .send(publicDocument1)
+        .end((err, res) => {
+          expect(res).to.have.status(404);
+          expect(res.body.message).to.equal('Document Not Found');
+          done();
+        });
+    });
+    it('should not allow users to create empty content document', (done) => {
+      request
+        .post('/documents')
+        .set({ 'x-access-token': regular1Token })
+        .send(emtptyContentDocument)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.message.errors[0].message).to.equal('Content cannot be empty');
+          done();
+        });
+    });
+    it('should not allow users to create empty title document', (done) => {
+      request
+        .post('/documents')
+        .set({ 'x-access-token': regular1Token })
+        .send(emtptyTitleDocument)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.message.errors[0].message).to.equal('Title cannot be empty');
           done();
         });
     });
   });
+  describe('GET /documents/:id', () => {
+    it('should allow admin retrieve private documents', (done) => {
+      request
+        .get(`/documents/${privateDocId}`)
+        .set({ 'x-access-token': adminToken })
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body.title).to.equal(privateDocument.title);
+          done();
+        });
+    });
+    it(`should not allow regular user retrieve
+       private documents not created by user`, (done) => {
+      request
+        .get(`/documents/${privateDocId}`)
+        .set({ 'x-access-token': regular2Token })
+        .end((err, res) => {
+          expect(res).to.have.status(404);
+          expect(res.body.message).to.equal('Document not found');
+          done();
+        });
+    });
+    it(`it should allow regular user retrieve
+        private documents he created`, (done) => {
+      request
+        .get(`/documents/${privateDocId}`)
+        .set({ 'x-access-token': regular1Token })
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body.title).to.equal(privateDocument.title);
+          done();
+        });
+    });
+    it('it should allow allow regular users retrieve public', (done) => {
+      request
+        .get(`/documents/${publicDocId}`)
+        .set({ 'x-access-token': regular1Token })
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body.title).to.equal(publicDocument1.title);
+          done();
+        });
+    });
+    it(`it should allow allow regular
+       users retrieve role doucuments`, (done) => {
+      request
+        .get(`/documents/${roleDocId}`)
+        .set({ 'x-access-token': regular1Token })
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body.title).to.equal(roleDocument1.title);
+          done();
+        });
+    });
+    it('it should not display document that does not exist', (done) => {
+      request
+        .get('/documents/0')
+        .set({ 'x-access-token': regular1Token })
+        .end((err, res) => {
+          expect(res).to.have.status(404);
+          expect(res.body.message).to.equal('Document not found');
+          done();
+        });
+    });
+  });
+  describe('GET /documents', () => {
+    it(`The number of documents available to an admin
+      must be greateror equall to any other user`, (done) => {
+      request
+        .get('/documents/')
+        .set({ 'x-access-token': adminToken })
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body.document).to.be.an('array');
+          adminDocsCount = res.body.paginate.totalCount;
+          done();
+        });
+    });
+    it(`The number of documents available to an admin
+      must be greateror equall to any other user`, (done) => {
+      request
+        .get('/documents')
+        .set({ 'x-access-token': regular1Token })
+        .end((err, res) => {
+          regularDocsCount = res.body.paginate.totalCount;
+          expect(res).to.have.status(200);
+          expect(adminDocsCount).to.be.equal(regularDocsCount);
+          done();
+        });
+    });
+  });
+  describe('PUT /documents/:id', () => {
+    it('it should not allow users update documents they did not create', (done) => {
+      request
+        .put(`/documents/${publicDocId}`)
+        .set({ 'x-access-token': regular2Token })
+        .send(updateDocument)
+        .end((err, res) => {console.log('............check it',res.body)
+          expect(res).to.have.status(404);
+          //expect(res.body.msg).to.equal('unauthorized');
+          done();
+        });
+    });
+  //   it('it should not allow users update documents that dont exist', (done) => {
+  //     request
+  //       .put('/api/documents/44444')
+  //       .set({ 'x-access-token': regular1Token })
+  //       .send(updateDocument1)
+  //       .end((err, res) => {
+  //         expect(res).to.have.status(404);
+  //         expect(res.body.success).to.equal(false);
+  //         expect(res.body.msg).to.equal('document not found');
+  //         done();
+  //       });
+  //   });
+  //   it('it should allow users update documents created by them', (done) => {
+  //     request
+  //       .put(`/api/documents/${privateDocId1}`)
+  //       .set({ 'x-access-token': regular1Token })
+  //       .send(updateDocument1)
+  //       .end((err, res) => {
+  //         expect(res).to.have.status(200);
+  //         expect(res.body.success).to.equal(true);
+  //         expect(res.body.document.title).to.equal(updateDocument1.title);
+  //         done();
+  //       });
+  //   });
+  });
+
+
 });

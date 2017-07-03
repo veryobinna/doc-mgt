@@ -10,15 +10,13 @@ const Routes = (app) => {
   }));
 
   app.post('/users', usersController.create);
-  app.get('/users', authenticate.verifyToken, usersController.list);
+  app.get('/users', authenticate.verifyToken, authenticate.verifyAdmin, usersController.list);
   app.get('/users/:id', authenticate.verifyToken, usersController.find);
-  app.get('/search/users/', authenticate.verifyToken, usersController.search);
-  app.put('/users/:id', usersController.update);
-  app.delete('/users/:id', authenticate.verifyToken, usersController.destroy);
+  app.get('/search/users/', authenticate.verifyToken, authenticate.verifyAdmin, usersController.search);
+  app.put('/users/:id', authenticate.verifyToken, authenticate.verifyAdmin, usersController.update);
+  app.delete('/users/:id', authenticate.verifyToken, authenticate.verifyAdmin, usersController.destroy);
 
   app.post('/login', usersController.login);
-  app.post('/logout', usersController.logout);
-
 
   app.post('/documents',
   authenticate.verifyToken, documentsController.create);

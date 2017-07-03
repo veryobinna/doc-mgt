@@ -13,11 +13,11 @@ class GetUsers extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: [{}],
+      users: [{ Role: {} }],
       query: '',
       offset: 0,
       limit: 5,
-      count: '',
+      paginate: '',
       search: false,
       getUsers: false
 
@@ -29,20 +29,19 @@ class GetUsers extends Component {
   }
 
   componentWillMount() {
-    this.getUsers()
+    this.getUsers();
   }
   getUsers() {
     this.setState({
       search: false,
       getUsers: true,
-    })
+    });
     this.props.getUsers(this.state.limit, this.state.offset);
     console.log('the search qury, limit and offset', this.state.query, this.state.limit, this.state.offset);
-
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ users: nextProps.users, count: nextProps.count });
+    this.setState({ users: nextProps.users, paginate: nextProps.paginate });
   }
 
   onSearch(event) {
@@ -52,7 +51,7 @@ class GetUsers extends Component {
     this.setState({
       search: true,
       getUsers: false,
-    })
+    });
     console.log('the search qury, limit and offset', this.state.query, this.state.limit, this.state.offset);
 
     this.props.searchUsers(this.state.query, this.state.limit, this.state.offset);
@@ -76,11 +75,10 @@ class GetUsers extends Component {
     this.props.deleteUser(id)
       .then(() => {
         this.props.getUsers();
-
       });
   }
   render() {
-    console.log('this.props', this.props)
+    console.log('this.users details.......', this.state.users);
     const users = this.state.users.map((user) => {
       const items = {
         id: user.id,
@@ -89,6 +87,7 @@ class GetUsers extends Component {
         username: user.username,
         email: user.email,
         roleID: user.roleID,
+        roleName: `${user.Role.name}`,
         deleteUser: this.deleteUser
       };
       return <ShowUsers key={Math.random()} {...items} />;
@@ -105,7 +104,7 @@ class GetUsers extends Component {
           nextLabel={'next'}
           breakLabel={<a href="">...</a>}
           breakClassName={'break-me'}
-          pageCount={Math.ceil(this.state.count / 5)}
+          pageCount={this.state.paginate.pageCount}
           marginPagesDisplayed={2}
           pageRangeDisplayed={5}
           onPageChange={this.onPageClick}
@@ -123,19 +122,7 @@ const mapDispatchToProps =
 
 const mapStateToProps = state => ({
   users: state.usersReducer.users.users,
-  count: state.usersReducer.users.count
+  paginate: state.usersReducer.users.paginate
 });
-
-// GetDocument.getDefaultProps = {
-//   documents: {},
-//   getDocument: () => { },
-//   deleteDocument: () => { },
-
-// };
-// GetDocument.propTypes = {
-//   documents: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-//   getDocument: PropTypes.func,
-//   deleteDocument: PropTypes.func
-// };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GetUsers);
