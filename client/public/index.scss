@@ -1,7 +1,7 @@
 .landing-page{
-    //background-image: url('/img/books1.jpg');
-   background-size: 50%;
+    background-image: url('/dist/img/books.jpg');
     height: 100vh;
+    width: 300vh;
     background-position: left;
     color: black
 }
@@ -102,3 +102,18 @@ nav{
     #search{
         height: 45px;
     }
+      body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+  .page-footer{
+      background-color: #901111
+  }
+  .pagination li.active {
+    background-color: #901111;
+}

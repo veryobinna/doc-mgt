@@ -20,8 +20,33 @@ export default {
       }));
   },
   list(req, res) {
-    const offset = Number.parseInt(req.query.offset, 10),
-      limit = Number.parseInt(req.query.limit, 10);
+    const offset = Number.parseInt(req.query.offset, 10) || 0,
+      limit = Number.parseInt(req.query.limit, 10) || 12;
+    if (req.decoded.roleID === 1) {
+      return Document
+      .findAndCountAll({
+        limit,
+        offset,
+      })
+      .then((document) => {
+        const paginate = {
+          page: Math.floor(offset / limit) + 1,
+          pageSize: document.rows.length,
+          totalCount: document.count,
+          pageCount: Math.ceil(document.count / limit)
+
+        };
+        res.status(200).send({
+          document: document.rows,
+          paginate
+        });
+      })
+      .catch(error => res.status(400).json({
+        message: error
+      }));
+    }
+
+
     return Document
       .findAndCountAll({
         limit,
@@ -64,8 +89,8 @@ export default {
       }));
   },
   listUsersDocuments(req, res) {
-    const offset = Number.parseInt(req.query.offset, 10),
-      limit = Number.parseInt(req.query.limit, 10);
+    const offset = Number.parseInt(req.query.offset, 10) || 0,
+      limit = Number.parseInt(req.query.limit, 10) || 12;
     return User.findById(Number.parseInt(req.params.id, 10))
       .then((user) => {
         if (user) {
@@ -149,10 +174,38 @@ export default {
   },
 
   search(req, res) {
-    const offset = Number.parseInt(req.query.offset, 10),
-      limit = Number.parseInt(req.query.limit, 10);
-    if (req.decoded.roleId === 1) {
+    const offset = Number.parseInt(req.query.offset, 10) || 0,
+      limit = Number.parseInt(req.query.limit, 10) || 12;
+    if (req.decoded.roleID === 1) {
+      return Document
+      .findAndCountAll({
+        limit,
+        offset,
+        where: {
+          title: { $ilike: `%${req.query.q}%` }
+        },
+        include: {
+          model: User,
+          attributes: ['firstName', 'lastName']
+        },
+        order: [['updatedAt', 'DESC']]
+      })
+      .then((document) => {
+        const paginate = {
+          page: Math.floor(offset / limit) + 1,
+          pageSize: document.rows.length,
+          totalCount: document.count,
+          pageCount: Math.ceil(document.count / limit)
 
+        };
+        res.status(200).send({
+          document: document.rows,
+          paginate
+        });
+      })
+      .catch(error => res.status(401).json({
+        message: error
+      }));
     }
 
     return Document
@@ -202,7 +255,12 @@ export default {
   },
   update(req, res) {
     return Document
-      .findById(Number.parseInt(req.params.id, 10))
+      .findOne({
+        where: {
+          id: Number.parseInt(req.params.id, 10),
+          ownerID: `${req.decoded.id}`
+        }
+      })
 
       .then((document) => {
         if (!document) {
@@ -222,8 +280,34 @@ export default {
       }));
   },
   destroy(req, res) {
-    return Document
+    if (req.decoded.roleID === 1) {
+      return Document
       .findById(Number.parseInt(req.params.id, 10))
+      .then((document) => {
+        if (!document) {
+          return res.status(400).send({
+            message: 'Document Not Found',
+          });
+        }
+        return document
+          .destroy()
+          .then(() => res.status(204).send())
+          .catch(error => res.status(400).json({
+            message: error
+          }));
+      })
+      .catch(error => res.status(400).json({
+        message: error
+      }));
+    }
+
+    return Document
+      .findOne({
+        where: {
+          id: Number.parseInt(req.params.id, 10),
+          ownerID: `${req.decoded.id}`
+        }
+      })
       .then((document) => {
         if (!document) {
           return res.status(400).send({

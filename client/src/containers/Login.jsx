@@ -47,7 +47,7 @@ class Login extends Component {
       />);
     }
     return (
-      <div className="container landing-page">
+      <div className="container landing-page s-12">
         <div className="row">
           <div className="col s6 offset-s6">
             <form onSubmit={this.onFormSubmit}>

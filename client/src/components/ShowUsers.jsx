@@ -11,7 +11,6 @@ const ShowUsers = ({ id, firstName, lastName, username, email, roleID, roleName,
       <span className="title">{firstName+' '+lastName}</span>
       <p>{email}</p>
       <p>user type:{roleName}</p>
-      {  
       <div>
       <a
             className=" waves-effect waves-light secondary-content"
@@ -26,7 +25,7 @@ const ShowUsers = ({ id, firstName, lastName, username, email, roleID, roleName,
             to={`users/${id}`}
             className=" waves-effect waves-light secondary-content"
           ><i className="material-icons">mode_edit</i></Link>
-          </div>}
+          </div>
     </li>
   </ul>
 

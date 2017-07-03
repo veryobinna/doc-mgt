@@ -7,6 +7,7 @@ import { getDocument, getMyDocument,
   deleteDocument, searchDocument } from '../actions/DocumentActions';
 import ShowDocument from '../components/ShowDocument';
 import SearchBar from '../components/SearchBar';
+import Footer from '../components/Footer';
 
 class GetDocument extends Component {
   constructor(props) {
@@ -133,6 +134,7 @@ class GetDocument extends Component {
           subContainerClassName={'pages pagination'}
           activeClassName={'active'}
         />
+        <Footer />
       </div>
     );
   }

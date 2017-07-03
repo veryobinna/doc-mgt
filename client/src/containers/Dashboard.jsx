@@ -6,6 +6,7 @@ import {LoginAction, LogoutAction} from '../actions/LoginAction';
 import Documents from '../containers/GetDocument';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import GetUsers from '../containers/GetUsers';
 import GetDocument from '../containers/GetDocument';
 
