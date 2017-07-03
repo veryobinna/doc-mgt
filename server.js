@@ -26,13 +26,18 @@ app.get('*', (req, res) => res.status(200).send({
   message: 'Welcome to doc-mgt',
 }));
 
-// app.listen(port, () => {
-//   console.log(`Express is up on port ${port}`);
-// });
+if (process.env.NODE_ENV === "test"){
+app.listen(port, () => {
+  console.log(`Express is up on port ${port}`);
+});
+}else{
 db.sequelize.sync().done(() => {
   app.listen(port, () => {
     console.log(`Express is up on port ${port}`);
   });
 });
+}
+
+
 export default app;
 
