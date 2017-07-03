@@ -77,8 +77,8 @@ export default {
       }));
   },
   list(req, res) {
-    const offset = Number.parseInt(req.query.offset, 10),
-      limit = Number.parseInt(req.query.limit, 10);
+    const offset = Number.parseInt(req.query.offset, 10) || 0,
+      limit = Number.parseInt(req.query.limit, 10) || 12;
     return User
       .findAndCountAll({
         limit,

@@ -3,17 +3,18 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
-import { getDocument, getMyDocument,
-  deleteDocument, searchDocument } from '../actions/DocumentActions';
+import {
+  getDocument, getMyDocument,
+  deleteDocument, searchDocument
+} from '../actions/DocumentActions';
 import ShowDocument from '../components/ShowDocument';
 import SearchBar from '../components/SearchBar';
-import Footer from '../components/Footer';
 
 class GetDocument extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      documents: [{}],
+      documents: [{ User: {} }],
       query: '',
       offset: 0,
       limit: 6,
@@ -104,12 +105,15 @@ class GetDocument extends Component {
     }
   }
   render() {
+    console.log('the latest of ha we re doing......', this.state.documents)
     const documents = this.state.documents.map((document) => {
       const items = {
         id: document.id,
         title: document.title,
         content: document.content,
         access: document.access,
+        firstName: document.User.firstName,
+        lastName: document.User.lastName,
         deleteDocument: this.deleteDocument
       };
       return <ShowDocument key={Math.random()} {...items} />;
@@ -134,7 +138,6 @@ class GetDocument extends Component {
           subContainerClassName={'pages pagination'}
           activeClassName={'active'}
         />
-        <Footer />
       </div>
     );
   }

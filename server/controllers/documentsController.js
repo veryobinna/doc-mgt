@@ -24,26 +24,31 @@ export default {
       limit = Number.parseInt(req.query.limit, 10) || 12;
     if (req.decoded.roleID === 1) {
       return Document
-      .findAndCountAll({
-        limit,
-        offset,
-      })
-      .then((document) => {
-        const paginate = {
-          page: Math.floor(offset / limit) + 1,
-          pageSize: document.rows.length,
-          totalCount: document.count,
-          pageCount: Math.ceil(document.count / limit)
+        .findAndCountAll({
+          limit,
+          offset,
+          include: {
+            model: User,
+            attributes: ['firstName', 'lastName']
+          },
+          order: [['updatedAt', 'DESC']]
+        })
+        .then((document) => {
+          const paginate = {
+            page: Math.floor(offset / limit) + 1,
+            pageSize: document.rows.length,
+            totalCount: document.count,
+            pageCount: Math.ceil(document.count / limit)
 
-        };
-        res.status(200).send({
-          document: document.rows,
-          paginate
-        });
-      })
-      .catch(error => res.status(400).json({
-        message: error
-      }));
+          };
+          res.status(200).send({
+            document: document.rows,
+            paginate
+          });
+        })
+        .catch(error => res.status(400).json({
+          message: error
+        }));
     }
 
 
@@ -69,7 +74,12 @@ export default {
               }
             }
           ]
-        }
+        },
+        include: {
+          model: User,
+          attributes: ['firstName', 'lastName']
+        },
+        order: [['updatedAt', 'DESC']]
       })
       .then((document) => {
         const paginate = {
@@ -100,7 +110,12 @@ export default {
               offset,
               where: {
                 ownerID: `${Number.parseInt(req.params.id, 10)}`
-              }
+              },
+              include: {
+                model: User,
+                attributes: ['firstName', 'lastName']
+              },
+              order: [['updatedAt', 'DESC']]
             })
             .then((document) => {
               const paginate = {
@@ -126,18 +141,27 @@ export default {
   },
   find(req, res) {
     if (req.decoded.roleID === 1) {
-      return Document.findById(Number.parseInt(req.params.id, 10))
-      .then((document) => {
-        if (!document) {
-          return res.status(404).send({
-            message: 'Document not found'
-          });
-        }
-        return res.status(200).send(document);
-      })
-      .catch(error => res.status(400).json({
-        message: error
-      }));
+      return Document
+        .findOne({
+          where: {
+            id: Number.parseInt(req.params.id, 10)
+          },
+          include: {
+            model: User,
+            attributes: ['firstName', 'lastName']
+          },
+          order: [['updatedAt', 'DESC']]
+        }).then((document) => {
+          if (!document) {
+            return res.status(404).send({
+              message: 'Document not found'
+            });
+          }
+          return res.status(200).send(document);
+        })
+        .catch(error => res.status(400).json({
+          message: error
+        }));
     }
     return Document
       .findOne({
@@ -158,7 +182,12 @@ export default {
             ]
 
           }
-        }
+        },
+        include: {
+          model: User,
+          attributes: ['firstName', 'lastName']
+        },
+        order: [['updatedAt', 'DESC']]
       })
       .then((document) => {
         if (!document) {
@@ -178,34 +207,34 @@ export default {
       limit = Number.parseInt(req.query.limit, 10) || 12;
     if (req.decoded.roleID === 1) {
       return Document
-      .findAndCountAll({
-        limit,
-        offset,
-        where: {
-          title: { $ilike: `%${req.query.q}%` }
-        },
-        include: {
-          model: User,
-          attributes: ['firstName', 'lastName']
-        },
-        order: [['updatedAt', 'DESC']]
-      })
-      .then((document) => {
-        const paginate = {
-          page: Math.floor(offset / limit) + 1,
-          pageSize: document.rows.length,
-          totalCount: document.count,
-          pageCount: Math.ceil(document.count / limit)
+        .findAndCountAll({
+          limit,
+          offset,
+          where: {
+            title: { $ilike: `%${req.query.q}%` }
+          },
+          include: {
+            model: User,
+            attributes: ['firstName', 'lastName']
+          },
+          order: [['updatedAt', 'DESC']]
+        })
+        .then((document) => {
+          const paginate = {
+            page: Math.floor(offset / limit) + 1,
+            pageSize: document.rows.length,
+            totalCount: document.count,
+            pageCount: Math.ceil(document.count / limit)
 
-        };
-        res.status(200).send({
-          document: document.rows,
-          paginate
-        });
-      })
-      .catch(error => res.status(401).json({
-        message: error
-      }));
+          };
+          res.status(200).send({
+            document: document.rows,
+            paginate
+          });
+        })
+        .catch(error => res.status(401).json({
+          message: error
+        }));
     }
 
     return Document
@@ -282,23 +311,23 @@ export default {
   destroy(req, res) {
     if (req.decoded.roleID === 1) {
       return Document
-      .findById(Number.parseInt(req.params.id, 10))
-      .then((document) => {
-        if (!document) {
-          return res.status(400).send({
-            message: 'Document Not Found',
-          });
-        }
-        return document
-          .destroy()
-          .then(() => res.status(204).send())
-          .catch(error => res.status(400).json({
-            message: error
-          }));
-      })
-      .catch(error => res.status(400).json({
-        message: error
-      }));
+        .findById(Number.parseInt(req.params.id, 10))
+        .then((document) => {
+          if (!document) {
+            return res.status(400).send({
+              message: 'Document Not Found',
+            });
+          }
+          return document
+            .destroy()
+            .then(() => res.status(204).send())
+            .catch(error => res.status(400).json({
+              message: error
+            }));
+        })
+        .catch(error => res.status(400).json({
+          message: error
+        }));
     }
 
     return Document

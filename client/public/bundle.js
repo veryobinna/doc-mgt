@@ -20284,10 +20284,6 @@ var _SearchBar = __webpack_require__(135);
 
 var _SearchBar2 = _interopRequireDefault(_SearchBar);
 
-var _Footer = __webpack_require__(134);
-
-var _Footer2 = _interopRequireDefault(_Footer);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20305,7 +20301,7 @@ var GetDocument = function (_Component) {
     var _this = _possibleConstructorReturn(this, (GetDocument.__proto__ || Object.getPrototypeOf(GetDocument)).call(this, props));
 
     _this.state = {
-      documents: [{}],
+      documents: [{ User: {} }],
       query: '',
       offset: 0,
       limit: 6,
@@ -20403,12 +20399,15 @@ var GetDocument = function (_Component) {
     value: function render() {
       var _this3 = this;
 
+      console.log('the latest of ha we re doing......', this.state.documents);
       var documents = this.state.documents.map(function (document) {
         var items = {
           id: document.id,
           title: document.title,
           content: document.content,
           access: document.access,
+          firstName: document.User.firstName,
+          lastName: document.User.lastName,
           deleteDocument: _this3.deleteDocument
         };
         return _react2.default.createElement(_ShowDocument2.default, _extends({ key: Math.random() }, items));
@@ -20439,8 +20438,7 @@ var GetDocument = function (_Component) {
           containerClassName: 'pagination',
           subContainerClassName: 'pages pagination',
           activeClassName: 'active'
-        }),
-        _react2.default.createElement(_Footer2.default, null)
+        })
       );
     }
   }]);
@@ -26310,42 +26308,7 @@ exports.getSingleUser = getSingleUser;
 exports.searchUsers = searchUsers;
 
 /***/ }),
-/* 134 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(6);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouterDom = __webpack_require__(21);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Footer = function Footer() {
-  return _react2.default.createElement(
-    'footer',
-    { className: 'page-footer' },
-    _react2.default.createElement(
-      'div',
-      { className: 'footer-copyright' },
-      _react2.default.createElement(
-        'div',
-        { className: 'container' },
-        '\xA9 2017 Obinna Okwuolisa'
-      )
-    )
-  );
-};
-exports.default = Footer;
-
-/***/ }),
+/* 134 */,
 /* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26415,7 +26378,9 @@ var ShowDocument = function ShowDocument(_ref) {
       content = _ref.content,
       access = _ref.access,
       id = _ref.id,
-      deleteDocument = _ref.deleteDocument;
+      deleteDocument = _ref.deleteDocument,
+      firstName = _ref.firstName,
+      lastName = _ref.lastName;
   return _react2.default.createElement(
     'div',
     { className: ' n' },
@@ -26439,38 +26404,51 @@ var ShowDocument = function ShowDocument(_ref) {
           'div',
           { className: 'card-action' },
           _react2.default.createElement(
-            'a',
-            {
-              className: ' waves-effect waves-light',
-              role: 'button',
-              tabIndex: '-1',
-              onClick: function onClick() {
-                deleteDocument(id);
-              }
-            },
+            'span',
+            null,
+            firstName + ' ' + lastName
+          ),
+          _react2.default.createElement(
+            'span',
+            { className: 'doc-access' },
+            access
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
             _react2.default.createElement(
-              'i',
-              { className: 'material-icons' },
-              'delete'
-            )
+              'a',
+              {
+                className: 'waves-effect card-button-delete btn',
+                role: 'button',
+                tabIndex: '-1',
+                onClick: function onClick() {
+                  deleteDocument(id);
+                }
+              },
+              _react2.default.createElement(
+                'i',
+                { className: 'material-icons left' },
+                'delete'
+              ),
+              'Delete'
+            ),
+            ' '
           ),
           _react2.default.createElement(
             'a',
             {
               href: '/#/document/' + id,
-              className: ' waves-effect waves-light'
+              className: ' waves-effect card-button-view btn'
             },
             _react2.default.createElement(
               'i',
-              { className: 'material-icons' },
+              { className: 'material-icons left' },
               'visibility'
-            )
+            ),
+            'View'
           ),
-          _react2.default.createElement(
-            'span',
-            null,
-            access
-          )
+          _react2.default.createElement('div', { className: 'clear' })
         )
       )
     )
@@ -49998,10 +49976,6 @@ var _Navbar = __webpack_require__(371);
 
 var _Navbar2 = _interopRequireDefault(_Navbar);
 
-var _Footer = __webpack_require__(134);
-
-var _Footer2 = _interopRequireDefault(_Footer);
-
 var _GetUsers = __webpack_require__(138);
 
 var _GetUsers2 = _interopRequireDefault(_GetUsers);
@@ -52497,7 +52471,7 @@ exports = module.exports = __webpack_require__(406)(undefined);
 
 
 // module
-exports.push([module.i, ".landing-page {\n  background-image: url(\"/dist/img/books.jpg\");\n  height: 100vh;\n  width: 100vw;\n  background-position: left;\n  color: white; }\n\n.row-container {\n  margin-top: 10%;\n  background-color: rgba(0, 0, 0, 0.3); }\n\nnav {\n  width: 77%;\n  background-color: #901111; }\n\n.navbar-fixed nav {\n  position: fixed;\n  left: 23.5%; }\n\n.document-container {\n  margin-left: 28%;\n  background-color: white; }\n\n.component-render {\n  width: 70%;\n  margin-left: 23rem; }\n\n.header {\n  margin-top: 0px;\n  font-size: 3.2rem;\n  text-align: center; }\n\n#mode-edit {\n  margin-top: 2.5rem; }\n\n.side-bar-top-icon {\n  font-size: 6rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-text {\n  margin-top: -2rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-email {\n  margin-top: -1rem;\n  margin-bottom: 0rem; }\n\n.loginPS {\n  margin-left: 2rem; }\n\n.image-holder {\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n  border-radius: 50%;\n  width: 4.3rem;\n  height: 4.3rem; }\n\n.sidebar-top {\n  background-image: url(\"/dist/img/office.jpg\");\n  color: rgba(255, 255, 255, 0.81);\n  text-align: center;\n  margin-bottom: -1rem; }\n\n.modal {\n  display: block;\n  margin-left: 34%;\n  margin-top: 2%; }\n\n.card-content {\n  height: 9rem;\n  overflow: hidden;\n  text-overflow: ellipsis; }\n\n.card .card-title {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  font-weight: 500; }\n\n.app-container {\n  width: 80%; }\n\n.secondary-content {\n  color: #901111; }\n\n.search-wrapper {\n  margin-top: 1px;\n  padding: 1px 0 0 0;\n  z-index: 2;\n  height: 46px; }\n\n.search-wrapper i.material-icons {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  cursor: pointer; }\n\n#search {\n  height: 45px; }\n\nbody {\n  display: flex;\n  min-height: 100vh;\n  flex-direction: column; }\n\nmain {\n  flex: 1 0 auto; }\n\n.page-footer {\n  background-color: #901111; }\n\n.pagination li.active {\n  background-color: #901111; }\n", ""]);
+exports.push([module.i, ".landing-page {\n  background-image: url(\"/dist/img/books.jpg\");\n  height: 100vh;\n  width: 100vw;\n  background-position: left;\n  color: white; }\n\n.row-container {\n  margin-top: 10%;\n  background-color: rgba(0, 0, 0, 0.3); }\n\nnav {\n  width: 77%;\n  background-color: #901111; }\n\n.navbar-fixed nav {\n  position: fixed;\n  left: 23.5%; }\n\n.document-container {\n  margin-left: 28%;\n  background-color: white; }\n\n.component-render {\n  width: 70%;\n  margin-left: 23rem; }\n\n.header {\n  margin-top: 0px;\n  font-size: 3.2rem;\n  text-align: center; }\n\n#mode-edit {\n  margin-top: 2.5rem; }\n\n.side-bar-top-icon {\n  font-size: 6rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-text {\n  margin-top: -2rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-email {\n  margin-top: -1rem;\n  margin-bottom: 0rem; }\n\n.loginPS {\n  margin-left: 2rem; }\n\n.image-holder {\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n  border-radius: 50%;\n  width: 4.3rem;\n  height: 4.3rem; }\n\n.sidebar-top {\n  background-image: url(\"/dist/img/office.jpg\");\n  color: rgba(255, 255, 255, 0.81);\n  text-align: center;\n  margin-bottom: -1rem; }\n\n.modal {\n  display: block;\n  margin-left: 34%;\n  margin-top: 2%; }\n\n.card-content {\n  height: 9rem;\n  overflow: hidden;\n  text-overflow: ellipsis; }\n\n.card .card-title {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  font-weight: 500; }\n\n.app-container {\n  width: 80%; }\n\n.secondary-content {\n  color: #901111; }\n\n.search-wrapper {\n  margin-top: 1px;\n  padding: 1px 0 0 0;\n  z-index: 2;\n  height: 46px; }\n\n.search-wrapper i.material-icons {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  cursor: pointer; }\n\n#search {\n  height: 45px; }\n\nbody {\n  display: flex;\n  min-height: 100vh;\n  flex-direction: column; }\n\nmain {\n  flex: 1 0 auto; }\n\n.page-footer {\n  background-color: #901111; }\n\n.pagination li.active {\n  background-color: #901111; }\n\n.btn {\n  background-color: #901111; }\n\n.btn:hover {\n  background-color: #b71111; }\n\n.pagination li a {\n  cursor: pointer; }\n\n.material-icons {\n  margin-right: 8px;\n  margin-left: -23px; }\n\n.doc-access {\n  float: right; }\n\n.card-button-delete {\n  font-size: 9px;\n  float: left;\n  width: 48%; }\n\n.card-button-view {\n  font-size: 9px;\n  float: right; }\n\n.clear {\n  clear: both; }\n", ""]);
 
 // exports
 

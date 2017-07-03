@@ -70,8 +70,8 @@ nav{
     }
     .modal{
         display: block;
-            margin-left: 34%;
-    margin-top: 2%;
+        margin-left: 34%;
+        margin-top: 2%;
     }
     .card-content{
         height: 9rem;
@@ -121,3 +121,32 @@ nav{
   .pagination li.active {
     background-color: #901111;
 }
+.btn{
+    background-color: #901111
+}
+.btn:hover{
+      background-color: #b71111
+  
+}
+.pagination li a {
+cursor: pointer; 
+}
+.material-icons{
+        margin-right: 8px;
+    margin-left: -23px;
+}
+.doc-access{
+float: right;
+ }
+ .card-button-delete{
+     font-size: 9px;
+    float: left;
+    width: 48%;
+ }
+ .card-button-view{
+    font-size: 9px;
+     float: right
+ }
+ .clear{
+     clear:both;
+ }
