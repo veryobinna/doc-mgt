@@ -2,7 +2,7 @@ export default (sequelize, DataTypes) => {
   const Roles = sequelize.define('Roles', {
     name: {
       type: DataTypes.STRING,
-      unique:{
+      unique: {
         args: true,
         msg: 'Role already exists'
       },

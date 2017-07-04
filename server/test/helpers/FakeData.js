@@ -64,7 +64,7 @@ const fakeData = {
     username: faker.name.firstName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
-    roleID: 3,
+    roleID: 2,
   },
   emtptyTitleDocument: {
     title: '',
