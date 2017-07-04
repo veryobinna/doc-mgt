@@ -34,14 +34,14 @@ const Routes = (app) => {
   authenticate.verifyToken, documentsController.destroy);
 
   app.post('/roles',
-  authenticate.verifyToken, rolesController.create);
+  authenticate.verifyToken, authenticate.verifyAdmin, rolesController.create);
   app.get('/roles',
-  authenticate.verifyToken, rolesController.list);
+  authenticate.verifyToken, authenticate.verifyAdmin, rolesController.list);
   app.get('/roles/:id',
-  authenticate.verifyToken, rolesController.search);
+  authenticate.verifyToken, authenticate.verifyAdmin, rolesController.search);
   app.put('/roles/:id',
-  authenticate.verifyToken, rolesController.update);
+  authenticate.verifyToken, authenticate.verifyAdmin, rolesController.update);
   app.delete('/roles/:id',
-  rolesController.destroy);
+  authenticate.verifyToken, authenticate.verifyAdmin, rolesController.destroy);
 };
 export default Routes;

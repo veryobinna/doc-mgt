@@ -19,7 +19,6 @@ const request = chai.request(app),
   updateDocument = fakeData.generateRandomDocument('role'),
   emtptyTitleDocument = fakeData.emtptyTitleDocument,
   emtptyContentDocument = fakeData.emtptyContentDocument;
-  // invalidAccessDocument = fakeData.generateRandomDocument('radnom');
 
 let adminToken, regular1Token, regular2Token,
   publicDocId, roleDocId, privateDocId,
@@ -240,37 +239,74 @@ describe('Documents', () => {
         .put(`/documents/${publicDocId}`)
         .set({ 'x-access-token': regular2Token })
         .send(updateDocument)
-        .end((err, res) => {console.log('............check it',res.body)
-          expect(res).to.have.status(404);
-          //expect(res.body.msg).to.equal('unauthorized');
+        .end((err, res) => {
+          expect(res).to.have.status(401);
+          expect(res.body.message).to.equal('Access Denied');
           done();
         });
     });
-  //   it('it should not allow users update documents that dont exist', (done) => {
-  //     request
-  //       .put('/api/documents/44444')
-  //       .set({ 'x-access-token': regular1Token })
-  //       .send(updateDocument1)
-  //       .end((err, res) => {
-  //         expect(res).to.have.status(404);
-  //         expect(res.body.success).to.equal(false);
-  //         expect(res.body.msg).to.equal('document not found');
-  //         done();
-  //       });
-  //   });
-  //   it('it should allow users update documents created by them', (done) => {
-  //     request
-  //       .put(`/api/documents/${privateDocId1}`)
-  //       .set({ 'x-access-token': regular1Token })
-  //       .send(updateDocument1)
-  //       .end((err, res) => {
-  //         expect(res).to.have.status(200);
-  //         expect(res.body.success).to.equal(true);
-  //         expect(res.body.document.title).to.equal(updateDocument1.title);
-  //         done();
-  //       });
-  //   });
+    it('it should not allow users update documents that dont exist', (done) => {
+      request
+        .put('/documents/0')
+        .set({ 'x-access-token': regular1Token })
+        .send(updateDocument)
+        .end((err, res) => {
+          expect(res).to.have.status(404);
+          expect(res.body.message).to.equal('Document Not Found');
+          done();
+        });
+    });
+    it('it should allow users update documents created by them', (done) => {
+      request
+        .put(`/documents/${privateDocId}`)
+        .set({ 'x-access-token': regular1Token })
+        .send(updateDocument)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body.document.title).to.equal(updateDocument.title);
+          done();
+        });
+    });
   });
-
-
+  describe('DELETE /documents/:id', () => {
+    it(`it should not allow users delete
+      documents they did not create`, (done) => {
+      request
+        .delete(`/documents/${publicDocId}`)
+        .set({ 'x-access-token': regular2Token })
+        .end((err, res) => {
+          expect(res).to.have.status(401);
+          expect(res.body.message).to.equal('Access Denied');
+          done();
+        });
+    });
+    it('it should not allow users delete documents that dont exist', (done) => {
+      request
+        .delete('/documents/0')
+        .set({ 'x-access-token': regular1Token })
+        .end((err, res) => {
+          expect(res).to.have.status(404);
+          expect(res.body.message).to.equal('Document Not Found');
+          done();
+        });
+    });
+    it('it should allow users delete documents created by them', (done) => {
+      request
+        .delete(`/documents/${privateDocId}`)
+        .set({ 'x-access-token': regular1Token })
+        .end((err, res) => {
+          expect(res).to.have.status(204);
+          done();
+        });
+    });
+    it('it should allow admin delete any users document', (done) => {
+      request
+        .delete(`/documents/${publicDocId}`)
+        .set({ 'x-access-token': adminToken })
+        .end((err, res) => {
+          expect(res).to.have.status(204);
+          done();
+        });
+    });
+  });
 });

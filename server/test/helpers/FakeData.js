@@ -161,7 +161,7 @@ const fakeData = {
     name: 'regular'
   },
   invalidRole: {
-    name: 'random'
+    name: '!nv @l!d'
   },
   emptyRole: {
     name: ''

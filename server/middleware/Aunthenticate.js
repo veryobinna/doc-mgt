@@ -26,7 +26,7 @@ const Authenticate = {
     if (req.decoded.roleID === 1) {
       next();
     } else {
-      res.status(401).send({ message: 'access denied' });
+      res.status(401).send({ message: 'Access Denied' });
     }
   }
 };

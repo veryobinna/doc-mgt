@@ -28,7 +28,7 @@ export default {
       .then((role) => {
         if (!role) {
           return res.status(404).send({
-            message: 'Role not found, please check the ID and try again'
+            message: 'Role Not Found'
           });
         }
         return res.status(200).send(role);
@@ -42,7 +42,7 @@ export default {
       .then((role) => {
         if (!role) {
           return res.status(404).send({
-            message: 'Role Not Found, please try again',
+            message: 'Role Not Found',
           });
         }
         return role
@@ -57,11 +57,15 @@ export default {
       .findById(req.params.id)
       .then((role) => {
         if (!role) {
-          return res.status(400).send({
+          return res.status(404).send({
             message: 'Role Not Found',
           });
+        } else if (role.id === 1){
+          return res.status(400).send({
+            message: 'Cannot Delete Admin Role',
+          });
         }
-        return Role
+        return role
           .destroy()
           .then(() => res.status(204).send())
           .catch(error => res.status(400).send(error));
