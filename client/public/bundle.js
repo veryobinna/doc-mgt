@@ -18079,6 +18079,7 @@ var addDocumentSuccess = function addDocumentSuccess(payload) {
 var addDocument = function addDocument(payload) {
   return function (dispatch) {
     return _axios2.default.post('/documents', payload).then(function (res) {
+      console.log('add document res', res.data);
       dispatch(addDocumentSuccess(res.data));
     }).catch(function (error) {
       _toastr2.default.error(error.response.data.message.errors[0].message);
@@ -49460,12 +49461,13 @@ var ShowSingleDocument = function ShowSingleDocument(props) {
         ),
         _react2.default.createElement('p', { dangerouslySetInnerHTML: { __html: props.document.content } })
       ),
-      props.status.user.id === props.document.ownerID && _react2.default.createElement(
+      _react2.default.createElement(
         'div',
         { className: 'modal-footer' },
-        _react2.default.createElement(
+        props.document.createdAt.slice(0, 10),
+        props.status.user.id === props.document.ownerID && _react2.default.createElement(
           'a',
-          { onClick: props.updateDocument, className: 'modal-action modal-close waves-effect waves-green btn-flat ' },
+          { onClick: props.updateDocument, className: 'btn-floating modal-action modal-close btn-flat green ' },
           _react2.default.createElement(
             'i',
             { className: 'large material-icons' },
@@ -49529,7 +49531,7 @@ var ShowUsers = function ShowUsers(_ref) {
     { className: 'collection' },
     _react2.default.createElement(
       'li',
-      { className: 'collection-item avatar' },
+      { className: 'collection-item avatar ' },
       _react2.default.createElement(
         'i',
         { className: 'material-icons circle' },
@@ -49557,7 +49559,7 @@ var ShowUsers = function ShowUsers(_ref) {
         _react2.default.createElement(
           'a',
           {
-            className: 'btn-floating btn-large waves-effect waves-light secondary-content',
+            className: 'btn-floating btn-large btn-user-del btn secondary-content',
             role: 'button',
             tabIndex: '-1',
             onClick: function onClick() {
@@ -49575,7 +49577,7 @@ var ShowUsers = function ShowUsers(_ref) {
           {
             id: 'mode-edit',
             to: 'users/' + id,
-            className: 'btn-floating btn-large waves-effect waves-light secondary-content'
+            className: 'btn-floating btn-large btn-user-edit btn secondary-content'
           },
           _react2.default.createElement(
             'i',
@@ -49792,7 +49794,8 @@ var AddDocument = function (_Component) {
     _this.state = {
       title: '',
       content: '',
-      access: ''
+      access: '',
+      paginate: {}
     };
     _this.onInputChange = _this.onInputChange.bind(_this);
     _this.onFormSubmit = _this.onFormSubmit.bind(_this);
@@ -49807,7 +49810,9 @@ var AddDocument = function (_Component) {
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
-      this.props.history.replace('/documents');
+      if (this.props.documents !== nextProps.documents) {
+        this.props.history.replace('/documents');
+      }
     }
   }, {
     key: 'onInputChange',
@@ -49824,10 +49829,12 @@ var AddDocument = function (_Component) {
       var newDocument = this.state;
       newDocument.content = data;
       this.props.addDocument(newDocument);
+      //this.props.getDocument();
     }
   }, {
     key: 'render',
     value: function render() {
+      console.log('the props from state', this.props.documents.paginate);
       return _react2.default.createElement(
         'div',
         { className: 'row component-render' },
@@ -49927,12 +49934,14 @@ AddDocument.propTypes = {
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return (0, _redux.bindActionCreators)({ addDocument: _DocumentActions.addDocument }, dispatch);
+  return (0, _redux.bindActionCreators)({ addDocument: _DocumentActions.addDocument, getDocument: _DocumentActions.getDocument }, dispatch);
 };
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    documents: state.documentReducer.documents
+    documents: state.documentReducer.documents,
+    paginate: state.documentReducer.documents.paginate
+
   };
 };
 
@@ -50294,7 +50303,7 @@ var GetSingleDocument = function (_Component) {
     var _this = _possibleConstructorReturn(this, (GetSingleDocument.__proto__ || Object.getPrototypeOf(GetSingleDocument)).call(this, props));
 
     _this.state = {
-      document: {}
+      document: { createdAt: '' }
     };
     _this.updateDocument = _this.updateDocument.bind(_this);
     return _this;
@@ -50843,8 +50852,9 @@ var documentReducer = function documentReducer() {
       docs = { documents: action.payload };
       return _extends({}, state, docs);
 
-    case _ActionTypes2.default.ADD_DOCUMENTS:
+    case _ActionTypes2.default.ADD_DOCUMENT:
       docs = { documents: action.payload };
+      console.log('tracking it', action.payload);
       return _extends({}, state, docs);
 
     default:
@@ -52473,7 +52483,7 @@ exports = module.exports = __webpack_require__(405)(undefined);
 
 
 // module
-exports.push([module.i, ".landing-page {\n  background-image: url(\"/dist/img/books.jpg\");\n  height: 100vh;\n  width: 100vw;\n  background-position: left;\n  color: white; }\n\n.row-container {\n  margin-top: 10%;\n  background-color: rgba(0, 0, 0, 0.3); }\n\nnav {\n  width: 77%;\n  background-color: #901111; }\n\n.navbar-fixed nav {\n  position: fixed;\n  left: 23.5%; }\n\n.document-container {\n  margin-left: 28%;\n  background-color: white; }\n\n.component-render {\n  width: 70%;\n  margin-left: 23rem; }\n\n.header {\n  margin-top: 0px;\n  font-size: 3.2rem;\n  text-align: center; }\n\n#mode-edit {\n  margin-top: 2.5rem; }\n\n.side-bar-top-icon {\n  font-size: 6rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-text {\n  margin-top: -2rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-email {\n  margin-top: -1rem;\n  margin-bottom: 0rem; }\n\n.loginPS {\n  margin-left: 2rem; }\n\n.image-holder {\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n  border-radius: 50%;\n  width: 4.3rem;\n  height: 4.3rem; }\n\n.sidebar-top {\n  background-image: url(\"/dist/img/office.jpg\");\n  color: rgba(255, 255, 255, 0.81);\n  text-align: center;\n  margin-bottom: -1rem; }\n\n.modal {\n  display: block;\n  margin-left: 34%;\n  margin-top: 2%; }\n\n.card-content {\n  height: 9rem;\n  overflow: hidden;\n  text-overflow: ellipsis; }\n\n.card .card-title {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  font-weight: 500; }\n\n.app-container {\n  width: 80%; }\n\n.secondary-content {\n  color: #901111; }\n\n.search-wrapper {\n  margin-top: 1px;\n  padding: 1px 0 0 0;\n  z-index: 2;\n  height: 46px; }\n\n.search-wrapper i.material-icons {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  cursor: pointer; }\n\n#search {\n  height: 45px; }\n\nbody {\n  display: flex;\n  min-height: 100vh;\n  flex-direction: column; }\n\nmain {\n  flex: 1 0 auto; }\n\n.page-footer {\n  background-color: #901111; }\n\n.pagination li.active {\n  background-color: #901111; }\n\n.btn {\n  background-color: #009999; }\n\n.btn:hover {\n  background-color: #b71111; }\n\n.pagination li a {\n  cursor: pointer; }\n\n.doc-access {\n  float: right; }\n\n.card-btn-delete {\n  float: right; }\n\n.clear {\n  clear: both; }\n", ""]);
+exports.push([module.i, ".landing-page {\n  background-image: url(\"/dist/img/books.jpg\");\n  height: 100vh;\n  width: 100vw;\n  background-position: left;\n  color: white; }\n\n.row-container {\n  margin-top: 10%;\n  background-color: rgba(0, 0, 0, 0.3); }\n\nnav {\n  width: 77%;\n  background-color: #901111; }\n\n.navbar-fixed nav {\n  position: fixed;\n  left: 23.5%; }\n\n.document-container {\n  margin-left: 28%;\n  background-color: white; }\n\n.component-render {\n  width: 70%;\n  margin-left: 23rem; }\n\n.header {\n  margin-top: 0px;\n  font-size: 3.2rem;\n  text-align: center; }\n\n.side-bar-top-icon {\n  font-size: 6rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-text {\n  margin-top: -2rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-email {\n  margin-top: -1rem;\n  margin-bottom: 0rem; }\n\n.loginPS {\n  margin-left: 2rem; }\n\n.image-holder {\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n  border-radius: 50%;\n  width: 4.3rem;\n  height: 4.3rem; }\n\n.sidebar-top {\n  background-image: url(\"/dist/img/office.jpg\");\n  color: rgba(255, 255, 255, 0.81);\n  text-align: center;\n  margin-bottom: -1rem; }\n\n.modal {\n  display: block;\n  margin-left: 34%;\n  margin-top: 2%; }\n\n.card-content {\n  height: 9rem;\n  overflow: hidden;\n  text-overflow: ellipsis; }\n\n.card .card-title {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  font-weight: 500; }\n\n.app-container {\n  width: 80%; }\n\n.search-wrapper {\n  margin-top: 1px;\n  padding: 1px 0 0 0;\n  z-index: 2;\n  height: 46px; }\n\n.search-wrapper i.material-icons {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  cursor: pointer; }\n\n#search {\n  height: 45px; }\n\nbody {\n  display: flex;\n  min-height: 100vh;\n  flex-direction: column; }\n\nmain {\n  flex: 1 0 auto; }\n\n.page-footer {\n  background-color: #901111; }\n\n.pagination li.active {\n  background-color: #901111; }\n\n.btn {\n  background-color: #009999; }\n\n.btn:hover {\n  background-color: #b71111; }\n\n.pagination li a {\n  cursor: pointer; }\n\n.doc-access {\n  float: right; }\n\n.card-btn-delete {\n  float: right; }\n\n.clear {\n  clear: both; }\n\na {\n  color: #0cdcdc; }\n\n.btn-user-del {\n  /* position: relative; */\n  left: 57vw; }\n\n.btn-user-edit {\n  /* position: relative; */\n  left: 42vw; }\n", ""]);
 
 // exports
 

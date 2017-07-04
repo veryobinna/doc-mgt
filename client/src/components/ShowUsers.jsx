@@ -6,14 +6,14 @@ const ShowUsers = ({ id, firstName, lastName, username, email, roleID, roleName,
   
 
 <ul className="collection">
-    <li className="collection-item avatar">
+    <li className="collection-item avatar ">
       <i className="material-icons circle">perm_identity</i>
       <span className="title">{firstName+' '+lastName}</span>
       <p>{email}</p>
       <p>user type:{roleName}</p>
       <div>
       <a
-            className="btn-floating btn-large waves-effect waves-light secondary-content"
+            className="btn-floating btn-large btn-user-del btn secondary-content"
             role="button"
             tabIndex="-1"
             onClick={() => { deleteUser(id) }}
@@ -23,7 +23,7 @@ const ShowUsers = ({ id, firstName, lastName, username, email, roleID, roleName,
           <Link
           id="mode-edit"
             to={`users/${id}`}
-            className="btn-floating btn-large waves-effect waves-light secondary-content"
+            className="btn-floating btn-large btn-user-edit btn secondary-content"
           ><i className="material-icons">mode_edit</i></Link>
           </div>
     </li>

@@ -11,7 +11,7 @@ class GetSingleDocument extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      document: {}
+      document: {createdAt:''}
     };
     this.updateDocument = this.updateDocument.bind(this);
   }

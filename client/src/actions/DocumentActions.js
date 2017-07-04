@@ -9,6 +9,7 @@ const addDocumentSuccess = payload => ({
 const addDocument = payload => dispatch => axios
   .post('/documents', payload)
   .then((res) => {
+    console.log('add document res',res.data)
     dispatch(addDocumentSuccess(res.data));
   })
   .catch((error) => {

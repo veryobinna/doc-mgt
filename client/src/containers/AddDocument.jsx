@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import { addDocument } from '../actions/DocumentActions';
+import { addDocument, getDocument } from '../actions/DocumentActions';
 
 class AddDocument extends Component {
   constructor(props) {
@@ -10,37 +10,40 @@ class AddDocument extends Component {
     this.state = {
       title: '',
       content: '',
-      access: ''
+      access: '',
+      paginate: {}
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
-  componentDidMount(){
-     CKEDITOR.replace('content');
+  componentDidMount() {
+    CKEDITOR.replace('content');
 
   }
 
   componentWillReceiveProps(nextProps) {
-        this.props.history.replace('/documents');
-
+    if(this.props.documents!==nextProps.documents){
+    this.props.history.replace('/documents');
+  }
   }
 
 
   onInputChange(event) {
     const name = event.target.id;
     const value = event.target.value;
-    this.setState({ [name]: value});
+    this.setState({ [name]: value });
   }
   onFormSubmit(event) {
     event.preventDefault();
     const data = CKEDITOR.instances.content.getData();
     const newDocument = this.state
-    newDocument.content= data
+    newDocument.content = data
     this.props.addDocument(newDocument);
-
+    //this.props.getDocument();
   }
 
   render() {
+    console.log('the props from state', this.props.documents.paginate)
     return (
       <div className="row component-render">
         <form className="col s10" onSubmit={this.onFormSubmit}>
@@ -95,10 +98,12 @@ AddDocument.propTypes = {
 };
 
 const mapDispatchToProps =
-  dispatch => bindActionCreators({ addDocument }, dispatch);
+  dispatch => bindActionCreators({ addDocument, getDocument }, dispatch);
 
 const mapStateToProps = state => ({
-  documents: state.documentReducer.documents
+  documents: state.documentReducer.documents,
+  paginate: state.documentReducer.documents.paginate
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddDocument);

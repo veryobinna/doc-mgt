@@ -32,9 +32,6 @@ nav{
     font-size: 3.2rem;
     text-align: center
 }
-#mode-edit{
-    margin-top: 2.5rem
-}
 
 .side-bar-top-icon{
     font-size:6rem;
@@ -83,13 +80,8 @@ nav{
         text-overflow: ellipsis;  
         font-weight: 500;
     }
-    .card .card-action{
-    }
     .app-container{
         width: 80%;
-    }
-    .secondary-content{
-        color: #901111
     }
     .search-wrapper{
     margin-top: 1px;
@@ -122,7 +114,7 @@ nav{
     background-color: #901111;
 }
 .btn{
-    background-color: #009999
+    background-color: #009999 //4374e0
 }
 .btn:hover{
       background-color: #b71111
@@ -144,3 +136,15 @@ float: right;
  .clear{
      clear:both;
  }
+ a{
+     color: #0cdcdc
+ }
+ .btn-user-del{
+    /* position: relative; */
+    left: 57vw;
+}
+ .btn-user-edit{
+    /* position: relative; */
+    left: 42vw;
+}
+ 

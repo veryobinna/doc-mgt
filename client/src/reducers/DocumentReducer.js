@@ -23,8 +23,9 @@ const documentReducer = (state = { documents: {} }, action) => {
       docs = { documents: action.payload };
       return { ...state, ...docs };
 
-    case types.ADD_DOCUMENTS:
+    case types.ADD_DOCUMENT:
       docs = { documents: action.payload };
+      console.log('tracking it',action.payload);
       return { ...state, ...docs };
 
     default:

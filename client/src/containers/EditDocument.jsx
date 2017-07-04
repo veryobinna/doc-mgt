@@ -22,7 +22,6 @@ componentDidMount() {
 }
 componentWillReceiveProps(nextProps) {
         this.props.history.replace('/documents');
-
   }
   onInputChange(event) {
     const name = event.target.id;
