@@ -23,7 +23,7 @@ const searchUsersSuccess = payload => ({
 const searchUsers = (query, limit, offset) => dispatch => axios
   .get(`/search/users/?q=${query}&limit=${limit}&offset=${offset}`)
   .then((res) => {
-    console.log('the searche users are ',res)
+    console.log('the searche users are ',res.data)
     dispatch(searchUsersSuccess(res.data));
   })
   .catch((error) => {

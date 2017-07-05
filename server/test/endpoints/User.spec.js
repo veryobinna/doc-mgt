@@ -22,7 +22,7 @@ describe('Routes : Users', () => {
     SeedData.init().then(() => {
       request
         .post('/login')
-        .send({ loginID: adminUser.email, password: adminUser.password  })
+        .send({ loginID: adminUser.email, password: adminUser.password })
         .end((err, res) => {
           adminToken = res.body.token;
           done();
@@ -73,7 +73,8 @@ describe('Routes : Users', () => {
         .send(invalidPasswordUser)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.message.errors[0].message).to.equal('Password cannot be empty');
+          expect(res.body.message.errors[0].message)
+          .to.equal('Password cannot be empty');
           done();
         });
     });
@@ -82,7 +83,8 @@ describe('Routes : Users', () => {
     it('it should registered users login and return a token.', (done) => {
       request
         .post('/login')
-        .send({ loginID: validRegularUser1.email, password: validRegularUser1.password })
+        .send({ loginID: validRegularUser1.email,
+          password: validRegularUser1.password })
         .end((err, res) => {
           regularToken = res.body.token;
           expect(res).to.have.status(200);
@@ -91,30 +93,32 @@ describe('Routes : Users', () => {
           done();
         });
     });
-      it('should not allow user without pasword or email to login.', (done) => {
+    it('should not allow user without pasword or email to login.', (done) => {
       request
         .post('/login')
         .send({ loginID: '', password: '' })
         .end((err, res) => {
           expect(res).to.have.status(400);
           expect(res.body.token).to.equal(undefined);
-          expect(res.body.message).to.equal('Please input a username or email and pasword');
-          done(); 
+          expect(res.body.message).to.equal(
+            'Please input a username or email and pasword');
+          done();
         });
     });
     it(`should not allow registered users with
        invalid password login.`, (done) => {
       request
-        .post('/login')
-        .send({ loginID: validRegularUser1.email, password: 'invalid' })
-        .end((err, res) => {
-          expect(res).to.have.status(400);
-          expect(res.body.token).to.equal(undefined);
-          expect(res.body.message).to.equal('Login failed. Check your username/email or password');
-          done();
-        });
+          .post('/login')
+          .send({ loginID: validRegularUser1.email, password: 'invalid' })
+          .end((err, res) => {
+            expect(res).to.have.status(400);
+            expect(res.body.token).to.equal(undefined);
+            expect(res.body.message).to.equal(
+              'Login failed. Check your username/email or password');
+            done();
+          });
     });
-   });
+  });
   describe('GET /users/', () => {
     it('should allow admin to view all users', (done) => {
       request
@@ -173,7 +177,7 @@ describe('Routes : Users', () => {
         });
     });
   });
-   describe('PUT /api/users/', () => {
+  describe('PUT /api/users/', () => {
     it('should  not allow users to edit profile', (done) => {
       request
         .put('/users/3')
@@ -210,7 +214,7 @@ describe('Routes : Users', () => {
           done();
         });
     });
-   });
+  });
   describe('DELETE /users/:id', () => {
     it('should allow admin to delete any user profile', (done) => {
       request
@@ -244,32 +248,32 @@ describe('Routes : Users', () => {
     it(`should not allow regular user delete
        other users profile`, (done) => {
       request
-        .delete('/users/4')
-        .set({ 'x-access-token': regularToken })
-        .end((err, res) => {
-          expect(res).to.have.status(401);
-          expect(res.body.message).to.equal('Access Denied');
-          done();
-        });
+          .delete('/users/4')
+          .set({ 'x-access-token': regularToken })
+          .end((err, res) => {
+            expect(res).to.have.status(401);
+            expect(res.body.message).to.equal('Access Denied');
+            done();
+          });
     });
     it(`it should not not allow admin to
         delete non existent user profile`, (done) => {
       request
-        .delete('/users/0')
-        .set({ 'x-access-token': adminToken })
-        .end((err, res) => {
-          expect(res).to.have.status(404);
-          expect(res.body.message).to.equal('User Not Found');
-          done();
-        });
+          .delete('/users/0')
+          .set({ 'x-access-token': adminToken })
+          .end((err, res) => {
+            expect(res).to.have.status(404);
+            expect(res.body.message).to.equal('User Not Found');
+            done();
+          });
     });
-   });
+  });
   describe('POST /logout', () => {
     it('should send a response on logout', (done) => {
       request
         .post('/logout')
         .set({ 'x-access-token': adminToken })
-        .end((err, res) => {console.log('................', res)
+        .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body.message).to.equal('logout successful');
           done();

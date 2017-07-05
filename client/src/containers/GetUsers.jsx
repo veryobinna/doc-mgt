@@ -61,7 +61,7 @@ class GetUsers extends Component {
     const offset = selected * 5;
 
     if (this.state.search) {
-      this.setState({ offset },
+      this.setState({ offset, users:[{}] },
         this.onSearch // callback
       );
     }

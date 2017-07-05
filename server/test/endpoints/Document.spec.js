@@ -36,13 +36,15 @@ describe('Documents', () => {
         });
       request
         .post('/login')
-        .send({ loginID: validRegularUser1.email, password: validRegularUser1.password })
+        .send({ loginID: validRegularUser1.email,
+          password: validRegularUser1.password })
         .end((err, res) => {
           regular1Token = res.body.token;
         });
       request
         .post('/login')
-        .send({ loginID: validRegularUser2.email, password: validRegularUser2.password })
+        .send({ loginID: validRegularUser2.email,
+          password: validRegularUser2.password })
         .end((err, res) => {
           regular2Token = res.body.token;
           done();
@@ -96,17 +98,18 @@ describe('Documents', () => {
           done();
         });
     });
-    it('it should not allow users to create documents without specifying role access', (done) => {
+    it(`it should not allow users to create documents
+        without specifying role access`, (done) => {
       request
-        .post('/documents')
-        .set({ 'x-access-token': regular1Token })
-        .send(invalidAccessDocument)
-        .end((err, res) => {
-          expect(res).to.have.status(400);
-          expect(res.body.message.errors[0].message).to.equal(
-            'Access can either be public ,private or role');
-          done();
-        });
+          .post('/documents')
+          .set({ 'x-access-token': regular1Token })
+          .send(invalidAccessDocument)
+          .end((err, res) => {
+            expect(res).to.have.status(400);
+            expect(res.body.message.errors[0].message).to.equal(
+              'Access can either be public ,private or role');
+            done();
+          });
     });
     it('it should not allow users update documents that dont exist', (done) => {
       request
@@ -126,7 +129,8 @@ describe('Documents', () => {
         .send(emtptyContentDocument)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.message.errors[0].message).to.equal('Content cannot be empty');
+          expect(res.body.message.errors[0].message)
+          .to.equal('Content cannot be empty');
           done();
         });
     });
@@ -137,7 +141,8 @@ describe('Documents', () => {
         .send(emtptyTitleDocument)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.message.errors[0].message).to.equal('Title cannot be empty');
+          expect(res.body.message.errors[0].message)
+          .to.equal('Title cannot be empty');
           done();
         });
     });
@@ -156,24 +161,24 @@ describe('Documents', () => {
     it(`should not allow regular user retrieve
        private documents not created by user`, (done) => {
       request
-        .get(`/documents/${privateDocId}`)
-        .set({ 'x-access-token': regular2Token })
-        .end((err, res) => {
-          expect(res).to.have.status(404);
-          expect(res.body.message).to.equal('Document not found');
-          done();
-        });
+          .get(`/documents/${privateDocId}`)
+          .set({ 'x-access-token': regular2Token })
+          .end((err, res) => {
+            expect(res).to.have.status(404);
+            expect(res.body.message).to.equal('Document not found');
+            done();
+          });
     });
     it(`it should allow regular user retrieve
         private documents he created`, (done) => {
       request
-        .get(`/documents/${privateDocId}`)
-        .set({ 'x-access-token': regular1Token })
-        .end((err, res) => {
-          expect(res).to.have.status(200);
-          expect(res.body.title).to.equal(privateDocument.title);
-          done();
-        });
+          .get(`/documents/${privateDocId}`)
+          .set({ 'x-access-token': regular1Token })
+          .end((err, res) => {
+            expect(res).to.have.status(200);
+            expect(res.body.title).to.equal(privateDocument.title);
+            done();
+          });
     });
     it('it should allow allow regular users retrieve public', (done) => {
       request
@@ -188,13 +193,13 @@ describe('Documents', () => {
     it(`it should allow allow regular
        users retrieve role doucuments`, (done) => {
       request
-        .get(`/documents/${roleDocId}`)
-        .set({ 'x-access-token': regular1Token })
-        .end((err, res) => {
-          expect(res).to.have.status(200);
-          expect(res.body.title).to.equal(roleDocument1.title);
-          done();
-        });
+          .get(`/documents/${roleDocId}`)
+          .set({ 'x-access-token': regular1Token })
+          .end((err, res) => {
+            expect(res).to.have.status(200);
+            expect(res.body.title).to.equal(roleDocument1.title);
+            done();
+          });
     });
     it('it should not display document that does not exist', (done) => {
       request
@@ -211,30 +216,31 @@ describe('Documents', () => {
     it(`The number of documents available to an admin
       must be greateror equall to any other user`, (done) => {
       request
-        .get('/documents/')
-        .set({ 'x-access-token': adminToken })
-        .end((err, res) => {
-          expect(res).to.have.status(200);
-          expect(res.body.document).to.be.an('array');
-          adminDocsCount = res.body.paginate.totalCount;
-          done();
-        });
+          .get('/documents/')
+          .set({ 'x-access-token': adminToken })
+          .end((err, res) => {
+            expect(res).to.have.status(200);
+            expect(res.body.document).to.be.an('array');
+            adminDocsCount = res.body.paginate.totalCount;
+            done();
+          });
     });
     it(`The number of documents available to an admin
       must be greateror equall to any other user`, (done) => {
       request
-        .get('/documents')
-        .set({ 'x-access-token': regular1Token })
-        .end((err, res) => {
-          regularDocsCount = res.body.paginate.totalCount;
-          expect(res).to.have.status(200);
-          expect(adminDocsCount).to.be.equal(regularDocsCount);
-          done();
-        });
+          .get('/documents')
+          .set({ 'x-access-token': regular1Token })
+          .end((err, res) => {
+            regularDocsCount = res.body.paginate.totalCount;
+            expect(res).to.have.status(200);
+            expect(adminDocsCount).to.be.equal(regularDocsCount);
+            done();
+          });
     });
   });
   describe('PUT /documents/:id', () => {
-    it('it should not allow users update documents they did not create', (done) => {
+    it(`it should not allow users update
+        documents they did not create`, (done) => {
       request
         .put(`/documents/${publicDocId}`)
         .set({ 'x-access-token': regular2Token })
@@ -272,13 +278,13 @@ describe('Documents', () => {
     it(`it should not allow users delete
       documents they did not create`, (done) => {
       request
-        .delete(`/documents/${publicDocId}`)
-        .set({ 'x-access-token': regular2Token })
-        .end((err, res) => {
-          expect(res).to.have.status(401);
-          expect(res.body.message).to.equal('Access Denied');
-          done();
-        });
+          .delete(`/documents/${publicDocId}`)
+          .set({ 'x-access-token': regular2Token })
+          .end((err, res) => {
+            expect(res).to.have.status(401);
+            expect(res.body.message).to.equal('Access Denied');
+            done();
+          });
     });
     it('it should not allow users delete documents that dont exist', (done) => {
       request

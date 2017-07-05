@@ -124,8 +124,8 @@ export default {
       }));
   },
   search(req, res) {
-    const offset = Number.parseInt(req.query.offset, 10),
-      limit = Number.parseInt(req.query.limit, 10);
+    const offset = Number.parseInt(req.query.offset, 10) || 0,
+      limit = Number.parseInt(req.query.limit, 10) || 10;
     return User
       .findAndCountAll({
         limit,
@@ -137,7 +137,7 @@ export default {
           ]
         }
       })
-      .then((users) => {
+      .then((users) => {console.log('..................',users.rows)
         const paginate = {
           page: Math.floor(offset / limit) + 1,
           pageSize: users.rows.length,

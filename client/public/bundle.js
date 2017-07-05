@@ -26246,7 +26246,7 @@ var searchUsersSuccess = function searchUsersSuccess(payload) {
 var searchUsers = function searchUsers(query, limit, offset) {
   return function (dispatch) {
     return _axios2.default.get('/search/users/?q=' + query + '&limit=' + limit + '&offset=' + offset).then(function (res) {
-      console.log('the searche users are ', res);
+      console.log('the searche users are ', res.data);
       dispatch(searchUsersSuccess(res.data));
     }).catch(function (error) {
       _toastr2.default.error(error.response.data.message);
@@ -26802,7 +26802,7 @@ var GetUsers = function (_Component) {
       var offset = selected * 5;
 
       if (this.state.search) {
-        this.setState({ offset: offset }, this.onSearch // callback
+        this.setState({ offset: offset, users: [{}] }, this.onSearch // callback
         );
       }
       if (this.state.getUsers) {
