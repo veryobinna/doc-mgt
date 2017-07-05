@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack -p",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
     "start": "babel-node server.js",
     "start:dev": "nodemon server.js --exec babel-node",
     "mocha": "NODE_ENV=test nyc mocha server/test/**/*.spec.js --compilers js:babel-register",
@@ -41,6 +42,7 @@
     "jsonwebtoken": "^7.4.1",
     "materialize-css": "^0.98.2",
     "morgan": "^1.8.2",
+    "npmlog": "^4.1.2",
     "node-sass": "^4.5.3",
     "pg": "^6.2.3",
     "pg-hstore": "^2.3.2",
@@ -66,6 +68,7 @@
   "devDependencies": {
     "chai": "^4.0.2",
     "chai-http": "^3.0.0",
+    "coveralls": "^2.13.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.1",
     "eslint-plugin-import": "^2.3.0",
@@ -74,7 +77,6 @@
     "faker": "^4.1.0",
     "mocha": "^3.4.2",
     "nodemon": "^1.11.0",
-    "npmlog": "^4.1.2",
     "nyc": "^11.0.3"
   }
 }
