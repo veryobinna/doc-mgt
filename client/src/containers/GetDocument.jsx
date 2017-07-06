@@ -119,7 +119,7 @@ class GetDocument extends Component {
       return <ShowDocument key={Math.random()} {...items} />;
     });
     return (
-      <div className="component-render">
+      <div className="component-render col s12 m12 l9">
         <SearchBar onSearch={this.onSearch} />
         <div className="row">
           {documents}

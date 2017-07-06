@@ -1,6 +1,6 @@
 import axios from 'axios';
-import types from './ActionTypes';
 import toastr from 'toastr';
+import types from './ActionTypes';
 
 
 const getUsersSuccess = payload => ({

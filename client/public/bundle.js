@@ -20415,7 +20415,7 @@ var GetDocument = function (_Component) {
       });
       return _react2.default.createElement(
         'div',
-        { className: 'component-render' },
+        { className: 'component-render col s12 m12 l9' },
         _react2.default.createElement(_SearchBar2.default, { onSearch: this.onSearch }),
         _react2.default.createElement(
           'div',
@@ -26138,7 +26138,7 @@ module.exports = function bind(fn, thisArg) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.LogoutAction = exports.LoginAction = undefined;
+exports.loginDetails = exports.LogoutAction = exports.LoginAction = undefined;
 
 var _axios = __webpack_require__(49);
 
@@ -26194,6 +26194,7 @@ var LogoutAction = function LogoutAction() {
 
 exports.LoginAction = LoginAction;
 exports.LogoutAction = LogoutAction;
+exports.loginDetails = loginDetails;
 
 /***/ }),
 /* 133 */
@@ -26211,13 +26212,13 @@ var _axios = __webpack_require__(49);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _ActionTypes = __webpack_require__(29);
-
-var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
-
 var _toastr = __webpack_require__(41);
 
 var _toastr2 = _interopRequireDefault(_toastr);
+
+var _ActionTypes = __webpack_require__(29);
+
+var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26560,7 +26561,7 @@ var UpdateDocument = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'row component-render' },
+        { className: 'row component-render col s12 m12 l9' },
         _react2.default.createElement(
           'form',
           { className: 'col s10', onSubmit: this.onFormSubmit },
@@ -26840,7 +26841,7 @@ var GetUsers = function (_Component) {
       });
       return _react2.default.createElement(
         'div',
-        { className: 'component-render' },
+        { className: 'component-render col s12 m12 l9' },
         _react2.default.createElement(_SearchBar2.default, { onSearch: this.onSearch }),
         _react2.default.createElement(
           'div',
@@ -47395,7 +47396,7 @@ var routes = _react2.default.createElement(
   null,
   _react2.default.createElement(
     'div',
-    null,
+    { className: 'row' },
     _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/login', component: _Login2.default }),
     _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _Dashboard2.default }),
     _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signup', component: _Signup2.default }),
@@ -49447,7 +49448,6 @@ var ShowSingleDocument = function ShowSingleDocument(props) {
   return _react2.default.createElement(
     'div',
     null,
-    console.log('errrrrr', props.document.title),
     _react2.default.createElement(
       'div',
       { id: 'modal1', className: 'modal modal-fixed-footer' },
@@ -49664,7 +49664,7 @@ var Sidebar = function Sidebar(props) {
     { className: 'side-bar' },
     _react2.default.createElement(
       'ul',
-      { className: 'side-nav fixed' },
+      { id: 'slide-out', className: 'side-nav fixed' },
       _react2.default.createElement(
         'li',
         null,
@@ -49741,6 +49741,15 @@ var Sidebar = function Sidebar(props) {
           'Logout'
         )
       )
+    ),
+    _react2.default.createElement(
+      'a',
+      { href: '#', 'data-activates': 'slide-out', className: 'button-collapse' },
+      _react2.default.createElement(
+        'i',
+        { className: 'material-icons' },
+        'menu'
+      )
     )
   );
 };
@@ -49756,6 +49765,7 @@ exports.default = Sidebar;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.AddDocument = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -49783,7 +49793,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var AddDocument = function (_Component) {
+var AddDocument = exports.AddDocument = function (_Component) {
   _inherits(AddDocument, _Component);
 
   function AddDocument(props) {
@@ -49834,13 +49844,12 @@ var AddDocument = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      console.log('the props from state', this.props.documents.paginate);
       return _react2.default.createElement(
         'div',
-        { className: 'row component-render' },
+        { className: 'col s12 m12 l9' },
         _react2.default.createElement(
           'form',
-          { className: 'col s10', onSubmit: this.onFormSubmit },
+          { onSubmit: this.onFormSubmit },
           _react2.default.createElement(
             'div',
             { className: 'row' },
@@ -50020,9 +50029,13 @@ var Dashboard = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'app-container' },
+        { className: '' },
         _react2.default.createElement(_Navbar2.default, null),
-        _react2.default.createElement(_Sidebar2.default, this.props)
+        _react2.default.createElement(
+          'div',
+          { className: 'col s3' },
+          _react2.default.createElement(_Sidebar2.default, this.props)
+        )
       );
     }
   }]);
@@ -50333,7 +50346,7 @@ var GetSingleDocument = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'row component-render' },
+        { className: 'row component-render col s12 m12 l9' },
         _react2.default.createElement(_ShowSingleDocument2.default, {
           document: this.state.document,
           updateDocument: this.updateDocument,
@@ -51040,10 +51053,10 @@ var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//console.log('validator',token)
+// console.log('validator',token)
 
 var TokenValidator = function TokenValidator() {
-  var token = window.localStorage.getItem('token');
+  var token = localStorage.getItem('token');
 
   if (!token) {
     return {
@@ -52483,7 +52496,7 @@ exports = module.exports = __webpack_require__(405)(undefined);
 
 
 // module
-exports.push([module.i, ".landing-page {\n  background-image: url(\"/dist/img/books.jpg\");\n  height: 100vh;\n  width: 100vw;\n  background-position: left;\n  color: white; }\n\n.row-container {\n  margin-top: 10%;\n  background-color: rgba(0, 0, 0, 0.3); }\n\nnav {\n  width: 77%;\n  background-color: #901111; }\n\n.navbar-fixed nav {\n  position: fixed;\n  left: 23.5%; }\n\n.document-container {\n  margin-left: 28%;\n  background-color: white; }\n\n.component-render {\n  width: 70%;\n  margin-left: 23rem; }\n\n.header {\n  margin-top: 0px;\n  font-size: 3.2rem;\n  text-align: center; }\n\n.side-bar-top-icon {\n  font-size: 6rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-text {\n  margin-top: -2rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-email {\n  margin-top: -1rem;\n  margin-bottom: 0rem; }\n\n.loginPS {\n  margin-left: 2rem; }\n\n.image-holder {\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n  border-radius: 50%;\n  width: 4.3rem;\n  height: 4.3rem; }\n\n.sidebar-top {\n  background-image: url(\"/dist/img/office.jpg\");\n  color: rgba(255, 255, 255, 0.81);\n  text-align: center;\n  margin-bottom: -1rem; }\n\n.modal {\n  display: block;\n  margin-left: 34%;\n  margin-top: 2%; }\n\n.card-content {\n  height: 9rem;\n  overflow: hidden;\n  text-overflow: ellipsis; }\n\n.card .card-title {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  font-weight: 500; }\n\n.app-container {\n  width: 80%; }\n\n.search-wrapper {\n  margin-top: 1px;\n  padding: 1px 0 0 0;\n  z-index: 2;\n  height: 46px; }\n\n.search-wrapper i.material-icons {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  cursor: pointer; }\n\n#search {\n  height: 45px; }\n\nbody {\n  display: flex;\n  min-height: 100vh;\n  flex-direction: column; }\n\nmain {\n  flex: 1 0 auto; }\n\n.page-footer {\n  background-color: #901111; }\n\n.pagination li.active {\n  background-color: #901111; }\n\n.btn {\n  background-color: #009999; }\n\n.btn:hover {\n  background-color: #b71111; }\n\n.pagination li a {\n  cursor: pointer; }\n\n.doc-access {\n  float: right; }\n\n.card-btn-delete {\n  float: right; }\n\n.clear {\n  clear: both; }\n\na {\n  color: #0cdcdc; }\n\n.btn-user-del {\n  /* position: relative; */\n  left: 57vw; }\n\n.btn-user-edit {\n  /* position: relative; */\n  left: 42vw; }\n", ""]);
+exports.push([module.i, ".landing-page {\n  background-image: url(\"/dist/img/books.jpg\");\n  height: 100vh;\n  width: 100vw;\n  background-position: left;\n  color: white; }\n\n.row-container {\n  margin-top: 10%;\n  background-color: rgba(0, 0, 0, 0.3); }\n\nnav {\n  width: 100%;\n  background-color: #901111; }\n\n.navbar-fixed nav {\n  position: fixed; }\n\n.brand-logo {\n  position: relative;\n  left: 50%; }\n\n.document-container {\n  margin-left: 28%;\n  background-color: white; }\n\n.header {\n  margin-top: 0px;\n  font-size: 3.2rem;\n  text-align: center; }\n\n.side-bar-top-icon {\n  font-size: 6rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-text {\n  margin-top: -2rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-email {\n  margin-top: -1rem;\n  margin-bottom: 0rem; }\n\n.loginPS {\n  margin-left: 2rem; }\n\n.image-holder {\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n  border-radius: 50%;\n  width: 4.3rem;\n  height: 4.3rem; }\n\n.sidebar-top {\n  background-image: url(\"/dist/img/office.jpg\");\n  color: rgba(255, 255, 255, 0.81);\n  text-align: center;\n  margin-bottom: -1rem; }\n\n.modal {\n  display: block;\n  margin-left: 34%;\n  margin-top: 2%; }\n\n.card-content {\n  height: 9rem;\n  overflow: hidden;\n  text-overflow: ellipsis; }\n\n.card .card-title {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  font-weight: 500; }\n\n.app-container {\n  width: 80%; }\n\n.search-wrapper {\n  margin-top: 1px;\n  padding: 1px 0 0 0;\n  z-index: 2;\n  height: 46px; }\n\n.search-wrapper i.material-icons {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  cursor: pointer; }\n\n#search {\n  height: 45px; }\n\nbody {\n  display: flex;\n  min-height: 100vh;\n  flex-direction: column; }\n\nmain {\n  flex: 1 0 auto; }\n\n.page-footer {\n  background-color: #901111; }\n\n.pagination li.active {\n  background-color: #901111; }\n\n.btn {\n  background-color: #009999; }\n\n.btn:hover {\n  background-color: #b71111; }\n\n.pagination li a {\n  cursor: pointer; }\n\n.doc-access {\n  float: right; }\n\n.card-btn-delete {\n  float: right; }\n\n.clear {\n  clear: both; }\n\na {\n  color: #0cdcdc; }\n\n.btn-user-del {\n  /* position: relative; */\n  left: 57vw; }\n\n.btn-user-edit {\n  /* position: relative; */\n  left: 42vw; }\n\nheader, main, footer, .container {\n  padding-left: 300px; }\n\n@media only screen and (max-width: 992px) {\n  header, main, footer, .container {\n    padding-left: 0; } }\n\n.button-collapse {\n  z-index: 998;\n  position: absolute;\n  top: 2vh; }\n", ""]);
 
 // exports
 

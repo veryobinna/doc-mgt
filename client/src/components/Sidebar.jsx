@@ -4,7 +4,7 @@ import Documents from '../containers/GetDocument';
 
 const Sidebar = (props) => (
   <div className="side-bar">
-    <ul  className="side-nav fixed">
+    <ul id="slide-out" className="side-nav fixed">
       <li><div className="sidebar-top">
         <img className="image-holder" src={'/dist/img/image-holder.jpg'} />
       <h5 className="side-bar-top-text"> {props.status.user.firstName + ' ' + props.status.user.lastName}</h5>
@@ -22,6 +22,7 @@ const Sidebar = (props) => (
 
 
     </ul>
+    <a href="#" data-activates="slide-out" className="button-collapse"><i className="material-icons">menu</i></a>
   </div>
 );
 export default Sidebar;

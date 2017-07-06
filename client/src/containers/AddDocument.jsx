@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { addDocument, getDocument } from '../actions/DocumentActions';
 
-class AddDocument extends Component {
+export class AddDocument extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,7 +18,6 @@ class AddDocument extends Component {
   }
   componentDidMount() {
     CKEDITOR.replace('content');
-
   }
 
   componentWillReceiveProps(nextProps) {
@@ -43,10 +42,9 @@ class AddDocument extends Component {
   }
 
   render() {
-    console.log('the props from state', this.props.documents.paginate)
     return (
-      <div className="row component-render">
-        <form className="col s10" onSubmit={this.onFormSubmit}>
+      <div className="col s12 m12 l9">
+        <form onSubmit={this.onFormSubmit}>
           <div className="row">
             <div className="input-field col s12">
               <input

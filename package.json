@@ -8,8 +8,9 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "start": "babel-node server.js",
     "start:dev": "nodemon server.js --exec babel-node",
-    "mocha": "NODE_ENV=test nyc mocha server/test/**/*.spec.js --compilers js:babel-register",
-    "test": "npm run mocha"
+    "test:server": "NODE_ENV=test nyc mocha server/test/**/*.spec.js --compilers js:babel-register",
+    "test:client": "NODE_ENV=test nyc mocha -r mock-local-storage --compilers js:babel-core/register client/test/**/*.spec.{js,jsx}",
+    "test": "npm run test:server && npm run test:client"
   },
   "repository": {
     "type": "git",
@@ -66,17 +67,26 @@
     "webpack": "^2.6.1"
   },
   "devDependencies": {
+    "babel-polyfill": "^6.23.0",
     "chai": "^4.0.2",
     "chai-http": "^3.0.0",
     "coveralls": "^2.13.1",
+    "enzyme": "^2.9.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.1",
     "eslint-plugin-import": "^2.3.0",
     "eslint-plugin-jsx-a11y": "^5.0.3",
     "eslint-plugin-react": "^7.0.1",
     "faker": "^4.1.0",
+    "localStorage-mock": "^1.0.3",
     "mocha": "^3.4.2",
+    "mock-local-storage": "^1.0.2",
+    "moxios": "^0.4.0",
     "nodemon": "^1.11.0",
-    "nyc": "^11.0.3"
+    "nyc": "^11.0.3",
+    "react-dom": "^15.5.4",
+    "react-test-renderer": "^15.5.4",
+    "redux-mock-store": "^1.2.3",
+    "sinon": "^2.3.6"
   }
 }

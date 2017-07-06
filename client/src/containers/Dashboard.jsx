@@ -23,9 +23,11 @@ class Dashboard extends Component {
     }
     
     return (
-      <div className="app-container">
+      <div className="">
         <Navbar />
-        <Sidebar {...this.props} />
+        <div className="col s3">
+          <Sidebar {...this.props} />
+        </div>
       </div>
     );
   }

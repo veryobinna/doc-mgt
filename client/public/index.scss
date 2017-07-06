@@ -11,12 +11,16 @@ background-color: rgba(0, 0, 0, 0.3);
 }
 
 nav{
-    width: 77%;
+    width: 100%;
     background-color: #901111;
 }
 .navbar-fixed nav{
     position: fixed;
-    left:23.5%
+    //left:23.5%
+}
+.brand-logo{
+    position: relative;
+    left: 50%;
 }
 .document-container{
     margin-left: 28%;
@@ -24,8 +28,8 @@ nav{
     //width: 100%
 }
 .component-render{
-        width: 70%;
-    margin-left: 23rem;
+       // width: 70%;
+    //margin-left: 23rem;
     }
 .header{
     margin-top: 0px;
@@ -123,10 +127,6 @@ nav{
 .pagination li a {
 cursor: pointer; 
 }
-// .material-icons{
-//         margin-right: 8px;
-//     margin-left: -23px;
-// }
 .doc-access{
 float: right;
  }
@@ -147,4 +147,22 @@ float: right;
     /* position: relative; */
     left: 42vw;
 }
- 
+ header, main, footer, .container {
+      padding-left: 300px;
+    }
+
+    @media only screen and (max-width : 992px) {
+      header, main, footer, .container {
+        padding-left: 0;
+      }
+    }
+    .button-collapse{
+        z-index: 998;
+        position: absolute;
+        top:2vh;
+    }
+
+    //90140D main red
+    //FF3F34 red light
+    //006628 //green
+    //30B263 light green

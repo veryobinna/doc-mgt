@@ -14,7 +14,7 @@ import GetUsers from '../containers/GetUsers';
 
 const routes = (
   <HashRouter>
-    <div>
+    <div className="row">
       <Route exact path="/login" component={Login} />
       <Route path="/" component={Dashboard} />
       <Route exact path="/signup" component={Signup} />

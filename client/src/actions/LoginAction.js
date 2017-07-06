@@ -33,4 +33,4 @@ const LogoutAction = () => {
 };
 
 
-export { LoginAction, LogoutAction };
+export { LoginAction, LogoutAction, loginDetails };
