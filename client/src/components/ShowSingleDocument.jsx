@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const ShowSingleDocument = props => (
-  <div>
+  <div className="">
     <div id="modal1" className="modal modal-fixed-footer">
       <div className="modal-content">
         <h4>{props.document.title}</h4>
@@ -11,7 +11,7 @@ const ShowSingleDocument = props => (
       <div className="modal-footer">
         {props.document.createdAt.slice(0,10)}
         {props.status.user.id===props.document.ownerID &&
-        <a onClick={props.updateDocument} className="btn-floating modal-action modal-close btn-flat green ">
+        <a onClick={props.updateDocument} className="btn-floating modal-action modal-close  btn btn-flat ">
           <i className="large material-icons">mode_edit</i></a>}
       </div>
     </div>

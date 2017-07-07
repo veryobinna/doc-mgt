@@ -20305,7 +20305,7 @@ var GetDocument = function (_Component) {
       documents: [{ User: {} }],
       query: '',
       offset: 0,
-      limit: 6,
+      limit: 12,
       search: false,
       getDocument: false,
       getMyDocument: false,
@@ -20415,7 +20415,7 @@ var GetDocument = function (_Component) {
       });
       return _react2.default.createElement(
         'div',
-        { className: 'component-render col s12 m12 l9' },
+        { className: 'col s12 m12 l9' },
         _react2.default.createElement(_SearchBar2.default, { onSearch: this.onSearch }),
         _react2.default.createElement(
           'div',
@@ -26366,8 +26366,6 @@ var _react = __webpack_require__(6);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(22);
-
 var _propTypes = __webpack_require__(8);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
@@ -26384,7 +26382,7 @@ var ShowDocument = function ShowDocument(_ref) {
       lastName = _ref.lastName;
   return _react2.default.createElement(
     'div',
-    { className: ' n' },
+    null,
     _react2.default.createElement(
       'div',
       { className: 'col s4 m4' },
@@ -26399,14 +26397,9 @@ var ShowDocument = function ShowDocument(_ref) {
             { className: 'card-title' },
             title
           ),
-          _react2.default.createElement('p', { dangerouslySetInnerHTML: { __html: content } })
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'card-action' },
           _react2.default.createElement(
             'span',
-            null,
+            { className: 'card-name' },
             firstName + ' ' + lastName
           ),
           _react2.default.createElement(
@@ -26414,6 +26407,11 @@ var ShowDocument = function ShowDocument(_ref) {
             { className: 'doc-access' },
             access
           ),
+          _react2.default.createElement('p', { dangerouslySetInnerHTML: { __html: content } })
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'card-action' },
           _react2.default.createElement(
             'div',
             null,
@@ -26561,7 +26559,7 @@ var UpdateDocument = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'row component-render col s12 m12 l9' },
+        { className: 'row col s12 m12 l9' },
         _react2.default.createElement(
           'form',
           { className: 'col s10', onSubmit: this.onFormSubmit },
@@ -26841,7 +26839,7 @@ var GetUsers = function (_Component) {
       });
       return _react2.default.createElement(
         'div',
-        { className: 'component-render col s12 m12 l9' },
+        { className: 'col s12 m12 l9' },
         _react2.default.createElement(_SearchBar2.default, { onSearch: this.onSearch }),
         _react2.default.createElement(
           'div',
@@ -49447,7 +49445,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var ShowSingleDocument = function ShowSingleDocument(props) {
   return _react2.default.createElement(
     'div',
-    null,
+    { className: '' },
     _react2.default.createElement(
       'div',
       { id: 'modal1', className: 'modal modal-fixed-footer' },
@@ -49467,7 +49465,7 @@ var ShowSingleDocument = function ShowSingleDocument(props) {
         props.document.createdAt.slice(0, 10),
         props.status.user.id === props.document.ownerID && _react2.default.createElement(
           'a',
-          { onClick: props.updateDocument, className: 'btn-floating modal-action modal-close btn-flat green ' },
+          { onClick: props.updateDocument, className: 'btn-floating modal-action modal-close  btn btn-flat ' },
           _react2.default.createElement(
             'i',
             { className: 'large material-icons' },
@@ -50018,7 +50016,6 @@ var Dashboard = function (_Component) {
     key: 'render',
     value: function render() {
       if (!this.props.status.valid) {
-        console.log('should redirect');
         return _react2.default.createElement(_reactRouterDom.Redirect, {
           push: true,
           to: {
@@ -50151,7 +50148,7 @@ var UpdateUser = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'row container  component-render' },
+        { className: 'row container col s12 m12 l9' },
         _react2.default.createElement(
           'form',
           { onSubmit: this.onFormSubmit, className: 'col s12' },
@@ -50346,7 +50343,7 @@ var GetSingleDocument = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'row component-render col s12 m12 l9' },
+        { className: '' },
         _react2.default.createElement(_ShowSingleDocument2.default, {
           document: this.state.document,
           updateDocument: this.updateDocument,
@@ -52496,7 +52493,7 @@ exports = module.exports = __webpack_require__(405)(undefined);
 
 
 // module
-exports.push([module.i, ".landing-page {\n  background-image: url(\"/dist/img/books.jpg\");\n  height: 100vh;\n  width: 100vw;\n  background-position: left;\n  color: white; }\n\n.row-container {\n  margin-top: 10%;\n  background-color: rgba(0, 0, 0, 0.3); }\n\nnav {\n  width: 100%;\n  background-color: #901111; }\n\n.navbar-fixed nav {\n  position: fixed; }\n\n.brand-logo {\n  position: relative;\n  left: 50%; }\n\n.document-container {\n  margin-left: 28%;\n  background-color: white; }\n\n.header {\n  margin-top: 0px;\n  font-size: 3.2rem;\n  text-align: center; }\n\n.side-bar-top-icon {\n  font-size: 6rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-text {\n  margin-top: -2rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-email {\n  margin-top: -1rem;\n  margin-bottom: 0rem; }\n\n.loginPS {\n  margin-left: 2rem; }\n\n.image-holder {\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n  border-radius: 50%;\n  width: 4.3rem;\n  height: 4.3rem; }\n\n.sidebar-top {\n  background-image: url(\"/dist/img/office.jpg\");\n  color: rgba(255, 255, 255, 0.81);\n  text-align: center;\n  margin-bottom: -1rem; }\n\n.modal {\n  display: block;\n  margin-left: 34%;\n  margin-top: 2%; }\n\n.card-content {\n  height: 9rem;\n  overflow: hidden;\n  text-overflow: ellipsis; }\n\n.card .card-title {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  font-weight: 500; }\n\n.app-container {\n  width: 80%; }\n\n.search-wrapper {\n  margin-top: 1px;\n  padding: 1px 0 0 0;\n  z-index: 2;\n  height: 46px; }\n\n.search-wrapper i.material-icons {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  cursor: pointer; }\n\n#search {\n  height: 45px; }\n\nbody {\n  display: flex;\n  min-height: 100vh;\n  flex-direction: column; }\n\nmain {\n  flex: 1 0 auto; }\n\n.page-footer {\n  background-color: #901111; }\n\n.pagination li.active {\n  background-color: #901111; }\n\n.btn {\n  background-color: #009999; }\n\n.btn:hover {\n  background-color: #b71111; }\n\n.pagination li a {\n  cursor: pointer; }\n\n.doc-access {\n  float: right; }\n\n.card-btn-delete {\n  float: right; }\n\n.clear {\n  clear: both; }\n\na {\n  color: #0cdcdc; }\n\n.btn-user-del {\n  /* position: relative; */\n  left: 57vw; }\n\n.btn-user-edit {\n  /* position: relative; */\n  left: 42vw; }\n\nheader, main, footer, .container {\n  padding-left: 300px; }\n\n@media only screen and (max-width: 992px) {\n  header, main, footer, .container {\n    padding-left: 0; } }\n\n.button-collapse {\n  z-index: 998;\n  position: absolute;\n  top: 2vh; }\n", ""]);
+exports.push([module.i, ".toast-title {\n  font-weight: bold; }\n\n.toast-message {\n  -ms-word-wrap: break-word;\n  word-wrap: break-word; }\n\n.toast-message a,\n.toast-message label {\n  color: #ffffff; }\n\n.toast-message a:hover {\n  color: #cccccc;\n  text-decoration: none; }\n\n.toast-close-button {\n  position: relative;\n  right: -0.3em;\n  top: -0.3em;\n  float: right;\n  font-size: 20px;\n  font-weight: bold;\n  color: #ffffff;\n  -webkit-text-shadow: 0 1px 0 #ffffff;\n  text-shadow: 0 1px 0 #ffffff;\n  opacity: 0.8;\n  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);\n  filter: alpha(opacity=80); }\n\n.toast-close-button:hover,\n.toast-close-button:focus {\n  color: #000000;\n  text-decoration: none;\n  cursor: pointer;\n  opacity: 0.4;\n  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);\n  filter: alpha(opacity=40); }\n\n/*Additional properties for button version\n iOS requires the button element instead of an anchor tag.\n If you want the anchor version, it requires `href=\"#\"`.*/\nbutton.toast-close-button {\n  padding: 0;\n  cursor: pointer;\n  background: transparent;\n  border: 0;\n  -webkit-appearance: none; }\n\n.toast-top-center {\n  top: 0;\n  right: 0;\n  width: 100%; }\n\n.toast-bottom-center {\n  bottom: 0;\n  right: 0;\n  width: 100%; }\n\n.toast-top-full-width {\n  top: 0;\n  right: 0;\n  width: 100%; }\n\n.toast-bottom-full-width {\n  bottom: 0;\n  right: 0;\n  width: 100%; }\n\n.toast-top-left {\n  top: 12px;\n  left: 12px; }\n\n.toast-top-right {\n  top: 12px;\n  right: 12px; }\n\n.toast-bottom-right {\n  right: 12px;\n  bottom: 12px; }\n\n.toast-bottom-left {\n  bottom: 12px;\n  left: 12px; }\n\n#toast-container {\n  position: fixed;\n  z-index: 999999;\n  /*overrides*/ }\n\n#toast-container * {\n  -moz-box-sizing: border-box;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n#toast-container > div {\n  position: relative;\n  overflow: hidden;\n  margin: 0 0 6px;\n  padding: 15px 15px 15px 50px;\n  width: 300px;\n  -moz-border-radius: 3px 3px 3px 3px;\n  -webkit-border-radius: 3px 3px 3px 3px;\n  border-radius: 3px 3px 3px 3px;\n  background-position: 15px center;\n  background-repeat: no-repeat;\n  -moz-box-shadow: 0 0 12px #999999;\n  -webkit-box-shadow: 0 0 12px #999999;\n  box-shadow: 0 0 12px #999999;\n  color: #ffffff;\n  opacity: 0.8;\n  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);\n  filter: alpha(opacity=80); }\n\n#toast-container > :hover {\n  -moz-box-shadow: 0 0 12px #000000;\n  -webkit-box-shadow: 0 0 12px #000000;\n  box-shadow: 0 0 12px #000000;\n  opacity: 1;\n  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);\n  filter: alpha(opacity=100);\n  cursor: pointer; }\n\n#toast-container > .toast-info {\n  background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGwSURBVEhLtZa9SgNBEMc9sUxxRcoUKSzSWIhXpFMhhYWFhaBg4yPYiWCXZxBLERsLRS3EQkEfwCKdjWJAwSKCgoKCcudv4O5YLrt7EzgXhiU3/4+b2ckmwVjJSpKkQ6wAi4gwhT+z3wRBcEz0yjSseUTrcRyfsHsXmD0AmbHOC9Ii8VImnuXBPglHpQ5wwSVM7sNnTG7Za4JwDdCjxyAiH3nyA2mtaTJufiDZ5dCaqlItILh1NHatfN5skvjx9Z38m69CgzuXmZgVrPIGE763Jx9qKsRozWYw6xOHdER+nn2KkO+Bb+UV5CBN6WC6QtBgbRVozrahAbmm6HtUsgtPC19tFdxXZYBOfkbmFJ1VaHA1VAHjd0pp70oTZzvR+EVrx2Ygfdsq6eu55BHYR8hlcki+n+kERUFG8BrA0BwjeAv2M8WLQBtcy+SD6fNsmnB3AlBLrgTtVW1c2QN4bVWLATaIS60J2Du5y1TiJgjSBvFVZgTmwCU+dAZFoPxGEEs8nyHC9Bwe2GvEJv2WXZb0vjdyFT4Cxk3e/kIqlOGoVLwwPevpYHT+00T+hWwXDf4AJAOUqWcDhbwAAAAASUVORK5CYII=\") !important; }\n\n#toast-container > .toast-error {\n  background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHOSURBVEhLrZa/SgNBEMZzh0WKCClSCKaIYOED+AAKeQQLG8HWztLCImBrYadgIdY+gIKNYkBFSwu7CAoqCgkkoGBI/E28PdbLZmeDLgzZzcx83/zZ2SSXC1j9fr+I1Hq93g2yxH4iwM1vkoBWAdxCmpzTxfkN2RcyZNaHFIkSo10+8kgxkXIURV5HGxTmFuc75B2RfQkpxHG8aAgaAFa0tAHqYFfQ7Iwe2yhODk8+J4C7yAoRTWI3w/4klGRgR4lO7Rpn9+gvMyWp+uxFh8+H+ARlgN1nJuJuQAYvNkEnwGFck18Er4q3egEc/oO+mhLdKgRyhdNFiacC0rlOCbhNVz4H9FnAYgDBvU3QIioZlJFLJtsoHYRDfiZoUyIxqCtRpVlANq0EU4dApjrtgezPFad5S19Wgjkc0hNVnuF4HjVA6C7QrSIbylB+oZe3aHgBsqlNqKYH48jXyJKMuAbiyVJ8KzaB3eRc0pg9VwQ4niFryI68qiOi3AbjwdsfnAtk0bCjTLJKr6mrD9g8iq/S/B81hguOMlQTnVyG40wAcjnmgsCNESDrjme7wfftP4P7SP4N3CJZdvzoNyGq2c/HWOXJGsvVg+RA/k2MC/wN6I2YA2Pt8GkAAAAASUVORK5CYII=\") !important; }\n\n#toast-container > .toast-success {\n  background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADsSURBVEhLY2AYBfQMgf///3P8+/evAIgvA/FsIF+BavYDDWMBGroaSMMBiE8VC7AZDrIFaMFnii3AZTjUgsUUWUDA8OdAH6iQbQEhw4HyGsPEcKBXBIC4ARhex4G4BsjmweU1soIFaGg/WtoFZRIZdEvIMhxkCCjXIVsATV6gFGACs4Rsw0EGgIIH3QJYJgHSARQZDrWAB+jawzgs+Q2UO49D7jnRSRGoEFRILcdmEMWGI0cm0JJ2QpYA1RDvcmzJEWhABhD/pqrL0S0CWuABKgnRki9lLseS7g2AlqwHWQSKH4oKLrILpRGhEQCw2LiRUIa4lwAAAABJRU5ErkJggg==\") !important; }\n\n#toast-container > .toast-warning {\n  background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGYSURBVEhL5ZSvTsNQFMbXZGICMYGYmJhAQIJAICYQPAACiSDB8AiICQQJT4CqQEwgJvYASAQCiZiYmJhAIBATCARJy+9rTsldd8sKu1M0+dLb057v6/lbq/2rK0mS/TRNj9cWNAKPYIJII7gIxCcQ51cvqID+GIEX8ASG4B1bK5gIZFeQfoJdEXOfgX4QAQg7kH2A65yQ87lyxb27sggkAzAuFhbbg1K2kgCkB1bVwyIR9m2L7PRPIhDUIXgGtyKw575yz3lTNs6X4JXnjV+LKM/m3MydnTbtOKIjtz6VhCBq4vSm3ncdrD2lk0VgUXSVKjVDJXJzijW1RQdsU7F77He8u68koNZTz8Oz5yGa6J3H3lZ0xYgXBK2QymlWWA+RWnYhskLBv2vmE+hBMCtbA7KX5drWyRT/2JsqZ2IvfB9Y4bWDNMFbJRFmC9E74SoS0CqulwjkC0+5bpcV1CZ8NMej4pjy0U+doDQsGyo1hzVJttIjhQ7GnBtRFN1UarUlH8F3xict+HY07rEzoUGPlWcjRFRr4/gChZgc3ZL2d8oAAAAASUVORK5CYII=\") !important; }\n\n#toast-container.toast-top-center > div,\n#toast-container.toast-bottom-center > div {\n  width: 300px;\n  margin: auto; }\n\n#toast-container.toast-top-full-width > div,\n#toast-container.toast-bottom-full-width > div {\n  width: 96%;\n  margin: auto; }\n\n.toast {\n  background-color: #030303; }\n\n.toast-success {\n  background-color: #51a351; }\n\n.toast-error {\n  background-color: #bd362f; }\n\n.toast-info {\n  background-color: #2f96b4; }\n\n.toast-warning {\n  background-color: #f89406; }\n\n.toast-progress {\n  position: absolute;\n  left: 0;\n  bottom: 0;\n  height: 4px;\n  background-color: #000000;\n  opacity: 0.4;\n  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);\n  filter: alpha(opacity=40); }\n\n/*Responsive Design*/\n@media all and (max-width: 240px) {\n  #toast-container > div {\n    padding: 8px 8px 8px 50px;\n    width: 11em; }\n  #toast-container .toast-close-button {\n    right: -0.2em;\n    top: -0.2em; } }\n\n@media all and (min-width: 241px) and (max-width: 480px) {\n  #toast-container > div {\n    padding: 8px 8px 8px 50px;\n    width: 18em; }\n  #toast-container .toast-close-button {\n    right: -0.2em;\n    top: -0.2em; } }\n\n@media all and (min-width: 481px) and (max-width: 768px) {\n  #toast-container > div {\n    padding: 15px 15px 15px 50px;\n    width: 25em; } }\n\nbody {\n  display: flex;\n  min-height: 100vh;\n  flex-direction: column; }\n\nmain {\n  flex: 1 0 auto; }\n\n.landing-page {\n  background-image: url(\"/dist/img/books.jpg\");\n  height: 100vh;\n  width: 100vw;\n  background-position: left;\n  color: white; }\n\n.row-container {\n  margin-top: 10%;\n  background-color: rgba(0, 0, 0, 0.3); }\n\nnav {\n  width: 100%;\n  background-color: #90140D; }\n\n.navbar-fixed nav {\n  position: fixed; }\n\n.brand-logo {\n  position: relative;\n  left: 50%; }\n\n.document-container {\n  margin-left: 28%;\n  background-color: white; }\n\n.header {\n  margin-top: 0px;\n  font-size: 3.2rem;\n  text-align: center; }\n\n.side-bar-top-icon {\n  font-size: 6rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-text {\n  margin-top: -2rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-email {\n  margin-top: -1rem;\n  margin-bottom: 0rem; }\n\n.loginPS {\n  margin-left: 2rem; }\n\n.image-holder {\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n  border-radius: 50%;\n  width: 4.3rem;\n  height: 4.3rem; }\n\n.sidebar-top {\n  background-image: url(\"/dist/img/office.jpg\");\n  color: rgba(255, 255, 255, 0.81);\n  text-align: center;\n  margin-bottom: -1rem; }\n\n.button-collapse {\n  z-index: 998;\n  position: absolute;\n  top: 2vh; }\n\n.modal {\n  display: block;\n  margin-left: 34%;\n  margin-top: 2%; }\n\n@media only screen and (max-width: 992px) {\n  .modal {\n    width: 80%;\n    margin-left: 10%; } }\n\n.card-content {\n  height: 20rem;\n  overflow: hidden;\n  text-overflow: ellipsis; }\n\n.card .card-title, h4 {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  font-weight: 600;\n  text-align: center;\n  color: #90140D; }\n\n.search-wrapper {\n  margin-top: 1px;\n  padding: 1px 0 0 0;\n  z-index: 2;\n  height: 46px; }\n\n.search-wrapper i.material-icons {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  cursor: pointer; }\n\n#search {\n  height: 45px; }\n\n.pagination li.active {\n  background-color: #90140D; }\n\n.btn {\n  background-color: #006628; }\n\n.btn:hover {\n  background-color: #30B263; }\n\n.pagination li a {\n  cursor: pointer; }\n\n.doc-access {\n  float: right; }\n\n.card-btn-delete {\n  float: right; }\n\n.clear {\n  clear: both; }\n\na {\n  color: #006628; }\n\n.btn-user-del {\n  left: 90%; }\n\n.btn-user-edit {\n  left: 77%; }\n\nheader, main, footer {\n  padding-left: 300px; }\n\n@media only screen and (max-width: 992px) {\n  header, main, footer {\n    padding-left: 0; } }\n\n.side-bar-list:hover {\n  color: #FF3F34; }\n\n.side-nav li > a {\n  color: #006628; }\n\n.side-nav li > a:hover {\n  color: #30B263; }\n", ""]);
 
 // exports
 

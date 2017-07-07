@@ -13,7 +13,6 @@ class Dashboard extends Component {
 
   render() {
     if (!this.props.status.valid) {
-      console.log('should redirect');
       return (<Redirect
         push
         to={{

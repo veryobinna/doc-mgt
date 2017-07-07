@@ -17,7 +17,7 @@ class GetDocument extends Component {
       documents: [{ User: {} }],
       query: '',
       offset: 0,
-      limit: 6,
+      limit: 12,
       search: false,
       getDocument: false,
       getMyDocument: false,
@@ -119,7 +119,7 @@ class GetDocument extends Component {
       return <ShowDocument key={Math.random()} {...items} />;
     });
     return (
-      <div className="component-render col s12 m12 l9">
+      <div className="col s12 m12 l9">
         <SearchBar onSearch={this.onSearch} />
         <div className="row">
           {documents}
