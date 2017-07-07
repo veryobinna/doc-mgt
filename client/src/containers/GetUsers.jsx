@@ -1,15 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import toastr from 'toastr';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
 import { getUsers, deleteUser, searchUsers } from '../actions/UserActions';
-import ShowDocument from '../components/ShowDocument';
 import ShowUsers from '../components/ShowUsers';
 import SearchBar from '../components/SearchBar';
 
+/**
+ *
+ *
+ * @class GetUsers
+ * @extends {Component}
+ */
 class GetUsers extends Component {
+  /**
+   * Creates an instance of GetUsers.
+   * @param {any} props
+   *
+   * @memberof GetUsers
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -28,22 +38,35 @@ class GetUsers extends Component {
     this.getUsers = this.getUsers.bind(this);
   }
 
+  /**
+   *
+   *
+   * @returns {null} no return
+   * @memberof GetUsers
+   */
   componentWillMount() {
     this.getUsers();
   }
-  getUsers() {
-    this.setState({
-      search: false,
-      getUsers: true,
-    });
-    this.props.getUsers(this.state.limit, this.state.offset);
-    console.log('the search qury, limit and offset', this.state.query, this.state.limit, this.state.offset);
-  }
 
+
+  /**
+   *
+   *
+   * @param {any} nextProps
+   * @returns {null} no return
+   * @memberof GetUsers
+   */
   componentWillReceiveProps(nextProps) {
     this.setState({ users: nextProps.users, paginate: nextProps.paginate });
   }
 
+  /**
+   *
+   *
+   * @param {any} event
+   * @returns {null} no return
+   * @memberof GetUsers
+   */
   onSearch(event) {
     if (event) {
       this.state.query = event.target.value;
@@ -52,16 +75,25 @@ class GetUsers extends Component {
       search: true,
       getUsers: false,
     });
-    console.log('the search qury, limit and offset', this.state.query, this.state.limit, this.state.offset);
 
-    this.props.searchUsers(this.state.query, this.state.limit, this.state.offset);
+    this.props.searchUsers(
+      this.state.query,
+    this.state.limit,
+    this.state.offset);
   }
+  /**
+   *
+   *
+   * @param {any} event
+   * @returns {null} no return
+   * @memberof GetUsers
+   */
   onPageClick(event) {
     const selected = event.selected;
     const offset = selected * 5;
 
     if (this.state.search) {
-      this.setState({ offset, users:[{}] },
+      this.setState({ offset, users: [{}] },
         this.onSearch // callback
       );
     }
@@ -71,14 +103,40 @@ class GetUsers extends Component {
       );
     }
   }
+    /**
+   *
+   *
+   * @returns {null} no return
+   * @memberof GetUsers
+   */
+  getUsers() {
+    this.setState({
+      search: false,
+      getUsers: true,
+    });
+    this.props.getUsers(this.state.limit, this.state.offset);
+  }
+  /**
+   *
+   *
+   * @param {any} id
+   * @returns {null} no return
+   * @memberof GetUsers
+   */
   deleteUser(id) {
     this.props.deleteUser(id)
       .then(() => {
         this.props.getUsers();
       });
   }
+  /**
+   *
+   *
+   * @returns {html} DOM element
+   *
+   * @memberof GetUsers
+   */
   render() {
-    console.log('this.users details.......', this.state.users);
     const users = this.state.users.map((user) => {
       const items = {
         id: user.id,
@@ -118,11 +176,32 @@ class GetUsers extends Component {
 }
 
 const mapDispatchToProps =
-  dispatch => bindActionCreators({ getUsers, deleteUser, searchUsers }, dispatch);
+  dispatch => bindActionCreators({
+    getUsers, deleteUser, searchUsers
+  }, dispatch);
 
 const mapStateToProps = state => ({
   users: state.usersReducer.users.users,
   paginate: state.usersReducer.users.paginate
 });
+
+GetUsers.getDefaultProps = {
+  users: {},
+  id: '',
+  status: {},
+  deleteUser: () => { },
+  searchUsers: () => { },
+  getUsers: () => {},
+  paginate: {}
+
+};
+GetUsers.propTypes = {
+  users: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  searchUsers: PropTypes.func,
+  getUsers: PropTypes.func,
+  deleteUser: PropTypes.func,
+  paginate: PropTypes.object // eslint-disable-line react/forbid-prop-types
+
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(GetUsers);

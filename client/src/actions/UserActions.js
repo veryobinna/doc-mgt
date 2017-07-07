@@ -3,10 +3,22 @@ import toastr from 'toastr';
 import types from './ActionTypes';
 
 
+/**
+ * GetUserSuccess contains the user details
+ * @param {any} payload
+ * @returns {null} no return
+ */
 const getUsersSuccess = payload => ({
   type: types.GET_USERS, payload
 });
 
+/**
+ * getUsers gets users from the API and sends it to
+ * getUSerSuccess
+ * @param {any} limit
+ * @param {any} offset
+ * @returns{promise} returns a promise
+ */
 const getUsers = (limit, offset) => dispatch => axios
   .get(`/users/?limit=${limit}&offset=${offset}`)
   .then((res) => {
@@ -16,39 +28,69 @@ const getUsers = (limit, offset) => dispatch => axios
     toastr.error(error.response.data.message);
   });
 
+/**
+ * GetUserSuccess contains the user details
+ * @param {any} payload
+ * @returns {null} no return
+ */
 const searchUsersSuccess = payload => ({
   type: types.GET_USERS, payload
 });
 
+/**
+ * searchUsers gets users from the API and sends it to
+ * searchUserSuccess
+ * @param {any} query
+ * @param {any} limit
+ * @param {any} offset
+ * @returns{promise} returns a promise
+ */
 const searchUsers = (query, limit, offset) => dispatch => axios
   .get(`/search/users/?q=${query}&limit=${limit}&offset=${offset}`)
   .then((res) => {
-    console.log('the searche users are ',res.data)
     dispatch(searchUsersSuccess(res.data));
   })
   .catch((error) => {
     toastr.error(error.response.data.message);
   });
 
-
+/**
+ * deleteUserSuccess contains the user details
+ * @param {any} payload
+ * @returns {null} no return
+ */
 const deleteUserSuccess = payload => ({
   type: types.DELETE_USER, payload
 });
 
+/**
+ * deleteUser delete a user via the API
+ * @param {any} id
+ * @returns{promise} returns a promise
+ */
 const deleteUser = id => dispatch => axios
   .delete(`users/${id}`)
   .then((res) => {
     dispatch(deleteUserSuccess(res.data));
   })
   .catch((error) => {
-    console.log('delete user', error.response.data.error)
     toastr.error(error.response.data.message);
   });
 
-
+/**
+ * updateUserSuccess contains the user details
+ * @param {any} payload
+ * @returns {null} no return
+ */
 const updateUserSuccess = payload => ({
   type: types.UPDATE_USER, payload
 });
+
+/**
+ * updateUser updates a user via the API
+ * @param {any} data
+ * @returns{promise} returns a promise
+ */
 const updateUser = data => dispatch => axios
   .put(`users/${data.id}`, data)
   .then((res) => {
@@ -58,11 +100,21 @@ const updateUser = data => dispatch => axios
     toastr.error(error.response.data.message);
   });
 
-
+/**
+ * GetSingleUserSuccess contains the user details
+ * @param {any} payload
+ * @returns {null} no return
+ */
 const getSingleUserSuccess = payload => ({
   type: types.GET_SINGLE_USER, payload
 });
 
+/**
+ * getSingleUser gets users from the API and sends it to
+ * getUSerSuccess
+ * @param {any} id
+ * @returns{promise} returns a promise
+ */
 const getSingleUser = id => dispatch => axios
   .get(`users/${id}`)
   .then((res) => {

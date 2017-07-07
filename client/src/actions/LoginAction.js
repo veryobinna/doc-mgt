@@ -3,6 +3,7 @@ import toastr from 'toastr';
 import setAuthorizationToken from '../utils/Authenticate';
 import types from './ActionTypes';
 /**
+ * LoginDetails contains the dispatched Login action
  * payload has no parenthesis because it is a single function argument
  * with no curly braces
  * @param {any} payload
@@ -12,6 +13,11 @@ const loginDetails = payload => ({
   type: types.LOGIN_DETAILS, payload
 });
 
+/**
+ * Calls the API and returns the user details and token
+ * @param {any} userParams
+ * @returns{promise} returns a promise
+ */
 const LoginAction = userParams => dispatch => axios
   .post('/login', userParams)
   .then((res) => {
@@ -25,6 +31,11 @@ const LoginAction = userParams => dispatch => axios
     toastr.error(error.response.data.message);
   });
 
+/**
+ * Clears the token from the local storage
+ *
+ * @returns {object} dispatched the user details
+ */
 const LogoutAction = () => {
   window.localStorage.removeItem('token');
   return {

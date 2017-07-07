@@ -7,32 +7,68 @@ import ShowSingleDocument from '../components/ShowSingleDocument';
 import EditDocument from '../containers/EditDocument';
 
 
+/**
+ *
+ *
+ * @class GetSingleDocument
+ * @extends {Component}
+ */
 class GetSingleDocument extends Component {
+  /**
+   * Creates an instance of GetSingleDocument.
+   * @param {any} props
+   *
+   * @memberof GetSingleDocument
+   */
   constructor(props) {
     super(props);
     this.state = {
-      document: {createdAt:''}
+      document: { createdAt: '' }
     };
     this.updateDocument = this.updateDocument.bind(this);
   }
 
+  /**
+   *
+   *
+   *@returns {null} no return
+   * @memberof GetSingleDocument
+   */
   componentWillMount() {
     this.props.getSingleDocument(this.props.match.params.id);
   }
 
+  /**
+   *
+   *
+   * @param {any} nextProps
+   *@returns {null} no return
+   * @memberof GetSingleDocument
+   */
   componentWillReceiveProps(nextProps) {
-    // if (this.props.documents.length !== nextProps.documents.length) {
-    //   console.log(nextProps.documents);
-    //   // const documents =
     this.setState({ document: nextProps.documents });
   }
 
+  /**
+   *
+   *
+   * @returns {html} DOM element
+   *
+   * @memberof GetSingleDocument
+   */
   updateDocument() {
     this.props.history.replace('/editdocument');
     return <EditDocument document={this.state} />;
   }
 
 
+  /**
+   *
+   *
+   * @returns {html} DOM element
+   *
+   * @memberof GetSingleDocument
+   */
   render() {
     return (
       <div className="">
@@ -53,9 +89,6 @@ const mapStateToProps = state => ({
   status: state.login
 
 });
-// GetSingleDocument.contextTypes = {
-//   router: Proptypes.object.isRequired
-// }
 
 GetSingleDocument.getDefaultProps = {
   documents: {},
@@ -63,7 +96,8 @@ GetSingleDocument.getDefaultProps = {
   match: {},
   params: {},
   id: '',
-  deleteDocument: () => { },
+  status: {},
+  getSingleDocument: () => {},
 
 };
 GetSingleDocument.propTypes = {
@@ -71,7 +105,9 @@ GetSingleDocument.propTypes = {
   history: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   match: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   params: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  status: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   id: PropTypes.string,
+  getSingleDocument: PropTypes.func
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GetSingleDocument);

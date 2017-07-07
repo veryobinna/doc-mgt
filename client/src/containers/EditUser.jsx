@@ -4,7 +4,19 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { getSingleUser, updateUser } from '../actions/UserActions';
 
+/**
+ *
+ *
+ * @class UpdateUser
+ * @extends {Component}
+ */
 class UpdateUser extends Component {
+  /**
+   * Creates an instance of UpdateUser.
+   * @param {any} props
+   *
+   * @memberof UpdateUser
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -14,39 +26,68 @@ class UpdateUser extends Component {
       username: '',
       email: '',
       roleID: '',
-      };
+    };
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
-componentWillMount() {
-  //this.setState({ getUser(this.props.match.params.id) });
-  console.log('get user and set to props via next props');
-   this.props.getSingleUser(this.props.match.params.id);
-  console.log('the proops are',this.props.match.params.id)
-}
+  /**
+   *
+   *
+   * @returns {null} no return
+   * @memberof UpdateUser
+   */
+  componentWillMount() {
+    this.props.getSingleUser(this.props.match.params.id);
+  }
 
-componentWillReceiveProps(nextProps) {
-  this.setState({
-     id: nextProps.users.id,
+  /**
+   *
+   *
+   * @param {any} nextProps
+   * @returns {null} no return
+   * @memberof UpdateUser
+   */
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      id: nextProps.users.id,
       firstName: nextProps.users.firstName,
       lastName: nextProps.users.lastName,
       username: nextProps.users.username,
       email: nextProps.users.email,
       roleID: nextProps.users.roleID
-  })
-  console.log('the next props', nextProps)
-  
-}
+    });
+  }
+  /**
+   *
+   *
+   * @param {any} event
+   * @returns {null} no return
+   * @memberof UpdateUser
+   */
   onInputChange(event) {
     const name = event.target.id;
     const value = event.target.value;
     this.setState({ [name]: value });
   }
+  /**
+   *
+   *
+   * @param {any} event
+   * @returns {null} no return
+   * @memberof UpdateUser
+   */
   onFormSubmit(event) {
     event.preventDefault();
     this.props.updateUser(this.state);
   }
 
+  /**
+   *
+   *
+   * @returns {html} DOM element
+   *
+   * @memberof UpdateUser
+   */
   render() {
     return (
       <div className="row container col s12 m12 l9">
@@ -120,17 +161,17 @@ const mapStateToProps = state => ({
   users: state.usersReducer.users
 });
 
-// UpdateDocument.getDefaultProps = {
-//   documents: {},
-//   title: '',
-//   content: '',
-//   updateDocument: () => { },
-// };
-// UpdateDocument.propTypes = {
-//   documents: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-//   title: PropTypes.string,
-//   content: PropTypes.string,
-//   updateDocument: PropTypes.func
-// };
+UpdateUser.getDefaultProps = {
+  users: {},
+  updateUser: () => { },
+  getSingleUser: () => {},
+  match: {},
+};
+UpdateUser.propTypes = {
+  users: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  updateUser: PropTypes.func,
+  getSingleUser: PropTypes.func,
+  match: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(UpdateUser);

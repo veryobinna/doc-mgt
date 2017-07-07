@@ -45,12 +45,16 @@ ShowDocument.getDefaultProps = {
   content: '',
   id: 0,
   access: '',
+  firstName: '',
+  lastName: ''
 };
 ShowDocument.propTypes = {
   title: PropTypes.string,
   content: PropTypes.string,
   access: PropTypes.string,
   id: PropTypes.number,
+  firstName: PropTypes.string,
+  lastName: PropTypes.string,
   deleteDocument: PropTypes.func.isRequired
 };
 

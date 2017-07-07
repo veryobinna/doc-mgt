@@ -1,10 +1,24 @@
+/* eslint-disable no-undef*/
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { addDocument, getDocument } from '../actions/DocumentActions';
 
+/**
+ *
+ *
+ * @export
+ * @class AddDocument
+ * @extends {Component}
+ */
 export class AddDocument extends Component {
+  /**
+   * Creates an instance of AddDocument.
+   * @param {any} props
+   *
+   * @memberof AddDocument
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -16,31 +30,61 @@ export class AddDocument extends Component {
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
+  /**
+   * @returns{null} no return
+   * @memberof AddDocument
+   */
   componentDidMount() {
     CKEDITOR.replace('content');
   }
 
+  /**
+   *
+   *
+   * @param {any} nextProps
+   * @returns{null} no return
+   * @memberof AddDocument
+   */
   componentWillReceiveProps(nextProps) {
-    if(this.props.documents!==nextProps.documents){
-    this.props.history.replace('/documents');
-  }
+    if (this.props.documents !== nextProps.documents) {
+      this.props.history.replace('/documents');
+    }
   }
 
 
+  /**
+   *
+   *
+   * @param {any} event
+   * @returns{null} no return
+   * @memberof AddDocument
+   */
   onInputChange(event) {
     const name = event.target.id;
     const value = event.target.value;
     this.setState({ [name]: value });
   }
+  /**
+   *
+   *
+   * @param {any} event
+   * @returns{null} no return
+   * @memberof AddDocument
+   */
   onFormSubmit(event) {
     event.preventDefault();
     const data = CKEDITOR.instances.content.getData();
-    const newDocument = this.state
-    newDocument.content = data
+    const newDocument = this.state;
+    newDocument.content = data;
     this.props.addDocument(newDocument);
-    //this.props.getDocument();
   }
 
+  /**
+   *
+   *
+   * @returns {html} DOM elements
+   * @memberof AddDocument
+   */
   render() {
     return (
       <div className="col s12 m12 l9">
@@ -90,9 +134,13 @@ export class AddDocument extends Component {
 
 AddDocument.getDefaultProps = {
   addDocument: () => { },
+  documents: '',
+  history: {}
 };
 AddDocument.propTypes = {
-  addDocument: PropTypes.func
+  addDocument: PropTypes.func,
+  documents: PropTypes.string,
+  history: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 const mapDispatchToProps =

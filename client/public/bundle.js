@@ -14281,7 +14281,6 @@ exports.default = {
   GET_SINGLE_USER: 'GET_SINGLE_USER',
   SEARCH_DOCUMENTS: 'SEARCH_DOCUMENTS',
   SEARCH_USERS: 'SEARCH_USERS'
-
 };
 
 /***/ }),
@@ -18070,12 +18069,22 @@ var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * adddocument contains the document details
+ * @param {any} payload
+ * @returns {null} no return
+ */
 var addDocumentSuccess = function addDocumentSuccess(payload) {
   return {
     type: _ActionTypes2.default.ADD_DOCUMENT, payload: payload
   };
 };
 
+/**
+ * Adds a document via an API call
+ * @param {any} payload
+ * @returns{promise} returns a promise
+ */
 var addDocument = function addDocument(payload) {
   return function (dispatch) {
     return _axios2.default.post('/documents', payload).then(function (res) {
@@ -18086,16 +18095,26 @@ var addDocument = function addDocument(payload) {
   };
 };
 
+/**
+ * contains the document details
+ * @param {any} payload
+ * @returns {null} no return
+ */
 var getDocumentSuccess = function getDocumentSuccess(payload) {
   return {
     type: _ActionTypes2.default.GET_DOCUMENTS, payload: payload
   };
 };
 
+/**
+ * gets document via an API call
+ * @param {any} limit
+ * @param {any} offset
+  * @returns{promise} returns a promise
+ */
 var getDocument = function getDocument(limit, offset) {
   return function (dispatch) {
     return _axios2.default.get('/documents/?limit=' + limit + '&offset=' + offset).then(function (res) {
-
       dispatch(getDocumentSuccess(res.data));
     }).catch(function (error) {
       _toastr2.default.error(error.response.data.message);
@@ -18103,12 +18122,24 @@ var getDocument = function getDocument(limit, offset) {
   };
 };
 
+/**
+ * contains document details
+ * @param {any} payload
+ * @returns{null} no return
+ */
 var getMyDocumentSuccess = function getMyDocumentSuccess(payload) {
   return {
     type: _ActionTypes2.default.GET_MY_DOCUMENTS, payload: payload
   };
 };
 
+/**
+ * Gets a user document via an API call
+ * @param {any} id
+ * @param {any} limit
+ * @param {any} offset
+ * @returns{promise} returns a promise
+ */
 var getMyDocument = function getMyDocument(id, limit, offset) {
   return function (dispatch) {
     return _axios2.default.get('/users/' + id + '/documents/?limit=' + limit + '&offset=' + offset).then(function (res) {
@@ -18119,12 +18150,24 @@ var getMyDocument = function getMyDocument(id, limit, offset) {
   };
 };
 
+/**
+ * contains searched document details
+ * @param {any} payload
+ * @return {null} no return
+ */
 var searchDocumentSuccess = function searchDocumentSuccess(payload) {
   return {
     type: _ActionTypes2.default.SEARCH_DOCUMENTS, payload: payload
   };
 };
 
+/**
+ * serch for a document via an API call
+ * @param {any} query
+ * @param {any} limit
+ * @param {any} offset
+ * @returns{promise} returns a promise
+ */
 var searchDocument = function searchDocument(query, limit, offset) {
   return function (dispatch) {
     return _axios2.default.get('/search/documents/?q=' + query + '&limit=' + limit + '&offset=' + offset).then(function (res) {
@@ -18135,12 +18178,22 @@ var searchDocument = function searchDocument(query, limit, offset) {
   };
 };
 
+/**
+ * contains the delete document details
+ * @param {any} payload
+ * @returns{null} no return
+ */
 var deleteDocumentSuccess = function deleteDocumentSuccess(payload) {
   return {
     type: _ActionTypes2.default.DELETE_DOCUMENT, payload: payload
   };
 };
 
+/**
+ * deletes a document via an API call
+ * @param {any} id
+ * @returns{promise} returns a promise
+ */
 var deleteDocument = function deleteDocument(id) {
   return function (dispatch) {
     return _axios2.default.delete('documents/' + id).then(function (res) {
@@ -18151,11 +18204,21 @@ var deleteDocument = function deleteDocument(id) {
   };
 };
 
+/**
+ * contains update document details
+ * @param {any} payload
+ * @returns{null} no return
+ */
 var updateDocumentSuccess = function updateDocumentSuccess(payload) {
   return {
     type: _ActionTypes2.default.UPDATE_DOCUMENT, payload: payload
   };
 };
+/**
+ * update a document via an API call
+ * @param {any} data
+ * @returns {null} no return
+ */
 var updateDocument = function updateDocument(data) {
   return function (dispatch) {
     return _axios2.default.put('documents/' + data.id, data).then(function (res) {
@@ -18166,12 +18229,23 @@ var updateDocument = function updateDocument(data) {
   };
 };
 
+/**
+ * contains get single document details
+ *
+ * @param {any} payload
+ * @returns {null} no return
+ */
 var getSingleDocumentSuccess = function getSingleDocumentSuccess(payload) {
   return {
     type: _ActionTypes2.default.GET_SINGLE_DOCUMENT, payload: payload
   };
 };
 
+/**
+ * Gets a single document via an API call
+ * @param {any} id
+ * @returns{promise} returns a promise
+ */
 var getSingleDocument = function getSingleDocument(id) {
   return function (dispatch) {
     return _axios2.default.get('documents/' + id).then(function (res) {
@@ -20290,9 +20364,21 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ *
+ *
+ * @class GetDocument
+ * @extends {Component}
+ */
 var GetDocument = function (_Component) {
   _inherits(GetDocument, _Component);
 
+  /**
+   * Creates an instance of GetDocument.
+   * @param {any} props
+   *
+   * @memberof GetDocument
+   */
   function GetDocument(props) {
     _classCallCheck(this, GetDocument);
 
@@ -20316,63 +20402,72 @@ var GetDocument = function (_Component) {
     return _this;
   }
 
+  /**
+   *
+   *
+   * @returns {null} no returns
+   * @memberof GetDocument
+   */
+
+
   _createClass(GetDocument, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
-      console.log('the props', this.props.match.params.id);
       if (this.props.match.params.id) {
         this.getMyDocument();
-        console.log('we got to the getMyDocument area');
       }
       if (this.props.match.url === '/documents') {
-
         this.getDocument();
       }
     }
+
+    /**
+     *
+     *
+     * @param {any} nextProps
+     * @returns {null} no return
+     * @memberof GetDocument
+     */
+
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
-      console.log('we even recieved nextprops');
-      this.setState({ documents: nextProps.documents, paginate: nextProps.paginate });
+      this.setState({
+        documents: nextProps.documents,
+        paginate: nextProps.paginate });
     }
-  }, {
-    key: 'getMyDocument',
-    value: function getMyDocument() {
-      this.setState({ search: false, getDocument: false, getMyDocument: true });
-      this.props.getMyDocument(this.props.match.params.id, this.state.limit, this.state.offset);
-    }
-  }, {
-    key: 'getDocument',
-    value: function getDocument() {
-      this.setState({ search: false, getDocument: true, getMyDocument: false });
-      console.log(' limit and offset', this.state.limit, this.state.offset);
 
-      this.props.getDocument(this.state.limit, this.state.offset);
-    }
+    /**
+    *
+    *
+    * @param {any} event
+    * @returns {null} no return
+    * @memberof GetDocument
+    */
+
   }, {
     key: 'onSearch',
     value: function onSearch(event) {
       if (event) {
         this.state.query = event.target.value;
-        //this.setState({query:event.target.value})
+        // this.setState({query:event.target.value})
       }
       this.setState({
         search: true,
         getDocument: false,
         getMyDocument: false
       });
-      console.log('query, limit and offset', this.state.query, this.state.limit, this.state.offset);
       this.props.searchDocument(this.state.query, this.state.limit, this.state.offset);
     }
-  }, {
-    key: 'deleteDocument',
-    value: function deleteDocument(id) {
-      var _this2 = this;
 
-      this.props.deleteDocument(id).then(function () {
-        _this2.getDocument();
-      });
-    }
+    /**
+    *
+    *
+    * @param {any} event
+    * @returns {null} no return
+    * @memberof GetDocument
+    */
+
   }, {
     key: 'onPageClick',
     value: function onPageClick(event) {
@@ -20392,12 +20487,65 @@ var GetDocument = function (_Component) {
         );
       }
     }
+
+    /**
+     *
+     *
+     * @returns {null} no return
+     * @memberof GetDocument
+     */
+
+  }, {
+    key: 'getMyDocument',
+    value: function getMyDocument() {
+      this.setState({ search: false, getDocument: false, getMyDocument: true });
+      this.props.getMyDocument(this.props.match.params.id, this.state.limit, this.state.offset);
+    }
+    /**
+     *
+     *
+     * @returns {null} no return
+     * @memberof GetDocument
+     */
+
+  }, {
+    key: 'getDocument',
+    value: function getDocument() {
+      this.setState({ search: false, getDocument: true, getMyDocument: false });
+      this.props.getDocument(this.state.limit, this.state.offset);
+    }
+
+    /**
+     *
+     *
+     * @param {any} id
+     * @returns {null} no return
+     * @memberof GetDocument
+     */
+
+  }, {
+    key: 'deleteDocument',
+    value: function deleteDocument(id) {
+      var _this2 = this;
+
+      this.props.deleteDocument(id).then(function () {
+        _this2.getDocument();
+      });
+    }
+
+    /**
+     *
+     *
+     * @returns {html} DOM elements
+     *
+     * @memberof GetDocument
+     */
+
   }, {
     key: 'render',
     value: function render() {
       var _this3 = this;
 
-      console.log('the latest of ha we re doing......', this.state.documents);
       var documents = this.state.documents.map(function (document) {
         var items = {
           id: document.id,
@@ -20445,7 +20593,11 @@ var GetDocument = function (_Component) {
 }(_react.Component);
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return (0, _redux.bindActionCreators)({ getDocument: _DocumentActions.getDocument, getMyDocument: _DocumentActions.getMyDocument, deleteDocument: _DocumentActions.deleteDocument, searchDocument: _DocumentActions.searchDocument }, dispatch);
+  return (0, _redux.bindActionCreators)({
+    getDocument: _DocumentActions.getDocument,
+    getMyDocument: _DocumentActions.getMyDocument,
+    deleteDocument: _DocumentActions.deleteDocument,
+    searchDocument: _DocumentActions.searchDocument }, dispatch);
 };
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -20461,7 +20613,9 @@ GetDocument.getDefaultProps = {
   getDocument: function getDocument() {},
   getMyDocument: function getMyDocument() {},
   deleteDocument: function deleteDocument() {},
-  searchDocument: function searchDocument() {}
+  searchDocument: function searchDocument() {},
+  match: {},
+  paginate: {}
 
 };
 GetDocument.propTypes = {
@@ -20469,8 +20623,9 @@ GetDocument.propTypes = {
   getDocument: _propTypes2.default.func,
   getMyDocument: _propTypes2.default.func,
   deleteDocument: _propTypes2.default.func,
-  searchDocument: _propTypes2.default.func
-
+  searchDocument: _propTypes2.default.func,
+  match: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types,
+  paginate: _propTypes2.default.object // eslint-disable-line react/forbid-prop-types
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(GetDocument);
@@ -26156,6 +26311,7 @@ var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
+ * LoginDetails contains the dispatched Login action
  * payload has no parenthesis because it is a single function argument
  * with no curly braces
  * @param {any} payload
@@ -26167,6 +26323,11 @@ var loginDetails = function loginDetails(payload) {
   };
 };
 
+/**
+ * Calls the API and returns the user details and token
+ * @param {any} userParams
+ * @returns{promise} returns a promise
+ */
 var LoginAction = function LoginAction(userParams) {
   return function (dispatch) {
     return _axios2.default.post('/login', userParams).then(function (res) {
@@ -26182,6 +26343,11 @@ var LoginAction = function LoginAction(userParams) {
   };
 };
 
+/**
+ * Clears the token from the local storage
+ *
+ * @returns {object} dispatched the user details
+ */
 var LogoutAction = function LogoutAction() {
   window.localStorage.removeItem('token');
   return {
@@ -26219,12 +26385,24 @@ var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * GetUserSuccess contains the user details
+ * @param {any} payload
+ * @returns {null} no return
+ */
 var getUsersSuccess = function getUsersSuccess(payload) {
   return {
     type: _ActionTypes2.default.GET_USERS, payload: payload
   };
 };
 
+/**
+ * getUsers gets users from the API and sends it to
+ * getUSerSuccess
+ * @param {any} limit
+ * @param {any} offset
+ * @returns{promise} returns a promise
+ */
 var getUsers = function getUsers(limit, offset) {
   return function (dispatch) {
     return _axios2.default.get('/users/?limit=' + limit + '&offset=' + offset).then(function (res) {
@@ -26235,16 +26413,28 @@ var getUsers = function getUsers(limit, offset) {
   };
 };
 
+/**
+ * GetUserSuccess contains the user details
+ * @param {any} payload
+ * @returns {null} no return
+ */
 var searchUsersSuccess = function searchUsersSuccess(payload) {
   return {
     type: _ActionTypes2.default.GET_USERS, payload: payload
   };
 };
 
+/**
+ * searchUsers gets users from the API and sends it to
+ * searchUserSuccess
+ * @param {any} query
+ * @param {any} limit
+ * @param {any} offset
+ * @returns{promise} returns a promise
+ */
 var searchUsers = function searchUsers(query, limit, offset) {
   return function (dispatch) {
     return _axios2.default.get('/search/users/?q=' + query + '&limit=' + limit + '&offset=' + offset).then(function (res) {
-      console.log('the searche users are ', res.data);
       dispatch(searchUsersSuccess(res.data));
     }).catch(function (error) {
       _toastr2.default.error(error.response.data.message);
@@ -26252,28 +26442,48 @@ var searchUsers = function searchUsers(query, limit, offset) {
   };
 };
 
+/**
+ * deleteUserSuccess contains the user details
+ * @param {any} payload
+ * @returns {null} no return
+ */
 var deleteUserSuccess = function deleteUserSuccess(payload) {
   return {
     type: _ActionTypes2.default.DELETE_USER, payload: payload
   };
 };
 
+/**
+ * deleteUser delete a user via the API
+ * @param {any} id
+ * @returns{promise} returns a promise
+ */
 var deleteUser = function deleteUser(id) {
   return function (dispatch) {
     return _axios2.default.delete('users/' + id).then(function (res) {
       dispatch(deleteUserSuccess(res.data));
     }).catch(function (error) {
-      console.log('delete user', error.response.data.error);
       _toastr2.default.error(error.response.data.message);
     });
   };
 };
 
+/**
+ * updateUserSuccess contains the user details
+ * @param {any} payload
+ * @returns {null} no return
+ */
 var updateUserSuccess = function updateUserSuccess(payload) {
   return {
     type: _ActionTypes2.default.UPDATE_USER, payload: payload
   };
 };
+
+/**
+ * updateUser updates a user via the API
+ * @param {any} data
+ * @returns{promise} returns a promise
+ */
 var updateUser = function updateUser(data) {
   return function (dispatch) {
     return _axios2.default.put('users/' + data.id, data).then(function (res) {
@@ -26284,12 +26494,23 @@ var updateUser = function updateUser(data) {
   };
 };
 
+/**
+ * GetSingleUserSuccess contains the user details
+ * @param {any} payload
+ * @returns {null} no return
+ */
 var getSingleUserSuccess = function getSingleUserSuccess(payload) {
   return {
     type: _ActionTypes2.default.GET_SINGLE_USER, payload: payload
   };
 };
 
+/**
+ * getSingleUser gets users from the API and sends it to
+ * getUSerSuccess
+ * @param {any} id
+ * @returns{promise} returns a promise
+ */
 var getSingleUser = function getSingleUser(id) {
   return function (dispatch) {
     return _axios2.default.get('users/' + id).then(function (res) {
@@ -26321,14 +26542,16 @@ var _react = __webpack_require__(6);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(22);
-
 var _propTypes = __webpack_require__(8);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * SearchBar renders the SearchBar
+ * @returns {html} Dom components
+ */
 var SearchBar = function SearchBar(_ref) {
   var onSearch = _ref.onSearch;
   return _react2.default.createElement(
@@ -26344,6 +26567,10 @@ var SearchBar = function SearchBar(_ref) {
       'search'
     )
   );
+};
+
+SearchBar.propTypes = {
+  onSearch: _propTypes2.default.func.isRequired
 };
 
 exports.default = SearchBar;
@@ -26455,13 +26682,17 @@ ShowDocument.getDefaultProps = {
   title: '',
   content: '',
   id: 0,
-  access: ''
+  access: '',
+  firstName: '',
+  lastName: ''
 };
 ShowDocument.propTypes = {
   title: _propTypes2.default.string,
   content: _propTypes2.default.string,
   access: _propTypes2.default.string,
   id: _propTypes2.default.number,
+  firstName: _propTypes2.default.string,
+  lastName: _propTypes2.default.string,
   deleteDocument: _propTypes2.default.func.isRequired
 };
 
@@ -26502,11 +26733,23 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable no-undef*/
 
+/**
+ *
+ *
+ * @class UpdateDocument
+ * @extends {Component}
+ */
 var UpdateDocument = function (_Component) {
   _inherits(UpdateDocument, _Component);
 
+  /**
+   * Creates an instance of UpdateDocument.
+   * @param {any} props
+   *
+   * @memberof UpdateDocument
+   */
   function UpdateDocument(props) {
     _classCallCheck(this, UpdateDocument);
 
@@ -26522,18 +26765,40 @@ var UpdateDocument = function (_Component) {
     _this.onFormSubmit = _this.onFormSubmit.bind(_this);
     return _this;
   }
+  /**
+   *
+   *
+     *@returns {null} no return
+   * @memberof UpdateDocument
+   */
+
 
   _createClass(UpdateDocument, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.setState({ title: this.props.documents.title });
       CKEDITOR.replace('content');
     }
+    /**
+     *
+     *
+     * @param {any} nextProps
+       *@returns {null} no return
+     * @memberof UpdateDocument
+     */
+
   }, {
     key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps) {
+    value: function componentWillReceiveProps() {
       this.props.history.replace('/documents');
     }
+    /**
+     *
+     *
+     * @param {any} event
+     *@returns {null} no return
+     * @memberof UpdateDocument
+     */
+
   }, {
     key: 'onInputChange',
     value: function onInputChange(event) {
@@ -26541,6 +26806,14 @@ var UpdateDocument = function (_Component) {
       var value = event.target.value;
       this.setState(_defineProperty({}, name, value));
     }
+    /**
+     *
+     *
+     * @param {any} event
+     *@returns {null} no return
+     * @memberof UpdateDocument
+     */
+
   }, {
     key: 'onFormSubmit',
     value: function onFormSubmit(event) {
@@ -26550,6 +26823,15 @@ var UpdateDocument = function (_Component) {
       newDocument.content = data;
       this.props.updateDocument(newDocument);
     }
+
+    /**
+     *
+     *
+     * @returns {html} DOM element
+     *
+     * @memberof UpdateDocument
+     */
+
   }, {
     key: 'render',
     value: function render() {
@@ -26663,13 +26945,15 @@ UpdateDocument.getDefaultProps = {
   documents: {},
   title: '',
   content: '',
-  updateDocument: function updateDocument() {}
+  updateDocument: function updateDocument() {},
+  history: {}
 };
 UpdateDocument.propTypes = {
   documents: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
   title: _propTypes2.default.string,
   content: _propTypes2.default.string,
-  updateDocument: _propTypes2.default.func
+  updateDocument: _propTypes2.default.func,
+  history: _propTypes2.default.object // eslint-disable-line react/forbid-prop-types
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(UpdateDocument);
@@ -26697,10 +26981,6 @@ var _reactRedux = __webpack_require__(21);
 
 var _redux = __webpack_require__(20);
 
-var _toastr = __webpack_require__(41);
-
-var _toastr2 = _interopRequireDefault(_toastr);
-
 var _propTypes = __webpack_require__(8);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
@@ -26710,10 +26990,6 @@ var _reactPaginate = __webpack_require__(319);
 var _reactPaginate2 = _interopRequireDefault(_reactPaginate);
 
 var _UserActions = __webpack_require__(133);
-
-var _ShowDocument = __webpack_require__(135);
-
-var _ShowDocument2 = _interopRequireDefault(_ShowDocument);
 
 var _ShowUsers = __webpack_require__(372);
 
@@ -26731,9 +27007,21 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ *
+ *
+ * @class GetUsers
+ * @extends {Component}
+ */
 var GetUsers = function (_Component) {
   _inherits(GetUsers, _Component);
 
+  /**
+   * Creates an instance of GetUsers.
+   * @param {any} props
+   *
+   * @memberof GetUsers
+   */
   function GetUsers(props) {
     _classCallCheck(this, GetUsers);
 
@@ -26756,26 +27044,42 @@ var GetUsers = function (_Component) {
     return _this;
   }
 
+  /**
+   *
+   *
+   * @returns {null} no return
+   * @memberof GetUsers
+   */
+
+
   _createClass(GetUsers, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
       this.getUsers();
     }
-  }, {
-    key: 'getUsers',
-    value: function getUsers() {
-      this.setState({
-        search: false,
-        getUsers: true
-      });
-      this.props.getUsers(this.state.limit, this.state.offset);
-      console.log('the search qury, limit and offset', this.state.query, this.state.limit, this.state.offset);
-    }
+
+    /**
+     *
+     *
+     * @param {any} nextProps
+     * @returns {null} no return
+     * @memberof GetUsers
+     */
+
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
       this.setState({ users: nextProps.users, paginate: nextProps.paginate });
     }
+
+    /**
+     *
+     *
+     * @param {any} event
+     * @returns {null} no return
+     * @memberof GetUsers
+     */
+
   }, {
     key: 'onSearch',
     value: function onSearch(event) {
@@ -26786,10 +27090,17 @@ var GetUsers = function (_Component) {
         search: true,
         getUsers: false
       });
-      console.log('the search qury, limit and offset', this.state.query, this.state.limit, this.state.offset);
 
       this.props.searchUsers(this.state.query, this.state.limit, this.state.offset);
     }
+    /**
+     *
+     *
+     * @param {any} event
+     * @returns {null} no return
+     * @memberof GetUsers
+     */
+
   }, {
     key: 'onPageClick',
     value: function onPageClick(event) {
@@ -26805,6 +27116,30 @@ var GetUsers = function (_Component) {
         );
       }
     }
+    /**
+    *
+    *
+    * @returns {null} no return
+    * @memberof GetUsers
+    */
+
+  }, {
+    key: 'getUsers',
+    value: function getUsers() {
+      this.setState({
+        search: false,
+        getUsers: true
+      });
+      this.props.getUsers(this.state.limit, this.state.offset);
+    }
+    /**
+     *
+     *
+     * @param {any} id
+     * @returns {null} no return
+     * @memberof GetUsers
+     */
+
   }, {
     key: 'deleteUser',
     value: function deleteUser(id) {
@@ -26814,12 +27149,19 @@ var GetUsers = function (_Component) {
         _this2.props.getUsers();
       });
     }
+    /**
+     *
+     *
+     * @returns {html} DOM element
+     *
+     * @memberof GetUsers
+     */
+
   }, {
     key: 'render',
     value: function render() {
       var _this3 = this;
 
-      console.log('this.users details.......', this.state.users);
       var users = this.state.users.map(function (user) {
         var items = {
           id: user.id,
@@ -26868,7 +27210,9 @@ var GetUsers = function (_Component) {
 }(_react.Component);
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return (0, _redux.bindActionCreators)({ getUsers: _UserActions.getUsers, deleteUser: _UserActions.deleteUser, searchUsers: _UserActions.searchUsers }, dispatch);
+  return (0, _redux.bindActionCreators)({
+    getUsers: _UserActions.getUsers, deleteUser: _UserActions.deleteUser, searchUsers: _UserActions.searchUsers
+  }, dispatch);
 };
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -26876,6 +27220,25 @@ var mapStateToProps = function mapStateToProps(state) {
     users: state.usersReducer.users.users,
     paginate: state.usersReducer.users.paginate
   };
+};
+
+GetUsers.getDefaultProps = {
+  users: {},
+  id: '',
+  status: {},
+  deleteUser: function deleteUser() {},
+  searchUsers: function searchUsers() {},
+  getUsers: function getUsers() {},
+  paginate: {}
+
+};
+GetUsers.propTypes = {
+  users: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
+  searchUsers: _propTypes2.default.func,
+  getUsers: _propTypes2.default.func,
+  deleteUser: _propTypes2.default.func,
+  paginate: _propTypes2.default.object // eslint-disable-line react/forbid-prop-types
+
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(GetUsers);
@@ -49351,6 +49714,7 @@ var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
+ * SignupDetails contains the user details
  * payload has no parenthesis because it is a single function argument
  * with no curly braces
  * @param {any} payload
@@ -49362,14 +49726,17 @@ var signupDetails = function signupDetails(payload) {
   };
 };
 
+/**
+ * Sends the user details to the API
+ * @param {any} userParams
+ * @returns{promise} returns a promise
+ */
 var signup = function signup(userParams) {
   return function (dispatch) {
     return _axios2.default.post('/users', userParams).then(function (res) {
       dispatch(signupDetails(res.data));
       _toastr2.default.success('successful');
-      console.log('signup res', res.data);
     }).catch(function (error) {
-      console.log('errorr message ', error.response.data.message);
       _toastr2.default.error(error.response.data.message.errors[0].message);
     });
   };
@@ -49396,6 +49763,10 @@ var _reactRouterDom = __webpack_require__(22);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * Navbar renders the navbar 
+ * @returns {html} Dom components
+ */
 var Navbar = function Navbar() {
   return _react2.default.createElement(
     'div',
@@ -49461,7 +49832,12 @@ var ShowSingleDocument = function ShowSingleDocument(props) {
         props.document.createdAt.slice(0, 10),
         props.status.user.id === props.document.ownerID && _react2.default.createElement(
           'a',
-          { className: 'btn-floating modal-action modal-close  btn btn-flat', onClick: props.updateDocument },
+          {
+            className: 'btn-floating modal-action modal-close  btn btn-flat',
+            role: 'button',
+            tabIndex: '-1',
+            onClick: props.updateDocument
+          },
           _react2.default.createElement(
             'i',
             { className: 'large material-icons' },
@@ -49476,12 +49852,14 @@ var ShowSingleDocument = function ShowSingleDocument(props) {
 ShowSingleDocument.getDefaultProps = {
   document: {},
   title: '',
-  content: ''
+  content: '',
+  status: {}
 };
 ShowSingleDocument.propTypes = {
   document: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
   title: _propTypes2.default.string,
   content: _propTypes2.default.string,
+  status: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
   updateDocument: _propTypes2.default.func.isRequired
 };
 
@@ -49602,9 +49980,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(22);
 
-var _GetDocument = __webpack_require__(81);
+var _propTypes = __webpack_require__(8);
 
-var _GetDocument2 = _interopRequireDefault(_GetDocument);
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49621,10 +49999,16 @@ var Sidebar = function Sidebar(props) {
         _react2.default.createElement(
           'div',
           { className: 'sidebar-top' },
-          _react2.default.createElement('img', { className: 'image-holder', src: '/dist/img/image-holder.jpg' }),
+          _react2.default.createElement('img', {
+            className: 'image-holder',
+            alt: 'user',
+            src: '/dist/img/image-holder.jpg'
+          }),
           _react2.default.createElement(
             'h5',
-            { className: 'side-bar-top-text' },
+            {
+              className: 'side-bar-top-text'
+            },
             ' ',
             props.status.user.firstName + ' ' + props.status.user.lastName
           ),
@@ -49660,7 +50044,10 @@ var Sidebar = function Sidebar(props) {
         null,
         _react2.default.createElement(
           _reactRouterDom.Link,
-          { to: '/mydocuments/' + props.status.user.id, className: 'waves-effect' },
+          {
+            to: '/mydocuments/' + props.status.user.id,
+            className: 'waves-effect'
+          },
           ' My Documents'
         )
       ),
@@ -49687,14 +50074,25 @@ var Sidebar = function Sidebar(props) {
         null,
         _react2.default.createElement(
           'a',
-          { onClick: props.LogoutAction, className: 'waves-effect' },
+          {
+            onClick: props.LogoutAction,
+            className: 'waves-effect',
+            role: 'button',
+            tabIndex: '-1'
+          },
           'Logout'
         )
       )
     ),
     _react2.default.createElement(
       'a',
-      { href: '#', 'data-activates': 'slide-out', className: 'button-collapse' },
+      {
+        href: '',
+        'data-activates': 'slide-out',
+        className: 'button-collapse',
+        role: 'button',
+        tabIndex: '-1'
+      },
       _react2.default.createElement(
         'i',
         { className: 'material-icons' },
@@ -49702,6 +50100,17 @@ var Sidebar = function Sidebar(props) {
       )
     )
   );
+};
+Sidebar.getDefaultProps = {
+  user: {},
+  id: '',
+  status: {}
+};
+Sidebar.propTypes = {
+  user: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
+  id: _propTypes2.default.number,
+  status: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
+  LogoutAction: _propTypes2.default.func.isRequired
 };
 exports.default = Sidebar;
 
@@ -49741,11 +50150,25 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable no-undef*/
 
+
+/**
+ *
+ *
+ * @export
+ * @class AddDocument
+ * @extends {Component}
+ */
 var AddDocument = exports.AddDocument = function (_Component) {
   _inherits(AddDocument, _Component);
 
+  /**
+   * Creates an instance of AddDocument.
+   * @param {any} props
+   *
+   * @memberof AddDocument
+   */
   function AddDocument(props) {
     _classCallCheck(this, AddDocument);
 
@@ -49761,12 +50184,26 @@ var AddDocument = exports.AddDocument = function (_Component) {
     _this.onFormSubmit = _this.onFormSubmit.bind(_this);
     return _this;
   }
+  /**
+   * @returns{null} no return
+   * @memberof AddDocument
+   */
+
 
   _createClass(AddDocument, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
       CKEDITOR.replace('content');
     }
+
+    /**
+     *
+     *
+     * @param {any} nextProps
+     * @returns{null} no return
+     * @memberof AddDocument
+     */
+
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
@@ -49774,6 +50211,15 @@ var AddDocument = exports.AddDocument = function (_Component) {
         this.props.history.replace('/documents');
       }
     }
+
+    /**
+     *
+     *
+     * @param {any} event
+     * @returns{null} no return
+     * @memberof AddDocument
+     */
+
   }, {
     key: 'onInputChange',
     value: function onInputChange(event) {
@@ -49781,6 +50227,14 @@ var AddDocument = exports.AddDocument = function (_Component) {
       var value = event.target.value;
       this.setState(_defineProperty({}, name, value));
     }
+    /**
+     *
+     *
+     * @param {any} event
+     * @returns{null} no return
+     * @memberof AddDocument
+     */
+
   }, {
     key: 'onFormSubmit',
     value: function onFormSubmit(event) {
@@ -49789,8 +50243,15 @@ var AddDocument = exports.AddDocument = function (_Component) {
       var newDocument = this.state;
       newDocument.content = data;
       this.props.addDocument(newDocument);
-      //this.props.getDocument();
     }
+
+    /**
+     *
+     *
+     * @returns {html} DOM elements
+     * @memberof AddDocument
+     */
+
   }, {
     key: 'render',
     value: function render() {
@@ -49886,10 +50347,14 @@ var AddDocument = exports.AddDocument = function (_Component) {
 }(_react.Component);
 
 AddDocument.getDefaultProps = {
-  addDocument: function addDocument() {}
+  addDocument: function addDocument() {},
+  documents: '',
+  history: {}
 };
 AddDocument.propTypes = {
-  addDocument: _propTypes2.default.func
+  addDocument: _propTypes2.default.func,
+  documents: _propTypes2.default.string,
+  history: _propTypes2.default.object // eslint-disable-line react/forbid-prop-types
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
@@ -49917,8 +50382,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _react = __webpack_require__(6);
 
 var _react2 = _interopRequireDefault(_react);
@@ -49929,11 +50392,11 @@ var _redux = __webpack_require__(20);
 
 var _reactRouterDom = __webpack_require__(22);
 
+var _propTypes = __webpack_require__(8);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _LoginAction = __webpack_require__(132);
-
-var _GetDocument = __webpack_require__(81);
-
-var _GetDocument2 = _interopRequireDefault(_GetDocument);
 
 var _Sidebar = __webpack_require__(373);
 
@@ -49943,54 +50406,43 @@ var _Navbar = __webpack_require__(370);
 
 var _Navbar2 = _interopRequireDefault(_Navbar);
 
-var _GetUsers = __webpack_require__(137);
-
-var _GetUsers2 = _interopRequireDefault(_GetUsers);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Dashboard = function (_Component) {
-  _inherits(Dashboard, _Component);
-
-  function Dashboard() {
-    _classCallCheck(this, Dashboard);
-
-    return _possibleConstructorReturn(this, (Dashboard.__proto__ || Object.getPrototypeOf(Dashboard)).apply(this, arguments));
+/**
+ *
+ *
+ * @param {any} props
+ * @returns {html} DOM element
+ */
+var Dashboard = function Dashboard(props) {
+  if (!props.status.valid) {
+    return _react2.default.createElement(_reactRouterDom.Redirect, {
+      push: true,
+      to: {
+        pathname: '/login'
+      }
+    });
   }
 
-  _createClass(Dashboard, [{
-    key: 'render',
-    value: function render() {
-      if (!this.props.status.valid) {
-        return _react2.default.createElement(_reactRouterDom.Redirect, {
-          push: true,
-          to: {
-            pathname: '/login'
-          }
-        });
-      }
-
-      return _react2.default.createElement(
-        'div',
-        { className: '' },
-        _react2.default.createElement(_Navbar2.default, null),
-        _react2.default.createElement(
-          'div',
-          { className: 'col s3' },
-          _react2.default.createElement(_Sidebar2.default, this.props)
-        )
-      );
-    }
-  }]);
-
-  return Dashboard;
-}(_react.Component);
+  return _react2.default.createElement(
+    'div',
+    { className: '' },
+    _react2.default.createElement(_Navbar2.default, null),
+    _react2.default.createElement(
+      'div',
+      { className: 'col s3' },
+      _react2.default.createElement(_Sidebar2.default, props)
+    )
+  );
+};
+Dashboard.getDefaultProps = {
+  status: {},
+  valid: false
+};
+Dashboard.propTypes = {
+  status: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
+  valid: _propTypes2.default.bool
+};
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return (0, _redux.bindActionCreators)({ LoginAction: _LoginAction.LoginAction, LogoutAction: _LoginAction.LogoutAction }, dispatch);
@@ -50040,9 +50492,21 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ *
+ *
+ * @class UpdateUser
+ * @extends {Component}
+ */
 var UpdateUser = function (_Component) {
   _inherits(UpdateUser, _Component);
 
+  /**
+   * Creates an instance of UpdateUser.
+   * @param {any} props
+   *
+   * @memberof UpdateUser
+   */
   function UpdateUser(props) {
     _classCallCheck(this, UpdateUser);
 
@@ -50060,15 +50524,28 @@ var UpdateUser = function (_Component) {
     _this.onFormSubmit = _this.onFormSubmit.bind(_this);
     return _this;
   }
+  /**
+   *
+   *
+   * @returns {null} no return
+   * @memberof UpdateUser
+   */
+
 
   _createClass(UpdateUser, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
-      //this.setState({ getUser(this.props.match.params.id) });
-      console.log('get user and set to props via next props');
       this.props.getSingleUser(this.props.match.params.id);
-      console.log('the proops are', this.props.match.params.id);
     }
+
+    /**
+     *
+     *
+     * @param {any} nextProps
+     * @returns {null} no return
+     * @memberof UpdateUser
+     */
+
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
@@ -50080,8 +50557,15 @@ var UpdateUser = function (_Component) {
         email: nextProps.users.email,
         roleID: nextProps.users.roleID
       });
-      console.log('the next props', nextProps);
     }
+    /**
+     *
+     *
+     * @param {any} event
+     * @returns {null} no return
+     * @memberof UpdateUser
+     */
+
   }, {
     key: 'onInputChange',
     value: function onInputChange(event) {
@@ -50089,12 +50573,29 @@ var UpdateUser = function (_Component) {
       var value = event.target.value;
       this.setState(_defineProperty({}, name, value));
     }
+    /**
+     *
+     *
+     * @param {any} event
+     * @returns {null} no return
+     * @memberof UpdateUser
+     */
+
   }, {
     key: 'onFormSubmit',
     value: function onFormSubmit(event) {
       event.preventDefault();
       this.props.updateUser(this.state);
     }
+
+    /**
+     *
+     *
+     * @returns {html} DOM element
+     *
+     * @memberof UpdateUser
+     */
+
   }, {
     key: 'render',
     value: function render() {
@@ -50198,18 +50699,18 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
-// UpdateDocument.getDefaultProps = {
-//   documents: {},
-//   title: '',
-//   content: '',
-//   updateDocument: () => { },
-// };
-// UpdateDocument.propTypes = {
-//   documents: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-//   title: PropTypes.string,
-//   content: PropTypes.string,
-//   updateDocument: PropTypes.func
-// };
+UpdateUser.getDefaultProps = {
+  users: {},
+  updateUser: function updateUser() {},
+  getSingleUser: function getSingleUser() {},
+  match: {}
+};
+UpdateUser.propTypes = {
+  users: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
+  updateUser: _propTypes2.default.func,
+  getSingleUser: _propTypes2.default.func,
+  match: _propTypes2.default.object // eslint-disable-line react/forbid-prop-types
+};
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(UpdateUser);
 
@@ -50256,9 +50757,21 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ *
+ *
+ * @class GetSingleDocument
+ * @extends {Component}
+ */
 var GetSingleDocument = function (_Component) {
   _inherits(GetSingleDocument, _Component);
 
+  /**
+   * Creates an instance of GetSingleDocument.
+   * @param {any} props
+   *
+   * @memberof GetSingleDocument
+   */
   function GetSingleDocument(props) {
     _classCallCheck(this, GetSingleDocument);
 
@@ -50271,25 +50784,57 @@ var GetSingleDocument = function (_Component) {
     return _this;
   }
 
+  /**
+   *
+   *
+   *@returns {null} no return
+   * @memberof GetSingleDocument
+   */
+
+
   _createClass(GetSingleDocument, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
       this.props.getSingleDocument(this.props.match.params.id);
     }
+
+    /**
+     *
+     *
+     * @param {any} nextProps
+     *@returns {null} no return
+     * @memberof GetSingleDocument
+     */
+
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
-      // if (this.props.documents.length !== nextProps.documents.length) {
-      //   console.log(nextProps.documents);
-      //   // const documents =
       this.setState({ document: nextProps.documents });
     }
+
+    /**
+     *
+     *
+     * @returns {html} DOM element
+     *
+     * @memberof GetSingleDocument
+     */
+
   }, {
     key: 'updateDocument',
     value: function updateDocument() {
       this.props.history.replace('/editdocument');
       return _react2.default.createElement(_EditDocument2.default, { document: this.state });
     }
+
+    /**
+     *
+     *
+     * @returns {html} DOM element
+     *
+     * @memberof GetSingleDocument
+     */
+
   }, {
     key: 'render',
     value: function render() {
@@ -50319,9 +50864,6 @@ var mapStateToProps = function mapStateToProps(state) {
 
   };
 };
-// GetSingleDocument.contextTypes = {
-//   router: Proptypes.object.isRequired
-// }
 
 GetSingleDocument.getDefaultProps = {
   documents: {},
@@ -50329,7 +50871,8 @@ GetSingleDocument.getDefaultProps = {
   match: {},
   params: {},
   id: '',
-  deleteDocument: function deleteDocument() {}
+  status: {},
+  getSingleDocument: function getSingleDocument() {}
 
 };
 GetSingleDocument.propTypes = {
@@ -50337,7 +50880,9 @@ GetSingleDocument.propTypes = {
   history: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
   match: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
   params: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
-  id: _propTypes2.default.string
+  status: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
+  id: _propTypes2.default.string,
+  getSingleDocument: _propTypes2.default.func
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(GetSingleDocument);

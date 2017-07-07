@@ -135,6 +135,10 @@ export default {
             { firstName: { $ilike: `%${req.query.q}%` } },
             { lastName: { $ilike: `%${req.query.q}%` } }
           ]
+        },
+        include: {
+          model: Role,
+          attributes: ['name']
         }
       })
       .then((users) => {console.log('..................',users.rows)

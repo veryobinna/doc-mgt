@@ -10,7 +10,19 @@ import {
 import ShowDocument from '../components/ShowDocument';
 import SearchBar from '../components/SearchBar';
 
+/**
+ *
+ *
+ * @class GetDocument
+ * @extends {Component}
+ */
 class GetDocument extends Component {
+  /**
+   * Creates an instance of GetDocument.
+   * @param {any} props
+   *
+   * @memberof GetDocument
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -30,60 +42,64 @@ class GetDocument extends Component {
     this.onPageClick = this.onPageClick.bind(this);
   }
 
+  /**
+   *
+   *
+   * @returns {null} no returns
+   * @memberof GetDocument
+   */
   componentWillMount() {
-    console.log('the props', this.props.match.params.id)
     if (this.props.match.params.id) {
-      this.getMyDocument()
-      console.log('we got to the getMyDocument area')
+      this.getMyDocument();
     }
     if (this.props.match.url === '/documents') {
-
-      this.getDocument()
+      this.getDocument();
     }
-
   }
 
+  /**
+   *
+   *
+   * @param {any} nextProps
+   * @returns {null} no return
+   * @memberof GetDocument
+   */
   componentWillReceiveProps(nextProps) {
-    console.log('we even recieved nextprops');
-    this.setState({ documents: nextProps.documents, paginate: nextProps.paginate });
-
+    this.setState({
+      documents: nextProps.documents,
+      paginate: nextProps.paginate });
   }
 
-  getMyDocument() {
-    this.setState({ search: false, getDocument: false, getMyDocument: true });
-    this.props.getMyDocument(this.props.match.params.id, this.state.limit, this.state.offset);
-
-
-  }
-  getDocument() {
-    this.setState({ search: false, getDocument: true, getMyDocument: false });
-    console.log(' limit and offset', this.state.limit, this.state.offset);
-
-    this.props.getDocument(this.state.limit, this.state.offset);
-
-  }
-
-
+    /**
+   *
+   *
+   * @param {any} event
+   * @returns {null} no return
+   * @memberof GetDocument
+   */
   onSearch(event) {
     if (event) {
       this.state.query = event.target.value;
-      //this.setState({query:event.target.value})
+      // this.setState({query:event.target.value})
     }
     this.setState({
       search: true,
       getDocument: false,
       getMyDocument: false,
-    })
-    console.log('query, limit and offset', this.state.query, this.state.limit, this.state.offset);
-    this.props.searchDocument(this.state.query, this.state.limit, this.state.offset);
+    });
+    this.props.searchDocument(
+      this.state.query,
+      this.state.limit,
+      this.state.offset);
   }
 
-  deleteDocument(id) {
-    this.props.deleteDocument(id)
-      .then(() => {
-        this.getDocument();
-      });
-  }
+    /**
+   *
+   *
+   * @param {any} event
+   * @returns {null} no return
+   * @memberof GetDocument
+   */
   onPageClick(event) {
     const selected = event.selected;
     const offset = selected * 6;
@@ -104,8 +120,54 @@ class GetDocument extends Component {
       );
     }
   }
+
+  /**
+   *
+   *
+   * @returns {null} no return
+   * @memberof GetDocument
+   */
+  getMyDocument() {
+    this.setState({ search: false, getDocument: false, getMyDocument: true });
+    this.props.getMyDocument(
+      this.props.match.params.id,
+      this.state.limit,
+      this.state.offset);
+  }
+  /**
+   *
+   *
+   * @returns {null} no return
+   * @memberof GetDocument
+   */
+  getDocument() {
+    this.setState({ search: false, getDocument: true, getMyDocument: false });
+    this.props.getDocument(this.state.limit, this.state.offset);
+  }
+
+
+  /**
+   *
+   *
+   * @param {any} id
+   * @returns {null} no return
+   * @memberof GetDocument
+   */
+  deleteDocument(id) {
+    this.props.deleteDocument(id)
+      .then(() => {
+        this.getDocument();
+      });
+  }
+
+  /**
+   *
+   *
+   * @returns {html} DOM elements
+   *
+   * @memberof GetDocument
+   */
   render() {
-    console.log('the latest of ha we re doing......', this.state.documents)
     const documents = this.state.documents.map((document) => {
       const items = {
         id: document.id,
@@ -144,7 +206,11 @@ class GetDocument extends Component {
 }
 
 const mapDispatchToProps =
-  dispatch => bindActionCreators({ getDocument, getMyDocument, deleteDocument, searchDocument }, dispatch);
+  dispatch => bindActionCreators({
+    getDocument,
+    getMyDocument,
+    deleteDocument,
+    searchDocument }, dispatch);
 
 const mapStateToProps = state => ({
   documents: state.documentReducer.documents.document,
@@ -158,6 +224,8 @@ GetDocument.getDefaultProps = {
   getMyDocument: () => { },
   deleteDocument: () => { },
   searchDocument: () => { },
+  match: {},
+  paginate: {}
 
 };
 GetDocument.propTypes = {
@@ -165,8 +233,9 @@ GetDocument.propTypes = {
   getDocument: PropTypes.func,
   getMyDocument: PropTypes.func,
   deleteDocument: PropTypes.func,
-  searchDocument: PropTypes.func
-
+  searchDocument: PropTypes.func,
+  match: PropTypes.object, // eslint-disable-line react/forbid-prop-types,
+  paginate: PropTypes.object // eslint-disable-line react/forbid-prop-types
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GetDocument);
