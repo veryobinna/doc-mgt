@@ -19,7 +19,10 @@ export default {
         roleID: 3,
 
       })
-      .then(user => res.status(201).send(user))
+      .then(user => res.status(201).send({
+        user,
+        message: 'User Created',
+      }))
       .catch(error => res.status(400).json({
         message: error
       }));
@@ -27,7 +30,7 @@ export default {
   login(req, res) {
     if (req.body.loginId === '' || req.body.password === '') {
       return res.status(400).json({
-        message: 'Please input a Username or email',
+        message: 'Please input a username or email and pasword',
       });
     }
     return User
@@ -63,7 +66,7 @@ export default {
           const token = jwt.sign(userData, secret, { expiresIn: '12hr' });
           res.status(200).json({
             userData,
-            message: 'User logged in successfully',
+            message: 'Login Successful',
             token
           });
         } else {
@@ -111,7 +114,7 @@ export default {
       .then((user) => {
         if (!user) {
           return res.status(404).send({
-            message: 'User not found, please check the ID and try again'
+            message: 'User not found'
           });
         }
         return res.status(200).send(user);
@@ -121,8 +124,8 @@ export default {
       }));
   },
   search(req, res) {
-    const offset = Number.parseInt(req.query.offset, 10),
-      limit = Number.parseInt(req.query.limit, 10);
+    const offset = Number.parseInt(req.query.offset, 10) || 0,
+      limit = Number.parseInt(req.query.limit, 10) || 10;
     return User
       .findAndCountAll({
         limit,
@@ -132,9 +135,13 @@ export default {
             { firstName: { $ilike: `%${req.query.q}%` } },
             { lastName: { $ilike: `%${req.query.q}%` } }
           ]
+        },
+        include: {
+          model: Role,
+          attributes: ['name']
         }
       })
-      .then((users) => {
+      .then((users) => {console.log('..................',users.rows)
         const paginate = {
           page: Math.floor(offset / limit) + 1,
           pageSize: users.rows.length,
@@ -185,7 +192,7 @@ export default {
         .findById(Number.parseInt(req.params.id, 10))
         .then((user) => {
           if (!user) {
-            return res.status(400).send({
+            return res.status(404).send({
               message: 'User Not Found',
             });
           }
@@ -200,9 +207,12 @@ export default {
           message: error
         }));
     }
-    res.status(404).json({
-      message: 'No access to delete user'
+    res.status(403).json({
+      message: 'Cannot Delete User'
     });
   },
+  logout(req, res) {
+    res.status(200).json({ message: 'logout successful' });
+  }
 
 };

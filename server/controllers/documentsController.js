@@ -19,6 +19,7 @@ export default {
         message: error
       }));
   },
+
   list(req, res) {
     const offset = Number.parseInt(req.query.offset, 10) || 0,
       limit = Number.parseInt(req.query.limit, 10) || 12;
@@ -50,8 +51,6 @@ export default {
           message: error
         }));
     }
-
-
     return Document
       .findAndCountAll({
         limit,
@@ -98,6 +97,7 @@ export default {
         message: error
       }));
   },
+
   listUsersDocuments(req, res) {
     const offset = Number.parseInt(req.query.offset, 10) || 0,
       limit = Number.parseInt(req.query.limit, 10) || 12;
@@ -139,6 +139,7 @@ export default {
         }
       });
   },
+
   find(req, res) {
     if (req.decoded.roleID === 1) {
       return Document
@@ -236,7 +237,6 @@ export default {
           message: error
         }));
     }
-
     return Document
       .findAndCountAll({
         limit,
@@ -282,24 +282,26 @@ export default {
         message: error
       }));
   },
+
   update(req, res) {
     return Document
-      .findOne({
-        where: {
-          id: Number.parseInt(req.params.id, 10),
-          ownerID: `${req.decoded.id}`
-        }
-      })
-
+      .findById(Number.parseInt(req.params.id, 10))
       .then((document) => {
         if (!document) {
           return res.status(404).send({
             message: 'Document Not Found',
           });
+        } else if (document.ownerID !== req.decoded.id) {
+          return res.status(401).send({
+            message: 'Access Denied',
+          });
         }
         return document
           .update(req.body, { fields: Object.keys(req.body) })
-          .then(() => res.status(200).send(document))
+          .then(() => res.status(200).send({
+            document,
+            message: 'Document Updated Successfully'
+          }))
           .catch(error => res.status(400).json({
             message: error
           }));
@@ -308,6 +310,7 @@ export default {
         message: error
       }));
   },
+
   destroy(req, res) {
     if (req.decoded.roleID === 1) {
       return Document
@@ -320,7 +323,9 @@ export default {
           }
           return document
             .destroy()
-            .then(() => res.status(204).send())
+            .then(() => res.status(204).send({
+              message: 'Document Deleted Successfully'
+            }))
             .catch(error => res.status(400).json({
               message: error
             }));
@@ -331,21 +336,22 @@ export default {
     }
 
     return Document
-      .findOne({
-        where: {
-          id: Number.parseInt(req.params.id, 10),
-          ownerID: `${req.decoded.id}`
-        }
-      })
+      .findById(Number.parseInt(req.params.id, 10))
       .then((document) => {
         if (!document) {
-          return res.status(400).send({
+          return res.status(404).send({
             message: 'Document Not Found',
+          });
+        } else if (document.ownerID !== req.decoded.id) {
+          return res.status(401).send({
+            message: 'Access Denied',
           });
         }
         return document
           .destroy()
-          .then(() => res.status(204).send())
+          .then(() => res.status(204).send({
+            message: 'Document Deleted Successfully'
+          }))
           .catch(error => res.status(400).json({
             message: error
           }));

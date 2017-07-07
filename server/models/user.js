@@ -31,7 +31,10 @@ export default (sequelize, DataTypes) => {
     username: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      unique: {
+        args: true,
+        msg: 'Username already exists'
+      },
       validate: {
         min: {
           args: 3,
@@ -50,12 +53,18 @@ export default (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      unique: {
+        args: true,
+        msg: 'Email already exists'
+      },
       validate: {
         notEmpty: {
           msg: 'Email cannot be empty'
         },
-        isEmail: true,
+        isEmail: {
+          args: true,
+          msg: 'Invalid Email'
+        },
 
       }
     },

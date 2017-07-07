@@ -1,39 +1,53 @@
+@import "./toastr";
+
+$primary: #90140D;
+$primary-light:#FF3F34;
+$Seconary:#006628;
+$secondary-light:#30B263;
+$Side-bar: rgba(255, 255, 255, 0.81);
+$landing-page: white;
+$row-background:  rgba(0, 0, 0, 0.3);
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+main {
+    flex: 1 0 auto;
+  }
+
 .landing-page{
     background-image: url('/dist/img/books.jpg');
-     height: 100vh;
-     width: 100vw;
+    height: 100vh;
+    width: 100vw;
     background-position: left;
-    color: white
+    color: $landing-page;
 }
 .row-container{
-margin-top: 10%;
-background-color: rgba(0, 0, 0, 0.3);
+    margin-top: 10%;
+    background-color:$row-background;
 }
 
 nav{
-    width: 77%;
-    background-color: #901111;
+    width: 100%;
+    background-color: $primary;
 }
 .navbar-fixed nav{
     position: fixed;
-    left:23.5%
+}
+.brand-logo{
+    position: relative;
+    left: 50%;
 }
 .document-container{
     margin-left: 28%;
-    background-color: white;
-    //width: 100%
+    background-color: $landing-page;
 }
-.component-render{
-        width: 70%;
-    margin-left: 23rem;
-    }
 .header{
     margin-top: 0px;
     font-size: 3.2rem;
     text-align: center
-}
-#mode-edit{
-    margin-top: 2.5rem
 }
 
 .side-bar-top-icon{
@@ -48,7 +62,7 @@ nav{
 }
 .side-bar-top-email{
     margin-top: -1rem;
-        margin-bottom: 0rem
+    margin-bottom: 0rem
 
 }
 .loginPS{
@@ -58,95 +72,109 @@ nav{
     margin-top: 1rem;
     margin-bottom: 1rem;
     border-radius: 50%;
-        width: 4.3rem;
+    width: 4.3rem;
     height: 4.3rem;
   
 }
 .sidebar-top{
-        background-image: url('/dist/img/office.jpg');
-        color: rgba(255, 255, 255, 0.81);
+    background-image: url('/dist/img/office.jpg');
+    color: $Side-bar;
     text-align: center;
     margin-bottom: -1rem;
-    }
-    .modal{
-        display: block;
-        margin-left: 34%;
-        margin-top: 2%;
-    }
-    .card-content{
-        height: 9rem;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    .card .card-title{
-      overflow: hidden;
-        text-overflow: ellipsis;  
-        font-weight: 500;
-    }
-    .card .card-action{
-    }
-    .app-container{
+}
+
+.button-collapse{
+    z-index: 998;
+    position: absolute;
+    top:2vh;
+}
+.modal{
+    display: block;
+    margin-left: 34%;
+    margin-top: 2%;
+}
+@media only screen and (max-width: 992px){
+    .modal {
         width: 80%;
+        margin-left: 10%;
     }
-    .secondary-content{
-        color: #901111
-    }
-    .search-wrapper{
+}
+.card-content{
+    height: 20rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.card .card-title, h4{
+    overflow: hidden;
+    text-overflow: ellipsis;  
+    font-weight: 600;
+    text-align: center;
+    color: $Seconary;
+}
+   
+.search-wrapper{
     margin-top: 1px;
     padding: 1px 0 0 0;
     z-index: 2;
         height: 46px;
-    }
-    .search-wrapper i.material-icons{
-        position: absolute;
+}
+.search-wrapper i.material-icons{
+    position: absolute;
     top: 10px;
     right: 10px;
     cursor: pointer;
-    }
-    #search{
-        height: 45px;
-    }
-      body {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-  }
-
-  main {
-    flex: 1 0 auto;
-  }
-  .page-footer{
-      background-color: #901111
-  }
-  .pagination li.active {
-    background-color: #901111;
+}
+#search{
+    height: 45px;
+}
+.pagination li.active {
+    background-color: $primary;
 }
 .btn{
-    background-color: #901111
+    background-color: $Seconary;
 }
 .btn:hover{
-      background-color: #b71111
+    background-color: $secondary-light;
   
 }
 .pagination li a {
-cursor: pointer; 
-}
-.material-icons{
-        margin-right: 8px;
-    margin-left: -23px;
+    cursor: pointer; 
 }
 .doc-access{
-float: right;
+    float: right;
  }
- .card-button-delete{
-     font-size: 9px;
-    float: left;
-    width: 48%;
- }
- .card-button-view{
-    font-size: 9px;
-     float: right
- }
+.card-btn-delete{
+    float: right;
+}
  .clear{
      clear:both;
  }
+ a{
+     color: $Seconary;
+ }
+ .btn-user-del{
+    left: 90%;
+}
+ .btn-user-edit{
+    left: 77%;
+}
+ header, main, footer,  {
+      padding-left: 300px;
+}
+
+@media only screen and (max-width : 992px) {
+    header, main, footer, {
+        padding-left: 0;
+    }
+}
+.side-bar-list:hover{
+color: $primary-light;
+}
+.side-nav li>a {
+color: $primary;
+
+}
+.side-nav li>a:hover {
+color: $primary-light;
+
+}

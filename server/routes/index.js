@@ -11,12 +11,13 @@ const Routes = (app) => {
 
   app.post('/users', usersController.create);
   app.get('/users', authenticate.verifyToken, authenticate.verifyAdmin, usersController.list);
-  app.get('/users/:id', authenticate.verifyToken, usersController.find);
+  app.get('/users/:id', authenticate.verifyToken, authenticate.verifyAdmin, usersController.find);
   app.get('/search/users/', authenticate.verifyToken, authenticate.verifyAdmin, usersController.search);
   app.put('/users/:id', authenticate.verifyToken, authenticate.verifyAdmin, usersController.update);
   app.delete('/users/:id', authenticate.verifyToken, authenticate.verifyAdmin, usersController.destroy);
 
   app.post('/login', usersController.login);
+  app.post('/logout', usersController.logout);
 
   app.post('/documents',
   authenticate.verifyToken, documentsController.create);
@@ -34,14 +35,14 @@ const Routes = (app) => {
   authenticate.verifyToken, documentsController.destroy);
 
   app.post('/roles',
-  authenticate.verifyToken, rolesController.create);
+  authenticate.verifyToken, authenticate.verifyAdmin, rolesController.create);
   app.get('/roles',
-  authenticate.verifyToken, rolesController.list);
+  authenticate.verifyToken, authenticate.verifyAdmin, rolesController.list);
   app.get('/roles/:id',
-  authenticate.verifyToken, rolesController.search);
+  authenticate.verifyToken, authenticate.verifyAdmin, rolesController.search);
   app.put('/roles/:id',
-  authenticate.verifyToken, rolesController.update);
+  authenticate.verifyToken, authenticate.verifyAdmin, rolesController.update);
   app.delete('/roles/:id',
-  rolesController.destroy);
+  authenticate.verifyToken, authenticate.verifyAdmin, rolesController.destroy);
 };
 export default Routes;

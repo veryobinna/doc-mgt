@@ -64,7 +64,7 @@ const fakeData = {
     username: faker.name.firstName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
-    roleID: 3,
+    roleID: 2,
   },
   emtptyTitleDocument: {
     title: '',
@@ -92,7 +92,7 @@ const fakeData = {
     title: faker.lorem.word(),
     content: faker.lorem.paragraphs(),
     access: 'private',
-    ownerID: 1,
+    ownerID: 3,
     roleID: 1,
   },
   document3: {
@@ -161,7 +161,7 @@ const fakeData = {
     name: 'regular'
   },
   invalidRole: {
-    name: 'random'
+    name: '!nv @l!d'
   },
   emptyRole: {
     name: ''

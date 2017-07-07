@@ -1,49 +1,94 @@
+/* eslint-disable no-undef*/
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import { addDocument } from '../actions/DocumentActions';
+import { addDocument, getDocument } from '../actions/DocumentActions';
 
-class AddDocument extends Component {
+/**
+ *
+ *
+ * @export
+ * @class AddDocument
+ * @extends {Component}
+ */
+export class AddDocument extends Component {
+  /**
+   * Creates an instance of AddDocument.
+   * @param {any} props
+   *
+   * @memberof AddDocument
+   */
   constructor(props) {
     super(props);
     this.state = {
       title: '',
       content: '',
-      access: ''
+      access: '',
+      paginate: {}
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
-  componentDidMount(){
-     CKEDITOR.replace('content');
-
+  /**
+   * @returns{null} no return
+   * @memberof AddDocument
+   */
+  componentDidMount() {
+    CKEDITOR.replace('content');
   }
 
+  /**
+   *
+   *
+   * @param {any} nextProps
+   * @returns{null} no return
+   * @memberof AddDocument
+   */
   componentWillReceiveProps(nextProps) {
-        this.props.history.replace('/documents');
-
+    if (this.props.documents !== nextProps.documents) {
+      this.props.history.replace('/documents');
+    }
   }
 
 
+  /**
+   *
+   *
+   * @param {any} event
+   * @returns{null} no return
+   * @memberof AddDocument
+   */
   onInputChange(event) {
     const name = event.target.id;
     const value = event.target.value;
-    this.setState({ [name]: value});
+    this.setState({ [name]: value });
   }
+  /**
+   *
+   *
+   * @param {any} event
+   * @returns{null} no return
+   * @memberof AddDocument
+   */
   onFormSubmit(event) {
     event.preventDefault();
     const data = CKEDITOR.instances.content.getData();
-    const newDocument = this.state
-    newDocument.content= data
+    const newDocument = this.state;
+    newDocument.content = data;
     this.props.addDocument(newDocument);
-
   }
 
+  /**
+   *
+   *
+   * @returns {html} DOM elements
+   * @memberof AddDocument
+   */
   render() {
     return (
-      <div className="row component-render">
-        <form className="col s10" onSubmit={this.onFormSubmit}>
+      <div className="col s12 m12 l9">
+        <form onSubmit={this.onFormSubmit}>
           <div className="row">
             <div className="input-field col s12">
               <input
@@ -89,16 +134,22 @@ class AddDocument extends Component {
 
 AddDocument.getDefaultProps = {
   addDocument: () => { },
+  documents: '',
+  history: {}
 };
 AddDocument.propTypes = {
-  addDocument: PropTypes.func
+  addDocument: PropTypes.func,
+  documents: PropTypes.string,
+  history: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 const mapDispatchToProps =
-  dispatch => bindActionCreators({ addDocument }, dispatch);
+  dispatch => bindActionCreators({ addDocument, getDocument }, dispatch);
 
 const mapStateToProps = state => ({
-  documents: state.documentReducer.documents
+  documents: state.documentReducer.documents,
+  paginate: state.documentReducer.documents.paginate
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddDocument);

@@ -1,9 +1,9 @@
 import jwt from 'jsonwebtoken';
 
-//console.log('validator',token)
+// console.log('validator',token)
 
 const TokenValidator = () => {
-  const token = window.localStorage.getItem('token');
+  const token = localStorage.getItem('token');
 
   if (!token) {
     return {
