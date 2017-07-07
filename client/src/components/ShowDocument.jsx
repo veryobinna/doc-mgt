@@ -45,14 +45,13 @@ ShowDocument.getDefaultProps = {
   content: '',
   id: 0,
   access: '',
-  deleteDocument: () => { },
 };
 ShowDocument.propTypes = {
   title: PropTypes.string,
   content: PropTypes.string,
   access: PropTypes.string,
   id: PropTypes.number,
-  deleteDocument: PropTypes.func
+  deleteDocument: PropTypes.func.isRequired
 };
 
 

@@ -9,7 +9,7 @@ const Sidebar = (props) => (
         <img className="image-holder" src={'/dist/img/image-holder.jpg'} />
       <h5 className="side-bar-top-text"> {props.status.user.firstName + ' ' + props.status.user.lastName}</h5>
       <p className="side-bar-top-email">{props.status.user.email}</p>
-      <p className="side-bar-top-text">User type: {props.status.user.roleName}</p>
+      <p className="side-bar-top-text">Role: {props.status.user.roleName}</p>
       </div>
       </li>
       <li><div className="divider"></div></li>             

@@ -11,7 +11,7 @@ const ShowSingleDocument = props => (
       <div className="modal-footer">
         {props.document.createdAt.slice(0,10)}
         {props.status.user.id===props.document.ownerID &&
-        <a onClick={props.updateDocument} className="btn-floating modal-action modal-close  btn btn-flat ">
+        <a className="btn-floating modal-action modal-close  btn btn-flat" onClick={props.updateDocument} >
           <i className="large material-icons">mode_edit</i></a>}
       </div>
     </div>
@@ -23,13 +23,12 @@ ShowSingleDocument.getDefaultProps = {
   document: {},
   title: '',
   content: '',
-  updateDocument: () => { },
 };
 ShowSingleDocument.propTypes = {
   document: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   title: PropTypes.string,
   content: PropTypes.string,
-  updateDocument: PropTypes.func
+  updateDocument: PropTypes.func.isRequired
 };
 
 

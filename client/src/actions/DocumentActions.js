@@ -9,7 +9,6 @@ const addDocumentSuccess = payload => ({
 const addDocument = payload => dispatch => axios
   .post('/documents', payload)
   .then((res) => {
-    console.log('add document res',res.data)
     dispatch(addDocumentSuccess(res.data));
   })
   .catch((error) => {
@@ -24,7 +23,6 @@ const getDocumentSuccess = payload => ({
 const getDocument = (limit, offset) => dispatch => axios
   .get(`/documents/?limit=${limit}&offset=${offset}`)
   .then((res) => {
-        console.log('we got to the get document area', res);
 
     dispatch(getDocumentSuccess(res.data));
 
@@ -53,7 +51,6 @@ const searchDocumentSuccess = payload => ({
 const searchDocument = (query, limit, offset) => dispatch => axios
   .get(`/search/documents/?q=${query}&limit=${limit}&offset=${offset}`)
   .then((res) => {
-    console.log('we got to the search document area', res);
     dispatch(searchDocumentSuccess(res.data));
   })
   .catch((error) => {
@@ -71,7 +68,6 @@ const deleteDocument = id => dispatch => axios
     dispatch(deleteDocumentSuccess(res.data));
   })
   .catch((error) => {
-    console.log('deleete error', error.response);
     toastr.error(error.response.data.message);
   });
 
@@ -106,5 +102,5 @@ const getSingleDocument = id => dispatch => axios
 export {
   addDocument, getDocument, getSingleDocument,
   deleteDocument, updateDocument, getMyDocument,
-  searchDocument
+  searchDocument, addDocumentSuccess
 };

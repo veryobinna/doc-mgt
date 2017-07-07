@@ -15,7 +15,7 @@ const onInputChangeSpy = spy(AddDocument.prototype, 'onInputChange');
 describe('Add Document Component', () => {
   it('should render the Add Document component', () => {
     const wrapper = shallow(<AddDocument />);
-    expect(wrapper.find('.add-document').exists()).to.equal(true);
+    expect(wrapper.find('.input-field').exists()).to.equal(true);
   });
 
   it('should handle input change', () => {
