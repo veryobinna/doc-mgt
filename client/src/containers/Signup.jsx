@@ -2,10 +2,22 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import SignupAction from '../actions/SignupAction';
 import { Redirect, Link } from 'react-router-dom';
+import SignupAction from '../actions/SignupAction';
 
+/**
+ *
+ *
+ * @class Signup
+ * @extends {Component}
+ */
 class Signup extends Component {
+  /**
+   * Creates an instance of Signup.
+   * @param {any} props
+   *
+   * @memberof Signup
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -19,23 +31,49 @@ class Signup extends Component {
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
+  /**
+   *
+   *
+   * @param {any} nextProps
+   * @returns {null} no return
+   * @memberof Signup
+   */
   componentWillReceiveProps(nextProps) {
     this.setState({
       id: nextProps.status.id
     });
-    console.log('the next props', nextProps);
   }
+  /**
+   *
+   *
+   * @param {any} event
+   * @returns {null} no return
+   * @memberof Signup
+   */
   onInputChange(event) {
     const name = event.target.id;
     const value = event.target.value;
     this.setState({ [name]: value });
   }
+  /**
+   *
+   *
+   * @param {any} event
+   * @returns {null} no return
+   * @memberof Signup
+   */
   onFormSubmit(event) {
     event.preventDefault();
     this.props.SignupAction(this.state);
-    console.log('this signup props', this.props.status);
   }
 
+  /**
+   *
+   *
+   * @returns {html} DOM elements
+   *
+   * @memberof Signup
+   */
   render() {
     if (typeof this.state.id === 'number') {
       return (<Redirect
@@ -49,69 +87,71 @@ class Signup extends Component {
     return (
       <div className="row landing-page">
         <div className="row-container col s6 m6 offset-s3 offset-m3">
-        <form onSubmit={this.onFormSubmit} className="col s12">
-          <div className="row">
-            <div className="input-field col s6">
-              <input
-                id="firstName"
-                type="text"
-                className="valdate"
-                value={this.state.firstName}
-                onChange={this.onInputChange}
-              />
-              <label htmlFor="firstName">First Name</label>
+          <form onSubmit={this.onFormSubmit} className="col s12">
+            <div className="row">
+              <div className="input-field col s6">
+                <input
+                  id="firstName"
+                  type="text"
+                  className="valdate"
+                  value={this.state.firstName}
+                  onChange={this.onInputChange}
+                />
+                <label htmlFor="firstName">First Name</label>
+              </div>
+              <div className="input-field col s6">
+                <input
+                  id="lastName"
+                  type="text"
+                  className="valdate"
+                  value={this.state.lastName}
+                  onChange={this.onInputChange}
+                />
+                <label htmlFor="lastName">Last Name</label>
+              </div>
             </div>
-            <div className="input-field col s6">
-              <input
-                id="lastName"
-                type="text"
-                className="valdate"
-                value={this.state.lastName}
-                onChange={this.onInputChange}
-              />
-              <label htmlFor="lastName">Last Name</label>
+            <div className="row">
+              <div className="input-field col s12">
+                <input
+                  id="username"
+                  type="text"
+                  className="validate"
+                  value={this.state.username}
+                  onChange={this.onInputChange}
+                />
+                <label htmlFor="username">Username</label>
+              </div>
             </div>
-          </div>
-          <div className="row">
-            <div className="input-field col s12">
-              <input
-                id="username"
-                type="text"
-                className="validate"
-                value={this.state.username}
-                onChange={this.onInputChange}
-              />
-              <label htmlFor="username">Username</label>
+            <div className="row">
+              <div className="input-field col s12">
+                <input
+                  id="email"
+                  type="text"
+                  className="validate"
+                  value={this.state.email}
+                  onChange={this.onInputChange}
+                />
+                <label htmlFor="email">Email</label>
+              </div>
             </div>
-          </div>
-          <div className="row">
-            <div className="input-field col s12">
-              <input
-                id="email"
-                type="text"
-                className="validate"
-                value={this.state.email}
-                onChange={this.onInputChange}
-              />
-              <label htmlFor="email">Email</label>
-            </div>
-          </div>
 
-          <div className="row">
-            <div className="input-field col s12">
-              <input
-                id="password"
-                type="password"
-                value={this.state.password}
-                onChange={this.onInputChange}
-              />
-              <label htmlFor="password">Password</label>
+            <div className="row">
+              <div className="input-field col s12">
+                <input
+                  id="password"
+                  type="password"
+                  value={this.state.password}
+                  onChange={this.onInputChange}
+                />
+                <label htmlFor="password">Password</label>
+              </div>
             </div>
-          </div>
-          <button className="btn">Submit</button>
-          <span className="loginPS"> Have an account? <Link to="/login">login here</Link></span>
+            <button className="btn">Submit</button>
+            <span className="loginPS">
+            Have an account? <Link to="/login">login here</Link>
+            </span>
 
-        </form>
+          </form>
         </div>
       </div>
     );
@@ -127,12 +167,12 @@ const mapStateToProps = state => ({
 
 Signup.getDefaultProps = {
   documents: {},
-  history: {},
+  status: {},
   SignupAction: () => { },
 
 };
 Signup.propTypes = {
-  history: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  status: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   SignupAction: PropTypes.func
 };
 

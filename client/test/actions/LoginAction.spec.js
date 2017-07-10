@@ -1,10 +1,9 @@
 import { expect } from 'chai';
 import thunk from 'redux-thunk';
-import axios from 'axios';
 import moxios from 'moxios';
 import configureStore from 'redux-mock-store';
 import types from './../../src/actions/ActionTypes';
-import { LoginAction, LogoutAction, loginDetails } from '../../src/actions/LoginAction';
+import { LoginAction, loginDetails } from '../../src/actions/LoginAction';
 
 const middlewares = [thunk]; // add your middlewares like `redux-thunk`
 const mockStore = configureStore(middlewares);
@@ -64,5 +63,4 @@ describe('Login Action', () => {
     });
   });
 });
-
 

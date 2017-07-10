@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
@@ -57,6 +58,7 @@ class GetDocument extends Component {
     }
   }
 
+
   /**
    *
    *
@@ -67,16 +69,17 @@ class GetDocument extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       documents: nextProps.documents,
-      paginate: nextProps.paginate });
+      paginate: nextProps.paginate
+    });
   }
 
-    /**
-   *
-   *
-   * @param {any} event
-   * @returns {null} no return
-   * @memberof GetDocument
-   */
+  /**
+ *
+ *
+ * @param {any} event
+ * @returns {null} no return
+ * @memberof GetDocument
+ */
   onSearch(event) {
     if (event) {
       this.state.query = event.target.value;
@@ -93,13 +96,13 @@ class GetDocument extends Component {
       this.state.offset);
   }
 
-    /**
-   *
-   *
-   * @param {any} event
-   * @returns {null} no return
-   * @memberof GetDocument
-   */
+  /**
+ *
+ *
+ * @param {any} event
+ * @returns {null} no return
+ * @memberof GetDocument
+ */
   onPageClick(event) {
     const selected = event.selected;
     const offset = selected * 6;
@@ -168,6 +171,14 @@ class GetDocument extends Component {
    * @memberof GetDocument
    */
   render() {
+    if (!this.props.status.valid) {
+      return (<Redirect
+        push
+        to={{
+          pathname: '/login',
+        }}
+      />);
+    }
     const documents = this.state.documents.map((document) => {
       const items = {
         id: document.id,
@@ -210,12 +221,13 @@ const mapDispatchToProps =
     getDocument,
     getMyDocument,
     deleteDocument,
-    searchDocument }, dispatch);
+    searchDocument
+  }, dispatch);
 
 const mapStateToProps = state => ({
   documents: state.documentReducer.documents.document,
-  paginate: state.documentReducer.documents.paginate
-
+  paginate: state.documentReducer.documents.paginate,
+  status: state.login
 });
 
 GetDocument.getDefaultProps = {
@@ -225,7 +237,8 @@ GetDocument.getDefaultProps = {
   deleteDocument: () => { },
   searchDocument: () => { },
   match: {},
-  paginate: {}
+  paginate: {},
+  status: {}
 
 };
 GetDocument.propTypes = {
@@ -235,7 +248,8 @@ GetDocument.propTypes = {
   deleteDocument: PropTypes.func,
   searchDocument: PropTypes.func,
   match: PropTypes.object, // eslint-disable-line react/forbid-prop-types,
-  paginate: PropTypes.object // eslint-disable-line react/forbid-prop-types
+  paginate: PropTypes.object, // eslint-disable-line react/forbid-prop-types,
+  status: PropTypes.object // eslint-disable-line react/forbid-prop-types
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GetDocument);

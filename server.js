@@ -1,5 +1,6 @@
 import express from 'express';
 import logger from 'morgan';
+import log from 'npmlog';
 import bodyParser from 'body-parser';
 import path from 'path';
 import route from './server/routes/index';
@@ -26,16 +27,16 @@ app.get('*', (req, res) => res.status(200).send({
   message: 'Welcome to doc-mgt',
 }));
 
-if (process.env.NODE_ENV === "test"){
-app.listen(port, () => {
-  console.log(`Express is up on port ${port}`);
-});
-}else{
-db.sequelize.sync().done(() => {
+if (process.env.NODE_ENV === 'test') {
   app.listen(port, () => {
-    console.log(`Express is up on port ${port}`);
+    log.info(`Express is up on port ${port}`);
   });
-});
+} else {
+  db.sequelize.sync().done(() => {
+    app.listen(port, () => {
+      log.info(`Express is up on port ${port}`);
+    });
+  });
 }
 
 

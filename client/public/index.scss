@@ -1,4 +1,5 @@
 @import "./toastr";
+@import url('https://fonts.googleapis.com/css?family=PT+Serif');
 
 $primary: #90140D;
 $primary-light:#FF3F34;
@@ -7,7 +8,11 @@ $secondary-light:#30B263;
 $Side-bar: rgba(255, 255, 255, 0.81);
 $landing-page: white;
 $row-background:  rgba(0, 0, 0, 0.3);
+
+
+
 body {
+    font-family: 'PT serif', serif;
     display: flex;
     min-height: 100vh;
     flex-direction: column;
@@ -109,14 +114,16 @@ nav{
     text-overflow: ellipsis;  
     font-weight: 600;
     text-align: center;
-    color: $Seconary;
+    color: $primary;
 }
    
 .search-wrapper{
-    margin-top: 1px;
+    margin-top: 13px;
     padding: 1px 0 0 0;
     z-index: 2;
-        height: 46px;
+    height: 46px;
+    width: 35vw;
+    left: 25%;
 }
 .search-wrapper i.material-icons{
     position: absolute;
@@ -140,8 +147,12 @@ nav{
 .pagination li a {
     cursor: pointer; 
 }
+.card-name{
+    color: $Seconary
+}
 .doc-access{
     float: right;
+    color: $Seconary
  }
 .card-btn-delete{
     float: right;
@@ -152,10 +163,10 @@ nav{
  a{
      color: $Seconary;
  }
- .btn-user-del{
+ .btn-del{
     left: 90%;
 }
- .btn-user-edit{
+ .btn-edit{
     left: 77%;
 }
  header, main, footer,  {

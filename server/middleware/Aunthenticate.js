@@ -1,6 +1,8 @@
 import jwt from 'jsonwebtoken';
 
-const secret = 'sinzu';
+require('dotenv').config();
+
+const secret = process.env.SECRET;
 
 const Authenticate = {
   verifyToken(req, res, next) {

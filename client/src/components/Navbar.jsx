@@ -1,8 +1,7 @@
 import React from 'react';
-import { Redirect, Link } from 'react-router-dom';
 
 /**
- * Navbar renders the navbar 
+ * Navbar renders the navbar
  * @returns {html} Dom components
  */
 const Navbar = () => (
@@ -15,5 +14,4 @@ const Navbar = () => (
   </div>
 );
 export default Navbar;
-
 

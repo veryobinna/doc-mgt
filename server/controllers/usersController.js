@@ -1,11 +1,13 @@
 import jwt from 'jsonwebtoken';
 import models from '../models/';
 
+require('dotenv').config();
+
 
 const User = models.Users;
 const Role = models.Roles;
 
-const secret = 'sinzu';
+const secret = process.env.SECRET;
 
 export default {
   create(req, res) {
@@ -24,7 +26,7 @@ export default {
         message: 'User Created',
       }))
       .catch(error => res.status(400).json({
-        message: error
+        message: error.errors[0].message
       }));
   },
   login(req, res) {
@@ -141,7 +143,7 @@ export default {
           attributes: ['name']
         }
       })
-      .then((users) => {console.log('..................',users.rows)
+      .then((users) => {
         const paginate = {
           page: Math.floor(offset / limit) + 1,
           pageSize: users.rows.length,
@@ -179,15 +181,9 @@ export default {
       message: 'No access to edit user'
     });
   },
-
-  /**
-   *
-   * @param {any} req
-   * @param {any} res
-   * @returns
-   */
+/*eslint-disable*/
   destroy(req, res) {
-    if (req.params.id != req.decoded.id && req.decoded.roleID == 1) {
+    if (req.params.id != req.decoded.id && req.decoded.roleID === 1) {
       return User
         .findById(Number.parseInt(req.params.id, 10))
         .then((user) => {

@@ -19,7 +19,7 @@ export default (sequelize, DataTypes) => {
 
   }, {
     classMethods: {
-      associate: (models)=> {
+      associate: (models) => {
         // associations can be defined here
         Roles.hasMany(models.Users, {
           foreignKey: 'roleID',

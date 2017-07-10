@@ -60,7 +60,7 @@ export default {
           return res.status(404).send({
             message: 'Role Not Found',
           });
-        } else if (role.id === 1){
+        } else if (role.id === 1) {
           return res.status(400).send({
             message: 'Cannot Delete Admin Role',
           });

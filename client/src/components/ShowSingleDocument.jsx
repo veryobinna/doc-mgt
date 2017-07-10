@@ -9,7 +9,7 @@ const ShowSingleDocument = props => (
         <p dangerouslySetInnerHTML={{ __html: props.document.content }} />
       </div>
       <div className="modal-footer">
-        {props.document.createdAt.slice(0, 10)}
+        Date Published: {props.document.createdAt.slice(0, 10)}
         {props.status.user.id === props.document.ownerID &&
           <a
             className="btn-floating modal-action modal-close  btn btn-flat"

@@ -1,5 +1,12 @@
 import types from '../actions/ActionTypes';
 
+/**
+ *
+ *
+ * @param {any} [state={ users: [] }]
+ * @param {any} action
+ * @returns {object} payload
+ */
 const usersReducer = (state = { users: [] }, action) => {
   let users;
   switch (action.type) {
@@ -14,10 +21,6 @@ const usersReducer = (state = { users: [] }, action) => {
     case types.UPDATE_USER:
       users = { users: action.payload };
       return { ...state, ...users };
-
-    // case types.ADD_DOCUMENTS:
-    //   docs = { documents: action.payload };
-    //   return { ...state, ...docs };
 
     default:
       return state;

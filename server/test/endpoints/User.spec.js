@@ -53,7 +53,7 @@ describe('Routes : Users', () => {
         .send(validUser)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.message.message).to.equal('Username already exists');
+          expect(res.body.message).to.equal('Username already exists');
           done();
         });
     });
@@ -63,7 +63,7 @@ describe('Routes : Users', () => {
         .send(invalidEmailUser)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.message.errors[0].message).to.equal('Invalid Email');
+          expect(res.body.message).to.equal('Invalid Email');
           done();
         });
     });
@@ -73,7 +73,7 @@ describe('Routes : Users', () => {
         .send(invalidPasswordUser)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.message.errors[0].message)
+          expect(res.body.message)
           .to.equal('Password cannot be empty');
           done();
         });
@@ -155,7 +155,7 @@ describe('Routes : Users', () => {
           done();
         });
     });
-    it('should admin to view non existent user profile', (done) => {
+    it('should not allow admin to view non existent user profile', (done) => {
       request
         .get('/users/0')
         .set({ 'x-access-token': adminToken })
@@ -189,7 +189,7 @@ describe('Routes : Users', () => {
           done();
         });
     });
-    it('should  not allow admin edit user for non existent user', (done) => {
+    it('should  not allow admin edit non existent user', (done) => {
       request
         .put('/users/0')
         .set({ 'x-access-token': adminToken })
@@ -253,17 +253,6 @@ describe('Routes : Users', () => {
           .end((err, res) => {
             expect(res).to.have.status(401);
             expect(res.body.message).to.equal('Access Denied');
-            done();
-          });
-    });
-    it(`it should not not allow admin to
-        delete non existent user profile`, (done) => {
-      request
-          .delete('/users/0')
-          .set({ 'x-access-token': adminToken })
-          .end((err, res) => {
-            expect(res).to.have.status(404);
-            expect(res.body.message).to.equal('User Not Found');
             done();
           });
     });

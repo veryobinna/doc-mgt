@@ -1,3 +1,4 @@
+/* eslint-disable react/forbid-prop-types*/
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -191,16 +192,16 @@ GetUsers.getDefaultProps = {
   status: {},
   deleteUser: () => { },
   searchUsers: () => { },
-  getUsers: () => {},
+  getUsers: {},
   paginate: {}
 
 };
 GetUsers.propTypes = {
-  users: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  users: PropTypes.object,
   searchUsers: PropTypes.func,
-  getUsers: PropTypes.func,
+  getUsers: PropTypes.object,
   deleteUser: PropTypes.func,
-  paginate: PropTypes.object // eslint-disable-line react/forbid-prop-types
+  paginate: PropTypes.object
 
 };
 
