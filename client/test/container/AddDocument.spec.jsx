@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import { spy, assert } from 'sinon';
 import { AddDocument } from './../../src/containers/AddDocument';
@@ -10,12 +10,14 @@ const event = {
     value: 'value'
   }
 };
-
+const props = {
+  addDocument: () => {}
+};
 const onInputChangeSpy = spy(AddDocument.prototype, 'onInputChange');
-  const wrapper = shallow(<AddDocument />);
+const onFormSubmitSpy = spy(AddDocument.prototype, 'onFormSubmit');
+const wrapper = shallow(<AddDocument {...props} />);
 describe('Add Document Component', () => {
   it('should render the Add Document component', () => {
-    const wrapper = shallow(<AddDocument />);
     expect(wrapper.find('.input-field').exists()).to.equal(true);
   });
 
@@ -23,7 +25,10 @@ describe('Add Document Component', () => {
     wrapper.instance().onInputChange(event);
     assert.calledOnce(onInputChangeSpy);
   });
-  it('should handle onFormSubmit', () =>{
-    wrapper.instance().on
-  })
+  it('should handle onFormSubmit', () => {
+    // wrapper.instance().onFormSubmit(event);
+    wrapper.update();
+    wrapper.find('form').simulate('submit', { preventDefault: () => {} });
+    assert.calledOnce(onFormSubmitSpy);
+  });
 });

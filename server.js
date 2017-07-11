@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import route from './server/routes/index';
 import db from './server/models/';
+import swagger from './server/routes/swagger';
 
 // Set up the express app
 const app = express();
@@ -21,7 +22,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, './client/public/')));
 
 // Require our routes into the application.
+swagger(app);
 route(app);
+app.use('/docs', express.static(path.join(__dirname, './server/swagger/')));
+
 // Setup a default catch-all route that sends back a welcome message in JSON.
 app.get('*', (req, res) => res.status(200).send({
   message: 'Welcome to doc-mgt',

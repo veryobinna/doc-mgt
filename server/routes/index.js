@@ -5,10 +5,71 @@ import authenticate from '../middleware/Aunthenticate';
 
 
 const Routes = (app) => {
-  app.get('/test', (req, res) => res.status(200).send({
-    message: 'Welcome to the API!',
-  }));
-
+  /**
+   * @swagger
+   * definition:
+   *   NewUser:
+   *     type: object
+   *     required:
+   *       - firstname
+   *       - lastname
+   *       - email
+   *       - password
+   *     properties:
+   *       firstName:
+   *         type: string
+   *       lastName:
+   *         type: string
+   *       password:
+   *         type: string
+   *         format: password
+   *       email:
+   *         type: string
+   *   User:
+   *     type: object
+   *     required:
+   *       - firstname
+   *       - lastname
+   *       - email
+   *       - password
+   *     properties:
+   *       firstName:
+   *         type: string
+   *       lastName:
+   *         type: string
+   *       roleId:
+   *         type: integer
+   *       email:
+   *         type: string
+   *       userId:
+   *         type: integer
+   *       createdAt:
+   *         type: string
+   *         format: date
+   *       activeToken:
+   *          type: string
+   *   SafeUser:
+   *     type: object
+   *     required:
+   *       - firstname
+   *       - lastname
+   *       - email
+   *       - password
+   *     properties:
+   *       firstName:
+   *         type: string
+   *       lastName:
+   *         type: string
+   *       roleId:
+   *         type: integer
+   *       email:
+   *         type: string
+   *       userId:
+   *         type: integer
+   *       createdAt:
+   *         type: string
+   *         format: date
+   */
   app.post('/users', usersController.create);
   app.get('/users', authenticate.verifyToken,
   authenticate.verifyAdmin, usersController.list);
@@ -20,7 +81,46 @@ const Routes = (app) => {
   authenticate.verifyAdmin, usersController.update);
   app.delete('/users/:id', authenticate.verifyToken,
   authenticate.verifyAdmin, usersController.destroy);
+  /**
+     * @swagger
+     * definition:
+     *   Login:
+     *     type: object
+     *     required:
+     *       - email
+     *       - password
+     *     properties:
+     *       password:
+     *         type: string
+     *         format: password
+     *       email:
+     *         type: string
+     *         format: email
+     */
 
+    /**
+     * @swagger
+     * /login:
+     *   post:
+     *     description: Signs in a user
+     *     tags:
+     *      - Signs in a user
+     *     produces:
+     *      - application/json
+     *     parameters:
+     *       - name: body
+     *         description: User object
+     *         in:  body
+     *         required: true
+     *         type: string
+     *         schema:
+     *           $ref: '#/definitions/Login'
+     *     responses:
+     *       200:
+     *         description: Jwt access token
+     *         schema:
+     *           $ref: '#/definitions/User'
+     */
   app.post('/login', usersController.login);
   app.post('/logout', usersController.logout);
 

@@ -177,7 +177,7 @@ describe('Routes : Users', () => {
         });
     });
   });
-  describe('PUT /api/users/', () => {
+  describe('PUT /users/', () => {
     it('should  not allow users to edit profile', (done) => {
       request
         .put('/users/3')

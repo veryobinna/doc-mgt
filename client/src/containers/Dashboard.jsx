@@ -14,8 +14,7 @@ import Navbar from '../components/Navbar';
  * @param {any} props
  * @returns {html} DOM element
  */
-const Dashboard = (props) => {
-  console.log(props, 'props......')
+export const Dashboard = (props) => {
   if (!props.status.valid) {
     return (<Redirect
       push

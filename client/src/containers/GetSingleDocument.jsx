@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { getSingleDocument } from '../actions/DocumentActions';
 import ShowSingleDocument from '../components/ShowSingleDocument';
-import EditDocument from '../containers/EditDocument';
+import UpdateDocument from '../containers/UpdateDocument';
 
 
 /**
@@ -58,8 +58,8 @@ class GetSingleDocument extends Component {
    * @memberof GetSingleDocument
    */
   updateDocument() {
-    this.props.history.replace('/editdocument');
-    return <EditDocument document={this.state} />;
+    this.props.history.replace('/updatedocument');
+    return <UpdateDocument document={this.state} />;
   }
 
 

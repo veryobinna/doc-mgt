@@ -51,15 +51,12 @@ export default (ComposedConmponent) => {
     }
   }
 
-  Authenticate.propTypes = {
-    authenticated: PropTypes.bool.isRequired,
-    signingIn: PropTypes.bool.isRequired,
-    LoginAction: PropTypes.object.isRequired,
-    createdUser: PropTypes.bool.isRequired
+  Authenticate.getDefaultProps = {
+    status: {}
   };
 
-  Authenticate.contextTypes = {
-    router: PropTypes.object.isRequired
+  Authenticate.propTypes = {
+    status: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   };
 
   const mapStateToProps = state => ({
