@@ -296,12 +296,6 @@ const Routes = (app) => {
  *     summary: gets document
  *     produces:
  *       - application/json
- *     parameters:
- *       - name: id
- *         description: Document id
- *         in: path
- *         required: true
- *         type: integer
  *     responses:
  *       200:
  *         description: one document
@@ -430,8 +424,8 @@ const Routes = (app) => {
  *     produces:
  *       - application/json
  *     parameters:
- *       - name: role
- *         description: role object
+ *       - name: name
+ *         description: role name
  *         in: body
  *         required: true
  *         schema:

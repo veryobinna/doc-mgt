@@ -8,7 +8,7 @@ const Authenticate = {
   verifyToken(req, res, next) {
     const token = req.headers.authorization || req.query.token
     || req.body.token || req.headers['x-access-token'];
-    if (token) {
+    if (!token) {
       jwt.verify(token, secret, (error, decoded) => {
         if (error) {
           return res.status(400).send({

@@ -26,7 +26,6 @@ const options = {
 const swaggerSpec = swaggerJSDoc(options);
 
 const swagger = (router) => {
-  console.log(swaggerDefinition.host, 'ooasf')
   router.get('/swagger.json', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     res.send(swaggerSpec);
