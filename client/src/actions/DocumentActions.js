@@ -116,7 +116,7 @@ const deleteDocumentSuccess = payload => ({
  * @returns{promise} returns a promise
  */
 const deleteDocument = id => dispatch => axios
-  .delete(`documents/${id}`)
+  .delete(`/documents/${id}`)
   .then((res) => {
     dispatch(deleteDocumentSuccess(res.data));
   })
@@ -139,7 +139,7 @@ const updateDocumentSuccess = payload => ({
  * @returns {null} no return
  */
 const updateDocument = data => dispatch => axios
-  .put(`documents/${data.id}`, data)
+  .put(`/documents/${data.id}`, data)
   .then((res) => {
     dispatch(updateDocumentSuccess(res.data));
   })
@@ -176,5 +176,7 @@ const getSingleDocument = id => dispatch => axios
 export {
   addDocument, getDocument, getSingleDocument,
   deleteDocument, updateDocument, getMyDocument,
-  searchDocument, addDocumentSuccess
+  searchDocument, addDocumentSuccess, getDocumentSuccess,
+  getMyDocumentSuccess, searchDocumentSuccess, deleteDocumentSuccess,
+  updateDocumentSuccess, getSingleDocumentSuccess,
 };

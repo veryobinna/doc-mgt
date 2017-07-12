@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
@@ -17,7 +16,7 @@ import SearchBar from '../components/SearchBar';
  * @class GetDocument
  * @extends {Component}
  */
-class GetDocument extends Component {
+export class GetDocument extends Component {
   /**
    * Creates an instance of GetDocument.
    * @param {any} props
@@ -171,14 +170,6 @@ class GetDocument extends Component {
    * @memberof GetDocument
    */
   render() {
-    if (!this.props.status.valid) {
-      return (<Redirect
-        push
-        to={{
-          pathname: '/login',
-        }}
-      />);
-    }
     const documents = this.state.documents.map((document) => {
       const items = {
         id: document.id,

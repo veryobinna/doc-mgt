@@ -34,7 +34,7 @@ const getUsers = (limit, offset) => dispatch => axios
  * @returns {null} no return
  */
 const searchUsersSuccess = payload => ({
-  type: types.GET_USERS, payload
+  type: types.SEARCH_USERS, payload
 });
 
 /**
@@ -69,7 +69,7 @@ const deleteUserSuccess = payload => ({
  * @returns{promise} returns a promise
  */
 const deleteUser = id => dispatch => axios
-  .delete(`users/${id}`)
+  .delete(`/users/${id}`)
   .then((res) => {
     dispatch(deleteUserSuccess(res.data));
   })
@@ -116,7 +116,7 @@ const getSingleUserSuccess = payload => ({
  * @returns{promise} returns a promise
  */
 const getSingleUser = id => dispatch => axios
-  .get(`users/${id}`)
+  .get(`/users/${id}`)
   .then((res) => {
     dispatch(getSingleUserSuccess(res.data));
   })
@@ -126,5 +126,7 @@ const getSingleUser = id => dispatch => axios
 
 
 export {
-  getUsers, deleteUser, updateUser, getSingleUser, searchUsers
+  getUsers, deleteUser, updateUser, getSingleUser, searchUsers,
+  getUsersSuccess, searchUsersSuccess, deleteUserSuccess,
+  updateUserSuccess, getSingleUserSuccess,
 };
