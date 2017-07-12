@@ -16,7 +16,7 @@ import SearchBar from '../components/SearchBar';
  * @class GetDocument
  * @extends {Component}
  */
-class GetDocument extends Component {
+export class GetDocument extends Component {
   /**
    * Creates an instance of GetDocument.
    * @param {any} props
@@ -57,6 +57,7 @@ class GetDocument extends Component {
     }
   }
 
+
   /**
    *
    *
@@ -67,16 +68,17 @@ class GetDocument extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       documents: nextProps.documents,
-      paginate: nextProps.paginate });
+      paginate: nextProps.paginate
+    });
   }
 
-    /**
-   *
-   *
-   * @param {any} event
-   * @returns {null} no return
-   * @memberof GetDocument
-   */
+  /**
+ *
+ *
+ * @param {any} event
+ * @returns {null} no return
+ * @memberof GetDocument
+ */
   onSearch(event) {
     if (event) {
       this.state.query = event.target.value;
@@ -93,13 +95,13 @@ class GetDocument extends Component {
       this.state.offset);
   }
 
-    /**
-   *
-   *
-   * @param {any} event
-   * @returns {null} no return
-   * @memberof GetDocument
-   */
+  /**
+ *
+ *
+ * @param {any} event
+ * @returns {null} no return
+ * @memberof GetDocument
+ */
   onPageClick(event) {
     const selected = event.selected;
     const offset = selected * 6;
@@ -210,12 +212,13 @@ const mapDispatchToProps =
     getDocument,
     getMyDocument,
     deleteDocument,
-    searchDocument }, dispatch);
+    searchDocument
+  }, dispatch);
 
 const mapStateToProps = state => ({
   documents: state.documentReducer.documents.document,
-  paginate: state.documentReducer.documents.paginate
-
+  paginate: state.documentReducer.documents.paginate,
+  status: state.login
 });
 
 GetDocument.getDefaultProps = {
@@ -225,7 +228,8 @@ GetDocument.getDefaultProps = {
   deleteDocument: () => { },
   searchDocument: () => { },
   match: {},
-  paginate: {}
+  paginate: {},
+  status: {}
 
 };
 GetDocument.propTypes = {
@@ -235,7 +239,8 @@ GetDocument.propTypes = {
   deleteDocument: PropTypes.func,
   searchDocument: PropTypes.func,
   match: PropTypes.object, // eslint-disable-line react/forbid-prop-types,
-  paginate: PropTypes.object // eslint-disable-line react/forbid-prop-types
+  paginate: PropTypes.object, // eslint-disable-line react/forbid-prop-types,
+  status: PropTypes.object // eslint-disable-line react/forbid-prop-types
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GetDocument);

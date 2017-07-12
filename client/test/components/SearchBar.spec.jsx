@@ -9,6 +9,5 @@ describe('Searchbar Component', () => {
     expect(wrapper.find('.search-wrapper').exists()).to.equal(true);
     expect(wrapper.find('input').exists()).to.equal(true);
     expect(wrapper.find('i').text()).to.equal('search');
-
   });
 });

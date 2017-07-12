@@ -19,5 +19,3 @@ describe('Login Reducer', () => {
     });
   });
 });
-
-

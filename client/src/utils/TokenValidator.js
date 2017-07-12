@@ -2,6 +2,11 @@ import jwt from 'jsonwebtoken';
 
 // console.log('validator',token)
 
+/**
+ *
+ *
+ * @returns {object} user status
+ */
 const TokenValidator = () => {
   const token = localStorage.getItem('token');
 

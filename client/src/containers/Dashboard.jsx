@@ -14,7 +14,7 @@ import Navbar from '../components/Navbar';
  * @param {any} props
  * @returns {html} DOM element
  */
-const Dashboard = (props) => {
+export const Dashboard = (props) => {
   if (!props.status.valid) {
     return (<Redirect
       push
@@ -25,6 +25,7 @@ const Dashboard = (props) => {
   }
 
   return (
+
     <div className="">
       <Navbar />
       <div className="col s3">

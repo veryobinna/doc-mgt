@@ -10,19 +10,25 @@ const event = {
     value: 'value'
   }
 };
-
+const props = {
+  addDocument: () => {}
+};
 const onInputChangeSpy = spy(AddDocument.prototype, 'onInputChange');
+const onFormSubmitSpy = spy(AddDocument.prototype, 'onFormSubmit');
+const wrapper = shallow(<AddDocument {...props} />);
 describe('Add Document Component', () => {
   it('should render the Add Document component', () => {
-    const wrapper = shallow(<AddDocument />);
     expect(wrapper.find('.input-field').exists()).to.equal(true);
   });
 
   it('should handle input change', () => {
-    const wrapper = shallow(<AddDocument />);
     wrapper.instance().onInputChange(event);
     assert.calledOnce(onInputChangeSpy);
   });
+  it('should handle onFormSubmit', () => {
+    // wrapper.instance().onFormSubmit(event);
+    wrapper.update();
+    wrapper.find('form').simulate('submit', { preventDefault: () => {} });
+    assert.calledOnce(onFormSubmitSpy);
+  });
 });
-
-

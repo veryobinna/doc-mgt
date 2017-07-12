@@ -3,6 +3,7 @@ import axios from 'axios';
 /**
  *
  * @export
+ * @returns {null} no return
  * @param {any} token
  */
 const setAuthorizationToken = (token) => {

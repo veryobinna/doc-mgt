@@ -2,6 +2,8 @@ import axios from 'axios';
 import toastr from 'toastr';
 import setAuthorizationToken from '../utils/Authenticate';
 import types from './ActionTypes';
+
+const test = process.env.NODE_ENV === 'test';
 /**
  * LoginDetails contains the dispatched Login action
  * payload has no parenthesis because it is a single function argument
@@ -13,6 +15,7 @@ const loginDetails = payload => ({
   type: types.LOGIN_DETAILS, payload
 });
 
+
 /**
  * Calls the API and returns the user details and token
  * @param {any} userParams
@@ -21,14 +24,18 @@ const loginDetails = payload => ({
 const LoginAction = userParams => dispatch => axios
   .post('/login', userParams)
   .then((res) => {
-    const { token } = res.data;
-    setAuthorizationToken(token);
-    localStorage.setItem('token', token);
     dispatch(loginDetails(res.data));
-    toastr.success('successful');
+    if (!test) {
+      const { token } = res.data;
+      setAuthorizationToken(token);
+      localStorage.setItem('token', token);
+      toastr.success('successful');
+    }
   })
   .catch((error) => {
-    toastr.error(error.response.data.message);
+    if (!test) {
+      toastr.error(error.response.data.message);
+    }
   });
 
 /**

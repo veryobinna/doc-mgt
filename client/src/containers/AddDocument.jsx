@@ -133,12 +133,11 @@ export class AddDocument extends Component {
 }
 
 AddDocument.getDefaultProps = {
-  addDocument: () => { },
   documents: '',
   history: {}
 };
 AddDocument.propTypes = {
-  addDocument: PropTypes.func,
+  addDocument: PropTypes.func.isRequired,
   documents: PropTypes.string,
   history: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };

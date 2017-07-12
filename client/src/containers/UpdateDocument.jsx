@@ -12,7 +12,7 @@ import { updateDocument } from '../actions/DocumentActions';
  * @class UpdateDocument
  * @extends {Component}
  */
-class UpdateDocument extends Component {
+export class UpdateDocument extends Component {
   /**
    * Creates an instance of UpdateDocument.
    * @param {any} props

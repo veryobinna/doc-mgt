@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { getSingleDocument } from '../actions/DocumentActions';
 import ShowSingleDocument from '../components/ShowSingleDocument';
-import EditDocument from '../containers/EditDocument';
+import UpdateDocument from '../containers/UpdateDocument';
 
 
 /**
@@ -57,8 +58,8 @@ class GetSingleDocument extends Component {
    * @memberof GetSingleDocument
    */
   updateDocument() {
-    this.props.history.replace('/editdocument');
-    return <EditDocument document={this.state} />;
+    this.props.history.replace('/updatedocument');
+    return <UpdateDocument document={this.state} />;
   }
 
 
@@ -70,6 +71,14 @@ class GetSingleDocument extends Component {
    * @memberof GetSingleDocument
    */
   render() {
+    if (!this.props.status.valid) {
+      return (<Redirect
+        push
+        to={{
+          pathname: '/login',
+        }}
+      />);
+    }
     return (
       <div className="">
         <ShowSingleDocument
@@ -97,7 +106,7 @@ GetSingleDocument.getDefaultProps = {
   params: {},
   id: '',
   status: {},
-  getSingleDocument: () => {},
+  getSingleDocument: () => { },
 
 };
 GetSingleDocument.propTypes = {

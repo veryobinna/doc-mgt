@@ -1,6 +1,13 @@
 import types from '../actions/ActionTypes';
 import TokenValidator from '../utils/TokenValidator';
 
+/**
+ *
+ *
+ * @param {any} [state=TokenValidator()]
+ * @param {any} action
+ * @returns {object} payload
+ */
 const loginReducer = (state = TokenValidator(), action) => {
   let logs;
   switch (action.type) {

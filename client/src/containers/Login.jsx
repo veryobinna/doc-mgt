@@ -28,15 +28,36 @@ class Login extends Component {
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
+  /**
+   *
+   *
+   * @param {any} event
+   * @returns {null} no return
+   * @memberof Login
+   */
   onInputChange(event) {
     const name = event.target.id;
     const value = event.target.value;
     this.setState({ [name]: value });
   }
+  /**
+   *
+   *
+   * @param {any} event
+   * @returns {null} no return
+   * @memberof Login
+   */
   onFormSubmit(event) {
     event.preventDefault();
-    this.props.LoginAction(this.state)
+    this.props.LoginAction(this.state);
   }
+  /**
+   *
+   *
+   * @returns {html} DOM elements
+   *
+   * @memberof Login
+   */
   render() {
     if (this.props.status.valid) {
       return (<Redirect
@@ -47,34 +68,36 @@ class Login extends Component {
       />);
     }
     return (
-        <div className="landing-page">
-          <div className="row">
-            <div className=" row-container col s6 m6 offset-s3 offset-m3 ">
-              <form onSubmit={this.onFormSubmit}>
-                <label
-                  htmlFor="loginID"
-                >LoginID</label>
-                <input
-                  id="loginID"
-                  type="text"
-                  placeholder="email or username"
-                  className="validate"
-                  value={this.state.loginID}
-                  onChange={this.onInputChange}
-                />
-                <label htmlFor="password">Password</label>
-                <input
-                  id="password"
-                  type="password"
-                  value={this.state.password}
-                  onChange={this.onInputChange}
-                />
-                <button className="btn waves-effect waves-light"> Submit </button>
-                <span className="loginPS"> Have no account? <Link to="/signup">signup here</Link></span>
-              </form>
-            </div>
+      <div className="landing-page">
+        <div className="row">
+          <div className=" row-container col s6 m6 offset-s3 offset-m3 ">
+            <form onSubmit={this.onFormSubmit}>
+              <label
+                htmlFor="loginID"
+              >LoginID</label>
+              <input
+                id="loginID"
+                type="text"
+                placeholder="email or username"
+                className="validate"
+                value={this.state.loginID}
+                onChange={this.onInputChange}
+              />
+              <label htmlFor="password">Password</label>
+              <input
+                id="password"
+                type="password"
+                value={this.state.password}
+                onChange={this.onInputChange}
+              />
+              <button className="btn waves-effect waves-light"> Submit </button>
+              <span className="loginPS">
+                Have no account? <Link to="/signup">signup here</Link>
+              </span>
+            </form>
           </div>
         </div>
+      </div>
     );
   }
 }
@@ -90,11 +113,11 @@ const mapStateToProps = state => ({
 
 Login.getDefaultProps = {
   LoginAction: () => { },
-  history: {}
+  status: {}
 };
 Login.propTypes = {
   LoginAction: PropTypes.func,
-  history: PropTypes.object // eslint-disable-line react/forbid-prop-types
+  status: PropTypes.object // eslint-disable-line react/forbid-prop-types
 };
 
 // take the result of the first fuction with two parameter,

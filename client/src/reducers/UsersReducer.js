@@ -1,5 +1,12 @@
 import types from '../actions/ActionTypes';
 
+/**
+ *
+ *
+ * @param {any} [state={ users: [] }]
+ * @param {any} action
+ * @returns {object} payload
+ */
 const usersReducer = (state = { users: [] }, action) => {
   let users;
   switch (action.type) {
@@ -11,13 +18,17 @@ const usersReducer = (state = { users: [] }, action) => {
       users = { users: action.payload };
       return { ...state, ...users };
 
+    case types.DELETE_USER:
+      users = { users: action.payload };
+      return { ...state, ...users };
+
     case types.UPDATE_USER:
       users = { users: action.payload };
       return { ...state, ...users };
 
-    // case types.ADD_DOCUMENTS:
-    //   docs = { documents: action.payload };
-    //   return { ...state, ...docs };
+    case types.SEARCH_USERS:
+      users = { users: action.payload };
+      return { ...state, ...users };
 
     default:
       return state;

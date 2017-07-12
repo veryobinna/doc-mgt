@@ -28,4 +28,4 @@ const signup = userParams => dispatch => axios
       toastr.error(error.response.data.message.errors[0].message);
     });
 
-export default signup;
+export { signup, signupDetails };

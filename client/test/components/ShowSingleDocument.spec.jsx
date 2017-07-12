@@ -5,7 +5,6 @@ import sinon from 'sinon';
 import ShowSingleDocument from './../../src/components/ShowSingleDocument';
 
 describe('ShowSingleDocument Component', () => {
-
   const props = {
     document: {
       title: 'title',

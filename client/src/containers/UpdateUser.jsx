@@ -10,7 +10,7 @@ import { getSingleUser, updateUser } from '../actions/UserActions';
  * @class UpdateUser
  * @extends {Component}
  */
-class UpdateUser extends Component {
+export class UpdateUser extends Component {
   /**
    * Creates an instance of UpdateUser.
    * @param {any} props

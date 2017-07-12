@@ -1,5 +1,12 @@
 import types from '../actions/ActionTypes';
 
+/**
+ *
+ *
+ * @param {any} [state={ documents: {} }]
+ * @param {any} action
+ * @returns {object} payload
+ */
 const documentReducer = (state = { documents: {} }, action) => {
   let docs;
   switch (action.type) {
@@ -8,6 +15,10 @@ const documentReducer = (state = { documents: {} }, action) => {
       return { ...state, ...docs };
 
     case types.SEARCH_DOCUMENTS:
+      docs = { documents: action.payload };
+      return { ...state, ...docs };
+
+    case types.DELETE_DOCUMENT:
       docs = { documents: action.payload };
       return { ...state, ...docs };
 
@@ -25,7 +36,6 @@ const documentReducer = (state = { documents: {} }, action) => {
 
     case types.ADD_DOCUMENT:
       docs = { documents: action.payload };
-      console.log('tracking it',action.payload);
       return { ...state, ...docs };
 
     default:
