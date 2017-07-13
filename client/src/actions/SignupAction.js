@@ -1,6 +1,7 @@
 import axios from 'axios';
 import toastr from 'toastr';
 import types from './ActionTypes';
+import setAuthorizationToken from '../utils/Authenticate';
 
 /**
  * SignupDetails contains the user details
@@ -21,11 +22,14 @@ const signupDetails = payload => ({
 const signup = userParams => dispatch => axios
   .post('/users', userParams)
   .then((res) => {
+    const { token } = res.data;
+    setAuthorizationToken(token);
+    localStorage.setItem('token', token);
     dispatch(signupDetails(res.data));
     toastr.success('successful');
   })
-    .catch((error) => {
-      toastr.error(error.response.data.message.errors[0].message);
-    });
+  .catch((error) => {
+    toastr.error(error.response.data.message.errors[0].message);
+  });
 
 export { signup, signupDetails };

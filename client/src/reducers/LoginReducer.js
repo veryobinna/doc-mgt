@@ -15,10 +15,14 @@ const loginReducer = (state = TokenValidator(), action) => {
       logs = { login: action.payload };
       return { ...state, ...TokenValidator(), ...logs };
 
+    case types.SIGNUP_DETAILS:
+      logs = { data: action.payload };
+      return { ...state, ...TokenValidator(), ...logs };
+
     case types.LOG_OUT:
       logs = { login: action.payload };
-
       return { ...state, ...TokenValidator(), ...logs };
+
     default:
       return state;
   }

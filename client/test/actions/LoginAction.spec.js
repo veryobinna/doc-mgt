@@ -4,7 +4,7 @@ import nock from 'nock';
 import axios from 'axios'
 ;import configureStore from 'redux-mock-store';
 import types from './../../src/actions/ActionTypes';
-import { LoginAction, loginDetails } from '../../src/actions/LoginAction';
+import { LoginAction, loginDetails } from '../../src/actions/AuthAction';
 
 axios.defaults.baseURL = 'http://localhost:3000/';
 const middlewares = [thunk]; // add your middlewares like `redux-thunk`

@@ -47,7 +47,7 @@ export class UpdateDocument extends Component {
  * @memberof UpdateDocument
  */
   componentWillReceiveProps() {
-    this.props.history.replace('/documents');
+    this.props.history.replace('/dashboard/documents');
   }
   /**
    *

@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack -p",
+    "start:selenium": "java -jar selenium-server-standalone-3.4.0.jar",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "e2e": "./node_modules/.bin/nightwatch --config nightwatch.js",
     "start": "babel-node server.js",
     "start:dev": "nodemon server.js --exec babel-node",
     "test:server": "NODE_ENV=test nyc mocha server/test/**/*.spec.js --compilers js:babel-register",
@@ -62,6 +64,8 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.5",
+    "selenium-download": "^2.0.10",
+    "selenium-standalone": "^6.5.0",
     "sequelize": "^3.30.4",
     "sequelize-cli": "^2.7.0",
     "sinon": "^2.3.6",

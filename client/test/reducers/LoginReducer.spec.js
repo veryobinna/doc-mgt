@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { loginDetails } from '../../src/actions/LoginAction';
+import { loginDetails } from '../../src/actions/AuthAction';
 import LoginReducer from '../../src/reducers/LoginReducer';
 
 describe('Login Reducer', () => {

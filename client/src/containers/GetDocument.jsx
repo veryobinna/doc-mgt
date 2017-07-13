@@ -52,7 +52,7 @@ export class GetDocument extends Component {
     if (this.props.match.params.id) {
       this.getMyDocument();
     }
-    if (this.props.match.url === '/documents') {
+    if (this.props.match.url === '/dashboard/documents') {
       this.getDocument();
     }
   }
@@ -82,7 +82,10 @@ export class GetDocument extends Component {
   onSearch(event) {
     if (event) {
       this.state.query = event.target.value;
-      // this.setState({query:event.target.value})
+
+      // this.setState({ query: event.target.value },
+      //   () => { console.log('true', this.state) }
+      // );
     }
     this.setState({
       search: true,
@@ -218,7 +221,7 @@ const mapDispatchToProps =
 const mapStateToProps = state => ({
   documents: state.documentReducer.documents.document,
   paginate: state.documentReducer.documents.paginate,
-  status: state.login
+  status: state.auth
 });
 
 GetDocument.getDefaultProps = {
@@ -229,7 +232,6 @@ GetDocument.getDefaultProps = {
   searchDocument: () => { },
   match: {},
   paginate: {},
-  status: {}
 
 };
 GetDocument.propTypes = {
@@ -240,7 +242,6 @@ GetDocument.propTypes = {
   searchDocument: PropTypes.func,
   match: PropTypes.object, // eslint-disable-line react/forbid-prop-types,
   paginate: PropTypes.object, // eslint-disable-line react/forbid-prop-types,
-  status: PropTypes.object // eslint-disable-line react/forbid-prop-types
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GetDocument);

@@ -10,7 +10,7 @@ const ShowSingleDocument = props => (
       </div>
       <div className="modal-footer">
         Date Published: {props.document.createdAt.slice(0, 10)}
-        {props.status.user.id === props.document.ownerID &&
+        {props.document.ownerID &&
           <a
             className="btn-floating modal-action modal-close  btn btn-flat"
             role="button"

@@ -58,7 +58,7 @@ class GetSingleDocument extends Component {
    * @memberof GetSingleDocument
    */
   updateDocument() {
-    this.props.history.replace('/updatedocument');
+    this.props.history.replace('/dashboard/updatedocument');
     return <UpdateDocument document={this.state} />;
   }
 
@@ -95,7 +95,7 @@ const mapDispatchToProps =
 
 const mapStateToProps = state => ({
   documents: state.documentReducer.documents,
-  status: state.login
+  status: state.auth
 
 });
 

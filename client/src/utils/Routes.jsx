@@ -16,40 +16,41 @@ import CheckAuthentication from '../containers/CheckAuthentication';
 const routes = (
   <HashRouter>
     <div className="row">
-      <Route exact path="/login" component={Login} />
-      <Route path="/" component={Dashboard} />
+      <Route exact path="/" component={Login} />
       <Route exact path="/signup" component={Signup} />
+      <Route path="/dashboard" component={CheckAuthentication(Dashboard)} />
+
       <Route
         exact
-        path="/documents"
+        path="/dashboard/documents"
         component={CheckAuthentication(GetDocument)}
       />
       <Route
         exact
-        path="/mydocuments/:id"
+        path="/dashboard/mydocuments/:id"
         component={CheckAuthentication(GetDocument)}
       />
       <Route
         exact
-        path="/adddocument"
+        path="/dashboard/adddocument"
         component={CheckAuthentication(AddDocument)}
       />
       <Route
         exact
-        path="/document/:id"
+        path="/dashboard/document/:id"
         component={CheckAuthentication(GetSingleDocument)}
       />
       <Route
         exact
-        path="/updatedocument"
+        path="/dashboard/updatedocument"
         component={CheckAuthentication(UpdateDocument)}
       />
       <Route
         exact
-        path="/users/:id"
+        path="/dashboard/users/:id"
         component={CheckAuthentication(UpdateUser)}
       />
-      <Route exact path="/users" component={CheckAuthentication(GetUsers)} />
+      <Route exact path="/dashboard/users" component={CheckAuthentication(GetUsers)} />
     </div>
   </HashRouter>
 );

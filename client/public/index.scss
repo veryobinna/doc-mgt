@@ -8,6 +8,7 @@ $secondary-light:#30B263;
 $Side-bar: rgba(255, 255, 255, 0.81);
 $landing-page: white;
 $row-background:  rgba(0, 0, 0, 0.3);
+$link: yellow;
 
 
 
@@ -138,10 +139,10 @@ nav{
     background-color: $primary;
 }
 .btn{
-    background-color: $Seconary;
+    //background-color: $Seconary;
 }
 .btn:hover{
-    background-color: $secondary-light;
+    //background-color: $secondary-light;
   
 }
 .pagination li a {
@@ -156,18 +157,36 @@ nav{
  }
 .card-btn-delete{
     float: right;
+    background-color: $primary
+}
+.card-btn-delete:hover{
+    background-color: $primary-light
 }
  .clear{
      clear:both;
  }
  a{
-     color: $Seconary;
+     color: $link;
  }
  .btn-del{
     left: 90%;
+    background-color: $primary
+
+}
+.btn-del:hover{
+    background-color: $primary-light
 }
  .btn-edit{
     left: 77%;
+    background-color: $Seconary
+}
+.btn-flat{
+        background-color: $Seconary
+
+}
+.btn-flat:hover, .btn-edit:hover{
+        background-color: $secondary-light
+
 }
  header, main, footer,  {
       padding-left: 300px;

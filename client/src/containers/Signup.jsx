@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { Redirect, Link } from 'react-router-dom';
-import SignupAction from '../actions/SignupAction';
+import { signupAction } from '../actions/AuthAction';
 
 /**
  *
@@ -64,7 +64,7 @@ class Signup extends Component {
    */
   onFormSubmit(event) {
     event.preventDefault();
-    this.props.SignupAction(this.state);
+    this.props.signupAction(this.state);
   }
 
   /**
@@ -75,11 +75,11 @@ class Signup extends Component {
    * @memberof Signup
    */
   render() {
-    if (typeof this.state.id === 'number') {
+    if (this.props.status.valid) {
       return (<Redirect
         push
         to={{
-          pathname: '/login',
+          pathname: '/dashboard/documents',
         }}
       />);
     }
@@ -159,21 +159,21 @@ class Signup extends Component {
 
 }
 const mapDispatchToProps =
-  dispatch => bindActionCreators({ SignupAction }, dispatch);
+  dispatch => bindActionCreators({ signupAction }, dispatch);
 
 const mapStateToProps = state => ({
-  status: state.signup
+  status: state.auth
 });
 
 Signup.getDefaultProps = {
   documents: {},
   status: {},
-  SignupAction: () => { },
+  signupAction: () => { },
 
 };
 Signup.propTypes = {
   status: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  SignupAction: PropTypes.func
+  signupAction: PropTypes.func
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Signup);

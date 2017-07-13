@@ -21,19 +21,19 @@ const Sidebar = props => (
       </li>
       <li><div className="divider" /></li>
       <li>
-        <Link to="/documents" className="waves-effect" >Public Documents</Link>
+        <Link to="/dashboard/documents" className="waves-effect" >Public Documents</Link>
       </li>
       <li>
         <Link
-          to={`/mydocuments/${props.status.user.id}`}
+          to={`/dashboard/mydocuments/${props.status.user.id}`}
           className="waves-effect"
         > My Documents
         </Link>
       </li>
       {props.status.user.roleID === 1 &&
-        <li><Link to="/users" className="waves-effect" >Users</Link></li>}
+        <li><Link to="/dashboard/users" className="waves-effect" >Users</Link></li>}
       <li>
-        <Link to="/adddocument" className="waves-effect" >New Document</Link>
+        <Link to="/dashboard/adddocument" className="waves-effect" >New Document</Link>
       </li>
       <li>
         <a

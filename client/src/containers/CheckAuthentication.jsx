@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import TokenValidator from '../utils/TokenValidator';
-import { LoginAction } from '../actions/LoginAction';
+import { LoginAction } from '../actions/AuthAction';
 
 const checkAuthentication = TokenValidator();
 export default (ComposedConmponent) => {
@@ -41,7 +41,7 @@ export default (ComposedConmponent) => {
         return (<Redirect
           push
           to={{
-            pathname: '/login',
+            pathname: '/',
           }}
         />);
       }
@@ -60,7 +60,7 @@ export default (ComposedConmponent) => {
   };
 
   const mapStateToProps = state => ({
-    status: state.login
+    status: state.auth
   });
 
   const mapDispatchToProps = dispatch => ({

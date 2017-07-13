@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { LoginAction, LogoutAction } from '../actions/LoginAction';
+import { LoginAction, LogoutAction } from '../actions/AuthAction';
 import Sidebar from '../components/Sidebar';
 import Navbar from '../components/Navbar';
 
@@ -15,14 +15,14 @@ import Navbar from '../components/Navbar';
  * @returns {html} DOM element
  */
 export const Dashboard = (props) => {
-  if (!props.status.valid) {
+  /*if (!props.status.valid) {
     return (<Redirect
       push
       to={{
         pathname: '/login',
       }}
     />);
-  }
+  }*/
 
   return (
 
@@ -47,7 +47,7 @@ const mapDispatchToProps =
   dispatch => bindActionCreators({ LoginAction, LogoutAction }, dispatch);
 
 const mapStateToProps = state => ({
-  status: state.login
+  status: state.auth
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
 

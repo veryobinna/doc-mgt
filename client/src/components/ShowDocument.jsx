@@ -30,7 +30,7 @@ const ShowDocument = ({
             <i className="material-icons left">delete</i>Delete
           </a> </div>
           <a
-            href={`/#/document/${id}`}
+            href={`/#/dashboard/document/${id}`}
             className="btn-floating waves-effect  btn"
           ><i className="material-icons left">visibility</i>View</a>
           <div className="clear" />

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Redirect, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { LoginAction } from '../actions/LoginAction';
+import { LoginAction } from '../actions/AuthAction';
 
 /**
  *
@@ -20,7 +20,6 @@ class Login extends Component {
    */
   constructor(props) {
     super(props);
-
     this.state = {
       loginID: '',
       password: ''
@@ -63,7 +62,7 @@ class Login extends Component {
       return (<Redirect
         push
         to={{
-          pathname: '/documents',
+          pathname: '/dashboard/documents',
         }}
       />);
     }
@@ -108,7 +107,7 @@ const mapDispatchToProps =
 // state is a function param that reps the state within our redux store
 // state.login refs what's in index reducer
 const mapStateToProps = state => ({
-  status: state.login
+  status: state.auth
 });
 
 Login.getDefaultProps = {

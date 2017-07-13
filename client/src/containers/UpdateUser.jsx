@@ -56,6 +56,7 @@ export class UpdateUser extends Component {
       email: nextProps.users.email,
       roleID: nextProps.users.roleID
     });
+    //this.props.history.replace('/dashboard/users');
   }
   /**
    *
@@ -79,6 +80,7 @@ export class UpdateUser extends Component {
   onFormSubmit(event) {
     event.preventDefault();
     this.props.updateUser(this.state);
+    this.props.history.replace('/dashboard/users');
   }
 
   /**
