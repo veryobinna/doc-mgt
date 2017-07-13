@@ -15,9 +15,9 @@ const ShowDocument = ({
       <div className="card white">
         <div className="card-content black-text">
           <span className="card-title">{title}</span>
+          <div className="card-abstract" dangerouslySetInnerHTML={{ __html: content }} />
           <span className="card-name">{`${firstName} ${lastName}`}</span>
           <span className="doc-access">{access}</span>
-          <p dangerouslySetInnerHTML={{ __html: content }} />
         </div>
 
         <div className="card-action">

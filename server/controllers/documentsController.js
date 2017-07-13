@@ -61,9 +61,6 @@ export default {
               ownerID: `${req.decoded.id}`
             },
             {
-              roleID: 1
-            },
-            {
               access: 'public'
             },
             {

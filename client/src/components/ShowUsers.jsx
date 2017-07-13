@@ -8,7 +8,6 @@ const ShowUsers = ({
 
     <ul className="collection">
       <li className="collection-item avatar ">
-        <i className="material-icons circle">perm_identity</i>
         <span className="title">{`${firstName} ${lastName}`}</span>
         <p>{email}</p>
         <p>Role: {roleName}</p>

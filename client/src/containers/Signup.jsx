@@ -86,6 +86,7 @@ class Signup extends Component {
 
     return (
       <div className="row landing-page">
+        <div className="welcome-text"> Welcome to Doc-mgt.</div>
         <div className="row-container col s6 m6 offset-s3 offset-m3">
           <form onSubmit={this.onFormSubmit} className="col s12">
             <div className="row">
@@ -148,7 +149,7 @@ class Signup extends Component {
             </div>
             <button className="btn">Submit</button>
             <span className="loginPS">
-            Have an account? <Link to="/login">login here</Link>
+            Have an account? <Link to="/">login here</Link>
             </span>
 
           </form>

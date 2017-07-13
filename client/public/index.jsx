@@ -8,7 +8,7 @@ import routes from '../src/utils/Routes';
 import setAuthorizationToken from '../src/utils/Authenticate';
 import './index.scss';
 
-toastr.options.timeOut = 3;
+toastr.options.timeOut = 1000;
 const store = configureStore();
 // const history = createBrowserHistory();
 

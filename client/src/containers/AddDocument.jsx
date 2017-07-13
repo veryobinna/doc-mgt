@@ -47,7 +47,7 @@ export class AddDocument extends Component {
    */
   componentWillReceiveProps(nextProps) {
     if (this.props.documents !== nextProps.documents) {
-      this.props.history.replace('/documents');
+      this.props.history.replace('/dashboard/documents');
     }
   }
 

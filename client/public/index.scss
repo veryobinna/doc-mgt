@@ -3,13 +3,13 @@
 
 $primary: #90140D;
 $primary-light:#FF3F34;
-$Seconary:#006628;
-$secondary-light:#30B263;
+$Seconary:#26a69a;
+$secondary-light:#32cabb;
 $Side-bar: rgba(255, 255, 255, 0.81);
 $landing-page: white;
-$row-background:  rgba(0, 0, 0, 0.3);
+$row-background:  rgba(0, 0, 0, 0.5);
 $link: yellow;
-
+$name:grey;
 
 
 body {
@@ -31,6 +31,7 @@ main {
     color: $landing-page;
 }
 .row-container{
+    border-radius: 15px;
     margin-top: 10%;
     background-color:$row-background;
 }
@@ -62,31 +63,23 @@ nav{
 
 }
 .side-bar-top-text{
-    margin-top: -2rem;
+    margin-top: 0rem;
     margin-bottom: 0rem
 
 }
 .side-bar-top-email{
-    margin-top: -1rem;
+    margin-top: 0rem;
     margin-bottom: 0rem
 
 }
 .loginPS{
     margin-left: 2rem
 }
-.image-holder{
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    border-radius: 50%;
-    width: 4.3rem;
-    height: 4.3rem;
-  
-}
 .sidebar-top{
     background-image: url('/dist/img/office.jpg');
     color: $Side-bar;
     text-align: center;
-    margin-bottom: -1rem;
+    margin-bottom: 1rem;
 }
 
 .button-collapse{
@@ -138,18 +131,17 @@ nav{
 .pagination li.active {
     background-color: $primary;
 }
-.btn{
-    //background-color: $Seconary;
-}
-.btn:hover{
-    //background-color: $secondary-light;
-  
-}
 .pagination li a {
     cursor: pointer; 
 }
+.pagination{
+        position: relative;
+    text-align: center;
+    bottom: 20px;
+}
 .card-name{
-    color: $Seconary
+        color: $name;
+    font-weight: 600;
 }
 .doc-access{
     float: right;
@@ -207,4 +199,32 @@ color: $primary;
 .side-nav li>a:hover {
 color: $primary-light;
 
+}
+.card-abstract {
+    height: 180px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+.collection .collection-item.avatar{
+    padding-left: 20px;
+}
+.welcome-text{
+    border-radius: 15px;
+    text-align: center;
+    top: 6rem;
+    margin-left: 25%;
+    font-size: 30px;
+    position: relative;
+    background-color: $row-background;
+    width: 50%;
+    color: $link;
+}
+.page-footer {
+    padding-top: 0px;
+    position: fixed;
+    width: 100%;
+    background-color: #90140d;
+    z-index: 100;
+    bottom: 0px;
+    text-align: center;
 }
