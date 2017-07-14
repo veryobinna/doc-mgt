@@ -69,8 +69,8 @@ class Login extends Component {
     return (
       <div className="landing-page">
         <div className="row">
-          <div className="welcome-text"> Welcome to Doc-mgt.</div>
           <div className=" row-container col s6 m6 offset-s3 offset-m3 ">
+            <div className="welcome-text"> Welcome to Doc-mgt.</div>
             <form onSubmit={this.onFormSubmit}>
               <label
                 htmlFor="loginID"

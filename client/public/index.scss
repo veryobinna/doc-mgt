@@ -1,4 +1,5 @@
 @import "./toastr";
+@import "./sweetalert";
 @import url('https://fonts.googleapis.com/css?family=PT+Serif');
 
 $primary: #90140D;
@@ -32,8 +33,9 @@ main {
 }
 .row-container{
     border-radius: 15px;
-    margin-top: 10%;
+    margin-top: 5%;
     background-color:$row-background;
+    padding-bottom: 50px !important;
 }
 
 nav{
@@ -209,14 +211,8 @@ color: $primary-light;
     padding-left: 20px;
 }
 .welcome-text{
-    border-radius: 15px;
     text-align: center;
-    top: 6rem;
-    margin-left: 25%;
     font-size: 30px;
-    position: relative;
-    background-color: $row-background;
-    width: 50%;
     color: $link;
 }
 .page-footer {
@@ -239,4 +235,8 @@ select{
         margin-top: -12%;
     margin-left: 23%;
     width: 20%;
+}
+.active {
+    font-weight: 900 !important;
+    //color: red !important;
 }

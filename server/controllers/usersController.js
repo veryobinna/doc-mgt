@@ -192,9 +192,9 @@ export default {
       message: 'No access to edit user'
     });
   },
-  /*eslint-disable*/
+
   destroy(req, res) {
-    if (req.params.id != req.decoded.id && req.decoded.roleID === 1) {
+    if (req.params.id !== req.decoded.id && req.decoded.roleID === 1) {
       return User
         .findById(Number.parseInt(req.params.id, 10))
         .then((user) => {

@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import swal from 'sweetalert';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
 import { getUsers, deleteUser, searchUsers } from '../actions/UserActions';
@@ -125,10 +126,25 @@ class GetUsers extends Component {
    * @memberof GetUsers
    */
   deleteUser(id) {
-    this.props.deleteUser(id)
+    swal({
+      title: 'Are you sure?',
+      text: 'Are you sure that you want to delete this user?',
+      type: 'warning',
+      showCancelButton: true,
+      closeOnConfirm: false,
+      confirmButtonText: 'Yes, delete it!',
+      confirmButtonColor: '#ec6c62'
+    }, (isConfirm) => {
+      if (isConfirm) {
+        swal('Deleted!', 'User Deleted.', 'success');
+        this.props.deleteUser(id)
       .then(() => {
         this.props.getUsers();
       });
+      } else {
+        swal('Cancelled', 'User not Deleted', 'error');
+      }
+    });
   }
   /**
    *

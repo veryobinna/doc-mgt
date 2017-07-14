@@ -1,4 +1,6 @@
+/* global $ */
 import React, { Component } from 'react';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
@@ -26,7 +28,8 @@ class Signup extends Component {
       lastName: '',
       username: '',
       email: '',
-      password: ''
+      password: '',
+      confirmPassword: '',
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
@@ -54,6 +57,45 @@ class Signup extends Component {
     const name = event.target.id;
     const value = event.target.value;
     this.setState({ [name]: value });
+
+
+    $('.signup-form').validate({
+      rules: {
+        firstName: {
+          required: true,
+          minlength: 6,
+        },
+        lastName: {
+          required: true,
+          minlength: 6,
+        },
+        email: {
+          email: true,
+          required: true,
+        },
+        password: {
+          required: true,
+          minlength: 6,
+        },
+        username: {
+          required: true,
+          minlength: 4,
+        },
+        confirmPassword: {
+          required: true,
+          equalTo: '#password',
+        },
+      },
+      errorElement: 'div',
+      errorPlacement: (error, element) => {
+        const placement = $(element).data('error');
+        if (placement) {
+          $(placement).append(error);
+        } else {
+          error.insertAfter(element);
+        }
+      },
+    });
   }
   /**
    *
@@ -64,7 +106,9 @@ class Signup extends Component {
    */
   onFormSubmit(event) {
     event.preventDefault();
-    this.props.signupAction(this.state);
+    if (this.state.password === this.state.password2) {
+      this.props.signupAction(this.state);
+    }
   }
 
   /**
@@ -86,13 +130,14 @@ class Signup extends Component {
 
     return (
       <div className="row landing-page">
-        <div className="welcome-text"> Welcome to Doc-mgt.</div>
         <div className="row-container col s6 m6 offset-s3 offset-m3">
-          <form onSubmit={this.onFormSubmit} className="col s12">
+          <div className="welcome-text"> Welcome to Doc-mgt.</div>
+          <form onSubmit={this.onFormSubmit} className="col s12 signup-form">
             <div className="row">
               <div className="input-field col s6">
                 <input
                   id="firstName"
+                  name="firstName"
                   type="text"
                   className="valdate"
                   value={this.state.firstName}
@@ -103,6 +148,7 @@ class Signup extends Component {
               <div className="input-field col s6">
                 <input
                   id="lastName"
+                  name="lastName"
                   type="text"
                   className="valdate"
                   value={this.state.lastName}
@@ -115,6 +161,7 @@ class Signup extends Component {
               <div className="input-field col s12">
                 <input
                   id="username"
+                  name="username"
                   type="text"
                   className="validate"
                   value={this.state.username}
@@ -127,6 +174,7 @@ class Signup extends Component {
               <div className="input-field col s12">
                 <input
                   id="email"
+                  name="email"
                   type="text"
                   className="validate"
                   value={this.state.email}
@@ -140,11 +188,25 @@ class Signup extends Component {
               <div className="input-field col s12">
                 <input
                   id="password"
+                  name="password"
                   type="password"
                   value={this.state.password}
                   onChange={this.onInputChange}
                 />
                 <label htmlFor="password">Password</label>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="input-field col s12">
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  value={this.state.confirmPassword}
+                  onChange={this.onInputChange}
+                />
+                <label htmlFor="password">Confrim Password</label>
               </div>
             </div>
             <button className="btn">Submit</button>

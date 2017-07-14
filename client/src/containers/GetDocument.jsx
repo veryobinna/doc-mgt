@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import swal from 'sweetalert';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
 import {
@@ -80,22 +81,18 @@ export class GetDocument extends Component {
  * @memberof GetDocument
  */
   onSearch(event) {
+    let { query } = { ...this.state };
+    const { limit, offset } = this.state;
     if (event) {
-      this.state.query = event.target.value;
-
-      // this.setState({ query: event.target.value },
-      //   () => { console.log('true', this.state) }
-      // );
+      query = event.target.value;
     }
     this.setState({
+      query,
       search: true,
       getDocument: false,
       getMyDocument: false,
     });
-    this.props.searchDocument(
-      this.state.query,
-      this.state.limit,
-      this.state.offset);
+    this.props.searchDocument(query, limit, offset);
   }
 
   /**
@@ -115,9 +112,7 @@ export class GetDocument extends Component {
       );
     }
     if (this.state.getDocument) {
-      this.setState({ offset },
-        this.getDocument // callback
-      );
+      this.setState({ offset }, this.getDocument);
     }
     if (this.state.getMyDocument) {
       this.setState({ offset },
@@ -159,10 +154,25 @@ export class GetDocument extends Component {
    * @memberof GetDocument
    */
   deleteDocument(id) {
-    this.props.deleteDocument(id)
+    swal({
+      title: 'Are you sure?',
+      text: 'Are you sure that you want to delete this photo?',
+      type: 'warning',
+      showCancelButton: true,
+      closeOnConfirm: false,
+      confirmButtonText: 'Yes, delete it!',
+      confirmButtonColor: '#ec6c62'
+    }, (isConfirm) => {
+      if (isConfirm) {
+        swal('Deleted!', 'File Deleted.', 'success');
+        this.props.deleteDocument(id)
       .then(() => {
         this.getDocument();
       });
+      } else {
+        swal('Cancelled', 'File not Deleted', 'error');
+      }
+    });
   }
 
   /**

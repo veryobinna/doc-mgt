@@ -24,20 +24,14 @@ const loginDetails = payload => ({
 const LoginAction = userParams => dispatch => axios
   .post('/login', userParams)
   .then((res) => {
-    if (!test) {
-      const { token } = res.data;
-      setAuthorizationToken(token);
-      localStorage.setItem('token', token);
-      dispatch(loginDetails(res.data));
-      toastr.success('successful');
-    } else {
-      dispatch(loginDetails(res.data));
-    }
+    const { token } = res.data;
+    setAuthorizationToken(token);
+    localStorage.setItem('token', token);
+    dispatch(loginDetails(res.data));
+    toastr.success('successful');
   })
   .catch((error) => {
-    if (!test) {
-      toastr.error(error.response.data.message);
-    }
+    toastr.error(error.response.data.message);
   });
 
 
