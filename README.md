@@ -2,19 +2,26 @@
 [![Build Status](https://travis-ci.org/andela-ookwuolisa/doc-mgt.png?branch=develop)](https://travis-ci.org/andela-ookwuolisa/doc-mgt)
 # doc-mgt
 
-A full stack document management system, complete with roles and privileges. Each document defines access rights; the document defines which roles can access it. Each document also specifies who created it and the date it was published.
+This is a full stack document management system, complete with roles and privileges. Each document defines access rights; the document defines which roles can access it. An admin only can manage other users. Each document also specifies who created it and the date it was published.
 
 The application is available on Heroku [https://docs-mgt.herokuapp.com/] 
 
 ### Table of Contents
 
-  - Technologies
   - Functionalities
+  - Technologies
   - Setup and Installation
   - How to contribute
   - Limitations
   - Faqs
   
+### Functionalities
+
+Documents
+- Create documents
+- Update document
+- Delete document
+- Search for documents
 
 ### Technologies 
 The technologies used are:
@@ -28,14 +35,7 @@ The technologies used are:
 * [Materialize Css](http://breakdance.io) - Materialize is a UI component library created with CSS, JavaScript, and HTML.
 * [Babel](https://babeljs.io/) -The compiler for writing next generation JavaScript.
 
-  
-### Functionalities
 
-Documents
-- Create documents
-- Update document
-- Delete document
-- Search for documents
 
 Users
 - Create users
@@ -47,36 +47,22 @@ Role
 - Create roles( Admin and moderator and regular users)
  
 #### EndPoints
-| End Points | Functionality |
-| ------ | ------ |
-| POST /users/login | Logs a user in. |
-|POST /users/logout | Logs a user out. |
-|POST /users/| Creates a new user. |
-|GET /users/|Find matching instances of user. |
-| GET /users/?limit={integer}&offset={integer} | Pagination for users. |
-|GET /users/<id>|Find user. |
-| PUT /users/<id> |Update user attributes. |
-| DELETE /users/<id> | Delete user. |
-| POST /documents/ | Creates a new document instance. |
-| GET /documents/ | Find matching instances of document. |
-|GET /documents/?limit={integer}&offset={integer}| Pagination for docs.|
-|GET /documents/<id>| Find document. |
-| PUT /documents/<id> | Update document attributes.|
-| DELETE /documents/<id> | Delete document. |
-| GET /users/<id>/documents| Find all documents belonging to the user. |
-| GET /search/users/?q={} | Search for a user. |
-| GET /search/documents/?q={doctitle} |Search for a doc. |
+The endpoints can be found here:
+[http://docs-mgt.herokuapp.com/docs/]
 
 ### Installation
-
 Doc-Mgt requires [Node.js](https://nodejs.org/) to run.
 
-Install the dependencies and devDependencies and start the server.
+Before you run the app, install postgress on the local machine and populate the data.
+To run the app locally, install the dependencies and devDependencies, run sequelize migrate, build a webpack bundle and start the server.
 
 ```sh
 $ cd doc-mgt
-$ npm install 
+$ npm install
+$ npm run migrate
+$ npm run build
 $ npm start
+
 ```
 ### How to Contribute
 To contribute to this project:
@@ -89,8 +75,9 @@ To contribute to this project:
 7. Respond to any code review feedback
 
 ### Limitations
-1. Only text document files can be created and managed with this application
-2. No Google/ Facebook/ Github login available
+1. Only text document files can be created and managed with this application.
+2. No Google/ Facebook/ Github login available.
+3. Users have to populate the database themselves.
 
 ### FAQ
 1. How can i contact the owner of this project?

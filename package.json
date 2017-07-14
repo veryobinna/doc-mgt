@@ -4,7 +4,8 @@
   "description": "A document management system",
   "main": "index.js",
   "scripts": {
-    "build": "webpack -p",
+    "build": "./node_modules/.bin/webpack -p",
+    "migration":"./node_modules/sequelize db:migrate",
     "start:selenium": "java -jar selenium-server-standalone-3.4.0.jar",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "e2e": "./node_modules/.bin/nightwatch --config nightwatch.js",

@@ -124,31 +124,36 @@ export class UpdateUser extends Component {
               />
             </div>
           </div>
-
           <div className="row">
+
+            <div className="row">
+              <div className="input-field col s12">
+                <input
+                  id="email"
+                  type="text"
+                  className="validate"
+                  value={this.state.email}
+                  onChange={this.onInputChange}
+                />
+              </div>
+            </div>
+
             <div className="input-field col s12">
-              <input
+              <select
+                className="browser-default"
                 id="roleID"
-                type="text"
-                className="validate"
-                value={this.state.roleID}
+                value={`${this.state.roleID}`}
                 onChange={this.onInputChange}
-              />
+              >
+                <option value="" disabled>Role Title</option>
+                <option value="1">Admin</option>
+                <option value="2">moderator</option>
+                <option value="3">regular</option>
+              </select>
+              <label htmlFor="roleID" className="active" >Role Title</label>
             </div>
+            <button className="btn-update btn">Update</button>
           </div>
-
-          <div className="row">
-            <div className="input-field col s12">
-              <input
-                id="email"
-                type="text"
-                className="validate"
-                value={this.state.email}
-                onChange={this.onInputChange}
-              />
-            </div>
-          </div>
-          <button className="btn">Update</button>
         </form>
       </div>
     );
