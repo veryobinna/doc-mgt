@@ -28,8 +28,9 @@ Dashboard.getDefaultProps = {
   valid: false
 };
 Dashboard.propTypes = {
-  status: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  valid: PropTypes.bool,
+  status: PropTypes.shape({
+    valid: PropTypes.bool
+  }),
 };
 
 const mapDispatchToProps =

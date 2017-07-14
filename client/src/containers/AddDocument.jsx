@@ -1,4 +1,3 @@
-/* eslint-disable no-undef*/
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -6,8 +5,6 @@ import PropTypes from 'prop-types';
 import { addDocument, getDocument } from '../actions/DocumentActions';
 
 /**
- *
- *
  * @export
  * @class AddDocument
  * @extends {Component}
@@ -16,7 +13,6 @@ export class AddDocument extends Component {
   /**
    * Creates an instance of AddDocument.
    * @param {any} props
-   *
    * @memberof AddDocument
    */
   constructor(props) {
@@ -39,7 +35,6 @@ export class AddDocument extends Component {
   }
 
   /**
-   *
    *
    * @param {any} nextProps
    * @returns{null} no return
@@ -117,7 +112,7 @@ export class AddDocument extends Component {
                 value={`${this.state.access}`}
                 onChange={this.onInputChange}
               >
-                <option value="" disabled>Vissibility</option>
+                <option value="" disabled>Visibility</option>
                 <option value="public">public</option>
                 <option value="private">private</option>
                 <option value="role">role</option>
@@ -141,7 +136,9 @@ AddDocument.getDefaultProps = {
 AddDocument.propTypes = {
   addDocument: PropTypes.func.isRequired,
   documents: PropTypes.string,
-  history: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  history: PropTypes.shape({
+    replace: PropTypes.function
+  }),
 };
 
 const mapDispatchToProps =

@@ -105,6 +105,15 @@ export default {
         }
       })
       .then((users) => {
+        const data = users.rows.map(user => Object.assign({},
+          {
+            id: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            username: user.username,
+            email: user.email,
+            roleID: user.roleID
+          }));
         const paginate = {
           page: Math.floor(offset / limit) + 1,
           pageSize: users.rows.length,
@@ -113,7 +122,7 @@ export default {
 
         };
         res.status(200).send({
-          users: users.rows,
+          users: data,
           paginate
         });
       })
@@ -222,7 +231,7 @@ export default {
     const id = request.decoded.id;
     User.findById(id)
       .then((user) => {
-        user.update({ token: null })
+        user.update({ token: null });
         res.status(200).json({ message: 'logout successful' });
       });
   }

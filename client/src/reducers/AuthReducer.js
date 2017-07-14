@@ -8,7 +8,7 @@ import TokenValidator from '../utils/TokenValidator';
  * @param {any} action
  * @returns {object} payload
  */
-const loginReducer = (state = TokenValidator(), action) => {
+const AuthReducer = (state = TokenValidator(), action) => {
   switch (action.type) {
     case types.LOGIN_DETAILS: {
       const logs = { login: action.payload };
@@ -29,4 +29,4 @@ const loginReducer = (state = TokenValidator(), action) => {
       return state;
   }
 };
-export default loginReducer;
+export default AuthReducer;

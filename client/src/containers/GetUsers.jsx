@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-prop-types*/
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -105,7 +104,7 @@ class GetUsers extends Component {
       );
     }
   }
-    /**
+  /**
    *
    *
    * @returns {null} no return
@@ -216,11 +215,20 @@ GetUsers.getDefaultProps = {
 
 };
 GetUsers.propTypes = {
-  users: PropTypes.object,
+  users: PropTypes.shape({
+    id: PropTypes.number,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    username: PropTypes.username,
+    email: PropTypes.email,
+    roleID: PropTypes.roleID,
+  }),
   searchUsers: PropTypes.func,
-  getUsers: PropTypes.object,
+  getUsers: PropTypes.func,
   deleteUser: PropTypes.func,
-  paginate: PropTypes.object
+  paginate: PropTypes.shape({
+    pageCount: PropTypes.object
+  }),
 
 };
 

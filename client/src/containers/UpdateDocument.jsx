@@ -1,5 +1,3 @@
-/* eslint-disable no-undef*/
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -33,7 +31,7 @@ export class UpdateDocument extends Component {
 /**
  *
  *
-   *@returns {null} no return
+ * @returns {null} no return
  * @memberof UpdateDocument
  */
   componentDidMount() {
@@ -117,7 +115,7 @@ export class UpdateDocument extends Component {
                 value={this.state.access}
                 onChange={this.onInputChange}
               >
-                <option value="" disabled>Vissibility</option>
+                <option value="" disabled>Visibility</option>
                 <option value="public">public</option>
                 <option value="private">private</option>
                 <option value="role">role</option>
@@ -151,12 +149,20 @@ UpdateDocument.getDefaultProps = {
   status: {},
 };
 UpdateDocument.propTypes = {
-  documents: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  title: PropTypes.string,
-  content: PropTypes.string,
+  documents: PropTypes.shape({
+    id: PropTypes.number,
+    ownerID: PropTypes.ownerID,
+    title: PropTypes.title,
+    content: PropTypes.content,
+    access: PropTypes.access,
+  }),
   updateDocument: PropTypes.func,
-  history: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  status: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  history: PropTypes.shape({
+    replace: PropTypes.func
+  }),
+  status: PropTypes.shape({
+    id: PropTypes.number
+  }),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UpdateDocument);

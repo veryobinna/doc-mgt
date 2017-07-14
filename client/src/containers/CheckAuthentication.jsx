@@ -27,12 +27,6 @@ export default (ComposedConmponent) => {
     }
 
     /**
-     * @memberOf Authenticate
-     * @returns {null} no return
-     */
-
-
-    /**
      * @returns {element} DOM element ComposedConmponent
      * @memberOf Authenticate
      */
@@ -56,7 +50,9 @@ export default (ComposedConmponent) => {
   };
 
   Authenticate.propTypes = {
-    status: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+    status: PropTypes.shape({
+      valid: PropTypes.bool
+    }),
   };
 
   const mapStateToProps = state => ({

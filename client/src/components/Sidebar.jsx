@@ -62,9 +62,15 @@ Sidebar.getDefaultProps = {
   status: {}
 };
 Sidebar.propTypes = {
-  user: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  user: PropTypes.shape({
+    id: PropTypes.string,
+    firstName: PropTypes.string,
+    email: PropTypes.string,
+  }),
   id: PropTypes.number,
-  status: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  status: PropTypes.shape({
+    user: PropTypes.object
+  }),
   LogoutAction: PropTypes.func.isRequired
 };
 export default Sidebar;

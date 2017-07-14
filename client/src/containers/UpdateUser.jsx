@@ -170,11 +170,23 @@ UpdateUser.getDefaultProps = {
   history: {},
 };
 UpdateUser.propTypes = {
-  users: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  users: PropTypes.shape({
+    id: PropTypes.number,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    username: PropTypes.username,
+    email: PropTypes.email,
+    roleID: PropTypes.roleID,
+  }),
   updateUser: PropTypes.func,
   getSingleUser: PropTypes.func,
-  match: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  history: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  match: PropTypes.shape({
+    params: PropTypes.object,
+    url: PropTypes.string
+  }),
+  history: PropTypes.shape({
+    replace: PropTypes.func
+  }),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UpdateUser);

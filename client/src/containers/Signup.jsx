@@ -1,6 +1,5 @@
 /* global $ */
 import React, { Component } from 'react';
-
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
@@ -106,9 +105,7 @@ class Signup extends Component {
    */
   onFormSubmit(event) {
     event.preventDefault();
-    if (this.state.password === this.state.password2) {
-      this.props.signupAction(this.state);
-    }
+    this.props.signupAction(this.state);
   }
 
   /**
@@ -235,7 +232,11 @@ Signup.getDefaultProps = {
 
 };
 Signup.propTypes = {
-  status: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  status: PropTypes.shape({
+    valid: PropTypes.bool,
+    user: PropTypes.object,
+    id: PropTypes.number,
+  }),
   signupAction: PropTypes.func
 };
 

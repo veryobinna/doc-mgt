@@ -64,7 +64,10 @@ ShowDocument.propTypes = {
   firstName: PropTypes.string,
   lastName: PropTypes.string,
   deleteDocument: PropTypes.func.isRequired,
-  user: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  user: PropTypes.shape({
+    id: PropTypes.number,
+    roleID: PropTypes.number
+  }),
 };
 
 

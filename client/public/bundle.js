@@ -18250,7 +18250,7 @@ module.exports = __webpack_require__(354);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.loginDetails = exports.LogoutAction = exports.signupAction = exports.LoginAction = undefined;
+exports.signupDetails = exports.loginDetails = exports.LogoutAction = exports.signupAction = exports.LoginAction = undefined;
 
 var _axios = __webpack_require__(63);
 
@@ -18273,8 +18273,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var test = process.env.NODE_ENV === 'test';
 /**
  * LoginDetails contains the dispatched Login action
- * payload has no parenthesis because it is a single function argument
- * with no curly braces
  * @param {any} payload
  * @returns {null} no return
  */
@@ -18306,8 +18304,6 @@ var LoginAction = function LoginAction(userParams) {
 
 /**
  * SignupDetails contains the user details
- * payload has no parenthesis because it is a single function argument
- * with no curly braces
  * @param {any} payload
  * @returns {null} no return
  */
@@ -18345,7 +18341,6 @@ var signupAction = function signupAction(userParams) {
 
 /**
  * Clears the token from the local storage
- *
  * @returns {object} dispatched the user details
  */
 var LogoutAction = function LogoutAction() {
@@ -18359,6 +18354,7 @@ exports.LoginAction = LoginAction;
 exports.signupAction = signupAction;
 exports.LogoutAction = LogoutAction;
 exports.loginDetails = loginDetails;
+exports.signupDetails = signupDetails;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
@@ -25488,7 +25484,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 var setAuthorizationToken = function setAuthorizationToken(token) {
   if (token) {
-
     _axios2.default.defaults.headers.common.Authorization = token;
   } else {
     _axios2.default.defaults.headers.common.Authorization = null;
@@ -26800,7 +26795,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable no-undef*/
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /**
  *
@@ -26835,7 +26830,7 @@ var UpdateDocument = exports.UpdateDocument = function (_Component) {
   /**
    *
    *
-     *@returns {null} no return
+   * @returns {null} no return
    * @memberof UpdateDocument
    */
 
@@ -26960,7 +26955,7 @@ var UpdateDocument = exports.UpdateDocument = function (_Component) {
                 _react2.default.createElement(
                   'option',
                   { value: '', disabled: true },
-                  'Vissibility'
+                  'Visibility'
                 ),
                 _react2.default.createElement(
                   'option',
@@ -27018,12 +27013,20 @@ UpdateDocument.getDefaultProps = {
   status: {}
 };
 UpdateDocument.propTypes = {
-  documents: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
-  title: _propTypes2.default.string,
-  content: _propTypes2.default.string,
+  documents: _propTypes2.default.shape({
+    id: _propTypes2.default.number,
+    ownerID: _propTypes2.default.ownerID,
+    title: _propTypes2.default.title,
+    content: _propTypes2.default.content,
+    access: _propTypes2.default.access
+  }),
   updateDocument: _propTypes2.default.func,
-  history: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
-  status: _propTypes2.default.object // eslint-disable-line react/forbid-prop-types
+  history: _propTypes2.default.shape({
+    replace: _propTypes2.default.func
+  }),
+  status: _propTypes2.default.shape({
+    id: _propTypes2.default.number
+  })
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(UpdateDocument);
@@ -47878,7 +47881,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = function (initialState) {
     return (0, _redux.createStore)(_reducers2.default, initialState, (0, _redux.applyMiddleware)(_reduxLogger2.default, _reduxThunk2.default));
 };
-// import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
 
 /***/ }),
 /* 343 */
@@ -47939,7 +47941,6 @@ var _CheckAuthentication2 = _interopRequireDefault(_CheckAuthentication);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/* eslint-disable import/no-named-as-default*/
 var routes = _react2.default.createElement(
   _reactRouterDom.HashRouter,
   null,
@@ -49893,10 +49894,7 @@ __webpack_require__(345);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _toastr2.default.options.timeOut = 1000;
-// import createBrowserHistory from 'history/createBrowserHistory';
-
 var store = (0, _configureStore2.default)();
-// const history = createBrowserHistory();
 
 var token = localStorage.getItem('token');
 (0, _Authenticate2.default)(token);
@@ -49924,6 +49922,11 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * renders the footer component
+ * @returns {null} no return
+ *
+ */
 var Footer = function Footer() {
   return _react2.default.createElement(
     "footer",
@@ -50125,7 +50128,10 @@ ShowDocument.propTypes = {
   firstName: _propTypes2.default.string,
   lastName: _propTypes2.default.string,
   deleteDocument: _propTypes2.default.func.isRequired,
-  user: _propTypes2.default.object // eslint-disable-line react/forbid-prop-types
+  user: _propTypes2.default.shape({
+    id: _propTypes2.default.number,
+    roleID: _propTypes2.default.number
+  })
 };
 
 exports.default = ShowDocument;
@@ -50199,7 +50205,12 @@ ShowSingleDocument.getDefaultProps = {
   status: {}
 };
 ShowSingleDocument.propTypes = {
-  document: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
+  document: _propTypes2.default.shape({
+    title: _propTypes2.default.string,
+    content: _propTypes2.default.string,
+    ownerID: _propTypes2.default.number,
+    createdAt: _propTypes2.default.string
+  }),
   title: _propTypes2.default.string,
   content: _propTypes2.default.string,
   updateDocument: _propTypes2.default.func.isRequired
@@ -50442,9 +50453,15 @@ Sidebar.getDefaultProps = {
   status: {}
 };
 Sidebar.propTypes = {
-  user: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
+  user: _propTypes2.default.shape({
+    id: _propTypes2.default.string,
+    firstName: _propTypes2.default.string,
+    email: _propTypes2.default.string
+  }),
   id: _propTypes2.default.number,
-  status: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
+  status: _propTypes2.default.shape({
+    user: _propTypes2.default.object
+  }),
   LogoutAction: _propTypes2.default.func.isRequired
 };
 exports.default = Sidebar;
@@ -50485,12 +50502,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable no-undef*/
-
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /**
- *
- *
  * @export
  * @class AddDocument
  * @extends {Component}
@@ -50501,7 +50515,6 @@ var AddDocument = exports.AddDocument = function (_Component) {
   /**
    * Creates an instance of AddDocument.
    * @param {any} props
-   *
    * @memberof AddDocument
    */
   function AddDocument(props) {
@@ -50532,7 +50545,6 @@ var AddDocument = exports.AddDocument = function (_Component) {
     }
 
     /**
-     *
      *
      * @param {any} nextProps
      * @returns{null} no return
@@ -50643,7 +50655,7 @@ var AddDocument = exports.AddDocument = function (_Component) {
                 _react2.default.createElement(
                   'option',
                   { value: '', disabled: true },
-                  'Vissibility'
+                  'Visibility'
                 ),
                 _react2.default.createElement(
                   'option',
@@ -50688,7 +50700,9 @@ AddDocument.getDefaultProps = {
 AddDocument.propTypes = {
   addDocument: _propTypes2.default.func.isRequired,
   documents: _propTypes2.default.string,
-  history: _propTypes2.default.object // eslint-disable-line react/forbid-prop-types
+  history: _propTypes2.default.shape({
+    replace: _propTypes2.default.function
+  })
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
@@ -50773,11 +50787,6 @@ exports.default = function (ComposedConmponent) {
     }
 
     /**
-     * @memberOf Authenticate
-     * @returns {null} no return
-     */
-
-    /**
      * @returns {element} DOM element ComposedConmponent
      * @memberOf Authenticate
      */
@@ -50806,7 +50815,9 @@ exports.default = function (ComposedConmponent) {
   };
 
   Authenticate.propTypes = {
-    status: _propTypes2.default.object // eslint-disable-line react/forbid-prop-types
+    status: _propTypes2.default.shape({
+      valid: _propTypes2.default.bool
+    })
   };
 
   var mapStateToProps = function mapStateToProps(state) {
@@ -50888,8 +50899,9 @@ Dashboard.getDefaultProps = {
   valid: false
 };
 Dashboard.propTypes = {
-  status: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
-  valid: _propTypes2.default.bool
+  status: _propTypes2.default.shape({
+    valid: _propTypes2.default.bool
+  })
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
@@ -50985,7 +50997,7 @@ var GetDocument = exports.GetDocument = function (_Component) {
       search: false,
       getDocument: false,
       getMyDocument: false,
-      paginate: ''
+      paginate: {}
     };
     _this.deleteDocument = _this.deleteDocument.bind(_this);
     _this.onSearch = _this.onSearch.bind(_this);
@@ -51032,12 +51044,12 @@ var GetDocument = exports.GetDocument = function (_Component) {
     }
 
     /**
-    *
-    *
-    * @param {any} event
-    * @returns {null} no return
-    * @memberof GetDocument
-    */
+     *
+     *
+     * @param {any} event
+     * @returns {null} no return
+     * @memberof GetDocument
+     */
 
   }, {
     key: 'onSearch',
@@ -51062,12 +51074,12 @@ var GetDocument = exports.GetDocument = function (_Component) {
     }
 
     /**
-    *
-    *
-    * @param {any} event
-    * @returns {null} no return
-    * @memberof GetDocument
-    */
+     *
+     *
+     * @param {any} event
+     * @returns {null} no return
+     * @memberof GetDocument
+     */
 
   }, {
     key: 'onPageClick',
@@ -51243,14 +51255,27 @@ GetDocument.getDefaultProps = {
 
 };
 GetDocument.propTypes = {
-  documents: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
+  documents: _propTypes2.default.shape({
+    id: _propTypes2.default.number,
+    ownerID: _propTypes2.default.ownerID,
+    title: _propTypes2.default.title,
+    content: _propTypes2.default.content,
+    access: _propTypes2.default.access
+  }),
   getDocument: _propTypes2.default.func,
   getMyDocument: _propTypes2.default.func,
   deleteDocument: _propTypes2.default.func,
   searchDocument: _propTypes2.default.func,
-  match: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types,
-  paginate: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types,
-  status: _propTypes2.default.object // eslint-disable-line react/forbid-prop-types,
+  match: _propTypes2.default.shape({
+    params: _propTypes2.default.object,
+    url: _propTypes2.default.string
+  }),
+  paginate: _propTypes2.default.shape({
+    pageCount: _propTypes2.default.object
+  }),
+  status: _propTypes2.default.shape({
+    user: _propTypes2.default.object
+  })
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(GetDocument);
@@ -51298,8 +51323,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable import/no-named-as-default*/
-
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /**
  *
@@ -51428,11 +51452,23 @@ GetSingleDocument.getDefaultProps = {
 
 };
 GetSingleDocument.propTypes = {
-  documents: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
-  history: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
-  match: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
-  params: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
-  status: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
+  documents: _propTypes2.default.shape({
+    id: _propTypes2.default.number,
+    ownerID: _propTypes2.default.ownerID,
+    title: _propTypes2.default.title,
+    content: _propTypes2.default.content,
+    access: _propTypes2.default.access
+  }),
+  history: _propTypes2.default.shape({
+    replace: _propTypes2.default.func
+  }),
+  match: _propTypes2.default.shape({
+    params: _propTypes2.default.object,
+    url: _propTypes2.default.string
+  }),
+  status: _propTypes2.default.shape({
+    valid: _propTypes2.default.bool
+  }),
   id: _propTypes2.default.string,
   getSingleDocument: _propTypes2.default.func
 };
@@ -51490,8 +51526,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable react/forbid-prop-types*/
-
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /**
  *
@@ -51603,11 +51638,11 @@ var GetUsers = function (_Component) {
       }
     }
     /**
-    *
-    *
-    * @returns {null} no return
-    * @memberof GetUsers
-    */
+     *
+     *
+     * @returns {null} no return
+     * @memberof GetUsers
+     */
 
   }, {
     key: 'getUsers',
@@ -51739,11 +51774,20 @@ GetUsers.getDefaultProps = {
 
 };
 GetUsers.propTypes = {
-  users: _propTypes2.default.object,
+  users: _propTypes2.default.shape({
+    id: _propTypes2.default.number,
+    firstName: _propTypes2.default.string,
+    lastName: _propTypes2.default.string,
+    username: _propTypes2.default.username,
+    email: _propTypes2.default.email,
+    roleID: _propTypes2.default.roleID
+  }),
   searchUsers: _propTypes2.default.func,
-  getUsers: _propTypes2.default.object,
+  getUsers: _propTypes2.default.func,
   deleteUser: _propTypes2.default.func,
-  paginate: _propTypes2.default.object
+  paginate: _propTypes2.default.shape({
+    pageCount: _propTypes2.default.object
+  })
 
 };
 
@@ -51937,8 +51981,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return (0, _redux.bindActionCreators)({ LoginAction: _AuthAction.LoginAction }, dispatch);
 };
 
-// state is a function param that reps the state within our redux store
-// state.login refs what's in index reducer
 var mapStateToProps = function mapStateToProps(state) {
   return {
     status: state.auth
@@ -51951,11 +51993,11 @@ Login.getDefaultProps = {
 };
 Login.propTypes = {
   LoginAction: _propTypes2.default.func,
-  status: _propTypes2.default.object // eslint-disable-line react/forbid-prop-types
+  status: _propTypes2.default.shape({
+    valid: _propTypes2.default.bool,
+    user: _propTypes2.default.object
+  })
 };
-
-// take the result of the first fuction with two parameter,
-// then pass the second guy,login, to the result
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Login);
 
 /***/ }),
@@ -52112,9 +52154,7 @@ var Signup = function (_Component) {
     key: 'onFormSubmit',
     value: function onFormSubmit(event) {
       event.preventDefault();
-      if (this.state.password === this.state.password2) {
-        this.props.signupAction(this.state);
-      }
+      this.props.signupAction(this.state);
     }
 
     /**
@@ -52312,7 +52352,11 @@ Signup.getDefaultProps = {
 
 };
 Signup.propTypes = {
-  status: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
+  status: _propTypes2.default.shape({
+    valid: _propTypes2.default.bool,
+    user: _propTypes2.default.object,
+    id: _propTypes2.default.number
+  }),
   signupAction: _propTypes2.default.func
 };
 
@@ -52572,17 +52616,88 @@ UpdateUser.getDefaultProps = {
   history: {}
 };
 UpdateUser.propTypes = {
-  users: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
+  users: _propTypes2.default.shape({
+    id: _propTypes2.default.number,
+    firstName: _propTypes2.default.string,
+    lastName: _propTypes2.default.string,
+    username: _propTypes2.default.username,
+    email: _propTypes2.default.email,
+    roleID: _propTypes2.default.roleID
+  }),
   updateUser: _propTypes2.default.func,
   getSingleUser: _propTypes2.default.func,
-  match: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
-  history: _propTypes2.default.object // eslint-disable-line react/forbid-prop-types
+  match: _propTypes2.default.shape({
+    params: _propTypes2.default.object,
+    url: _propTypes2.default.string
+  }),
+  history: _propTypes2.default.shape({
+    replace: _propTypes2.default.func
+  })
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(UpdateUser);
 
 /***/ }),
 /* 387 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _ActionTypes = __webpack_require__(40);
+
+var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
+
+var _TokenValidator = __webpack_require__(138);
+
+var _TokenValidator2 = _interopRequireDefault(_TokenValidator);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ *
+ *
+ * @param {any} [state=TokenValidator()]
+ * @param {any} action
+ * @returns {object} payload
+ */
+var AuthReducer = function AuthReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : (0, _TokenValidator2.default)();
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _ActionTypes2.default.LOGIN_DETAILS:
+      {
+        var logs = { login: action.payload };
+        return _extends({}, state, (0, _TokenValidator2.default)(), logs);
+      }
+
+    case _ActionTypes2.default.SIGNUP_DETAILS:
+      {
+        var _logs = { data: action.payload };
+        return _extends({}, state, (0, _TokenValidator2.default)(), _logs);
+      }
+
+    case _ActionTypes2.default.LOG_OUT:
+      {
+        var _logs2 = { login: action.payload };
+        return _extends({}, state, (0, _TokenValidator2.default)(), _logs2);
+      }
+
+    default:
+      return state;
+  }
+};
+exports.default = AuthReducer;
+
+/***/ }),
+/* 388 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52644,65 +52759,6 @@ var documentReducer = function documentReducer() {
 exports.default = documentReducer;
 
 /***/ }),
-/* 388 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _ActionTypes = __webpack_require__(40);
-
-var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
-
-var _TokenValidator = __webpack_require__(138);
-
-var _TokenValidator2 = _interopRequireDefault(_TokenValidator);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- *
- *
- * @param {any} [state=TokenValidator()]
- * @param {any} action
- * @returns {object} payload
- */
-var loginReducer = function loginReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : (0, _TokenValidator2.default)();
-  var action = arguments[1];
-
-  switch (action.type) {
-    case _ActionTypes2.default.LOGIN_DETAILS:
-      {
-        var logs = { login: action.payload };
-        return _extends({}, state, (0, _TokenValidator2.default)(), logs);
-      }
-
-    case _ActionTypes2.default.SIGNUP_DETAILS:
-      {
-        var _logs = { data: action.payload };
-        return _extends({}, state, (0, _TokenValidator2.default)(), _logs);
-      }
-
-    case _ActionTypes2.default.LOG_OUT:
-      {
-        var _logs2 = { login: action.payload };
-        return _extends({}, state, (0, _TokenValidator2.default)(), _logs2);
-      }
-
-    default:
-      return state;
-  }
-};
-exports.default = loginReducer;
-
-/***/ }),
 /* 389 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -52742,10 +52798,6 @@ var usersReducer = function usersReducer() {
       users = { users: action.payload };
       return _extends({}, state, users);
 
-    // case types.DELETE_USER:
-    //   users = { users: action.payload };
-    //   return { ...state, ...users };
-
     case _ActionTypes2.default.UPDATE_USER:
       users = { users: action.payload };
       return _extends({}, state, users);
@@ -52773,11 +52825,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(17);
 
-var _LoginReducer = __webpack_require__(388);
+var _AuthReducer = __webpack_require__(387);
 
-var _LoginReducer2 = _interopRequireDefault(_LoginReducer);
+var _AuthReducer2 = _interopRequireDefault(_AuthReducer);
 
-var _DocumentReducer = __webpack_require__(387);
+var _DocumentReducer = __webpack_require__(388);
 
 var _DocumentReducer2 = _interopRequireDefault(_DocumentReducer);
 
@@ -52788,7 +52840,7 @@ var _UsersReducer2 = _interopRequireDefault(_UsersReducer);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var rootReducer = (0, _redux.combineReducers)({
-  auth: _LoginReducer2.default,
+  auth: _AuthReducer2.default,
   documentReducer: _DocumentReducer2.default,
   usersReducer: _UsersReducer2.default
 });

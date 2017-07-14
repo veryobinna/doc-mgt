@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-// import createBrowserHistory from 'history/createBrowserHistory';
 import toastr from 'toastr';
 import configureStore from '../src/store/configureStore';
 import routes from '../src/utils/Routes';
@@ -10,7 +9,6 @@ import './index.scss';
 
 toastr.options.timeOut = 1000;
 const store = configureStore();
-// const history = createBrowserHistory();
 
 const token = localStorage.getItem('token');
 setAuthorizationToken(token);

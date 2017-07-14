@@ -31,7 +31,12 @@ ShowSingleDocument.getDefaultProps = {
   status: {}
 };
 ShowSingleDocument.propTypes = {
-  document: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  document: PropTypes.shape({
+    title: PropTypes.string,
+    content: PropTypes.string,
+    ownerID: PropTypes.number,
+    createdAt: PropTypes.string,
+  }),
   title: PropTypes.string,
   content: PropTypes.string,
   updateDocument: PropTypes.func.isRequired

@@ -34,7 +34,7 @@ export class GetDocument extends Component {
       search: false,
       getDocument: false,
       getMyDocument: false,
-      paginate: ''
+      paginate: {}
     };
     this.deleteDocument = this.deleteDocument.bind(this);
     this.onSearch = this.onSearch.bind(this);
@@ -73,7 +73,7 @@ export class GetDocument extends Component {
     });
   }
 
-  /**
+/**
  *
  *
  * @param {any} event
@@ -95,7 +95,7 @@ export class GetDocument extends Component {
     this.props.searchDocument(query, limit, offset);
   }
 
-  /**
+/**
  *
  *
  * @param {any} event
@@ -251,14 +251,27 @@ GetDocument.getDefaultProps = {
 
 };
 GetDocument.propTypes = {
-  documents: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  documents: PropTypes.shape({
+    id: PropTypes.number,
+    ownerID: PropTypes.ownerID,
+    title: PropTypes.title,
+    content: PropTypes.content,
+    access: PropTypes.access,
+  }),
   getDocument: PropTypes.func,
   getMyDocument: PropTypes.func,
   deleteDocument: PropTypes.func,
   searchDocument: PropTypes.func,
-  match: PropTypes.object, // eslint-disable-line react/forbid-prop-types,
-  paginate: PropTypes.object, // eslint-disable-line react/forbid-prop-types,
-  status: PropTypes.object, // eslint-disable-line react/forbid-prop-types,
+  match: PropTypes.shape({
+    params: PropTypes.object,
+    url: PropTypes.string
+  }),
+  paginate: PropTypes.shape({
+    pageCount: PropTypes.object
+  }),
+  status: PropTypes.shape({
+    user: PropTypes.object
+  }),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GetDocument);

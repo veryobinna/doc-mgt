@@ -1,4 +1,3 @@
-/* eslint-disable import/no-named-as-default*/
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -111,11 +110,23 @@ GetSingleDocument.getDefaultProps = {
 
 };
 GetSingleDocument.propTypes = {
-  documents: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  history: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  match: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  params: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  status: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  documents: PropTypes.shape({
+    id: PropTypes.number,
+    ownerID: PropTypes.ownerID,
+    title: PropTypes.title,
+    content: PropTypes.content,
+    access: PropTypes.access,
+  }),
+  history: PropTypes.shape({
+    replace: PropTypes.func
+  }),
+  match: PropTypes.shape({
+    params: PropTypes.object,
+    url: PropTypes.string
+  }),
+  status: PropTypes.shape({
+    valid: PropTypes.bool
+  }),
   id: PropTypes.string,
   getSingleDocument: PropTypes.func
 };

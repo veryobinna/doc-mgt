@@ -1,4 +1,3 @@
-/* eslint-disable import/no-named-as-default*/
 import React from 'react';
 import { HashRouter, Route } from 'react-router-dom';
 import Dashboard from '../containers/Dashboard';

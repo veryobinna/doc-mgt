@@ -105,8 +105,6 @@ class Login extends Component {
 const mapDispatchToProps =
   dispatch => bindActionCreators({ LoginAction }, dispatch);
 
-// state is a function param that reps the state within our redux store
-// state.login refs what's in index reducer
 const mapStateToProps = state => ({
   status: state.auth
 });
@@ -117,9 +115,9 @@ Login.getDefaultProps = {
 };
 Login.propTypes = {
   LoginAction: PropTypes.func,
-  status: PropTypes.object // eslint-disable-line react/forbid-prop-types
+  status: PropTypes.shape({
+    valid: PropTypes.bool,
+    user: PropTypes.object,
+  })
 };
-
-// take the result of the first fuction with two parameter,
-// then pass the second guy,login, to the result
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

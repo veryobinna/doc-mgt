@@ -6,8 +6,6 @@ import types from './ActionTypes';
 const test = process.env.NODE_ENV === 'test';
 /**
  * LoginDetails contains the dispatched Login action
- * payload has no parenthesis because it is a single function argument
- * with no curly braces
  * @param {any} payload
  * @returns {null} no return
  */
@@ -37,8 +35,6 @@ const LoginAction = userParams => dispatch => axios
 
 /**
  * SignupDetails contains the user details
- * payload has no parenthesis because it is a single function argument
- * with no curly braces
  * @param {any} payload
  * @returns {null} no return
  */
@@ -73,7 +69,6 @@ const signupAction = userParams => dispatch => axios
 
 /**
  * Clears the token from the local storage
- *
  * @returns {object} dispatched the user details
  */
 const LogoutAction = () => {
@@ -84,4 +79,5 @@ const LogoutAction = () => {
 };
 
 
-export { LoginAction, signupAction, LogoutAction, loginDetails };
+export { LoginAction, signupAction, LogoutAction, loginDetails,
+signupDetails };

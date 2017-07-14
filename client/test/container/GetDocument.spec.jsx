@@ -17,7 +17,8 @@ const props = {
     }
   },
   getSingleUser: () => {},
-  updateUser: () => {}
+  updateUser: () => {},
+  status: {}
 };
 const wrapper = shallow(<GetDocument {...props} />);
 describe('Add Document Component', () => {

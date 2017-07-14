@@ -4,7 +4,8 @@ import axios from 'axios';
 import sinon from 'sinon';
 import configureStore from 'redux-mock-store';
 import types from './../../src/actions/ActionTypes';
-import { LoginAction, loginDetails } from '../../src/actions/AuthAction';
+import { LoginAction,
+  loginDetails, signupDetails } from '../../src/actions/AuthAction';
 
 axios.defaults.baseURL = 'http://localhost:3000/';
 const middlewares = [thunk]; // add your middlewares like `redux-thunk`
@@ -31,7 +32,6 @@ describe('Login Action', () => {
 
   describe('Login Details', () => {
     it('should contain the details of a logged in user', () => {
-      const payload = { id: 1 };
       const expected = {
         type: types.LOGIN_DETAILS,
         payload
@@ -43,7 +43,6 @@ describe('Login Action', () => {
 
   describe('Login Action', () => {
     it('should log the user in and set token', () => {
-    
       const expected = [
         { type: types.LOGIN_DETAILS, payload },
       ];
@@ -52,9 +51,6 @@ describe('Login Action', () => {
         loginId: 'fred',
         password: 'test'
       };
-      // nock('http://localhost:3000/')
-      //   .post('/login', userParams)
-      //   .reply(200, payload);
 
       const store = mockStore({});
 
@@ -63,6 +59,18 @@ describe('Login Action', () => {
         expect(action).to.eql(expected);
         expect(localStorage.getItem('token')).to.eql(payload.token);
       });
+    });
+  });
+});
+describe('Signup Action', () => {
+  describe('signupDetails ', () => {
+    it('should create a SIGNUP_DETAILS action type', () => {
+      const payload = { content: 'notes' };
+      const expected = {
+        type: types.SIGNUP_DETAILS,
+        payload
+      };
+      expect(signupDetails(payload)).to.eql(expected);
     });
   });
 });
