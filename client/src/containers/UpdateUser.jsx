@@ -56,7 +56,6 @@ export class UpdateUser extends Component {
       email: nextProps.users.email,
       roleID: nextProps.users.roleID
     });
-    //this.props.history.replace('/dashboard/users');
   }
   /**
    *
@@ -168,12 +167,14 @@ UpdateUser.getDefaultProps = {
   updateUser: () => { },
   getSingleUser: () => {},
   match: {},
+  history: {},
 };
 UpdateUser.propTypes = {
   users: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   updateUser: PropTypes.func,
   getSingleUser: PropTypes.func,
   match: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  history: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UpdateUser);

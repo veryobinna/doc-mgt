@@ -157,6 +157,7 @@ class GetUsers extends Component {
         <div className="row">
           {users}
         </div>
+        {this.state.users.length > 0 &&
         <ReactPaginate
           initialPage={this.state.initialPage}
           previousLabel={'previous'}
@@ -170,7 +171,9 @@ class GetUsers extends Component {
           containerClassName={'pagination'}
           subContainerClassName={'pages pagination'}
           activeClassName={'active'}
-        />
+        />}
+        { this.state.users.length === 0 &&
+        <div className="no-result">No user found </div>}
       </div>
     );
   }

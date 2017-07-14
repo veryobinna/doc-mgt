@@ -50,7 +50,11 @@ const routes = (
         path="/dashboard/users/:id"
         component={CheckAuthentication(UpdateUser)}
       />
-      <Route exact path="/dashboard/users" component={CheckAuthentication(GetUsers)} />
+      <Route
+        exact
+        path="/dashboard/users"
+        component={CheckAuthentication(GetUsers)}
+      />
     </div>
   </HashRouter>
 );

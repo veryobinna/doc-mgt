@@ -34,7 +34,6 @@ ShowSingleDocument.propTypes = {
   document: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   title: PropTypes.string,
   content: PropTypes.string,
-  status: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   updateDocument: PropTypes.func.isRequired
 };
 

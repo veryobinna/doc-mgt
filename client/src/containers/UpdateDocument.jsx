@@ -47,7 +47,8 @@ export class UpdateDocument extends Component {
  * @memberof UpdateDocument
  */
   componentWillReceiveProps() {
-    this.props.history.replace('/dashboard/documents');
+    this.props.history.replace(
+      `/dashboard/mydocuments/${this.props.status.id}`);
   }
   /**
    *
@@ -116,7 +117,7 @@ export class UpdateDocument extends Component {
                 value={this.state.access}
                 onChange={this.onInputChange}
               >
-                <option value="" disabled>Choose your option</option>
+                <option value="" disabled>Vissibility</option>
                 <option value="public">public</option>
                 <option value="private">private</option>
                 <option value="role">role</option>
@@ -124,7 +125,9 @@ export class UpdateDocument extends Component {
               <label htmlFor="access" className="active" >Access</label>
             </div>
           </div>
-          <button className="waves-effect waves-light btn">Update</button>
+          <button className="btn-doc waves-effect waves-light btn">
+            Update
+          </button>
         </form>
       </div>
     );
@@ -135,7 +138,8 @@ const mapDispatchToProps =
   dispatch => bindActionCreators({ updateDocument }, dispatch);
 
 const mapStateToProps = state => ({
-  documents: state.documentReducer.documents
+  documents: state.documentReducer.documents,
+  status: state.auth.user
 });
 
 UpdateDocument.getDefaultProps = {
@@ -143,7 +147,8 @@ UpdateDocument.getDefaultProps = {
   title: '',
   content: '',
   updateDocument: () => { },
-  history: {}
+  history: {},
+  status: {},
 };
 UpdateDocument.propTypes = {
   documents: PropTypes.object, // eslint-disable-line react/forbid-prop-types
@@ -151,6 +156,7 @@ UpdateDocument.propTypes = {
   content: PropTypes.string,
   updateDocument: PropTypes.func,
   history: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  status: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UpdateDocument);

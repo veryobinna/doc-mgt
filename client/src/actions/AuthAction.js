@@ -41,11 +41,6 @@ const LoginAction = userParams => dispatch => axios
   });
 
 
-
-
-
-
-
 /**
  * SignupDetails contains the user details
  * payload has no parenthesis because it is a single function argument
@@ -80,9 +75,6 @@ const signupAction = userParams => dispatch => axios
       toastr.error(error.response.data.message.errors[0].message);
     }
   });
-
-
-
 
 
 /**

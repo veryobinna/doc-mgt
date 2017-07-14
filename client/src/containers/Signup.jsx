@@ -79,7 +79,7 @@ class Signup extends Component {
       return (<Redirect
         push
         to={{
-          pathname: '/dashboard/documents',
+          pathname: `/dashboard/mydocuments/${this.props.status.user.id}`
         }}
       />);
     }

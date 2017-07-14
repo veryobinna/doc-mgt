@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import { addDocumentSuccess, getDocumentSuccess,
 getMyDocumentSuccess, searchDocumentSuccess,
-deleteDocumentSuccess, updateDocumentSuccess,
-getSingleDocumentSuccess, 
+ updateDocumentSuccess,
+getSingleDocumentSuccess,
  } from '../../src/actions/DocumentActions';
 import DocumentReducer from '../../src/reducers/DocumentReducer';
 

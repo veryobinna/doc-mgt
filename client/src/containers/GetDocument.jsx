@@ -176,12 +176,14 @@ export class GetDocument extends Component {
     const documents = this.state.documents.map((document) => {
       const items = {
         id: document.id,
+        ownerID: document.ownerID,
         title: document.title,
         content: document.content,
         access: document.access,
         firstName: document.User.firstName,
         lastName: document.User.lastName,
-        deleteDocument: this.deleteDocument
+        deleteDocument: this.deleteDocument,
+        user: this.props.status.user,
       };
       return <ShowDocument key={Math.random()} {...items} />;
     });
@@ -191,6 +193,7 @@ export class GetDocument extends Component {
         <div className="row">
           {documents}
         </div>
+        {this.state.documents.length > 0 &&
         <ReactPaginate
           initialPage={this.state.initialPage}
           previousLabel={'previous'}
@@ -204,7 +207,9 @@ export class GetDocument extends Component {
           containerClassName={'pagination'}
           subContainerClassName={'pages pagination'}
           activeClassName={'active'}
-        />
+        />}
+        { this.state.documents.length === 0 &&
+        <div className="no-result">No Documents </div>}
       </div>
     );
   }
@@ -232,6 +237,7 @@ GetDocument.getDefaultProps = {
   searchDocument: () => { },
   match: {},
   paginate: {},
+  status: {},
 
 };
 GetDocument.propTypes = {
@@ -242,6 +248,7 @@ GetDocument.propTypes = {
   searchDocument: PropTypes.func,
   match: PropTypes.object, // eslint-disable-line react/forbid-prop-types,
   paginate: PropTypes.object, // eslint-disable-line react/forbid-prop-types,
+  status: PropTypes.object, // eslint-disable-line react/forbid-prop-types,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GetDocument);

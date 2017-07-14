@@ -117,7 +117,7 @@ export class AddDocument extends Component {
                 value={`${this.state.access}`}
                 onChange={this.onInputChange}
               >
-                <option value="" disabled>Choose your option</option>
+                <option value="" disabled>Vissibility</option>
                 <option value="public">public</option>
                 <option value="private">private</option>
                 <option value="role">role</option>
@@ -125,7 +125,9 @@ export class AddDocument extends Component {
               <label htmlFor="access" className="active" >Access</label>
             </div>
           </div>
-          <button className="waves-effect waves-light btn">Submit</button>
+          <button className="btn-doc waves-effect waves-light btn">
+            Submit
+          </button>
         </form>
       </div>
     );

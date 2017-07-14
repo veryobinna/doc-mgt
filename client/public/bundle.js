@@ -26412,7 +26412,7 @@ var UpdateDocument = exports.UpdateDocument = function (_Component) {
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps() {
-      this.props.history.replace('/dashboard/documents');
+      this.props.history.replace('/dashboard/mydocuments/' + this.props.status.id);
     }
     /**
      *
@@ -26516,7 +26516,7 @@ var UpdateDocument = exports.UpdateDocument = function (_Component) {
                 _react2.default.createElement(
                   'option',
                   { value: '', disabled: true },
-                  'Choose your option'
+                  'Vissibility'
                 ),
                 _react2.default.createElement(
                   'option',
@@ -26543,7 +26543,7 @@ var UpdateDocument = exports.UpdateDocument = function (_Component) {
           ),
           _react2.default.createElement(
             'button',
-            { className: 'waves-effect waves-light btn' },
+            { className: 'btn-doc waves-effect waves-light btn' },
             'Update'
           )
         )
@@ -26560,7 +26560,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    documents: state.documentReducer.documents
+    documents: state.documentReducer.documents,
+    status: state.auth.user
   };
 };
 
@@ -26569,14 +26570,16 @@ UpdateDocument.getDefaultProps = {
   title: '',
   content: '',
   updateDocument: function updateDocument() {},
-  history: {}
+  history: {},
+  status: {}
 };
 UpdateDocument.propTypes = {
   documents: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
   title: _propTypes2.default.string,
   content: _propTypes2.default.string,
   updateDocument: _propTypes2.default.func,
-  history: _propTypes2.default.object // eslint-disable-line react/forbid-prop-types
+  history: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
+  status: _propTypes2.default.object // eslint-disable-line react/forbid-prop-types
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(UpdateDocument);
@@ -47185,7 +47188,11 @@ var routes = _react2.default.createElement(
       path: '/dashboard/users/:id',
       component: (0, _CheckAuthentication2.default)(_UpdateUser2.default)
     }),
-    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/dashboard/users', component: (0, _CheckAuthentication2.default)(_GetUsers2.default) })
+    _react2.default.createElement(_reactRouterDom.Route, {
+      exact: true,
+      path: '/dashboard/users',
+      component: (0, _CheckAuthentication2.default)(_GetUsers2.default)
+    })
   )
 );
 
@@ -49192,6 +49199,8 @@ var ShowDocument = function ShowDocument(_ref) {
       content = _ref.content,
       access = _ref.access,
       id = _ref.id,
+      ownerID = _ref.ownerID,
+      user = _ref.user,
       deleteDocument = _ref.deleteDocument,
       firstName = _ref.firstName,
       lastName = _ref.lastName;
@@ -49212,7 +49221,10 @@ var ShowDocument = function ShowDocument(_ref) {
             { className: 'card-title' },
             title
           ),
-          _react2.default.createElement('div', { className: 'card-abstract', dangerouslySetInnerHTML: { __html: content } }),
+          _react2.default.createElement('div', {
+            className: 'card-abstract',
+            dangerouslySetInnerHTML: { __html: content }
+          }),
           _react2.default.createElement(
             'span',
             { className: 'card-name' },
@@ -49227,7 +49239,7 @@ var ShowDocument = function ShowDocument(_ref) {
         _react2.default.createElement(
           'div',
           { className: 'card-action' },
-          _react2.default.createElement(
+          (ownerID === user.id || user.roleID === 1) && _react2.default.createElement(
             'div',
             null,
             _react2.default.createElement(
@@ -49273,18 +49285,22 @@ ShowDocument.getDefaultProps = {
   title: '',
   content: '',
   id: 0,
+  ownerID: 0,
   access: '',
   firstName: '',
-  lastName: ''
+  lastName: '',
+  user: {}
 };
 ShowDocument.propTypes = {
   title: _propTypes2.default.string,
   content: _propTypes2.default.string,
   access: _propTypes2.default.string,
   id: _propTypes2.default.number,
+  ownerID: _propTypes2.default.number,
   firstName: _propTypes2.default.string,
   lastName: _propTypes2.default.string,
-  deleteDocument: _propTypes2.default.func.isRequired
+  deleteDocument: _propTypes2.default.func.isRequired,
+  user: _propTypes2.default.object // eslint-disable-line react/forbid-prop-types
 };
 
 exports.default = ShowDocument;
@@ -49361,7 +49377,6 @@ ShowSingleDocument.propTypes = {
   document: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
   title: _propTypes2.default.string,
   content: _propTypes2.default.string,
-  status: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
   updateDocument: _propTypes2.default.func.isRequired
 };
 
@@ -49798,7 +49813,7 @@ var AddDocument = exports.AddDocument = function (_Component) {
                 _react2.default.createElement(
                   'option',
                   { value: '', disabled: true },
-                  'Choose your option'
+                  'Vissibility'
                 ),
                 _react2.default.createElement(
                   'option',
@@ -49825,7 +49840,7 @@ var AddDocument = exports.AddDocument = function (_Component) {
           ),
           _react2.default.createElement(
             'button',
-            { className: 'waves-effect waves-light btn' },
+            { className: 'btn-doc waves-effect waves-light btn' },
             'Submit'
           )
         )
@@ -50297,12 +50312,14 @@ var GetDocument = exports.GetDocument = function (_Component) {
       var documents = this.state.documents.map(function (document) {
         var items = {
           id: document.id,
+          ownerID: document.ownerID,
           title: document.title,
           content: document.content,
           access: document.access,
           firstName: document.User.firstName,
           lastName: document.User.lastName,
-          deleteDocument: _this3.deleteDocument
+          deleteDocument: _this3.deleteDocument,
+          user: _this3.props.status.user
         };
         return _react2.default.createElement(_ShowDocument2.default, _extends({ key: Math.random() }, items));
       });
@@ -50315,7 +50332,7 @@ var GetDocument = exports.GetDocument = function (_Component) {
           { className: 'row' },
           documents
         ),
-        _react2.default.createElement(_reactPaginate2.default, {
+        this.state.documents.length > 0 && _react2.default.createElement(_reactPaginate2.default, {
           initialPage: this.state.initialPage,
           previousLabel: 'previous',
           nextLabel: 'next',
@@ -50332,7 +50349,12 @@ var GetDocument = exports.GetDocument = function (_Component) {
           containerClassName: 'pagination',
           subContainerClassName: 'pages pagination',
           activeClassName: 'active'
-        })
+        }),
+        this.state.documents.length === 0 && _react2.default.createElement(
+          'div',
+          { className: 'no-result' },
+          'No Documents '
+        )
       );
     }
   }]);
@@ -50364,7 +50386,8 @@ GetDocument.getDefaultProps = {
   deleteDocument: function deleteDocument() {},
   searchDocument: function searchDocument() {},
   match: {},
-  paginate: {}
+  paginate: {},
+  status: {}
 
 };
 GetDocument.propTypes = {
@@ -50374,7 +50397,8 @@ GetDocument.propTypes = {
   deleteDocument: _propTypes2.default.func,
   searchDocument: _propTypes2.default.func,
   match: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types,
-  paginate: _propTypes2.default.object // eslint-disable-line react/forbid-prop-types,
+  paginate: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types,
+  status: _propTypes2.default.object // eslint-disable-line react/forbid-prop-types,
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(GetDocument);
@@ -50422,7 +50446,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable import/no-named-as-default*/
+
 
 /**
  *
@@ -50789,7 +50814,7 @@ var GetUsers = function (_Component) {
           { className: 'row' },
           users
         ),
-        _react2.default.createElement(_reactPaginate2.default, {
+        this.state.users.length > 0 && _react2.default.createElement(_reactPaginate2.default, {
           initialPage: this.state.initialPage,
           previousLabel: 'previous',
           nextLabel: 'next',
@@ -50806,7 +50831,12 @@ var GetUsers = function (_Component) {
           containerClassName: 'pagination',
           subContainerClassName: 'pages pagination',
           activeClassName: 'active'
-        })
+        }),
+        this.state.users.length === 0 && _react2.default.createElement(
+          'div',
+          { className: 'no-result' },
+          'No user found '
+        )
       );
     }
   }]);
@@ -50960,7 +50990,7 @@ var Login = function (_Component) {
         return _react2.default.createElement(_reactRouterDom.Redirect, {
           push: true,
           to: {
-            pathname: '/dashboard/documents'
+            pathname: '/dashboard/mydocuments/' + this.props.status.user.id
           }
         });
       }
@@ -51189,7 +51219,7 @@ var Signup = function (_Component) {
         return _react2.default.createElement(_reactRouterDom.Redirect, {
           push: true,
           to: {
-            pathname: '/dashboard/documents'
+            pathname: '/dashboard/mydocuments/' + this.props.status.user.id
           }
         });
       }
@@ -51453,7 +51483,6 @@ var UpdateUser = exports.UpdateUser = function (_Component) {
         email: nextProps.users.email,
         roleID: nextProps.users.roleID
       });
-      //this.props.history.replace('/dashboard/users');
     }
     /**
      *
@@ -51601,13 +51630,15 @@ UpdateUser.getDefaultProps = {
   users: {},
   updateUser: function updateUser() {},
   getSingleUser: function getSingleUser() {},
-  match: {}
+  match: {},
+  history: {}
 };
 UpdateUser.propTypes = {
   users: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
   updateUser: _propTypes2.default.func,
   getSingleUser: _propTypes2.default.func,
-  match: _propTypes2.default.object // eslint-disable-line react/forbid-prop-types
+  match: _propTypes2.default.object, // eslint-disable-line react/forbid-prop-types
+  history: _propTypes2.default.object // eslint-disable-line react/forbid-prop-types
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(UpdateUser);
@@ -53235,7 +53266,7 @@ exports = module.exports = __webpack_require__(404)(undefined);
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=PT+Serif);", ""]);
 
 // module
-exports.push([module.i, ".toast-title {\n  font-weight: bold; }\n\n.toast-message {\n  -ms-word-wrap: break-word;\n  word-wrap: break-word; }\n\n.toast-message a,\n.toast-message label {\n  color: #ffffff; }\n\n.toast-message a:hover {\n  color: #cccccc;\n  text-decoration: none; }\n\n.toast-close-button {\n  position: relative;\n  right: -0.3em;\n  top: -0.3em;\n  float: right;\n  font-size: 20px;\n  font-weight: bold;\n  color: #ffffff;\n  -webkit-text-shadow: 0 1px 0 #ffffff;\n  text-shadow: 0 1px 0 #ffffff;\n  opacity: 0.8;\n  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);\n  filter: alpha(opacity=80); }\n\n.toast-close-button:hover,\n.toast-close-button:focus {\n  color: #000000;\n  text-decoration: none;\n  cursor: pointer;\n  opacity: 0.4;\n  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);\n  filter: alpha(opacity=40); }\n\n/*Additional properties for button version\n iOS requires the button element instead of an anchor tag.\n If you want the anchor version, it requires `href=\"#\"`.*/\nbutton.toast-close-button {\n  padding: 0;\n  cursor: pointer;\n  background: transparent;\n  border: 0;\n  -webkit-appearance: none; }\n\n.toast-top-center {\n  top: 0;\n  right: 0;\n  width: 100%; }\n\n.toast-bottom-center {\n  bottom: 0;\n  right: 0;\n  width: 100%; }\n\n.toast-top-full-width {\n  top: 0;\n  right: 0;\n  width: 100%; }\n\n.toast-bottom-full-width {\n  bottom: 0;\n  right: 0;\n  width: 100%; }\n\n.toast-top-left {\n  top: 12px;\n  left: 12px; }\n\n.toast-top-right {\n  top: 12px;\n  right: 12px; }\n\n.toast-bottom-right {\n  right: 12px;\n  bottom: 12px; }\n\n.toast-bottom-left {\n  bottom: 12px;\n  left: 12px; }\n\n#toast-container {\n  position: fixed;\n  z-index: 999999;\n  /*overrides*/ }\n\n#toast-container * {\n  -moz-box-sizing: border-box;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n#toast-container > div {\n  position: relative;\n  overflow: hidden;\n  margin: 0 0 6px;\n  padding: 15px 15px 15px 50px;\n  width: 300px;\n  -moz-border-radius: 3px 3px 3px 3px;\n  -webkit-border-radius: 3px 3px 3px 3px;\n  border-radius: 3px 3px 3px 3px;\n  background-position: 15px center;\n  background-repeat: no-repeat;\n  -moz-box-shadow: 0 0 12px #999999;\n  -webkit-box-shadow: 0 0 12px #999999;\n  box-shadow: 0 0 12px #999999;\n  color: #ffffff;\n  opacity: 0.8;\n  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);\n  filter: alpha(opacity=80); }\n\n#toast-container > :hover {\n  -moz-box-shadow: 0 0 12px #000000;\n  -webkit-box-shadow: 0 0 12px #000000;\n  box-shadow: 0 0 12px #000000;\n  opacity: 1;\n  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);\n  filter: alpha(opacity=100);\n  cursor: pointer; }\n\n#toast-container > .toast-info {\n  background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGwSURBVEhLtZa9SgNBEMc9sUxxRcoUKSzSWIhXpFMhhYWFhaBg4yPYiWCXZxBLERsLRS3EQkEfwCKdjWJAwSKCgoKCcudv4O5YLrt7EzgXhiU3/4+b2ckmwVjJSpKkQ6wAi4gwhT+z3wRBcEz0yjSseUTrcRyfsHsXmD0AmbHOC9Ii8VImnuXBPglHpQ5wwSVM7sNnTG7Za4JwDdCjxyAiH3nyA2mtaTJufiDZ5dCaqlItILh1NHatfN5skvjx9Z38m69CgzuXmZgVrPIGE763Jx9qKsRozWYw6xOHdER+nn2KkO+Bb+UV5CBN6WC6QtBgbRVozrahAbmm6HtUsgtPC19tFdxXZYBOfkbmFJ1VaHA1VAHjd0pp70oTZzvR+EVrx2Ygfdsq6eu55BHYR8hlcki+n+kERUFG8BrA0BwjeAv2M8WLQBtcy+SD6fNsmnB3AlBLrgTtVW1c2QN4bVWLATaIS60J2Du5y1TiJgjSBvFVZgTmwCU+dAZFoPxGEEs8nyHC9Bwe2GvEJv2WXZb0vjdyFT4Cxk3e/kIqlOGoVLwwPevpYHT+00T+hWwXDf4AJAOUqWcDhbwAAAAASUVORK5CYII=\") !important; }\n\n#toast-container > .toast-error {\n  background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHOSURBVEhLrZa/SgNBEMZzh0WKCClSCKaIYOED+AAKeQQLG8HWztLCImBrYadgIdY+gIKNYkBFSwu7CAoqCgkkoGBI/E28PdbLZmeDLgzZzcx83/zZ2SSXC1j9fr+I1Hq93g2yxH4iwM1vkoBWAdxCmpzTxfkN2RcyZNaHFIkSo10+8kgxkXIURV5HGxTmFuc75B2RfQkpxHG8aAgaAFa0tAHqYFfQ7Iwe2yhODk8+J4C7yAoRTWI3w/4klGRgR4lO7Rpn9+gvMyWp+uxFh8+H+ARlgN1nJuJuQAYvNkEnwGFck18Er4q3egEc/oO+mhLdKgRyhdNFiacC0rlOCbhNVz4H9FnAYgDBvU3QIioZlJFLJtsoHYRDfiZoUyIxqCtRpVlANq0EU4dApjrtgezPFad5S19Wgjkc0hNVnuF4HjVA6C7QrSIbylB+oZe3aHgBsqlNqKYH48jXyJKMuAbiyVJ8KzaB3eRc0pg9VwQ4niFryI68qiOi3AbjwdsfnAtk0bCjTLJKr6mrD9g8iq/S/B81hguOMlQTnVyG40wAcjnmgsCNESDrjme7wfftP4P7SP4N3CJZdvzoNyGq2c/HWOXJGsvVg+RA/k2MC/wN6I2YA2Pt8GkAAAAASUVORK5CYII=\") !important; }\n\n#toast-container > .toast-success {\n  background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADsSURBVEhLY2AYBfQMgf///3P8+/evAIgvA/FsIF+BavYDDWMBGroaSMMBiE8VC7AZDrIFaMFnii3AZTjUgsUUWUDA8OdAH6iQbQEhw4HyGsPEcKBXBIC4ARhex4G4BsjmweU1soIFaGg/WtoFZRIZdEvIMhxkCCjXIVsATV6gFGACs4Rsw0EGgIIH3QJYJgHSARQZDrWAB+jawzgs+Q2UO49D7jnRSRGoEFRILcdmEMWGI0cm0JJ2QpYA1RDvcmzJEWhABhD/pqrL0S0CWuABKgnRki9lLseS7g2AlqwHWQSKH4oKLrILpRGhEQCw2LiRUIa4lwAAAABJRU5ErkJggg==\") !important; }\n\n#toast-container > .toast-warning {\n  background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGYSURBVEhL5ZSvTsNQFMbXZGICMYGYmJhAQIJAICYQPAACiSDB8AiICQQJT4CqQEwgJvYASAQCiZiYmJhAIBATCARJy+9rTsldd8sKu1M0+dLb057v6/lbq/2rK0mS/TRNj9cWNAKPYIJII7gIxCcQ51cvqID+GIEX8ASG4B1bK5gIZFeQfoJdEXOfgX4QAQg7kH2A65yQ87lyxb27sggkAzAuFhbbg1K2kgCkB1bVwyIR9m2L7PRPIhDUIXgGtyKw575yz3lTNs6X4JXnjV+LKM/m3MydnTbtOKIjtz6VhCBq4vSm3ncdrD2lk0VgUXSVKjVDJXJzijW1RQdsU7F77He8u68koNZTz8Oz5yGa6J3H3lZ0xYgXBK2QymlWWA+RWnYhskLBv2vmE+hBMCtbA7KX5drWyRT/2JsqZ2IvfB9Y4bWDNMFbJRFmC9E74SoS0CqulwjkC0+5bpcV1CZ8NMej4pjy0U+doDQsGyo1hzVJttIjhQ7GnBtRFN1UarUlH8F3xict+HY07rEzoUGPlWcjRFRr4/gChZgc3ZL2d8oAAAAASUVORK5CYII=\") !important; }\n\n#toast-container.toast-top-center > div,\n#toast-container.toast-bottom-center > div {\n  width: 300px;\n  margin: auto; }\n\n#toast-container.toast-top-full-width > div,\n#toast-container.toast-bottom-full-width > div {\n  width: 96%;\n  margin: auto; }\n\n.toast {\n  background-color: #030303; }\n\n.toast-success {\n  background-color: #51a351; }\n\n.toast-error {\n  background-color: #bd362f; }\n\n.toast-info {\n  background-color: #2f96b4; }\n\n.toast-warning {\n  background-color: #f89406; }\n\n.toast-progress {\n  position: absolute;\n  left: 0;\n  bottom: 0;\n  height: 4px;\n  background-color: #000000;\n  opacity: 0.4;\n  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);\n  filter: alpha(opacity=40); }\n\n/*Responsive Design*/\n@media all and (max-width: 240px) {\n  #toast-container > div {\n    padding: 8px 8px 8px 50px;\n    width: 11em; }\n  #toast-container .toast-close-button {\n    right: -0.2em;\n    top: -0.2em; } }\n\n@media all and (min-width: 241px) and (max-width: 480px) {\n  #toast-container > div {\n    padding: 8px 8px 8px 50px;\n    width: 18em; }\n  #toast-container .toast-close-button {\n    right: -0.2em;\n    top: -0.2em; } }\n\n@media all and (min-width: 481px) and (max-width: 768px) {\n  #toast-container > div {\n    padding: 15px 15px 15px 50px;\n    width: 25em; } }\n\nbody {\n  font-family: 'PT serif', serif;\n  display: flex;\n  min-height: 100vh;\n  flex-direction: column; }\n\nmain {\n  flex: 1 0 auto; }\n\n.landing-page {\n  background-image: url(\"/dist/img/books.jpg\");\n  height: 100vh;\n  width: 100vw;\n  background-position: left;\n  color: white; }\n\n.row-container {\n  border-radius: 15px;\n  margin-top: 10%;\n  background-color: rgba(0, 0, 0, 0.5); }\n\nnav {\n  width: 100%;\n  background-color: #90140D; }\n\n.navbar-fixed nav {\n  position: fixed; }\n\n.brand-logo {\n  position: relative;\n  left: 50%; }\n\n.document-container {\n  margin-left: 28%;\n  background-color: white; }\n\n.header {\n  margin-top: 0px;\n  font-size: 3.2rem;\n  text-align: center; }\n\n.side-bar-top-icon {\n  font-size: 6rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-text {\n  margin-top: 0rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-email {\n  margin-top: 0rem;\n  margin-bottom: 0rem; }\n\n.loginPS {\n  margin-left: 2rem; }\n\n.sidebar-top {\n  background-image: url(\"/dist/img/office.jpg\");\n  color: rgba(255, 255, 255, 0.81);\n  text-align: center;\n  margin-bottom: 1rem; }\n\n.button-collapse {\n  z-index: 998;\n  position: absolute;\n  top: 2vh; }\n\n.modal {\n  display: block;\n  margin-left: 34%;\n  margin-top: 2%; }\n\n@media only screen and (max-width: 992px) {\n  .modal {\n    width: 80%;\n    margin-left: 10%; } }\n\n.card-content {\n  height: 20rem;\n  overflow: hidden;\n  text-overflow: ellipsis; }\n\n.card .card-title, h4 {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  font-weight: 600;\n  text-align: center;\n  color: #90140D; }\n\n.search-wrapper {\n  margin-top: 13px;\n  padding: 1px 0 0 0;\n  z-index: 2;\n  height: 46px;\n  width: 35vw;\n  left: 25%; }\n\n.search-wrapper i.material-icons {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  cursor: pointer; }\n\n#search {\n  height: 45px; }\n\n.pagination li.active {\n  background-color: #90140D; }\n\n.pagination li a {\n  cursor: pointer; }\n\n.pagination {\n  position: relative;\n  text-align: center;\n  bottom: 20px; }\n\n.card-name {\n  color: grey;\n  font-weight: 600; }\n\n.doc-access {\n  float: right;\n  color: #26a69a; }\n\n.card-btn-delete {\n  float: right;\n  background-color: #90140D; }\n\n.card-btn-delete:hover {\n  background-color: #FF3F34; }\n\n.clear {\n  clear: both; }\n\na {\n  color: yellow; }\n\n.btn-del {\n  left: 90%;\n  background-color: #90140D; }\n\n.btn-del:hover {\n  background-color: #FF3F34; }\n\n.btn-edit {\n  left: 77%;\n  background-color: #26a69a; }\n\n.btn-flat {\n  background-color: #26a69a; }\n\n.btn-flat:hover, .btn-edit:hover {\n  background-color: #32cabb; }\n\nheader, main, footer {\n  padding-left: 300px; }\n\n@media only screen and (max-width: 992px) {\n  header, main, footer {\n    padding-left: 0; } }\n\n.side-bar-list:hover {\n  color: #FF3F34; }\n\n.side-nav li > a {\n  color: #90140D; }\n\n.side-nav li > a:hover {\n  color: #FF3F34; }\n\n.card-abstract {\n  height: 180px;\n  margin-bottom: 20px;\n  overflow: hidden; }\n\n.collection .collection-item.avatar {\n  padding-left: 20px; }\n\n.welcome-text {\n  border-radius: 15px;\n  text-align: center;\n  top: 6rem;\n  margin-left: 25%;\n  font-size: 30px;\n  position: relative;\n  background-color: rgba(0, 0, 0, 0.5);\n  width: 50%;\n  color: yellow; }\n\n.page-footer {\n  padding-top: 0px;\n  position: fixed;\n  width: 100%;\n  background-color: #90140d;\n  z-index: 100;\n  bottom: 0px;\n  text-align: center; }\n", ""]);
+exports.push([module.i, ".toast-title {\n  font-weight: bold; }\n\n.toast-message {\n  -ms-word-wrap: break-word;\n  word-wrap: break-word; }\n\n.toast-message a,\n.toast-message label {\n  color: #ffffff; }\n\n.toast-message a:hover {\n  color: #cccccc;\n  text-decoration: none; }\n\n.toast-close-button {\n  position: relative;\n  right: -0.3em;\n  top: -0.3em;\n  float: right;\n  font-size: 20px;\n  font-weight: bold;\n  color: #ffffff;\n  -webkit-text-shadow: 0 1px 0 #ffffff;\n  text-shadow: 0 1px 0 #ffffff;\n  opacity: 0.8;\n  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);\n  filter: alpha(opacity=80); }\n\n.toast-close-button:hover,\n.toast-close-button:focus {\n  color: #000000;\n  text-decoration: none;\n  cursor: pointer;\n  opacity: 0.4;\n  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);\n  filter: alpha(opacity=40); }\n\n/*Additional properties for button version\n iOS requires the button element instead of an anchor tag.\n If you want the anchor version, it requires `href=\"#\"`.*/\nbutton.toast-close-button {\n  padding: 0;\n  cursor: pointer;\n  background: transparent;\n  border: 0;\n  -webkit-appearance: none; }\n\n.toast-top-center {\n  top: 0;\n  right: 0;\n  width: 100%; }\n\n.toast-bottom-center {\n  bottom: 0;\n  right: 0;\n  width: 100%; }\n\n.toast-top-full-width {\n  top: 0;\n  right: 0;\n  width: 100%; }\n\n.toast-bottom-full-width {\n  bottom: 0;\n  right: 0;\n  width: 100%; }\n\n.toast-top-left {\n  top: 12px;\n  left: 12px; }\n\n.toast-top-right {\n  top: 12px;\n  right: 12px; }\n\n.toast-bottom-right {\n  right: 12px;\n  bottom: 12px; }\n\n.toast-bottom-left {\n  bottom: 12px;\n  left: 12px; }\n\n#toast-container {\n  position: fixed;\n  z-index: 999999;\n  /*overrides*/ }\n\n#toast-container * {\n  -moz-box-sizing: border-box;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box; }\n\n#toast-container > div {\n  position: relative;\n  overflow: hidden;\n  margin: 0 0 6px;\n  padding: 15px 15px 15px 50px;\n  width: 300px;\n  -moz-border-radius: 3px 3px 3px 3px;\n  -webkit-border-radius: 3px 3px 3px 3px;\n  border-radius: 3px 3px 3px 3px;\n  background-position: 15px center;\n  background-repeat: no-repeat;\n  -moz-box-shadow: 0 0 12px #999999;\n  -webkit-box-shadow: 0 0 12px #999999;\n  box-shadow: 0 0 12px #999999;\n  color: #ffffff;\n  opacity: 0.8;\n  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);\n  filter: alpha(opacity=80); }\n\n#toast-container > :hover {\n  -moz-box-shadow: 0 0 12px #000000;\n  -webkit-box-shadow: 0 0 12px #000000;\n  box-shadow: 0 0 12px #000000;\n  opacity: 1;\n  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);\n  filter: alpha(opacity=100);\n  cursor: pointer; }\n\n#toast-container > .toast-info {\n  background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGwSURBVEhLtZa9SgNBEMc9sUxxRcoUKSzSWIhXpFMhhYWFhaBg4yPYiWCXZxBLERsLRS3EQkEfwCKdjWJAwSKCgoKCcudv4O5YLrt7EzgXhiU3/4+b2ckmwVjJSpKkQ6wAi4gwhT+z3wRBcEz0yjSseUTrcRyfsHsXmD0AmbHOC9Ii8VImnuXBPglHpQ5wwSVM7sNnTG7Za4JwDdCjxyAiH3nyA2mtaTJufiDZ5dCaqlItILh1NHatfN5skvjx9Z38m69CgzuXmZgVrPIGE763Jx9qKsRozWYw6xOHdER+nn2KkO+Bb+UV5CBN6WC6QtBgbRVozrahAbmm6HtUsgtPC19tFdxXZYBOfkbmFJ1VaHA1VAHjd0pp70oTZzvR+EVrx2Ygfdsq6eu55BHYR8hlcki+n+kERUFG8BrA0BwjeAv2M8WLQBtcy+SD6fNsmnB3AlBLrgTtVW1c2QN4bVWLATaIS60J2Du5y1TiJgjSBvFVZgTmwCU+dAZFoPxGEEs8nyHC9Bwe2GvEJv2WXZb0vjdyFT4Cxk3e/kIqlOGoVLwwPevpYHT+00T+hWwXDf4AJAOUqWcDhbwAAAAASUVORK5CYII=\") !important; }\n\n#toast-container > .toast-error {\n  background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHOSURBVEhLrZa/SgNBEMZzh0WKCClSCKaIYOED+AAKeQQLG8HWztLCImBrYadgIdY+gIKNYkBFSwu7CAoqCgkkoGBI/E28PdbLZmeDLgzZzcx83/zZ2SSXC1j9fr+I1Hq93g2yxH4iwM1vkoBWAdxCmpzTxfkN2RcyZNaHFIkSo10+8kgxkXIURV5HGxTmFuc75B2RfQkpxHG8aAgaAFa0tAHqYFfQ7Iwe2yhODk8+J4C7yAoRTWI3w/4klGRgR4lO7Rpn9+gvMyWp+uxFh8+H+ARlgN1nJuJuQAYvNkEnwGFck18Er4q3egEc/oO+mhLdKgRyhdNFiacC0rlOCbhNVz4H9FnAYgDBvU3QIioZlJFLJtsoHYRDfiZoUyIxqCtRpVlANq0EU4dApjrtgezPFad5S19Wgjkc0hNVnuF4HjVA6C7QrSIbylB+oZe3aHgBsqlNqKYH48jXyJKMuAbiyVJ8KzaB3eRc0pg9VwQ4niFryI68qiOi3AbjwdsfnAtk0bCjTLJKr6mrD9g8iq/S/B81hguOMlQTnVyG40wAcjnmgsCNESDrjme7wfftP4P7SP4N3CJZdvzoNyGq2c/HWOXJGsvVg+RA/k2MC/wN6I2YA2Pt8GkAAAAASUVORK5CYII=\") !important; }\n\n#toast-container > .toast-success {\n  background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADsSURBVEhLY2AYBfQMgf///3P8+/evAIgvA/FsIF+BavYDDWMBGroaSMMBiE8VC7AZDrIFaMFnii3AZTjUgsUUWUDA8OdAH6iQbQEhw4HyGsPEcKBXBIC4ARhex4G4BsjmweU1soIFaGg/WtoFZRIZdEvIMhxkCCjXIVsATV6gFGACs4Rsw0EGgIIH3QJYJgHSARQZDrWAB+jawzgs+Q2UO49D7jnRSRGoEFRILcdmEMWGI0cm0JJ2QpYA1RDvcmzJEWhABhD/pqrL0S0CWuABKgnRki9lLseS7g2AlqwHWQSKH4oKLrILpRGhEQCw2LiRUIa4lwAAAABJRU5ErkJggg==\") !important; }\n\n#toast-container > .toast-warning {\n  background-image: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGYSURBVEhL5ZSvTsNQFMbXZGICMYGYmJhAQIJAICYQPAACiSDB8AiICQQJT4CqQEwgJvYASAQCiZiYmJhAIBATCARJy+9rTsldd8sKu1M0+dLb057v6/lbq/2rK0mS/TRNj9cWNAKPYIJII7gIxCcQ51cvqID+GIEX8ASG4B1bK5gIZFeQfoJdEXOfgX4QAQg7kH2A65yQ87lyxb27sggkAzAuFhbbg1K2kgCkB1bVwyIR9m2L7PRPIhDUIXgGtyKw575yz3lTNs6X4JXnjV+LKM/m3MydnTbtOKIjtz6VhCBq4vSm3ncdrD2lk0VgUXSVKjVDJXJzijW1RQdsU7F77He8u68koNZTz8Oz5yGa6J3H3lZ0xYgXBK2QymlWWA+RWnYhskLBv2vmE+hBMCtbA7KX5drWyRT/2JsqZ2IvfB9Y4bWDNMFbJRFmC9E74SoS0CqulwjkC0+5bpcV1CZ8NMej4pjy0U+doDQsGyo1hzVJttIjhQ7GnBtRFN1UarUlH8F3xict+HY07rEzoUGPlWcjRFRr4/gChZgc3ZL2d8oAAAAASUVORK5CYII=\") !important; }\n\n#toast-container.toast-top-center > div,\n#toast-container.toast-bottom-center > div {\n  width: 300px;\n  margin: auto; }\n\n#toast-container.toast-top-full-width > div,\n#toast-container.toast-bottom-full-width > div {\n  width: 96%;\n  margin: auto; }\n\n.toast {\n  background-color: #030303; }\n\n.toast-success {\n  background-color: #51a351; }\n\n.toast-error {\n  background-color: #bd362f; }\n\n.toast-info {\n  background-color: #2f96b4; }\n\n.toast-warning {\n  background-color: #f89406; }\n\n.toast-progress {\n  position: absolute;\n  left: 0;\n  bottom: 0;\n  height: 4px;\n  background-color: #000000;\n  opacity: 0.4;\n  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);\n  filter: alpha(opacity=40); }\n\n/*Responsive Design*/\n@media all and (max-width: 240px) {\n  #toast-container > div {\n    padding: 8px 8px 8px 50px;\n    width: 11em; }\n  #toast-container .toast-close-button {\n    right: -0.2em;\n    top: -0.2em; } }\n\n@media all and (min-width: 241px) and (max-width: 480px) {\n  #toast-container > div {\n    padding: 8px 8px 8px 50px;\n    width: 18em; }\n  #toast-container .toast-close-button {\n    right: -0.2em;\n    top: -0.2em; } }\n\n@media all and (min-width: 481px) and (max-width: 768px) {\n  #toast-container > div {\n    padding: 15px 15px 15px 50px;\n    width: 25em; } }\n\nbody {\n  font-family: 'PT serif', serif;\n  display: flex;\n  min-height: 100vh;\n  flex-direction: column; }\n\nmain {\n  flex: 1 0 auto; }\n\n.landing-page {\n  background-image: url(\"/dist/img/books.jpg\");\n  height: 100vh;\n  width: 100vw;\n  background-position: left;\n  color: white; }\n\n.row-container {\n  border-radius: 15px;\n  margin-top: 10%;\n  background-color: rgba(0, 0, 0, 0.5); }\n\nnav {\n  width: 100%;\n  background-color: #90140D; }\n\n.navbar-fixed nav {\n  position: fixed; }\n\n.brand-logo {\n  position: relative;\n  left: 50%; }\n\n.document-container {\n  margin-left: 28%;\n  background-color: white; }\n\n.header {\n  margin-top: 0px;\n  font-size: 3.2rem;\n  text-align: center; }\n\n.side-bar-top-icon {\n  font-size: 6rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-text {\n  margin-top: 0rem;\n  margin-bottom: 0rem; }\n\n.side-bar-top-email {\n  margin-top: -1rem;\n  margin-bottom: 0rem; }\n\n.loginPS {\n  margin-left: 2rem; }\n\n.sidebar-top {\n  background-image: url(\"/dist/img/office.jpg\");\n  color: rgba(255, 255, 255, 0.81);\n  text-align: center;\n  margin-bottom: 1rem; }\n\n.button-collapse {\n  z-index: 998;\n  position: absolute;\n  top: 2vh; }\n\n.modal {\n  display: block;\n  margin-left: 34%;\n  margin-top: 2%; }\n\n@media only screen and (max-width: 992px) {\n  .modal {\n    width: 80%;\n    margin-left: 10%; } }\n\n.card-content {\n  height: 20rem;\n  overflow: hidden;\n  text-overflow: ellipsis; }\n\n.card .card-title, h4 {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  font-weight: 600;\n  text-align: center;\n  color: #90140D; }\n\n.search-wrapper {\n  margin-top: 13px;\n  padding: 1px 0 0 0;\n  z-index: 2;\n  height: 46px;\n  width: 35vw;\n  left: 25%; }\n\n.search-wrapper i.material-icons {\n  position: absolute;\n  top: 10px;\n  right: 10px;\n  cursor: pointer; }\n\n#search {\n  height: 45px; }\n\n.pagination li.active {\n  background-color: #90140D; }\n\n.pagination li a {\n  cursor: pointer; }\n\n.pagination {\n  position: relative;\n  text-align: center;\n  bottom: 20px; }\n\n.card-name {\n  color: grey;\n  font-weight: 600; }\n\n.doc-access {\n  float: right;\n  color: #26a69a; }\n\n.card-btn-delete {\n  float: right;\n  background-color: #90140D; }\n\n.card-btn-delete:hover {\n  background-color: #FF3F34; }\n\n.clear {\n  clear: both; }\n\na {\n  color: yellow; }\n\n.btn-del {\n  left: 90%;\n  background-color: #90140D; }\n\n.btn-del:hover {\n  background-color: #FF3F34; }\n\n.btn-edit {\n  left: 77%;\n  background-color: #26a69a; }\n\n.btn-flat {\n  background-color: #26a69a; }\n\n.btn-flat:hover, .btn-edit:hover {\n  background-color: #32cabb; }\n\nheader, main, footer {\n  padding-left: 300px; }\n\n@media only screen and (max-width: 992px) {\n  header, main, footer {\n    padding-left: 0; } }\n\n.side-bar-list:hover {\n  color: #FF3F34; }\n\n.side-nav li > a {\n  color: #90140D; }\n\n.side-nav li > a:hover {\n  color: #FF3F34; }\n\n.card-abstract {\n  height: 180px;\n  margin-bottom: 20px;\n  overflow: hidden; }\n\n.collection .collection-item.avatar {\n  padding-left: 20px; }\n\n.welcome-text {\n  border-radius: 15px;\n  text-align: center;\n  top: 6rem;\n  margin-left: 25%;\n  font-size: 30px;\n  position: relative;\n  background-color: rgba(0, 0, 0, 0.5);\n  width: 50%;\n  color: yellow; }\n\n.page-footer {\n  padding-top: 0px;\n  position: fixed;\n  width: 100%;\n  background-color: #90140d;\n  z-index: 100;\n  bottom: 0px;\n  text-align: center; }\n\n.no-result {\n  text-align: center;\n  font-size: 46px; }\n\nselect {\n  width: 20%; }\n\n.btn-doc {\n  margin-top: -12%;\n  margin-left: 23%;\n  width: 20%; }\n", ""]);
 
 // exports
 

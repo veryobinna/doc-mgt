@@ -86,8 +86,6 @@ describe('Document Action', () => {
   });
 
 
-
-
   describe('Document Actions', () => {
     afterEach(() => {
       nock.cleanAll();

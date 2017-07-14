@@ -68,7 +68,7 @@ nav{
 
 }
 .side-bar-top-email{
-    margin-top: 0rem;
+    margin-top: -1rem;
     margin-bottom: 0rem
 
 }
@@ -227,4 +227,16 @@ color: $primary-light;
     z-index: 100;
     bottom: 0px;
     text-align: center;
+}
+.no-result{
+    text-align: center;
+    font-size: 46px;
+}
+select{
+    width: 20%
+}
+.btn-doc{
+        margin-top: -12%;
+    margin-left: 23%;
+    width: 20%;
 }
