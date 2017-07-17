@@ -102,7 +102,8 @@ export default {
         include: {
           model: Role,
           attributes: ['name']
-        }
+        },
+        order: [['id', 'DESC']]
       })
       .then((users) => {
         const data = users.rows.map(user => Object.assign({},

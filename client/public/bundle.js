@@ -18245,7 +18245,7 @@ module.exports = __webpack_require__(354);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
+
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -18270,7 +18270,6 @@ var _ActionTypes2 = _interopRequireDefault(_ActionTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var test = process.env.NODE_ENV === 'test';
 /**
  * LoginDetails contains the dispatched Login action
  * @param {any} payload
@@ -18321,20 +18320,14 @@ var signupDetails = function signupDetails(payload) {
 var signupAction = function signupAction(userParams) {
   return function (dispatch) {
     return _axios2.default.post('/users', userParams).then(function (res) {
-      if (!test) {
-        var token = res.data.token;
+      var token = res.data.token;
 
-        (0, _Authenticate2.default)(token);
-        localStorage.setItem('token', token);
-        dispatch(signupDetails(res.data));
-        _toastr2.default.success('successful');
-      } else {
-        dispatch(signupDetails(res.data));
-      }
+      (0, _Authenticate2.default)(token);
+      localStorage.setItem('token', token);
+      dispatch(signupDetails(res.data));
+      _toastr2.default.success('successful');
     }).catch(function (error) {
-      if (!test) {
-        _toastr2.default.error(error.response.data.message.errors[0].message);
-      }
+      _toastr2.default.error(error.response.data.message.errors[0].message);
     });
   };
 };
@@ -18355,7 +18348,6 @@ exports.signupAction = signupAction;
 exports.LogoutAction = LogoutAction;
 exports.loginDetails = loginDetails;
 exports.signupDetails = signupDetails;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 /* 65 */

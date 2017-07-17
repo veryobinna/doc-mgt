@@ -3,7 +3,6 @@ import toastr from 'toastr';
 import setAuthorizationToken from '../utils/Authenticate';
 import types from './ActionTypes';
 
-const test = process.env.NODE_ENV === 'test';
 /**
  * LoginDetails contains the dispatched Login action
  * @param {any} payload
@@ -50,20 +49,14 @@ const signupDetails = payload => ({
 const signupAction = userParams => dispatch => axios
   .post('/users', userParams)
   .then((res) => {
-    if (!test) {
-      const { token } = res.data;
-      setAuthorizationToken(token);
-      localStorage.setItem('token', token);
-      dispatch(signupDetails(res.data));
-      toastr.success('successful');
-    } else {
-      dispatch(signupDetails(res.data));
-    }
+    const { token } = res.data;
+    setAuthorizationToken(token);
+    localStorage.setItem('token', token);
+    dispatch(signupDetails(res.data));
+    toastr.success('successful');
   })
   .catch((error) => {
-    if (!test) {
-      toastr.error(error.response.data.message.errors[0].message);
-    }
+    toastr.error(error.response.data.message.errors[0].message);
   });
 
 
