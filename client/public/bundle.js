@@ -26729,13 +26729,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * @returns {html} Dom components
  */
 var SearchBar = function SearchBar(_ref) {
-  var onSearch = _ref.onSearch;
+  var onSearch = _ref.onSearch,
+      holder = _ref.holder;
   return _react2.default.createElement(
     'div',
     { className: 'search-wrapper card' },
     _react2.default.createElement('input', {
       onChange: onSearch,
-      id: 'search'
+      id: 'search',
+      placeholder: holder
     }),
     _react2.default.createElement(
       'i',
@@ -26746,7 +26748,8 @@ var SearchBar = function SearchBar(_ref) {
 };
 
 SearchBar.propTypes = {
-  onSearch: _propTypes2.default.func.isRequired
+  onSearch: _propTypes2.default.func.isRequired,
+  holder: _propTypes2.default.string.isRequired
 };
 
 exports.default = SearchBar;
@@ -51002,6 +51005,7 @@ var GetDocument = exports.GetDocument = function (_Component) {
       query: '',
       offset: 0,
       limit: 12,
+      holder: 'Search Documents',
       search: false,
       getDocument: false,
       getMyDocument: false,
@@ -51198,7 +51202,7 @@ var GetDocument = exports.GetDocument = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'col s12 m12 l9' },
-        _react2.default.createElement(_SearchBar2.default, { onSearch: this.onSearch }),
+        _react2.default.createElement(_SearchBar2.default, { onSearch: this.onSearch, holder: this.state.holder }),
         _react2.default.createElement(
           'div',
           { className: 'row' },
@@ -51558,6 +51562,7 @@ var GetUsers = function (_Component) {
 
     _this.state = {
       users: [{ Role: {} }],
+      holder: 'Search Users',
       query: '',
       offset: 0,
       limit: 5,
@@ -51722,7 +51727,7 @@ var GetUsers = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'col s12 m12 l9' },
-        _react2.default.createElement(_SearchBar2.default, { onSearch: this.onSearch }),
+        _react2.default.createElement(_SearchBar2.default, { onSearch: this.onSearch, holder: this.state.holder }),
         _react2.default.createElement(
           'div',
           { className: 'row' },

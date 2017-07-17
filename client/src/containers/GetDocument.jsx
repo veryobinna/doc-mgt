@@ -31,6 +31,7 @@ export class GetDocument extends Component {
       query: '',
       offset: 0,
       limit: 12,
+      holder: 'Search Documents',
       search: false,
       getDocument: false,
       getMyDocument: false,
@@ -199,7 +200,7 @@ export class GetDocument extends Component {
     });
     return (
       <div className="col s12 m12 l9">
-        <SearchBar onSearch={this.onSearch} />
+        <SearchBar onSearch={this.onSearch} holder={this.state.holder} />
         <div className="row">
           {documents}
         </div>

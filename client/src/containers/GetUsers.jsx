@@ -25,6 +25,7 @@ class GetUsers extends Component {
     super(props);
     this.state = {
       users: [{ Role: {} }],
+      holder: 'Search Users',
       query: '',
       offset: 0,
       limit: 5,
@@ -168,7 +169,7 @@ class GetUsers extends Component {
     });
     return (
       <div className="col s12 m12 l9">
-        <SearchBar onSearch={this.onSearch} />
+        <SearchBar onSearch={this.onSearch} holder={this.state.holder} />
         <div className="row">
           {users}
         </div>
