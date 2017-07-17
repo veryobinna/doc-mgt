@@ -18,14 +18,14 @@ const Sidebar = props => (
         <Link
           to={`/dashboard/mydocuments/${props.status.user.id}`}
           className="waves-effect"
-          activeClassName="active"
+          id="mydocument"
         > Personal Documents
         </Link>
       </li>
       <li>
         <Link
           to="/dashboard/documents"
-          activeClassName="active"
+          id="alldocuments"
         >All Documents</Link>
 
       </li>
@@ -34,13 +34,13 @@ const Sidebar = props => (
           <Link
             to="/dashboard/users"
             className="waves-effect"
-            activeClassName="active"
+            id="users"
           >Users</Link>
           </li>}
       <li>
         <Link
           to="/dashboard/adddocument"
-          activeClassName="active"
+          id="newdocument"
         >New Document</Link>
       </li>
       <li>
@@ -49,6 +49,7 @@ const Sidebar = props => (
           className="waves-effect"
           role="button"
           tabIndex="-1"
+          id="logout"
         >Logout</a>
       </li>
 

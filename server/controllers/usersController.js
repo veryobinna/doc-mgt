@@ -112,7 +112,8 @@ export default {
             lastName: user.lastName,
             username: user.username,
             email: user.email,
-            roleID: user.roleID
+            roleID: user.roleID,
+            Role: user.Role
           }));
         const paginate = {
           page: Math.floor(offset / limit) + 1,

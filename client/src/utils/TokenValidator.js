@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken';
 
-// console.log('validator',token)
 
 /**
  *

@@ -30,6 +30,7 @@ const ShowDocument = ({
             className="btn-floating waves-effect card-btn-delete btn"
             role="button"
             tabIndex="-1"
+            id="delete-doc"
             onClick={() => { deleteDocument(id); }}
           >
             <i className="material-icons left">delete</i>Delete
@@ -37,6 +38,7 @@ const ShowDocument = ({
           <a
             href={`/#/dashboard/document/${id}`}
             className="btn-floating waves-effect  btn"
+            id="viewdoc"
           ><i className="material-icons left">visibility</i>View</a>
           <div className="clear" />
         </div>

@@ -34,13 +34,16 @@ const ShowUsers = ({
 
 ShowUsers.getDefaultProps = {
   roleName: '',
-  email: ''
+  email: '',
+  id: '',
+  firstName: '',
+  lastName: '',
 };
 
 ShowUsers.propTypes = {
-  id: PropTypes.number.isRequired,
-  firstName: PropTypes.string.isRequired,
-  lastName: PropTypes.string.isRequired,
+  id: PropTypes.number,
+  firstName: PropTypes.string,
+  lastName: PropTypes.string,
   roleName: PropTypes.string,
   email: PropTypes.string,
   deleteUser: PropTypes.func.isRequired,

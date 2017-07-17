@@ -161,7 +161,7 @@ class GetUsers extends Component {
         username: user.username,
         email: user.email,
         roleID: user.roleID,
-        //roleName: `${user.Role.name}`,
+        roleName: `${user.Role.name}`,
         deleteUser: this.deleteUser
       };
       return <ShowUsers key={Math.random()} {...items} />;
@@ -219,9 +219,9 @@ GetUsers.propTypes = {
     id: PropTypes.number,
     firstName: PropTypes.string,
     lastName: PropTypes.string,
-    username: PropTypes.username,
-    email: PropTypes.email,
-    roleID: PropTypes.roleID,
+    username: PropTypes.string,
+    email: PropTypes.string,
+    roleID: PropTypes.number,
   }),
   searchUsers: PropTypes.func,
   getUsers: PropTypes.func,
