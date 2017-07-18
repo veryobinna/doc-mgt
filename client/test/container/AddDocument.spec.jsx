@@ -26,7 +26,6 @@ describe('Add Document Component', () => {
     assert.calledOnce(onInputChangeSpy);
   });
   it('should handle onFormSubmit', () => {
-    // wrapper.instance().onFormSubmit(event);
     wrapper.update();
     wrapper.find('form').simulate('submit', { preventDefault: () => {} });
     assert.calledOnce(onFormSubmitSpy);

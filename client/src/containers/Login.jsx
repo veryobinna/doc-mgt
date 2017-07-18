@@ -11,7 +11,7 @@ import { LoginAction } from '../actions/AuthAction';
  * @class Login
  * @extends {Component}
  */
-class Login extends Component {
+export class Login extends Component {
   /**
    * Creates an instance of Login.
    * @param {any} props

@@ -51302,6 +51302,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.GetSingleDocument = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -51343,7 +51344,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * @class GetSingleDocument
  * @extends {Component}
  */
-var GetSingleDocument = function (_Component) {
+var GetSingleDocument = exports.GetSingleDocument = function (_Component) {
   _inherits(GetSingleDocument, _Component);
 
   /**
@@ -51418,17 +51419,9 @@ var GetSingleDocument = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      if (!this.props.status.valid) {
-        return _react2.default.createElement(_reactRouterDom.Redirect, {
-          push: true,
-          to: {
-            pathname: '/login'
-          }
-        });
-      }
       return _react2.default.createElement(
         'div',
-        { className: '' },
+        null,
         _react2.default.createElement(_ShowSingleDocument2.default, {
           document: this.state.document,
           updateDocument: this.updateDocument,
@@ -51497,6 +51490,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.GetUsers = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -51546,7 +51540,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * @class GetUsers
  * @extends {Component}
  */
-var GetUsers = function (_Component) {
+var GetUsers = exports.GetUsers = function (_Component) {
   _inherits(GetUsers, _Component);
 
   /**
@@ -51816,6 +51810,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.Login = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -51851,7 +51846,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * @class Login
  * @extends {Component}
  */
-var Login = function (_Component) {
+var Login = exports.Login = function (_Component) {
   _inherits(Login, _Component);
 
   /**
@@ -52023,6 +52018,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.Signup = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -52059,7 +52055,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * @class Signup
  * @extends {Component}
  */
-var Signup = function (_Component) {
+var Signup = exports.Signup = function (_Component) {
   _inherits(Signup, _Component);
 
   /**
@@ -52774,31 +52770,42 @@ var documentReducer = function documentReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { documents: {} };
   var action = arguments[1];
 
-  var docs = void 0;
   switch (action.type) {
     case _ActionTypes2.default.GET_DOCUMENTS:
-      docs = { documents: action.payload };
-      return _extends({}, state, docs);
+      {
+        var docs = { documents: action.payload };
+        return _extends({}, state, docs);
+      }
 
     case _ActionTypes2.default.SEARCH_DOCUMENTS:
-      docs = { documents: action.payload };
-      return _extends({}, state, docs);
+      {
+        var _docs = { documents: action.payload };
+        return _extends({}, state, _docs);
+      }
 
     case _ActionTypes2.default.GET_MY_DOCUMENTS:
-      docs = { documents: action.payload };
-      return _extends({}, state, docs);
+      {
+        var _docs2 = { documents: action.payload };
+        return _extends({}, state, _docs2);
+      }
 
     case _ActionTypes2.default.GET_SINGLE_DOCUMENT:
-      docs = { documents: action.payload };
-      return _extends({}, state, docs);
+      {
+        var _docs3 = { documents: action.payload };
+        return _extends({}, state, _docs3);
+      }
 
     case _ActionTypes2.default.UPDATE_DOCUMENT:
-      docs = { documents: action.payload };
-      return _extends({}, state, docs);
+      {
+        var _docs4 = { documents: action.payload };
+        return _extends({}, state, _docs4);
+      }
 
     case _ActionTypes2.default.ADD_DOCUMENT:
-      docs = { documents: action.payload };
-      return _extends({}, state, docs);
+      {
+        var _docs5 = { documents: action.payload };
+        return _extends({}, state, _docs5);
+      }
 
     default:
       return state;

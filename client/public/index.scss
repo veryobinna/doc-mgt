@@ -4,9 +4,9 @@
 
 $primary: #90140D;
 $primary-light:#FF3F34;
-$Seconary:#26a69a;
+$secondary:#26a69a;
 $secondary-light:#32cabb;
-$Side-bar: rgba(255, 255, 255, 0.81);
+$side-bar: rgba(255, 255, 255, 0.81);
 $landing-page: white;
 $row-background:  rgba(0, 0, 0, 0.5);
 $link: yellow;
@@ -79,7 +79,7 @@ nav{
 }
 .sidebar-top{
     background-image: url('/dist/img/office.jpg');
-    color: $Side-bar;
+    color: $side-bar;
     text-align: center;
     margin-bottom: 1rem;
 }
@@ -147,7 +147,7 @@ nav{
 }
 .doc-access{
     float: right;
-    color: $Seconary
+    color: $secondary
  }
 .card-btn-delete{
     float: right;
@@ -172,10 +172,10 @@ nav{
 }
  .btn-edit{
     left: 77%;
-    background-color: $Seconary
+    background-color: $secondary
 }
 .btn-flat{
-        background-color: $Seconary
+        background-color: $secondary
 
 }
 .btn-flat:hover, .btn-edit:hover{

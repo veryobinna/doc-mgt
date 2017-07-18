@@ -14,7 +14,7 @@ import SearchBar from '../components/SearchBar';
  * @class GetUsers
  * @extends {Component}
  */
-class GetUsers extends Component {
+export class GetUsers extends Component {
   /**
    * Creates an instance of GetUsers.
    * @param {any} props

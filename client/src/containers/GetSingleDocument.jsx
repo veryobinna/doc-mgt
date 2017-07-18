@@ -14,7 +14,7 @@ import UpdateDocument from '../containers/UpdateDocument';
  * @class GetSingleDocument
  * @extends {Component}
  */
-class GetSingleDocument extends Component {
+export class GetSingleDocument extends Component {
   /**
    * Creates an instance of GetSingleDocument.
    * @param {any} props
@@ -71,16 +71,8 @@ class GetSingleDocument extends Component {
    * @memberof GetSingleDocument
    */
   render() {
-    if (!this.props.status.valid) {
-      return (<Redirect
-        push
-        to={{
-          pathname: '/login',
-        }}
-      />);
-    }
     return (
-      <div className="">
+      <div>
         <ShowSingleDocument
           document={this.state.document}
           updateDocument={this.updateDocument}

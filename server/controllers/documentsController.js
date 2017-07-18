@@ -16,7 +16,7 @@ export default {
       })
       .then(document => res.status(201).send(document))
       .catch(error => res.status(400).json({
-        message: error
+        message: error.errors[0].message
       }));
   },
 

@@ -6,12 +6,12 @@ module.exports = {
       .url(url.login)
       .waitForElementVisible('body')
       .assert.containsText('div', 'Welcome to Doc-mgt.')
-      .pause(5000)
+      .pause(1000)
       .assert.elementPresent('input[id=loginID]')
       .setValue('input[id=loginID]', 'obinna')
       .setValue('input[id=password]', 'obinna')
       .click('button')
-      .pause(2000)
+      .pause(1000)
       .assert.urlContains('dashboard')
       .end();
   },
@@ -22,7 +22,7 @@ module.exports = {
       .setValue('input[id=loginID]', 'notValid')
       .setValue('input[id=password]', 'password')
       .click('button')
-      .pause(2000)
+      .pause(1000)
       .assert.urlEquals(url.login)
       .end();
   }

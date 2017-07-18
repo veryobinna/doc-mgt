@@ -12,7 +12,7 @@ import { signupAction } from '../actions/AuthAction';
  * @class Signup
  * @extends {Component}
  */
-class Signup extends Component {
+export class Signup extends Component {
   /**
    * Creates an instance of Signup.
    * @param {any} props

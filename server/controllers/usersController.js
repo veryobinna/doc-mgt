@@ -38,7 +38,7 @@ export default {
         });
       })
       .catch(error => res.status(400).json({
-        message: error
+        message: error.errors[0].message
       }));
   },
   login(req, res) {
@@ -205,7 +205,8 @@ export default {
   },
 
   destroy(req, res) {
-    if (req.params.id !== req.decoded.id && req.decoded.roleID === 1) {
+    if (Number.parseInt(req.params.id, 10) !==
+    Number.parseInt(req.decoded.id, 10) && req.decoded.roleID === 1) {
       return User
         .findById(Number.parseInt(req.params.id, 10))
         .then((user) => {
@@ -230,11 +231,15 @@ export default {
     });
   },
   logout(req, res) {
-    const id = request.decoded.id;
+    const id = req.decoded.id;
     User.findById(id)
-      .then((user) => {
-        user.update({ token: null });
+      .then(() => {
         res.status(200).json({ message: 'logout successful' });
-      });
+      })
+          .catch((error) => {
+            res.status(400).json({
+              message: error
+            });
+          });
   }
 };
