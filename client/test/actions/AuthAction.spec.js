@@ -4,14 +4,14 @@ import axios from 'axios';
 import sinon from 'sinon';
 import configureStore from 'redux-mock-store';
 import types from './../../src/actions/ActionTypes';
-import { LoginAction,
-  loginDetails, signupDetails } from '../../src/actions/AuthAction';
+import { LoginAction, loginDetails,
+  signupDetails, signupAction } from '../../src/actions/AuthAction';
 
 axios.defaults.baseURL = 'http://localhost:3000/';
-const middlewares = [thunk]; // add your middlewares like `redux-thunk`
+const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
-describe('Login Action', () => {
+describe('Auth Action', () => {
   let axiosSpy;
   const payload = {
     id: 1,
@@ -61,17 +61,37 @@ describe('Login Action', () => {
       });
     });
   });
-});
-describe('Signup Action', () => {
-  describe('signupDetails ', () => {
-    it('should create a SIGNUP_DETAILS action type', () => {
-      const payload = { content: 'notes' };
-      const expected = {
-        type: types.SIGNUP_DETAILS,
-        payload
+  describe('Signup Action', () => {
+    describe('signupDetails ', () => {
+      it('should create a SIGNUP_DETAILS action type', () => {
+        const expected = {
+          type: types.SIGNUP_DETAILS,
+          payload
+        };
+        expect(signupDetails(payload)).to.eql(expected);
+      });
+    });
+  });
+  describe('Signup Action', () => {
+    it('should sign up the user and set token', () => {
+      const expected = [
+        { type: types.SIGNUP_DETAILS, payload },
+      ];
+
+      const userParams = {
+        fisrtName: 'fred',
+        password: 'test'
       };
-      expect(signupDetails(payload)).to.eql(expected);
+
+      const store = mockStore({});
+
+      return store.dispatch(signupAction(userParams)).then(() => {
+        const action = store.getActions();
+        expect(action).to.eql(expected);
+        expect(localStorage.getItem('token')).to.eql(payload.token);
+      });
     });
   });
 });
+
 

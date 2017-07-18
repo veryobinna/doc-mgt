@@ -56,7 +56,7 @@ const signupAction = userParams => dispatch => axios
     toastr.success('successful');
   })
   .catch((error) => {
-    toastr.error(error.response.data.message.errors[0].message);
+    toastr.error(error.response.data.message);
   });
 
 

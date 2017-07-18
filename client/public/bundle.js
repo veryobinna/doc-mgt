@@ -18327,7 +18327,7 @@ var signupAction = function signupAction(userParams) {
       dispatch(signupDetails(res.data));
       _toastr2.default.success('successful');
     }).catch(function (error) {
-      _toastr2.default.error(error.response.data.message.errors[0].message);
+      _toastr2.default.error(error.response.data.message);
     });
   };
 };
