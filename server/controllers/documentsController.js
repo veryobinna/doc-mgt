@@ -288,12 +288,9 @@ export default {
           return res.status(404).send({
             message: 'Document Not Found',
           });
-        } else if (document.ownerID !== req.decoded.id) {
-          return res.status(401).send({
-            message: 'Access Denied',
-          });
-        }
-        return document
+        } else if ((document.ownerID === req.decoded.id)
+                  || (req.decoded.roleID === 1)) {
+          return document
           .update(req.body, { fields: Object.keys(req.body) })
           .then(() => res.status(200).send({
             document,
@@ -302,6 +299,10 @@ export default {
           .catch(error => res.status(400).json({
             message: error
           }));
+        }
+        return res.status(401).send({
+          message: 'Access Denied',
+        });
       })
       .catch(error => res.status(400).json({
         message: error

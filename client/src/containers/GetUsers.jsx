@@ -28,7 +28,7 @@ export class GetUsers extends Component {
       holder: 'Search Users',
       query: '',
       offset: 0,
-      limit: 5,
+      limit: 12,
       paginate: '',
       search: false,
       getUsers: false
