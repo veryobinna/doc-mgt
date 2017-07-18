@@ -1,17 +1,19 @@
+/* eslint-disable*/
 require('env2')('.env'); // optionally store youre Evironment Variables in .env
 require('babel-register')();
 
 const SCREENSHOT_PATH = './screenshots/';
-const BINPATH = './node_modules/nightwatch/bin/';
+// const BINPATH = './node_modules/nightwatch/bin/';
 
-// we use a nightwatch.conf.js file so we can include comments and helper functions
+// we use a nightwatch.conf.js file so we can
+// include comments and helper functions
 module.exports = {
   src_folders: [
     'client/test/e2e'// Where you are storing your Nightwatch e2e tests
   ],
   output_folder: './reports', // reports (test outcome) output by nightwatch
   selenium: { // downloaded by selenium-download module (see readme)
-    start_process: true, // tells nightwatch to start/stop the selenium process
+    start_process: false, // tells nightwatch to start/stop the selenium process
     server_path: './selenium-server-standalone-3.4.0.jar',
     host: '127.0.0.1',
     port: 4444, // standard selenium port
@@ -48,7 +50,8 @@ module.exports = {
  * selenium-download does exactly what it's name suggests;
  * downloads (or updates) the version of Selenium (& chromedriver)
  * on your localhost where it will be used by Nightwatch.
- /the following code checks for the existence of `selenium.jar` before trying to run our tests.
+ /the following code checks for the existence of `selenium.jar`
+ before trying to run our tests.
  */
 
 // require('fs').stat(`${BINPATH}selenium.jar`, (err, stat) => { // got it?

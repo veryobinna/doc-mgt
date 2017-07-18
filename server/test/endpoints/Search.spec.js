@@ -94,7 +94,7 @@ describe('Routes : Search', () => {
       request
         .get(`/search/users/?q=${validRegularUser1.firstName}`)
         .set({ 'x-access-token': adminToken })
-        .end((err, res) => {console.log('................', res.body)
+        .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body.users).to.be.an('array');
           const searchUser = res.body.users.filter((user) => {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import swal from 'sweetalert';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
 import {
@@ -30,10 +31,11 @@ export class GetDocument extends Component {
       query: '',
       offset: 0,
       limit: 12,
+      holder: 'Search Documents',
       search: false,
       getDocument: false,
       getMyDocument: false,
-      paginate: ''
+      paginate: {}
     };
     this.deleteDocument = this.deleteDocument.bind(this);
     this.onSearch = this.onSearch.bind(this);
@@ -52,7 +54,7 @@ export class GetDocument extends Component {
     if (this.props.match.params.id) {
       this.getMyDocument();
     }
-    if (this.props.match.url === '/documents') {
+    if (this.props.match.url === '/dashboard/documents') {
       this.getDocument();
     }
   }
@@ -72,7 +74,7 @@ export class GetDocument extends Component {
     });
   }
 
-  /**
+/**
  *
  *
  * @param {any} event
@@ -80,22 +82,21 @@ export class GetDocument extends Component {
  * @memberof GetDocument
  */
   onSearch(event) {
+    let { query } = { ...this.state };
+    const { limit, offset } = this.state;
     if (event) {
-      this.state.query = event.target.value;
-      // this.setState({query:event.target.value})
+      query = event.target.value;
     }
     this.setState({
+      query,
       search: true,
       getDocument: false,
       getMyDocument: false,
     });
-    this.props.searchDocument(
-      this.state.query,
-      this.state.limit,
-      this.state.offset);
+    this.props.searchDocument(query, limit, offset);
   }
 
-  /**
+/**
  *
  *
  * @param {any} event
@@ -112,9 +113,7 @@ export class GetDocument extends Component {
       );
     }
     if (this.state.getDocument) {
-      this.setState({ offset },
-        this.getDocument // callback
-      );
+      this.setState({ offset }, this.getDocument);
     }
     if (this.state.getMyDocument) {
       this.setState({ offset },
@@ -156,10 +155,25 @@ export class GetDocument extends Component {
    * @memberof GetDocument
    */
   deleteDocument(id) {
-    this.props.deleteDocument(id)
+    swal({
+      title: 'Are you sure?',
+      text: 'Are you sure that you want to delete this photo?',
+      type: 'warning',
+      showCancelButton: true,
+      closeOnConfirm: false,
+      confirmButtonText: 'Yes, delete it!',
+      confirmButtonColor: '#ec6c62'
+    }, (isConfirm) => {
+      if (isConfirm) {
+        swal('Deleted!', 'File Deleted.', 'success');
+        this.props.deleteDocument(id)
       .then(() => {
         this.getDocument();
       });
+      } else {
+        swal('Cancelled', 'File not Deleted', 'error');
+      }
+    });
   }
 
   /**
@@ -173,21 +187,24 @@ export class GetDocument extends Component {
     const documents = this.state.documents.map((document) => {
       const items = {
         id: document.id,
+        ownerID: document.ownerID,
         title: document.title,
         content: document.content,
         access: document.access,
         firstName: document.User.firstName,
         lastName: document.User.lastName,
-        deleteDocument: this.deleteDocument
+        deleteDocument: this.deleteDocument,
+        user: this.props.status.user,
       };
       return <ShowDocument key={Math.random()} {...items} />;
     });
     return (
       <div className="col s12 m12 l9">
-        <SearchBar onSearch={this.onSearch} />
+        <SearchBar onSearch={this.onSearch} holder={this.state.holder} />
         <div className="row">
           {documents}
         </div>
+        {this.state.documents.length > 0 &&
         <ReactPaginate
           initialPage={this.state.initialPage}
           previousLabel={'previous'}
@@ -201,7 +218,9 @@ export class GetDocument extends Component {
           containerClassName={'pagination'}
           subContainerClassName={'pages pagination'}
           activeClassName={'active'}
-        />
+        />}
+        { this.state.documents.length === 0 &&
+        <div className="no-result">No Documents </div>}
       </div>
     );
   }
@@ -218,7 +237,7 @@ const mapDispatchToProps =
 const mapStateToProps = state => ({
   documents: state.documentReducer.documents.document,
   paginate: state.documentReducer.documents.paginate,
-  status: state.login
+  status: state.auth
 });
 
 GetDocument.getDefaultProps = {
@@ -229,18 +248,31 @@ GetDocument.getDefaultProps = {
   searchDocument: () => { },
   match: {},
   paginate: {},
-  status: {}
+  status: {},
 
 };
 GetDocument.propTypes = {
-  documents: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  documents: PropTypes.shape({
+    id: PropTypes.number,
+    ownerID: PropTypes.ownerID,
+    title: PropTypes.title,
+    content: PropTypes.content,
+    access: PropTypes.access,
+  }),
   getDocument: PropTypes.func,
   getMyDocument: PropTypes.func,
   deleteDocument: PropTypes.func,
   searchDocument: PropTypes.func,
-  match: PropTypes.object, // eslint-disable-line react/forbid-prop-types,
-  paginate: PropTypes.object, // eslint-disable-line react/forbid-prop-types,
-  status: PropTypes.object // eslint-disable-line react/forbid-prop-types
+  match: PropTypes.shape({
+    params: PropTypes.object,
+    url: PropTypes.string
+  }),
+  paginate: PropTypes.shape({
+    pageCount: PropTypes.object
+  }),
+  status: PropTypes.shape({
+    user: PropTypes.object
+  }),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GetDocument);

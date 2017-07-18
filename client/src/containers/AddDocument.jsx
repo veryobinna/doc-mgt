@@ -1,4 +1,3 @@
-/* eslint-disable no-undef*/
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -6,8 +5,6 @@ import PropTypes from 'prop-types';
 import { addDocument, getDocument } from '../actions/DocumentActions';
 
 /**
- *
- *
  * @export
  * @class AddDocument
  * @extends {Component}
@@ -16,7 +13,6 @@ export class AddDocument extends Component {
   /**
    * Creates an instance of AddDocument.
    * @param {any} props
-   *
    * @memberof AddDocument
    */
   constructor(props) {
@@ -40,14 +36,13 @@ export class AddDocument extends Component {
 
   /**
    *
-   *
    * @param {any} nextProps
    * @returns{null} no return
    * @memberof AddDocument
    */
   componentWillReceiveProps(nextProps) {
     if (this.props.documents !== nextProps.documents) {
-      this.props.history.replace('/documents');
+      this.props.history.replace('/dashboard/documents');
     }
   }
 
@@ -117,7 +112,7 @@ export class AddDocument extends Component {
                 value={`${this.state.access}`}
                 onChange={this.onInputChange}
               >
-                <option value="" disabled>Choose your option</option>
+                <option value="" disabled>Visibility</option>
                 <option value="public">public</option>
                 <option value="private">private</option>
                 <option value="role">role</option>
@@ -125,7 +120,9 @@ export class AddDocument extends Component {
               <label htmlFor="access" className="active" >Access</label>
             </div>
           </div>
-          <button className="waves-effect waves-light btn">Submit</button>
+          <button className="btn-doc waves-effect waves-light btn">
+            Submit
+          </button>
         </form>
       </div>
     );
@@ -139,7 +136,9 @@ AddDocument.getDefaultProps = {
 AddDocument.propTypes = {
   addDocument: PropTypes.func.isRequired,
   documents: PropTypes.string,
-  history: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  history: PropTypes.shape({
+    replace: PropTypes.function
+  }),
 };
 
 const mapDispatchToProps =

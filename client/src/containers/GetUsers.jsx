@@ -1,7 +1,7 @@
-/* eslint-disable react/forbid-prop-types*/
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import swal from 'sweetalert';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
 import { getUsers, deleteUser, searchUsers } from '../actions/UserActions';
@@ -14,7 +14,7 @@ import SearchBar from '../components/SearchBar';
  * @class GetUsers
  * @extends {Component}
  */
-class GetUsers extends Component {
+export class GetUsers extends Component {
   /**
    * Creates an instance of GetUsers.
    * @param {any} props
@@ -25,6 +25,7 @@ class GetUsers extends Component {
     super(props);
     this.state = {
       users: [{ Role: {} }],
+      holder: 'Search Users',
       query: '',
       offset: 0,
       limit: 5,
@@ -104,7 +105,7 @@ class GetUsers extends Component {
       );
     }
   }
-    /**
+  /**
    *
    *
    * @returns {null} no return
@@ -125,10 +126,25 @@ class GetUsers extends Component {
    * @memberof GetUsers
    */
   deleteUser(id) {
-    this.props.deleteUser(id)
+    swal({
+      title: 'Are you sure?',
+      text: 'Are you sure that you want to delete this user?',
+      type: 'warning',
+      showCancelButton: true,
+      closeOnConfirm: false,
+      confirmButtonText: 'Yes, delete it!',
+      confirmButtonColor: '#ec6c62'
+    }, (isConfirm) => {
+      if (isConfirm) {
+        swal('Deleted!', 'User Deleted.', 'success');
+        this.props.deleteUser(id)
       .then(() => {
         this.props.getUsers();
       });
+      } else {
+        swal('Cancelled', 'User not Deleted', 'error');
+      }
+    });
   }
   /**
    *
@@ -153,10 +169,11 @@ class GetUsers extends Component {
     });
     return (
       <div className="col s12 m12 l9">
-        <SearchBar onSearch={this.onSearch} />
+        <SearchBar onSearch={this.onSearch} holder={this.state.holder} />
         <div className="row">
           {users}
         </div>
+        {this.state.users.length > 0 &&
         <ReactPaginate
           initialPage={this.state.initialPage}
           previousLabel={'previous'}
@@ -170,7 +187,9 @@ class GetUsers extends Component {
           containerClassName={'pagination'}
           subContainerClassName={'pages pagination'}
           activeClassName={'active'}
-        />
+        />}
+        { this.state.users.length === 0 &&
+        <div className="no-result">No user found </div>}
       </div>
     );
   }
@@ -197,11 +216,20 @@ GetUsers.getDefaultProps = {
 
 };
 GetUsers.propTypes = {
-  users: PropTypes.object,
+  users: PropTypes.shape({
+    id: PropTypes.number,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    username: PropTypes.string,
+    email: PropTypes.string,
+    roleID: PropTypes.number,
+  }),
   searchUsers: PropTypes.func,
-  getUsers: PropTypes.object,
+  getUsers: PropTypes.func,
   deleteUser: PropTypes.func,
-  paginate: PropTypes.object
+  paginate: PropTypes.shape({
+    pageCount: PropTypes.object
+  }),
 
 };
 

@@ -14,7 +14,7 @@ import UpdateDocument from '../containers/UpdateDocument';
  * @class GetSingleDocument
  * @extends {Component}
  */
-class GetSingleDocument extends Component {
+export class GetSingleDocument extends Component {
   /**
    * Creates an instance of GetSingleDocument.
    * @param {any} props
@@ -58,7 +58,7 @@ class GetSingleDocument extends Component {
    * @memberof GetSingleDocument
    */
   updateDocument() {
-    this.props.history.replace('/updatedocument');
+    this.props.history.replace('/dashboard/updatedocument');
     return <UpdateDocument document={this.state} />;
   }
 
@@ -71,16 +71,8 @@ class GetSingleDocument extends Component {
    * @memberof GetSingleDocument
    */
   render() {
-    if (!this.props.status.valid) {
-      return (<Redirect
-        push
-        to={{
-          pathname: '/login',
-        }}
-      />);
-    }
     return (
-      <div className="">
+      <div>
         <ShowSingleDocument
           document={this.state.document}
           updateDocument={this.updateDocument}
@@ -95,7 +87,7 @@ const mapDispatchToProps =
 
 const mapStateToProps = state => ({
   documents: state.documentReducer.documents,
-  status: state.login
+  status: state.auth
 
 });
 
@@ -110,11 +102,23 @@ GetSingleDocument.getDefaultProps = {
 
 };
 GetSingleDocument.propTypes = {
-  documents: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  history: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  match: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  params: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  status: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  documents: PropTypes.shape({
+    id: PropTypes.number,
+    ownerID: PropTypes.ownerID,
+    title: PropTypes.title,
+    content: PropTypes.content,
+    access: PropTypes.access,
+  }),
+  history: PropTypes.shape({
+    replace: PropTypes.func
+  }),
+  match: PropTypes.shape({
+    params: PropTypes.object,
+    url: PropTypes.string
+  }),
+  status: PropTypes.shape({
+    valid: PropTypes.bool
+  }),
   id: PropTypes.string,
   getSingleDocument: PropTypes.func
 };

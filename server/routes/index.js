@@ -227,7 +227,7 @@ const Routes = (app) => {
  *         schema:
  *           $ref: '#/definitions/Users'
  */
-  app.post('/logout', usersController.logout);
+  app.post('/logout', authenticate.verifyToken, usersController.logout);
 /**
  * @swagger
  * definition:

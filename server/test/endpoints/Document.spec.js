@@ -106,7 +106,7 @@ describe('Documents', () => {
           .send(invalidAccessDocument)
           .end((err, res) => {
             expect(res).to.have.status(400);
-            expect(res.body.message.errors[0].message).to.equal(
+            expect(res.body.message).to.equal(
               'Access can either be public ,private or role');
             done();
           });
@@ -129,7 +129,7 @@ describe('Documents', () => {
         .send(emtptyContentDocument)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.message.errors[0].message)
+          expect(res.body.message)
           .to.equal('Content cannot be empty');
           done();
         });
@@ -141,7 +141,7 @@ describe('Documents', () => {
         .send(emtptyTitleDocument)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.message.errors[0].message)
+          expect(res.body.message)
           .to.equal('Title cannot be empty');
           done();
         });
@@ -214,7 +214,7 @@ describe('Documents', () => {
   });
   describe('GET /documents', () => {
     it(`The number of documents available to an admin
-      must be greateror equall to any other user`, (done) => {
+      must be greater or equall to any other user`, (done) => {
       request
           .get('/documents/')
           .set({ 'x-access-token': adminToken })
@@ -226,14 +226,14 @@ describe('Documents', () => {
           });
     });
     it(`The number of documents available to an admin
-      must be greateror equall to any other user`, (done) => {
+      must be greater or equall to any other user`, (done) => {
       request
           .get('/documents')
           .set({ 'x-access-token': regular1Token })
           .end((err, res) => {
             regularDocsCount = res.body.paginate.totalCount;
             expect(res).to.have.status(200);
-            expect(adminDocsCount).to.be.equal(regularDocsCount);
+            expect(adminDocsCount).to.be.greaterThan(regularDocsCount);
             done();
           });
     });

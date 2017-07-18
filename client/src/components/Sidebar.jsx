@@ -6,34 +6,42 @@ const Sidebar = props => (
   <div className="side-bar">
     <ul id="slide-out" className="side-nav fixed">
       <li><div className="sidebar-top">
-        <img
-          className="image-holder"
-          alt="user"
-          src={'/dist/img/image-holder.jpg'}
-        />
         <h5
           className="side-bar-top-text"
         > {`${props.status.user.firstName} ${props.status.user.lastName}`}
         </h5>
         <p className="side-bar-top-email">{props.status.user.email}</p>
-        <p className="side-bar-top-text">Role: {props.status.user.roleName}</p>
       </div>
       </li>
       <li><div className="divider" /></li>
       <li>
-        <Link to="/documents" className="waves-effect" >Public Documents</Link>
+        <Link
+          to={`/dashboard/mydocuments/${props.status.user.id}`}
+          className="waves-effect"
+          id="mydocument"
+        > Personal Documents
+        </Link>
       </li>
       <li>
         <Link
-          to={`/mydocuments/${props.status.user.id}`}
-          className="waves-effect"
-        > My Documents
-        </Link>
+          to="/dashboard/documents"
+          id="alldocuments"
+        >All Documents</Link>
+
       </li>
       {props.status.user.roleID === 1 &&
-        <li><Link to="/users" className="waves-effect" >Users</Link></li>}
+        <li>
+          <Link
+            to="/dashboard/users"
+            className="waves-effect"
+            id="users"
+          >Users</Link>
+          </li>}
       <li>
-        <Link to="/adddocument" className="waves-effect" >New Document</Link>
+        <Link
+          to="/dashboard/adddocument"
+          id="newdocument"
+        >New Document</Link>
       </li>
       <li>
         <a
@@ -41,19 +49,12 @@ const Sidebar = props => (
           className="waves-effect"
           role="button"
           tabIndex="-1"
+          id="logout"
         >Logout</a>
       </li>
 
 
     </ul>
-    <a
-      href=""
-      data-activates="slide-out"
-      className="button-collapse"
-      role="button"
-      tabIndex="-1"
-    ><i className="material-icons">menu</i>
-    </a>
   </div>
 );
 Sidebar.getDefaultProps = {
@@ -62,9 +63,15 @@ Sidebar.getDefaultProps = {
   status: {}
 };
 Sidebar.propTypes = {
-  user: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  user: PropTypes.shape({
+    id: PropTypes.string,
+    firstName: PropTypes.string,
+    email: PropTypes.string,
+  }),
   id: PropTypes.number,
-  status: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  status: PropTypes.shape({
+    user: PropTypes.object
+  }),
   LogoutAction: PropTypes.func.isRequired
 };
 export default Sidebar;

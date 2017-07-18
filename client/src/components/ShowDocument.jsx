@@ -6,6 +6,8 @@ const ShowDocument = ({
   content,
   access,
   id,
+  ownerID,
+  user,
   deleteDocument,
   firstName,
   lastName
@@ -15,23 +17,28 @@ const ShowDocument = ({
       <div className="card white">
         <div className="card-content black-text">
           <span className="card-title">{title}</span>
+          <div
+            className="card-abstract"
+            dangerouslySetInnerHTML={{ __html: content }}
+          />
           <span className="card-name">{`${firstName} ${lastName}`}</span>
           <span className="doc-access">{access}</span>
-          <p dangerouslySetInnerHTML={{ __html: content }} />
         </div>
 
         <div className="card-action">
-          <div><a
+          { ((ownerID === user.id) || (user.roleID === 1)) && <div><a
             className="btn-floating waves-effect card-btn-delete btn"
             role="button"
             tabIndex="-1"
+            id="delete-doc"
             onClick={() => { deleteDocument(id); }}
           >
             <i className="material-icons left">delete</i>Delete
-          </a> </div>
+          </a> </div>}
           <a
-            href={`/#/document/${id}`}
+            href={`/#/dashboard/document/${id}`}
             className="btn-floating waves-effect  btn"
+            id="viewdoc"
           ><i className="material-icons left">visibility</i>View</a>
           <div className="clear" />
         </div>
@@ -44,18 +51,25 @@ ShowDocument.getDefaultProps = {
   title: '',
   content: '',
   id: 0,
+  ownerID: 0,
   access: '',
   firstName: '',
-  lastName: ''
+  lastName: '',
+  user: {}
 };
 ShowDocument.propTypes = {
   title: PropTypes.string,
   content: PropTypes.string,
   access: PropTypes.string,
   id: PropTypes.number,
+  ownerID: PropTypes.number,
   firstName: PropTypes.string,
   lastName: PropTypes.string,
-  deleteDocument: PropTypes.func.isRequired
+  deleteDocument: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.number,
+    roleID: PropTypes.number
+  }),
 };
 
 

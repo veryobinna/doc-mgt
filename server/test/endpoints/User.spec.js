@@ -114,7 +114,7 @@ describe('Routes : Users', () => {
             expect(res).to.have.status(400);
             expect(res.body.token).to.equal(undefined);
             expect(res.body.message).to.equal(
-              'Login failed. Check your username/email or password');
+              'Login failed! Check your loginID or password');
             done();
           });
     });

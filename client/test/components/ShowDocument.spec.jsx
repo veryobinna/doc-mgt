@@ -4,12 +4,14 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import ShowDocument from './../../src/components/ShowDocument';
 
+global.window = {};
 describe('ShowDocument Component', () => {
   const props = {
     title: 'title',
     content: 'notes',
     access: 'regular',
     id: 3,
+    user: {},
     deleteDocument: sinon.spy(),
     firstName: 'Optimus',
     lastName: 'Prime'
@@ -19,7 +21,7 @@ describe('ShowDocument Component', () => {
   const deleteButton = wrapper.find('.card-btn-delete');
 
   it('should render the ShowDocument component', () => {
-    expect(wrapper.find('div').length).to.equal(7);
+    expect(wrapper.find('div').length).to.equal(8);
     expect(wrapper.find('.card-title').text()).to.equal('title');
     expect(wrapper.find('.card-name').text()).to.equal('Optimus Prime');
   });

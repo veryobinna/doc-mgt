@@ -13,11 +13,13 @@ const event = {
 const props = {
   match: {
     params: {
-
     }
   },
   getSingleUser: () => {},
-  updateUser: () => {}
+  updateUser: () => {},
+  history: {
+    replace: () => {}
+  },
 };
 global.CKEDITOR = () => { this.content = {}; };
 global.CKEDITOR.instances = { content: { getData: () => '' } };
@@ -39,7 +41,7 @@ describe('Edit Document Component', () => {
     assert.calledOnce(onFormSubmitSpy);
   });
   it('should set state on componentWillReceive props', () => {
-    wrapper.setProps({users:'pa'})
+    wrapper.setProps({ users: 'pa' });
     wrapper.update();
   });
 });

@@ -21,10 +21,22 @@ export default {
         roleID: 3,
 
       })
-      .then(user => res.status(201).send({
-        user,
-        message: 'User Created',
-      }))
+      .then((user) => {
+        const userData = {
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          username: user.username,
+          email: user.email,
+          roleID: user.roleID,
+        };
+        const token = jwt.sign(userData, secret, { expiresIn: '12hr' });
+
+        res.status(201).send({
+          token,
+          message: 'User Created',
+        });
+      })
       .catch(error => res.status(400).json({
         message: error.errors[0].message
       }));
@@ -67,13 +79,12 @@ export default {
           };
           const token = jwt.sign(userData, secret, { expiresIn: '12hr' });
           res.status(200).json({
-            userData,
             message: 'Login Successful',
             token
           });
         } else {
           res.status(400).json({
-            message: 'Login failed. Check your username/email or password'
+            message: 'Login failed! Check your loginID or password'
           });
         }
       })
@@ -91,21 +102,32 @@ export default {
         include: {
           model: Role,
           attributes: ['name']
-        }
+        },
+        order: [['id', 'DESC']]
       })
-     .then((users) => {
-       const paginate = {
-         page: Math.floor(offset / limit) + 1,
-         pageSize: users.rows.length,
-         totalCount: users.count,
-         pageCount: Math.ceil(users.count / limit)
+      .then((users) => {
+        const data = users.rows.map(user => Object.assign({},
+          {
+            id: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            username: user.username,
+            email: user.email,
+            roleID: user.roleID,
+            Role: user.Role
+          }));
+        const paginate = {
+          page: Math.floor(offset / limit) + 1,
+          pageSize: users.rows.length,
+          totalCount: users.count,
+          pageCount: Math.ceil(users.count / limit)
 
-       };
-       res.status(200).send({
-         users: users.rows,
-         paginate
-       });
-     })
+        };
+        res.status(200).send({
+          users: data,
+          paginate
+        });
+      })
       .catch(error => res.status(400).json({
         message: error
       }));
@@ -181,9 +203,10 @@ export default {
       message: 'No access to edit user'
     });
   },
-/*eslint-disable*/
+
   destroy(req, res) {
-    if (req.params.id != req.decoded.id && req.decoded.roleID === 1) {
+    if (Number.parseInt(req.params.id, 10) !==
+    Number.parseInt(req.decoded.id, 10) && req.decoded.roleID === 1) {
       return User
         .findById(Number.parseInt(req.params.id, 10))
         .then((user) => {
@@ -208,7 +231,15 @@ export default {
     });
   },
   logout(req, res) {
-    res.status(200).json({ message: 'logout successful' });
+    const id = req.decoded.id;
+    User.findById(id)
+      .then(() => {
+        res.status(200).json({ message: 'logout successful' });
+      })
+          .catch((error) => {
+            res.status(400).json({
+              message: error
+            });
+          });
   }
-
 };

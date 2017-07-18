@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Redirect, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { LoginAction } from '../actions/LoginAction';
+import { LoginAction } from '../actions/AuthAction';
 
 /**
  *
@@ -11,7 +11,7 @@ import { LoginAction } from '../actions/LoginAction';
  * @class Login
  * @extends {Component}
  */
-class Login extends Component {
+export class Login extends Component {
   /**
    * Creates an instance of Login.
    * @param {any} props
@@ -20,7 +20,6 @@ class Login extends Component {
    */
   constructor(props) {
     super(props);
-
     this.state = {
       loginID: '',
       password: ''
@@ -63,7 +62,7 @@ class Login extends Component {
       return (<Redirect
         push
         to={{
-          pathname: '/documents',
+          pathname: `/dashboard/mydocuments/${this.props.status.user.id}`,
         }}
       />);
     }
@@ -71,6 +70,7 @@ class Login extends Component {
       <div className="landing-page">
         <div className="row">
           <div className=" row-container col s6 m6 offset-s3 offset-m3 ">
+            <div className="welcome-text"> Welcome to Doc-mgt.</div>
             <form onSubmit={this.onFormSubmit}>
               <label
                 htmlFor="loginID"
@@ -105,10 +105,8 @@ class Login extends Component {
 const mapDispatchToProps =
   dispatch => bindActionCreators({ LoginAction }, dispatch);
 
-// state is a function param that reps the state within our redux store
-// state.login refs what's in index reducer
 const mapStateToProps = state => ({
-  status: state.login
+  status: state.auth
 });
 
 Login.getDefaultProps = {
@@ -117,9 +115,9 @@ Login.getDefaultProps = {
 };
 Login.propTypes = {
   LoginAction: PropTypes.func,
-  status: PropTypes.object // eslint-disable-line react/forbid-prop-types
+  status: PropTypes.shape({
+    valid: PropTypes.bool,
+    user: PropTypes.object,
+  })
 };
-
-// take the result of the first fuction with two parameter,
-// then pass the second guy,login, to the result
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

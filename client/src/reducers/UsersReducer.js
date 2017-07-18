@@ -18,10 +18,6 @@ const usersReducer = (state = { users: [] }, action) => {
       users = { users: action.payload };
       return { ...state, ...users };
 
-    case types.DELETE_USER:
-      users = { users: action.payload };
-      return { ...state, ...users };
-
     case types.UPDATE_USER:
       users = { users: action.payload };
       return { ...state, ...users };
