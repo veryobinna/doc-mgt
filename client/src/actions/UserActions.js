@@ -98,7 +98,7 @@ const updateUser = data => dispatch => axios
     toastr.success('successful');
   })
   .catch((error) => {
-    toastr.error(error.response.data.message);
+    toastr.error(error.response.data.errors[0].message);
   });
 
 /**
