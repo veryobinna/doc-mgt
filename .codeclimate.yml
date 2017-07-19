@@ -1,13 +1,24 @@
+---
 engines:
+  csslint:
+    enabled: false
+  duplication:
+    enabled: false
+    config:
+      languages:
+      - javascript
   eslint:
+    enabled: false
+  fixme:
     enabled: true
-
 ratings:
   paths:
-  - client/**
-  - server/**
-
-exclude_paths: 
-  - server/tests/
-  - client/src/tests/
-  - client/public/
+  - "**.css"
+  - "**.inc"
+  - "**.js"
+  - "**.jsx"
+  - "**.module"
+  - "**.php"
+  - "**.py"
+  - "**.rb"
+exclude_paths: []
