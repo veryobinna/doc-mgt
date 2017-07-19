@@ -1,5 +1,6 @@
-[![Coverage Status](https://coveralls.io/repos/github/andela-ookwuolisa/doc-mgt/badge.svg?branch=implement-feedback)](https://coveralls.io/github/andela-ookwuolisa/doc-mgt?branch=implement-feedback)
-[![Build Status](https://travis-ci.org/andela-ookwuolisa/doc-mgt.png?branch=develop)](https://travis-ci.org/andela-ookwuolisa/doc-mgt)
+[![Coverage Status](https://coveralls.io/repos/github/andela-ookwuolisa/doc-mgt/badge.svg?branch=develop)](https://coveralls.io/github/andela-ookwuolisa/doc-mgt?branch=develop)
+[![Build Status](https://travis-ci.org/andela-ookwuolisa/doc-mgt.svg?branch=develop)](https://travis-ci.org/andela-ookwuolisa/doc-mgt)
+[![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/codeclimate/codeclimate)
 # doc-mgt
 
 This is a full stack document management system, complete with roles and privileges. Each document defines access rights; the document defines which roles can access it. An admin only can manage other users. Each document also specifies who created it and the date it was published.
