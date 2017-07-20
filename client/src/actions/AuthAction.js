@@ -12,7 +12,6 @@ const loginDetails = payload => ({
   type: types.LOGIN_DETAILS, payload
 });
 
-
 /**
  * Calls the API and returns the user details and token
  * @param {any} userParams
