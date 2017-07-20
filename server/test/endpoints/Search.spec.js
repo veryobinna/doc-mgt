@@ -52,6 +52,24 @@ describe('Routes : Search', () => {
           done();
         });
     });
+    it('it should not allow users search for other users private document ',
+    (done) => {
+      request
+        .get(`/search/documents/?q=${privateDocument.title}`)
+        .set({ 'x-access-token': regular1Token })
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body.document).to.be.an('array');
+          const searchDoc = res.body.document.filter((document) => {
+            if (document.title === privateDocument.title) {
+              return document;
+            }
+            return undefined;
+          });
+          expect(searchDoc).to.eql([]); // deeply equal
+          done();
+        });
+    });
     it('it should allow Admin search for private document', (done) => {
       request
         .get(`/search/documents/?q=${privateDocument.title}`)
