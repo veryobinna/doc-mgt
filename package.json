@@ -13,7 +13,7 @@
     "start:dev": "nodemon server.js --exec babel-node",
     "test:server": "NODE_ENV=test nyc --reporter=html --reporter=text mocha server/test/**/*.spec.js --compilers js:babel-register",
     "test:client": "NODE_ENV=test nyc --reporter=html --reporter=text --extension .jsx mocha  --compilers js:babel-core/register --require client/test/browser.js client/test/**/*.spec.{js,jsx}",
-    "test": "npm run test:server && npm run test:client"
+    "test": "npm run test:server"
   },
   "nyc": {
     "sourceMap": false,
