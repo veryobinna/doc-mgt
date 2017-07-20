@@ -95,9 +95,10 @@ const updateUser = data => dispatch => axios
   .put(`users/${data.id}`, data)
   .then((res) => {
     dispatch(updateUserSuccess(res.data));
+    toastr.success('successful');
   })
   .catch((error) => {
-    toastr.error(error.response.data.message);
+    toastr.error(error.response.data.errors[0].message);
   });
 
 /**

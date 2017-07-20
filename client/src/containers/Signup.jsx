@@ -62,11 +62,11 @@ export class Signup extends Component {
       rules: {
         firstName: {
           required: true,
-          minlength: 6,
+          minlength: 3,
         },
         lastName: {
           required: true,
-          minlength: 6,
+          minlength: 3,
         },
         email: {
           email: true,
@@ -74,11 +74,11 @@ export class Signup extends Component {
         },
         password: {
           required: true,
-          minlength: 6,
+          minlength: 5,
         },
         username: {
           required: true,
-          minlength: 4,
+          minlength: 3,
         },
         confirmPassword: {
           required: true,

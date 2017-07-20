@@ -20,9 +20,10 @@ const addDocument = payload => dispatch => axios
   .post('/documents', payload)
   .then((res) => {
     dispatch(addDocumentSuccess(res.data));
+    toastr.success('successful');
   })
   .catch((error) => {
-    toastr.error(error.response.data.message.errors[0].message);
+    toastr.error(error.response.data.message);
   });
 
 
@@ -142,6 +143,7 @@ const updateDocument = data => dispatch => axios
   .put(`/documents/${data.id}`, data)
   .then((res) => {
     dispatch(updateDocumentSuccess(res.data));
+    toastr.success('successful');
   })
   .catch((error) => {
     toastr.error(error.response.data.message);

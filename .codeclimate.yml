@@ -1,0 +1,13 @@
+engines:
+  eslint:
+    enabled: true
+
+ratings:
+  paths:
+  - client/**
+  - server/**
+
+exclude_paths: 
+  - server/tests/
+  - client/src/tests/
+  - client/public/
