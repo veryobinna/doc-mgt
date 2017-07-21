@@ -51225,7 +51225,7 @@ var GetDocument = exports.GetDocument = function (_Component) {
           breakClassName: 'break-me',
           pageCount: this.state.paginate.pageCount,
           marginPagesDisplayed: 2,
-          pageRangeDisplayed: 3,
+          pageRangeDisplayed: 5,
           onPageChange: this.onPageClick,
           containerClassName: 'pagination',
           subContainerClassName: 'pages pagination',
