@@ -1,7 +1,6 @@
 import models from '../models/';
 
 const Role = models.Roles;
-const User = models.Users;
 
 export default {
   create(req, res) {

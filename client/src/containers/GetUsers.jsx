@@ -95,7 +95,7 @@ export class GetUsers extends Component {
     const offset = selected * 5;
 
     if (this.state.search) {
-      this.setState({ offset, users: [{}] },
+      this.setState({ offset, users: [{ Role: {} }] },
         this.onSearch // callback
       );
     }
@@ -209,8 +209,6 @@ GetUsers.getDefaultProps = {
   users: {},
   id: '',
   status: {},
-  deleteUser: () => { },
-  searchUsers: () => { },
   getUsers: {},
   paginate: {}
 
@@ -224,9 +222,9 @@ GetUsers.propTypes = {
     email: PropTypes.string,
     roleID: PropTypes.number,
   }),
-  searchUsers: PropTypes.func,
+  searchUsers: PropTypes.func.isRequired,
   getUsers: PropTypes.func,
-  deleteUser: PropTypes.func,
+  deleteUser: PropTypes.func.isRequired,
   paginate: PropTypes.shape({
     pageCount: PropTypes.object
   }),
