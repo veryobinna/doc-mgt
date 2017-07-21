@@ -242,10 +242,6 @@ const mapStateToProps = state => ({
 
 GetDocument.getDefaultProps = {
   documents: {},
-  getDocument: () => { },
-  getMyDocument: () => { },
-  deleteDocument: () => { },
-  searchDocument: () => { },
   match: {},
   paginate: {},
   status: {},
@@ -259,10 +255,10 @@ GetDocument.propTypes = {
     content: PropTypes.content,
     access: PropTypes.access,
   }),
-  getDocument: PropTypes.func,
-  getMyDocument: PropTypes.func,
-  deleteDocument: PropTypes.func,
-  searchDocument: PropTypes.func,
+  getDocument: PropTypes.func.isRequired,
+  getMyDocument: PropTypes.func.isRequired,
+  deleteDocument: PropTypes.func.isRequired,
+  searchDocument: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.object,
     url: PropTypes.string
