@@ -89,7 +89,8 @@ export default {
         }
       })
       .catch(error => res.status(400).json({
-        message: error
+        error,
+        message: 'this is where it fails'
       }));
   },
   list(req, res) {
