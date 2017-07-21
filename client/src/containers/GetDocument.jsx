@@ -35,7 +35,9 @@ export class GetDocument extends Component {
       search: false,
       getDocument: false,
       getMyDocument: false,
-      paginate: {}
+      paginate: {
+        pageCount: 0
+      }
     };
     this.deleteDocument = this.deleteDocument.bind(this);
     this.onSearch = this.onSearch.bind(this);
@@ -213,7 +215,7 @@ export class GetDocument extends Component {
           breakClassName={'break-me'}
           pageCount={this.state.paginate.pageCount}
           marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
+          pageRangeDisplayed={3}
           onPageChange={this.onPageClick}
           containerClassName={'pagination'}
           subContainerClassName={'pages pagination'}
