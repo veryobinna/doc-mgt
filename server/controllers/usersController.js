@@ -68,6 +68,7 @@ export default {
             message: 'User not found'
           });
         } else if (user.isVerified(req.body.password)) {
+          return Promise.reject('Ok lets do this');
           const userData = {
             id: user.id,
             firstName: user.firstName,
@@ -88,10 +89,10 @@ export default {
           });
         }
       })
-      .catch(error => res.status(400).json({
-        error,
-        message: 'this is where it fails'
-      }));
+      .catch(error => {
+          return res.status(400)
+          .json({ error,message: 'this is where it fails'})
+      });
   },
   list(req, res) {
     const offset = Number.parseInt(req.query.offset, 10) || 0,
