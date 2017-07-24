@@ -26,6 +26,7 @@ const wrapper = shallow(<GetDocument {...props} />);
 
 describe('Get Document Component', () => {
   it('should render the Get Document component', () => {
+    expect(wrapper.find('.get-document').exists()).to.equal(true);
     expect(wrapper.find('SearchBar').exists()).to.equal(true);
     expect(wrapper.find('div').exists()).to.equal(true);
   });

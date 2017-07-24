@@ -15,7 +15,7 @@ import Footer from '../components/Footer';
  * @returns {html} DOM element
  */
 export const Dashboard = props => (
-  <div className="">
+  <div className="dashboard">
     <Navbar />
     <div className="col s3">
       <Sidebar {...props} />

@@ -64,7 +64,7 @@ const signupAction = userParams => dispatch => axios
  * @returns {object} dispatched the user details
  */
 const LogoutAction = () => {
-  window.localStorage.removeItem('token');
+  localStorage.removeItem('token');
   return {
     type: types.LOG_OUT, payload: { user: null }
   };

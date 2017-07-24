@@ -29,7 +29,9 @@ export class GetUsers extends Component {
       query: '',
       offset: 0,
       limit: 12,
-      paginate: '',
+      paginate: {
+        pageCount: 0
+      },
       search: false,
       getUsers: false
 
@@ -168,7 +170,7 @@ export class GetUsers extends Component {
       return <ShowUsers key={Math.random()} {...items} />;
     });
     return (
-      <div className="col s12 m12 l9">
+      <div className="get-users col s12 m12 l9">
         <SearchBar onSearch={this.onSearch} holder={this.state.holder} />
         <div className="row">
           {users}

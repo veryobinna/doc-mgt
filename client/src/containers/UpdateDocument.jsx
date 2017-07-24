@@ -84,7 +84,7 @@ export class UpdateDocument extends Component {
    */
   render() {
     return (
-      <div className="row col s12 m12 l9">
+      <div className="update-document row col s12 m12 l9">
         <form className="col s10" onSubmit={this.onFormSubmit}>
           <div className="row">
             <div className="input-field col s12">

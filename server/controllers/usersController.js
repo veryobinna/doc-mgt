@@ -184,7 +184,8 @@ export default {
       }));
   },
   update(req, res) {
-    if (req.params.id !== req.decoded.id && req.decoded.roleID === 1) {
+    if (Number.parseInt(req.params.id, 10) !==
+    Number.parseInt(req.decoded.id, 10) && req.decoded.roleID === 1) {
       return User
         .findById(Number.parseInt(req.params.id, 10)).then((user) => {
           if (!user) {

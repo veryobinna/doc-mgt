@@ -82,7 +82,7 @@ export class AddDocument extends Component {
    */
   render() {
     return (
-      <div className="col s12 m12 l9">
+      <div className="add-document col s12 m12 l9">
         <form onSubmit={this.onFormSubmit}>
           <div className="row">
             <div className="input-field col s12">

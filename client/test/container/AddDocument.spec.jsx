@@ -16,8 +16,10 @@ const props = {
 const onInputChangeSpy = spy(AddDocument.prototype, 'onInputChange');
 const onFormSubmitSpy = spy(AddDocument.prototype, 'onFormSubmit');
 const wrapper = shallow(<AddDocument {...props} />);
+
 describe('Add Document Component', () => {
   it('should render the Add Document component', () => {
+    expect(wrapper.find('.add-document').exists()).to.equal(true);
     expect(wrapper.find('.input-field').exists()).to.equal(true);
   });
 

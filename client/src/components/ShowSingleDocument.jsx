@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const ShowSingleDocument = props => (
-  <div className="">
+  <div className="show-document">
     <div id="modal1" className="modal modal-fixed-footer">
       <div className="modal-content">
         <h4 id="doc-title">{props.document.title}</h4>

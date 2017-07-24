@@ -6,7 +6,7 @@ const ShowUsers = ({
   id, firstName, lastName, email, roleName, deleteUser }) => (
 
 
-    <ul className="collection">
+    <ul className="show-users collection">
       <li className="collection-item avatar ">
         <span className="title">{`${firstName} ${lastName}`}</span>
         <p>{email}</p>

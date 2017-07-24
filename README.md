@@ -64,13 +64,13 @@ $ cd doc-mgt
 $ npm install
 $ npm run migrate
 ```
+- You can undo the migrations by running this command npm run `db:migrate:undo`.
 
 To run the app, use `npm start` and open `localhost:3000` on your browser.
 
 ### Testing 
 - Run Test `npm test` to run client and server side tests.
-- Run e2e test with `npm run e2e` (ensure application is running)
-- You can undo the migrations by running this command npm run `db:migrate:undo`.
+- Run e2e test with `npm run start:selenium` and on another console, run `npm run e2e` (ensure application is running).
 
 
 ### How to Contribute

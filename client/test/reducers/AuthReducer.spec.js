@@ -1,5 +1,6 @@
 import { expect } from 'chai';
-import { loginDetails, signupDetails } from '../../src/actions/AuthAction';
+import { loginDetails, signupDetails,
+  LogoutAction } from '../../src/actions/AuthAction';
 import AuthReducer from '../../src/reducers/AuthReducer';
 
 describe('Login Reducer', () => {
@@ -33,5 +34,12 @@ describe('Sign up Reducer:', () => {
       const newState = AuthReducer({ }, action);
       expect(newState.data.id).to.eql(action.payload.id);
     });
+  });
+});
+describe('Logout Reducer:', () => {
+  it('should set user vlue to null', () => {
+    const action = LogoutAction();
+    const newState = AuthReducer({ }, action);
+    expect(newState.user).to.eql(action.payload.user);
   });
 });

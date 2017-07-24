@@ -91,7 +91,7 @@ export class UpdateUser extends Component {
    */
   render() {
     return (
-      <div className="row container col s12 m12 l9">
+      <div className="update-users row container col s12 m12 l9">
         <form onSubmit={this.onFormSubmit} className="col s12">
           <div className="row">
             <div className="input-field col s6">

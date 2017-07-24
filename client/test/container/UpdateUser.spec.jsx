@@ -29,6 +29,7 @@ const onFormSubmitSpy = spy(UpdateUser.prototype, 'onFormSubmit');
 const wrapper = shallow(<UpdateUser {...props} />);
 describe('Edit Document Component', () => {
   it('should render the Edit Document component', () => {
+    expect(wrapper.find('.update-users').exists()).to.equal(true);
     expect(wrapper.find('.input-field').exists()).to.equal(true);
   });
 

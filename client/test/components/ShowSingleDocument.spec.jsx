@@ -18,15 +18,16 @@ describe('ShowSingleDocument Component', () => {
       }
     }
   };
-  const setup = () => shallow(<ShowSingleDocument {...props} />);
+
+  const wrapper = shallow(<ShowSingleDocument {...props} />);
+  const updateButton = wrapper.find('.modal-action');
   it('should render the ShowSingleDocument component', () => {
-    const wrapper = setup();
-    const updateButton = wrapper.find('.modal-action');
+    expect(wrapper.find('.show-document').exists()).to.equal(true);
     expect(wrapper.find('div').length).to.equal(4);
     expect(wrapper.find('.modal-content').text()).to.equal('title');
-    // expect(typeof wrapper.find('.card-btn-delete').node.props.onClick)
-    // .to.equal('function');
-    // expect(wrapper.find('.card-name').text()).to.equal('Optimus Prime');
+  });
+
+  it('should call the update document function on update-button click', () => {
     updateButton.simulate('click');
     expect(props.updateDocument.called).to.equal(true);
   });
