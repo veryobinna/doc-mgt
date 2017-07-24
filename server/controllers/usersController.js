@@ -68,7 +68,6 @@ export default {
             message: 'User not found'
           });
         } else if (user.isVerified(req.body.password)) {
-          return Promise.reject('Ok lets do this');
           const userData = {
             id: user.id,
             firstName: user.firstName,
@@ -79,12 +78,12 @@ export default {
             roleName: user.Role.name
           };
           const token = jwt.sign(userData, secret, { expiresIn: '12hr' });
-          res.status(200).json({
+          return res.status(200).json({
             message: 'Login Successful',
             token
           });
         } else {
-          res.status(400).json({
+          return res.status(400).json({
             message: 'Login failed! Check your loginID or password'
           });
         }
