@@ -77,6 +77,9 @@ nav{
 .loginPS{
     margin-left: 2rem
 }
+.loginPS >a{
+    color: $link
+}
 .sidebar-top{
     background-image: url('/dist/img/office.jpg');
     color: $side-bar;
@@ -159,9 +162,7 @@ nav{
  .clear{
      clear:both;
  }
- a{
-     color: $link;
- }
+
  .btn-del{
     left: 90%;
     background-color: $primary

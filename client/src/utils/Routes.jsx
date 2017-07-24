@@ -10,6 +10,7 @@ import UpdateDocument from '../containers/UpdateDocument';
 import UpdateUser from '../containers/UpdateUser';
 import GetUsers from '../containers/GetUsers';
 import CheckAuthentication from '../containers/CheckAuthentication';
+import NotFound from '../components/NotFound';
 
 
 const routes = (
@@ -53,6 +54,11 @@ const routes = (
         exact
         path="/dashboard/users"
         component={CheckAuthentication(GetUsers)}
+      />
+
+      <Route
+        path="*"
+        component={NotFound}
       />
     </div>
   </HashRouter>

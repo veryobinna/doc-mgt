@@ -78,24 +78,20 @@ export default {
             roleName: user.Role.name
           };
           const token = jwt.sign(userData, secret, { expiresIn: '12hr' });
-          return res.status(200).json({
+          res.status(200).json({
             message: 'Login Successful',
             token
           });
         } else {
-          return res.status(400).json({
+          res.status(400).json({
             message: 'Login failed! Check your loginID or password'
           });
         }
       })
-      .catch(error => res.status(400).json({
+      .catch(error => res.status(500).json({
         error,
-        message: 'this is where it fails'
+        message: 'server error'
       }));
-      // .catch(error => {
-      //     return res.status(400)
-      //     .json({ error,message: 'this is where it fails'})
-      // });
   },
   list(req, res) {
     const offset = Number.parseInt(req.query.offset, 10) || 0,

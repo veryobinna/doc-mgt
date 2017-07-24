@@ -4,5 +4,5 @@
 .DS_Store
 /reports
 npm-debug.log
-client/public/js/bundle.js
+client/public/bundle.js
 .nyc_output

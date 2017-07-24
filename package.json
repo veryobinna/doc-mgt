@@ -2,6 +2,9 @@
   "name": "doc-mgt",
   "version": "1.0.0",
   "description": "A document management system",
+  "engines": {
+    "node": "6.11.1"
+  },
   "main": "index.js",
   "scripts": {
     "build": "./node_modules/.bin/webpack -p",
