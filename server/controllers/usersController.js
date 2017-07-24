@@ -89,10 +89,14 @@ export default {
           });
         }
       })
-      .catch(error => {
-          return res.status(400)
-          .json({ error,message: 'this is where it fails'})
-      });
+      .catch(error => res.status(400).json({
+        error,
+        message: 'this is where it fails'
+      }));
+      // .catch(error => {
+      //     return res.status(400)
+      //     .json({ error,message: 'this is where it fails'})
+      // });
   },
   list(req, res) {
     const offset = Number.parseInt(req.query.offset, 10) || 0,
