@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter, Route } from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import Dashboard from '../containers/Dashboard';
 import Signup from '../containers/Signup';
 import Login from '../containers/Login';
@@ -16,50 +16,47 @@ import NotFound from '../components/NotFound';
 const routes = (
   <HashRouter>
     <div className="row">
-      <Route exact path="/" component={Login} />
-      <Route exact path="/signup" component={Signup} />
       <Route path="/dashboard" component={CheckAuthentication(Dashboard)} />
-
-      <Route
-        exact
-        path="/dashboard/documents"
-        component={CheckAuthentication(GetDocument)}
-      />
-      <Route
-        exact
-        path="/dashboard/mydocuments/:id"
-        component={CheckAuthentication(GetDocument)}
-      />
-      <Route
-        exact
-        path="/dashboard/adddocument"
-        component={CheckAuthentication(AddDocument)}
-      />
-      <Route
-        exact
-        path="/dashboard/document/:id"
-        component={CheckAuthentication(GetSingleDocument)}
-      />
-      <Route
-        exact
-        path="/dashboard/updatedocument"
-        component={CheckAuthentication(UpdateDocument)}
-      />
-      <Route
-        exact
-        path="/dashboard/users/:id"
-        component={CheckAuthentication(UpdateUser)}
-      />
-      <Route
-        exact
-        path="/dashboard/users"
-        component={CheckAuthentication(GetUsers)}
-      />
-
-      <Route
-        path="*"
-        component={NotFound}
-      />
+      <Switch>
+        <Route exact path="/" component={Login} />
+        <Route exact path="/signup" component={Signup} />
+        <Route
+          exact
+          path="/dashboard/documents"
+          component={CheckAuthentication(GetDocument)}
+        />
+        <Route
+          exact
+          path="/dashboard/mydocuments/:id"
+          component={CheckAuthentication(GetDocument)}
+        />
+        <Route
+          exact
+          path="/dashboard/adddocument"
+          component={CheckAuthentication(AddDocument)}
+        />
+        <Route
+          exact
+          path="/dashboard/document/:id"
+          component={CheckAuthentication(GetSingleDocument)}
+        />
+        <Route
+          exact
+          path="/dashboard/updatedocument"
+          component={CheckAuthentication(UpdateDocument)}
+        />
+        <Route
+          exact
+          path="/dashboard/users/:id"
+          component={CheckAuthentication(UpdateUser)}
+        />
+        <Route
+          exact
+          path="/dashboard/users"
+          component={CheckAuthentication(GetUsers)}
+        />
+        <Route exact path="*" component={NotFound} />
+      </Switch>
     </div>
   </HashRouter>
 );

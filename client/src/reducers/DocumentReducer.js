@@ -29,6 +29,10 @@ const documentReducer = (state = { documents: {} }, action) => {
       const docs = { documents: action.payload };
       return { ...state, ...docs }; }
 
+    case types.DELETE_DOCUMENT: {
+      const docs = { documents: action.payload };
+      return { ...state, ...docs }; }
+
     case types.ADD_DOCUMENT: {
       const docs = { documents: action.payload };
       return { ...state, ...docs }; }

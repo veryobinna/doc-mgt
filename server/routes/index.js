@@ -57,6 +57,12 @@ const Routes = (app) => {
  * @swagger
  * /Users:
  *   get:
+ *     parameters:
+ *       - name: authorization
+ *         in: header
+ *         description: JSON web token
+ *         required: true
+ *         type: string
  *     tags:
  *       - Users
  *     description: Fetches all users
@@ -66,8 +72,6 @@ const Routes = (app) => {
  *     responses:
  *       200:
  *         description: All Users
- *       schema:
- *           $ref: '#/definitions/Users'
  */
   app.get('/users', authenticate.verifyToken,
   authenticate.verifyAdmin, usersController.list);
@@ -82,8 +86,13 @@ const Routes = (app) => {
  *     produces:
  *       - application/json
  *     parameters:
+ *       - name: authorization
+ *         in: header
+ *         description: JSON web token
+ *         required: true
+ *         type: string
  *       - name: id
- *         description: User id
+ *         description: User ID
  *         in: path
  *         required: true
  *         type: integer
@@ -104,10 +113,15 @@ const Routes = (app) => {
  *     description: Returns Users that match the search query
  *     summary: Search Users
  *     parameters:
+ *       - name: authorization
+ *         in: header
+ *         description: JSON web token
+ *         required: true
+ *         type: string
  *       - name: q
  *         type: string
  *         description: search query
- *         in: path
+ *         in: query
  *         required: true
  *     produces:
  *       - application/json
@@ -129,18 +143,22 @@ const Routes = (app) => {
  *     summary: update User
  *     produces: application/json
  *     parameters:
- *       - name: user
- *         description: user object
- *         type: object
- *         in: path
+ *       - name: authorization
+ *         in: header
+ *         description: JSON web token
  *         required: true
+ *         type: string
  *       - name: id
  *         description: User id
  *         in: path
  *         required: true
  *         type: integer
+ *       - name: user
+ *         description: user object
+ *         in: body
+ *         required: true
  *         schema:
- *           type: object
+ *           type: string
  *           $ref: '#/definitions/Users'
  *     responses:
  *       200:
@@ -161,12 +179,19 @@ const Routes = (app) => {
  *     produces:
  *       - application/json
  *     parameters:
+ *       - name: authorization
+ *         in: header
+ *         description: JSON web token
+ *         required: true
+ *         type: string
  *       - name: id
  *         description: User's id
  *         in: path
  *         required: true
  *         type: integer
- *     responses: 204
+ *     responses:
+ *         204:
+ *            description: User Deleted
  */
   app.delete('/users/:id', authenticate.verifyToken,
   authenticate.verifyAdmin, usersController.destroy);
@@ -239,10 +264,6 @@ const Routes = (app) => {
  *         type: string
  *       access:
  *         type: string
- *       roleId:
- *         type: integer
- *       ownerId:
- *         type: integer
  */
 
 /**
@@ -256,6 +277,11 @@ const Routes = (app) => {
  *     produces:
  *       - application/json
  *     parameters:
+ *       - name: authorization
+ *         in: header
+ *         description: JSON web token
+ *         required: true
+ *         type: string
  *       - name: document
  *         description: documents object
  *         in: body
@@ -278,6 +304,12 @@ const Routes = (app) => {
  *     summary: get documents
  *     produces:
  *       - application/json
+ *     parameters:
+ *       - name: authorization
+ *         in: header
+ *         description: JSON web token
+ *         required: true
+ *         type: string
  *     responses:
  *       200:
  *         description: all documents
@@ -296,6 +328,12 @@ const Routes = (app) => {
  *     summary: gets document
  *     produces:
  *       - application/json
+ *     parameters:
+ *       - name: authorization
+ *         in: header
+ *         description: JSON web token
+ *         required: true
+ *         type: string
  *     responses:
  *       200:
  *         description: one document
@@ -306,7 +344,7 @@ const Routes = (app) => {
   authenticate.verifyToken, documentsController.find);
 /**
  * @swagger
- * /documents/:id:
+ * /documents/{id}:
  *   get:
  *     tags:
  *       - Documents
@@ -315,11 +353,16 @@ const Routes = (app) => {
  *     produces:
  *       - application/json
  *     parameters:
+ *       - name: authorization
+ *         in: header
+ *         description: JSON web token
+ *         required: true
+ *         type: string
  *       - name: id
  *         description: Document id
  *         in: path
  *         required: true
- *         type: integer
+ *         type: string
  *     responses:
  *       200:
  *         description: all user's documents
@@ -337,6 +380,11 @@ const Routes = (app) => {
  *     description: Returns documents that match the search query
  *     summary: Search documents
  *     parameters:
+ *       - name: authorization
+ *         in: header
+ *         description: JSON web token
+ *         required: true
+ *         type: string
  *       - name: q
  *         type: string
  *         description: search query
@@ -362,18 +410,22 @@ const Routes = (app) => {
  *     summary: update document
  *     produces: application/json
  *     parameters:
- *       - name: document
- *         description: document object
- *         type: object
- *         in: path
+ *       - name: authorization
+ *         in: header
+ *         description: JSON web token
  *         required: true
+ *         type: string
  *       - name: id
  *         description: Document id
  *         in: path
  *         required: true
  *         type: integer
+ *       - name: document
+ *         description: document object
+ *         in: body
+ *         required: true
  *         schema:
- *           type: object
+ *           type: string
  *           $ref: '#/definitions/Documents'
  *     responses:
  *       200:
@@ -393,12 +445,19 @@ const Routes = (app) => {
  *     produces:
  *       - application/json
  *     parameters:
+ *       - name: authorization
+ *         in: header
+ *         description: JSON web token
+ *         required: true
+ *         type: string
  *       - name: id
  *         description: User id
  *         in: path
  *         required: true
  *         type: integer
- *     responses: 204
+ *     responses:
+ *         204:
+ *            description: User Deleted
  */
   app.delete('/documents/:id',
   authenticate.verifyToken, documentsController.destroy);
@@ -424,6 +483,11 @@ const Routes = (app) => {
  *     produces:
  *       - application/json
  *     parameters:
+ *       - name: authorization
+ *         in: header
+ *         description: JSON web token
+ *         required: true
+ *         type: string
  *       - name: name
  *         description: role name
  *         in: body
@@ -465,6 +529,11 @@ const Routes = (app) => {
  *     produces:
  *       - application/json
  *     parameters:
+ *       - name: authorization
+ *         in: header
+ *         description: JSON web token
+ *         required: true
+ *         type: string
  *       - name: id
  *         description: role id
  *         in: path
@@ -488,6 +557,11 @@ const Routes = (app) => {
  *     summary: update document
  *     produces: application/json
  *     parameters:
+ *       - name: authorization
+ *         in: header
+ *         description: JSON web token
+ *         required: true
+ *         type: string
  *       - name: document
  *         description: document object
  *         type: object
@@ -519,6 +593,11 @@ const Routes = (app) => {
  *     produces:
  *       - application/json
  *     parameters:
+ *       - name: authorization
+ *         in: header
+ *         description: JSON web token
+ *         required: true
+ *         type: string
  *       - name: id
  *         description: Role id
  *         in: path

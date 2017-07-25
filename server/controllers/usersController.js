@@ -195,7 +195,9 @@ export default {
           }
           user.update(req.body, { fields: Object.keys(req.body) })
             .then(userUpadate => res.status(200).send(userUpadate))
-            .catch(error => res.status(400).send(error));
+      .catch(error => res.status(400).json({
+        message: error.errors[0].message
+      }));
         })
         .catch(error => res.status(400).json({
           message: error

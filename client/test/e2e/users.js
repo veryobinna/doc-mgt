@@ -2,7 +2,7 @@ import faker from 'faker';
 import url from './config';
 
 module.exports = {
-  'Create document': (browser) => {
+  'Update User Profile': (browser) => {
     browser
       .resizeWindow(1200, 900)
       .url(url.login)
@@ -22,8 +22,11 @@ module.exports = {
       .clearValue('input[id=firstName]')
       .setValue('input[id="firstName"]', faker.name.firstName())
       .click('select option[value="3"]')
-      .pause(2000)
+      .pause(1000)
       .click('button')
+      .pause(1000)
+      .waitForElementVisible('.toast-success')
+      .assert.containsText('.toast-success', 'successful')
       .pause(2000)
       .end();
   }

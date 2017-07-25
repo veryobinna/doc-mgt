@@ -120,7 +120,6 @@ export class UpdateDocument extends Component {
                 <option value="private">private</option>
                 <option value="role">role</option>
               </select>
-              <label htmlFor="access" className="active" >Access</label>
             </div>
           </div>
           <button className="btn-doc waves-effect waves-light btn">

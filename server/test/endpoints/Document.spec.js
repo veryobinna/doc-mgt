@@ -58,6 +58,7 @@ describe('Documents', () => {
       done();
     });
   });
+
   describe('POST /documents/', () => {
     it('it should allow users to create private access documents', (done) => {
       request
@@ -72,6 +73,7 @@ describe('Documents', () => {
           done();
         });
     });
+
     it('it should allow users to create public access documents', (done) => {
       request
         .post('/documents')
@@ -85,6 +87,7 @@ describe('Documents', () => {
           done();
         });
     });
+
     it('it should allow users to create role access documents', (done) => {
       request
         .post('/documents')
@@ -98,6 +101,7 @@ describe('Documents', () => {
           done();
         });
     });
+
     it(`it should not allow users to create documents
         without specifying role access`, (done) => {
       request
@@ -111,17 +115,19 @@ describe('Documents', () => {
             done();
           });
     });
+
     it('it should not allow users update documents that dont exist', (done) => {
       request
-        .put('/documents/0')
+        .put('/documents/9')
         .set({ 'x-access-token': regular1Token })
         .send(publicDocument1)
         .end((err, res) => {
-          expect(res).to.have.status(404);
-          expect(res.body.message).to.equal('Document Not Found');
+          expect(res).to.have.status(400);
+          expect(res.body.message).to.equal('Title already exist');
           done();
         });
     });
+
     it('should not allow users to create empty content document', (done) => {
       request
         .post('/documents')
@@ -134,6 +140,7 @@ describe('Documents', () => {
           done();
         });
     });
+
     it('should not allow users to create empty title document', (done) => {
       request
         .post('/documents')
@@ -147,6 +154,7 @@ describe('Documents', () => {
         });
     });
   });
+
   describe('GET /documents/:id', () => {
     it('should allow admin retrieve private documents', (done) => {
       request
@@ -158,6 +166,7 @@ describe('Documents', () => {
           done();
         });
     });
+
     it(`should not allow regular user retrieve
        private documents not created by user`, (done) => {
       request
@@ -169,6 +178,7 @@ describe('Documents', () => {
             done();
           });
     });
+
     it(`it should allow regular user retrieve
         private documents he created`, (done) => {
       request
@@ -180,6 +190,7 @@ describe('Documents', () => {
             done();
           });
     });
+
     it('it should allow allow regular users retrieve public', (done) => {
       request
         .get(`/documents/${publicDocId}`)
@@ -190,6 +201,7 @@ describe('Documents', () => {
           done();
         });
     });
+
     it(`it should allow allow regular
        users retrieve role doucuments`, (done) => {
       request
@@ -201,6 +213,7 @@ describe('Documents', () => {
             done();
           });
     });
+
     it('it should not display document that does not exist', (done) => {
       request
         .get('/documents/0')
@@ -212,6 +225,43 @@ describe('Documents', () => {
         });
     });
   });
+
+  describe('GET /users/:id/documents/', () => {
+    it('should allow admin retrieve any users\' documents', (done) => {
+      request
+        .get('/users/2/documents')
+        .set({ 'x-access-token': adminToken })
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body.document).to.be.an('array');
+          done();
+        });
+    });
+
+    it('should return an error when the user ID does not exist', (done) => {
+      request
+        .get('/users/0/documents')
+        .set({ 'x-access-token': adminToken })
+        .end((err, res) => {
+          expect(res).to.have.status(404);
+          expect(res.body.message).to.equal('User Not Found');
+          done();
+        });
+    });
+
+    it('should return an error when the user ID does not exist', (done) => {
+      request
+      .get('/users/a/documents')
+      .set({ 'x-access-token': adminToken })
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.message).to.equal('Invalid User Input');
+        done();
+      });
+    });
+  });
+
+
   describe('GET /documents', () => {
     it(`The number of documents available to an admin
       must be greater or equall to any other user`, (done) => {
@@ -225,6 +275,7 @@ describe('Documents', () => {
             done();
           });
     });
+
     it(`The number of documents available to an admin
       must be greater or equall to any other user`, (done) => {
       request
@@ -238,6 +289,7 @@ describe('Documents', () => {
           });
     });
   });
+
   describe('PUT /documents/:id', () => {
     it(`it should not allow users update
         documents they did not create`, (done) => {
@@ -251,6 +303,7 @@ describe('Documents', () => {
           done();
         });
     });
+
     it('it should not allow users update documents that dont exist', (done) => {
       request
         .put('/documents/0')
@@ -262,6 +315,7 @@ describe('Documents', () => {
           done();
         });
     });
+
     it('it should allow users update documents created by them', (done) => {
       request
         .put(`/documents/${privateDocId}`)
@@ -274,6 +328,7 @@ describe('Documents', () => {
         });
     });
   });
+
   describe('DELETE /documents/:id', () => {
     it(`it should not allow users delete
       documents they did not create`, (done) => {
@@ -286,6 +341,7 @@ describe('Documents', () => {
             done();
           });
     });
+
     it('it should not allow users delete documents that dont exist', (done) => {
       request
         .delete('/documents/0')
@@ -296,6 +352,7 @@ describe('Documents', () => {
           done();
         });
     });
+
     it('it should allow users delete documents created by them', (done) => {
       request
         .delete(`/documents/${privateDocId}`)
@@ -305,6 +362,7 @@ describe('Documents', () => {
           done();
         });
     });
+
     it('it should allow admin delete any users document', (done) => {
       request
         .delete(`/documents/${publicDocId}`)

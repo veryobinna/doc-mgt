@@ -28,7 +28,9 @@ main {
     background-image: url('/dist/img/books.jpg');
     height: 100vh;
     width: 100vw;
-    background-position: left;
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
     color: $landing-page;
 }
 .row-container{
@@ -244,4 +246,8 @@ select{
 }
 .active {
     font-weight: 900 !important;
+}
+.preloader-wrapper {
+    top: 10rem;
+    left: 31rem;
 }

@@ -32,6 +32,10 @@ const props = {
 };
 const wrapper = shallow(<GetUsers {...props} />);
 
+wrapper.setState({ users: [{ Role: {} }],
+  paginate: { pageCount: 0 },
+  loaded: true });
+
 describe('Get Users Component', () => {
   it('should render the Get Users component', () => {
     expect(wrapper.find('.get-users').exists()).to.equal(true);
@@ -53,6 +57,7 @@ describe('Get Users Component', () => {
     wrapper.instance().onSearch(event);
     expect(props.searchUsers.called).to.equal(true);
   });
+
   it('should call the next page of Search Users on pageclick', () => {
     wrapper.setState({ search: true });
     wrapper.instance().onPageClick(event);

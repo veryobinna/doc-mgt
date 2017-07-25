@@ -29,6 +29,7 @@ describe('Login Component', () => {
     wrapper.instance().onInputChange(event);
     assert.calledOnce(onInputChangeSpy);
   });
+
   it('should handle onFormSubmit', () => {
     wrapper.update();
     wrapper.find('form').simulate('submit', { preventDefault: () => {} });

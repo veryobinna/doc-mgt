@@ -37,7 +37,8 @@ export class GetDocument extends Component {
       getMyDocument: false,
       paginate: {
         pageCount: 0
-      }
+      },
+      loaded: false
     };
     this.deleteDocument = this.deleteDocument.bind(this);
     this.onSearch = this.onSearch.bind(this);
@@ -70,10 +71,13 @@ export class GetDocument extends Component {
    * @memberof GetDocument
    */
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      documents: nextProps.documents,
-      paginate: nextProps.paginate
-    });
+    if (nextProps.documents) {
+      this.setState({
+        documents: nextProps.documents,
+        paginate: nextProps.paginate,
+        loaded: true
+      });
+    }
   }
 
 /**
@@ -107,7 +111,7 @@ export class GetDocument extends Component {
  */
   onPageClick(event) {
     const selected = event.selected;
-    const offset = selected * 6;
+    const offset = selected * 12;
 
     if (this.state.search) {
       this.setState({ offset },
@@ -170,7 +174,12 @@ export class GetDocument extends Component {
         swal('Deleted!', 'File Deleted.', 'success');
         this.props.deleteDocument(id)
       .then(() => {
-        this.getDocument();
+        if (this.props.match.params.id) {
+          this.getMyDocument();
+        }
+        if (this.props.match.url === '/dashboard/documents') {
+          this.getDocument();
+        }
       });
       } else {
         swal('Cancelled', 'File not Deleted', 'error');
@@ -186,7 +195,7 @@ export class GetDocument extends Component {
    * @memberof GetDocument
    */
   render() {
-    if (this.state.documents.length === 1) {
+    if (this.state.loaded === false) {
       return (
         <div className="preloader-wrapper active">
           <div className="spinner-layer spinner-red-only">

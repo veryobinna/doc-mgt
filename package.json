@@ -28,7 +28,8 @@
     ],
     "exclude": [
       "server/test",
-      "client/test"
+      "client/test",
+      "server/routes"
     ],
     "extension": [
       ".jsx",

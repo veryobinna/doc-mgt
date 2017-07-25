@@ -33,6 +33,7 @@ describe('Signup Component', () => {
     wrapper.instance().onInputChange(event);
     assert.calledOnce(onInputChangeSpy);
   });
+
   it('should handle onFormSubmit', () => {
     wrapper.find('form').simulate('submit', { preventDefault: () => {} });
     assert.calledOnce(onFormSubmitSpy);

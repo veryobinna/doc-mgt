@@ -6,7 +6,16 @@ const User = models.Users;
 
 export default {
   create(req, res) {
-    return Document
+    Document.findOne({ where: {
+      $and: {
+        ownerID: req.decoded.id,
+        title: req.body.title } } })
+      .then((documentExist) => {
+        if (documentExist) {
+          res.status(400).json(
+            { message: 'Title already exist' });
+        } else {
+          return Document
       .create({
         title: req.body.title,
         content: req.body.content,
@@ -18,6 +27,8 @@ export default {
       .catch(error => res.status(400).json({
         message: error.errors[0].message
       }));
+        }
+      });
   },
 
   list(req, res) {
@@ -48,7 +59,8 @@ export default {
           });
         })
         .catch(error => res.status(400).json({
-          message: error
+          error: error.message,
+          message: 'Invalid user input'
         }));
     }
     return Document
@@ -91,7 +103,8 @@ export default {
         });
       })
       .catch(error => res.status(400).json({
-        message: error
+        error: error.message,
+        message: 'Invalid user input'
       }));
   },
 
@@ -126,15 +139,17 @@ export default {
                 document: document.rows,
                 paginate
               });
-            })
-            .catch(error => res.status(400).send(error));
+            });
         } else {
           res.status(404)
             .json({
               message: 'User Not Found'
             });
         }
-      });
+      }).catch(error => res.status(400).json({
+        error: error.message,
+        message: 'Invalid User Input'
+      }));
   },
 
   find(req, res) {
@@ -158,7 +173,8 @@ export default {
           return res.status(200).send(document);
         })
         .catch(error => res.status(400).json({
-          message: error
+          message: ' Document Not Found',
+          error: error.message
         }));
     }
     return Document
@@ -195,9 +211,10 @@ export default {
         }
         return res.status(200).send(document);
       })
-      .catch(error => res.status(400).json({
-        message: error
-      }));
+        .catch(error => res.status(400).json({
+          message: ' Document Not Found',
+          error: error.message
+        }));
   },
 
   search(req, res) {
@@ -231,7 +248,7 @@ export default {
           });
         })
         .catch(error => res.status(401).json({
-          message: error
+          message: error.message
         }));
     }
     return Document
@@ -276,12 +293,21 @@ export default {
         });
       })
       .catch(error => res.status(401).json({
-        message: error
+        message: error.message
       }));
   },
 
   update(req, res) {
-    return Document
+    Document.findOne({ where: {
+      $and: {
+        ownerID: req.decoded.id,
+        title: req.body.title } } })
+      .then((documentExist) => {
+        if (documentExist && +(req.params.id) !== documentExist.id) {
+          res.status(400).json(
+            { message: 'Title already exist' });
+        } else {
+          return Document
       .findById(Number.parseInt(req.params.id, 10))
       .then((document) => {
         if (!document) {
@@ -297,7 +323,7 @@ export default {
             message: 'Document Updated Successfully'
           }))
           .catch(error => res.status(400).json({
-            message: error
+            message: error.message
           }));
         }
         return res.status(401).send({
@@ -305,8 +331,10 @@ export default {
         });
       })
       .catch(error => res.status(400).json({
-        message: error
+        message: error.message
       }));
+        }
+      });
   },
 
   destroy(req, res) {
@@ -325,11 +353,11 @@ export default {
               message: 'Document Deleted Successfully'
             }))
             .catch(error => res.status(400).json({
-              message: error
+              message: error.message
             }));
         })
         .catch(error => res.status(400).json({
-          message: error
+          message: error.message
         }));
     }
 
@@ -351,11 +379,11 @@ export default {
             message: 'Document Deleted Successfully'
           }))
           .catch(error => res.status(400).json({
-            message: error
+            message: error.message
           }));
       })
       .catch(error => res.status(400).json({
-        message: error
+        message: error.message
       }));
   },
 };

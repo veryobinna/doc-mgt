@@ -23,6 +23,7 @@ describe('ShowUsers Component', () => {
     expect(wrapper.find('li').length).to.equal(1);
     expect(wrapper.find('.collection-item').exists()).to.equal(true);
   });
+
   it('should call the delete function on delete-button click', () => {
     deleteUser.simulate('click');
     expect(props.deleteUser.called).to.equal(true);

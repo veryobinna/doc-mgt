@@ -41,6 +41,7 @@ describe('Routes : Search', () => {
       done();
     });
   });
+
   describe('GET /search/documents/?q={}', () => {
     it('it should allow users search for documents', (done) => {
       request
@@ -52,6 +53,7 @@ describe('Routes : Search', () => {
           done();
         });
     });
+
     it('it should allow Admin search for private document', (done) => {
       request
         .get(`/search/documents/?q=${privateDocument.title}`)
@@ -71,6 +73,7 @@ describe('Routes : Search', () => {
         });
     });
   });
+
   describe('GET /search/users/?q={}', () => {
     it('it should allow Admin search for users', (done) => {
       request
@@ -92,6 +95,7 @@ describe('Routes : Search', () => {
           done();
         });
     });
+
     it('it should not allow regular user search for users', (done) => {
       request
         .get(`/search/users/?q=${validRegularUser1.firstName}`)

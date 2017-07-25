@@ -36,6 +36,7 @@ describe('Routes : Users', () => {
       done();
     });
   });
+
   describe('POST /users/', () => {
     it('should allows users signup and return a token.', (done) => {
       request
@@ -47,6 +48,7 @@ describe('Routes : Users', () => {
           done();
         });
     });
+
     it('should not allow existing user signup.', (done) => {
       request
         .post('/users')
@@ -57,6 +59,7 @@ describe('Routes : Users', () => {
           done();
         });
     });
+
     it('should not allow users with invalid email to signup.', (done) => {
       request
         .post('/users')
@@ -67,6 +70,7 @@ describe('Routes : Users', () => {
           done();
         });
     });
+
     it('should not allow users with invalid password to signup.', (done) => {
       request
         .post('/users')
@@ -79,6 +83,7 @@ describe('Routes : Users', () => {
         });
     });
   });
+
   describe('POST /users/login', () => {
     it('it should registered users login and return a token.', (done) => {
       request
@@ -93,6 +98,7 @@ describe('Routes : Users', () => {
           done();
         });
     });
+
     it('should not allow user without pasword or email to login.', (done) => {
       request
         .post('/login')
@@ -105,6 +111,7 @@ describe('Routes : Users', () => {
           done();
         });
     });
+
     it(`should not allow registered users with
        invalid password login.`, (done) => {
       request
@@ -119,6 +126,7 @@ describe('Routes : Users', () => {
           });
     });
   });
+
   describe('GET /users/', () => {
     it('should allow admin to view all users', (done) => {
       request
@@ -131,6 +139,7 @@ describe('Routes : Users', () => {
           done();
         });
     });
+
     it('should not allow regular user to view all users', (done) => {
       request
         .get('/users/')
@@ -143,6 +152,7 @@ describe('Routes : Users', () => {
         });
     });
   });
+
   describe('Get /users/:id', () => {
     it('should allow admin to view any users profile', (done) => {
       request
@@ -155,6 +165,7 @@ describe('Routes : Users', () => {
           done();
         });
     });
+
     it('should not allow admin to view non existent user profile', (done) => {
       request
         .get('/users/0')
@@ -166,6 +177,7 @@ describe('Routes : Users', () => {
           done();
         });
     });
+
     it('should not allow regular user to view other users profile', (done) => {
       request
         .get('/users/2')
@@ -177,6 +189,7 @@ describe('Routes : Users', () => {
         });
     });
   });
+
   describe('PUT /users/', () => {
     it('should  not allow users to edit profile', (done) => {
       request
@@ -189,6 +202,7 @@ describe('Routes : Users', () => {
           done();
         });
     });
+
     it('should  not allow admin edit non existent user', (done) => {
       request
         .put('/users/0')
@@ -199,6 +213,7 @@ describe('Routes : Users', () => {
           done();
         });
     });
+
     it('should  allow admin update user profile', (done) => {
       request
         .put('/users/2')
@@ -215,6 +230,7 @@ describe('Routes : Users', () => {
         });
     });
   });
+
   describe('DELETE /users/:id', () => {
     it('should allow admin to delete any user profile', (done) => {
       request
@@ -225,6 +241,7 @@ describe('Routes : Users', () => {
           done();
         });
     });
+
     it('should not allow admin to delete non existent user profile', (done) => {
       request
         .delete('/users/0')
@@ -235,6 +252,7 @@ describe('Routes : Users', () => {
           done();
         });
     });
+
     it('should not allow admin to delete his own profile', (done) => {
       request
         .delete('/users/1')
@@ -245,6 +263,7 @@ describe('Routes : Users', () => {
           done();
         });
     });
+
     it(`should not allow regular user delete
        other users profile`, (done) => {
       request
@@ -257,6 +276,7 @@ describe('Routes : Users', () => {
           });
     });
   });
+
   describe('POST /logout', () => {
     it('should send a response on logout', (done) => {
       request

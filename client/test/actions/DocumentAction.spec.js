@@ -16,7 +16,7 @@ import {
 
 
 axios.defaults.baseURL = 'http://localhost:3000/';
-const middlewares = [thunk]; // add your middlewares like `redux-thunk`
+const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 describe('Document Action', () => {
@@ -67,7 +67,7 @@ describe('Document Action', () => {
     });
   });
   describe('updateDocumentSuccess ', () => {
-    it('should create a UPDATE_DOCUMENT action type', () => {
+    it('should create an UPDATE_DOCUMENT action type', () => {
       const expected = {
         type: types.UPDATE_DOCUMENT,
         payload
@@ -107,7 +107,7 @@ describe('Document Action', () => {
           expect(store.getActions()).to.eql(expectedAction);
         });
       });
-    it('dispatches GET_DOCUMENT action type  when document is gotten',
+    it('dispatches GET_DOCUMENTS action type  when document is gotten',
       () => {
         const expectedAction = [{
           type: types.GET_DOCUMENTS,

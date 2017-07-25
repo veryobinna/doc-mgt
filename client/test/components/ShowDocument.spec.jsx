@@ -25,6 +25,7 @@ describe('ShowDocument Component', () => {
     expect(wrapper.find('.card-title').text()).to.equal('title');
     expect(wrapper.find('.card-name').text()).to.equal('Optimus Prime');
   });
+
   it('should click run the delete function when clicked', () => {
     expect(wrapper.find('.card-name').text()).to.equal('Optimus Prime');
     deleteButton.simulate('click');

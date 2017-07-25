@@ -33,7 +33,8 @@ export class GetUsers extends Component {
         pageCount: 0
       },
       search: false,
-      getUsers: false
+      getUsers: false,
+      loaded: false
 
     };
     this.deleteUser = this.deleteUser.bind(this);
@@ -61,7 +62,9 @@ export class GetUsers extends Component {
    * @memberof GetUsers
    */
   componentWillReceiveProps(nextProps) {
-    this.setState({ users: nextProps.users, paginate: nextProps.paginate });
+    this.setState({ users: nextProps.users,
+      paginate: nextProps.paginate,
+      loaded: true });
   }
 
   /**
@@ -94,7 +97,7 @@ export class GetUsers extends Component {
    */
   onPageClick(event) {
     const selected = event.selected;
-    const offset = selected * 5;
+    const offset = selected * 12;
 
     if (this.state.search) {
       this.setState({ offset, users: [{ Role: {} }] },
@@ -156,6 +159,20 @@ export class GetUsers extends Component {
    * @memberof GetUsers
    */
   render() {
+    if (this.state.loaded === false) {
+      return (
+        <div className="preloader-wrapper active">
+          <div className="spinner-layer spinner-red-only">
+            <div className="circle-clipper left">
+              <div className="circle" />
+            </div><div className="gap-patch">
+              <div className="circle" />
+            </div><div className="circle-clipper right">
+              <div className="circle" />
+            </div>
+          </div>
+        </div>);
+    }
     const users = this.state.users.map((user) => {
       const items = {
         id: user.id,
