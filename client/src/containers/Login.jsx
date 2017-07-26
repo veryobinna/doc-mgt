@@ -91,7 +91,7 @@ export class Login extends Component {
                 onChange={this.onInputChange}
               />
               <button className="btn waves-effect waves-light"> Submit </button>
-              <span className="loginPS">
+              <span className="login-option">
                 Have no account? <Link to="/signup">signup here</Link>
               </span>
             </form>

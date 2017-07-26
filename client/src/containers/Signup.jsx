@@ -207,7 +207,7 @@ export class Signup extends Component {
               </div>
             </div>
             <button className="btn">Submit</button>
-            <span className="loginPS">
+            <span className="login-option">
             Have an account? <Link to="/">login here</Link>
             </span>
 
