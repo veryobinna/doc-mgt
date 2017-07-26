@@ -21,7 +21,7 @@ describe('ShowSingleDocument Component', () => {
 
   const wrapper = shallow(<ShowSingleDocument {...props} />);
   const updateButton = wrapper.find('.modal-action');
-  it('should render the ShowSingleDocument component', () => {
+  it('should render', () => {
     expect(wrapper.find('.show-document').exists()).to.equal(true);
     expect(wrapper.find('div').length).to.equal(4);
     expect(wrapper.find('.modal-content').text()).to.equal('title');

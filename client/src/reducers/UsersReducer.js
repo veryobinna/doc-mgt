@@ -1,8 +1,7 @@
 import types from '../actions/ActionTypes';
 
 /**
- *
- *
+ * user reducer
  * @param {any} [state={ users: [] }]
  * @param {any} action
  * @returns {object} payload

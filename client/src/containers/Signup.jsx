@@ -16,7 +16,6 @@ export class Signup extends Component {
   /**
    * Creates an instance of Signup.
    * @param {any} props
-   *
    * @memberof Signup
    */
   constructor(props) {
@@ -34,8 +33,7 @@ export class Signup extends Component {
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
   /**
-   *
-   *
+   * sets the state to the new props
    * @param {any} nextProps
    * @returns {null} no return
    * @memberof Signup
@@ -46,8 +44,7 @@ export class Signup extends Component {
     });
   }
   /**
-   *
-   *
+   * sets the state to the input value
    * @param {any} event
    * @returns {null} no return
    * @memberof Signup
@@ -97,8 +94,7 @@ export class Signup extends Component {
     });
   }
   /**
-   *
-   *
+   * calls the signupAction on form submit
    * @param {any} event
    * @returns {null} no return
    * @memberof Signup
@@ -109,10 +105,8 @@ export class Signup extends Component {
   }
 
   /**
-   *
-   *
+   * Renders the Signup component
    * @returns {html} DOM elements
-   *
    * @memberof Signup
    */
   render() {

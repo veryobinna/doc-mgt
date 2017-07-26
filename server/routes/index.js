@@ -1,6 +1,6 @@
-import usersController from '../controllers/usersController';
-import documentsController from '../controllers/documentsController';
-import rolesController from '../controllers/rolesController';
+import usersController from '../controllers/UserController';
+import documentsController from '../controllers/DocumentController';
+import rolesController from '../controllers/RoleController';
 import authenticate from '../middleware/Aunthenticate';
 
 

@@ -10,7 +10,7 @@ import Footer from '../components/Footer';
 
 /**
  *
- *
+ *Dashboard renders the sidebar, navbar and footer
  * @param {any} props
  * @returns {html} DOM element
  */

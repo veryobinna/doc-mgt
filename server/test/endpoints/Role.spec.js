@@ -1,15 +1,15 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import log from 'npmlog';
-import app from '../../../server';
+import app from '../../../serverDev';
 import fakeData from '../helpers/FakeData';
 import db from '../../models';
 import SeedData from '../helpers/SeedData';
 
 chai.use(chaiHttp);
 const request = chai.request(app),
-  adminUser = fakeData.validAdmin,
-  validRegularUser1 = fakeData.validRegularUser1,
+  adminUser = fakeData.adminUser,
+  firstRegularUser = fakeData.firstRegularUser,
   emptyRole = fakeData.emptyRole,
   invalidRole = fakeData.invalidRole,
   randomRole1 = fakeData.generateRandomRole('random'),
@@ -30,8 +30,8 @@ describe('Roles', () => {
       request
         .post('/login')
         .send({
-          loginID: validRegularUser1.email,
-          password: validRegularUser1.password
+          loginID: firstRegularUser.email,
+          password: firstRegularUser.password
         })
         .end((err, res) => {
           regularToken = res.body.token;

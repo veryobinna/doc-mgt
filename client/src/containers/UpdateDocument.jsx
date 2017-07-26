@@ -6,7 +6,6 @@ import { updateDocument } from '../actions/DocumentActions';
 
 /**
  *
- *
  * @class UpdateDocument
  * @extends {Component}
  */
@@ -14,7 +13,6 @@ export class UpdateDocument extends Component {
   /**
    * Creates an instance of UpdateDocument.
    * @param {any} props
-   *
    * @memberof UpdateDocument
    */
   constructor(props) {
@@ -29,8 +27,7 @@ export class UpdateDocument extends Component {
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 /**
- *
- *
+ * replace the text input area to CKEDITOR after component mounts
  * @returns {null} no return
  * @memberof UpdateDocument
  */
@@ -38,10 +35,9 @@ export class UpdateDocument extends Component {
     CKEDITOR.replace('content');
   }
 /**
- *
- *
+ * redirects to the user's document when new props are recieved
  * @param {any} nextProps
-   *@returns {null} no return
+ * @returns {null} no return
  * @memberof UpdateDocument
  */
   componentWillReceiveProps() {
@@ -49,8 +45,7 @@ export class UpdateDocument extends Component {
       `/dashboard/mydocuments/${this.props.status.id}`);
   }
   /**
-   *
-   *
+   * sets the state to the input value
    * @param {any} event
    *@returns {null} no return
    * @memberof UpdateDocument
@@ -61,8 +56,7 @@ export class UpdateDocument extends Component {
     this.setState({ [name]: value });
   }
   /**
-   *
-   *
+   * calls the updatedocument action on form submit
    * @param {any} event
    *@returns {null} no return
    * @memberof UpdateDocument

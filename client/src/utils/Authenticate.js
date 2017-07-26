@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 /**
- *
+ * sets the authorization token for all axios request
  * @export
  * @returns {null} no return
  * @param {any} token

@@ -3,6 +3,12 @@ import models from '../models/';
 const Role = models.Roles;
 
 export default {
+  /**
+   * creates a role
+   * @param {any} req
+   * @param {any} res
+   * @returns {object} Role object
+   */
   create(req, res) {
     return Role
       .create({
@@ -11,12 +17,26 @@ export default {
       .then(role => res.status(201).send(role))
       .catch(error => res.status(400).send(error));
   },
+
+  /**
+   * lists all roles
+   * @param {any} req
+   * @param {any} res
+   * @returns {object} Role object
+   */
   list(req, res) {
     return Role
       .findAll()
       .then(role => res.status(200).send(role))
       .catch(error => res.status(400).send(error));
   },
+
+  /**
+   * shows roles that match the search query
+   * @param {any} req
+   * @param {any} res
+   * @returns {object} Role object
+   */
   search(req, res) {
     return Role
       .findById(req.params.id)
@@ -30,6 +50,13 @@ export default {
       })
       .catch(error => res.status(400).send(error));
   },
+
+  /**
+   * updates a role
+   * @param {any} req
+   * @param {any} res
+   * @returns {object} Role object
+   */
   update(req, res) {
     return Role
       .findById(req.params.id)
@@ -47,6 +74,13 @@ export default {
       })
       .catch(error => res.status(400).send(error));
   },
+
+  /**
+   * deletes a role
+   * @param {any} req
+   * @param {any} res
+   * @returns {object} Role object
+   */
   destroy(req, res) {
     return Role
       .findById(req.params.id)

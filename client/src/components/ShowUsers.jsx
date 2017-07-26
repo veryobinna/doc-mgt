@@ -2,6 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+/**
+ * Renders the lists of users
+ * @param {any} props
+ * @returns{html} DOM elements
+ */
 const ShowUsers = ({
   id, firstName, lastName, email, roleName, deleteUser }) => (
 

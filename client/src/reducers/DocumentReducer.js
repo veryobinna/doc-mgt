@@ -1,8 +1,7 @@
 import types from '../actions/ActionTypes';
 
 /**
- *
- *
+ * document reducer
  * @param {any} [state={ documents: {} }]
  * @param {any} action
  * @returns {object} payload

@@ -1,6 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * Renders the documents
+ * @param {any} props
+ * @returns {html} DOM elements
+ */
 const ShowDocument = ({
   title,
   content,

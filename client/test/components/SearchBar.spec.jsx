@@ -4,7 +4,7 @@ import { expect } from 'chai';
 import SearchBar from './../../src/components/SearchBar';
 
 describe('Searchbar Component', () => {
-  it('should render the searchbar component', () => {
+  it('should render', () => {
     const wrapper = shallow(<SearchBar />);
     expect(wrapper.find('.search-wrapper').exists()).to.equal(true);
     expect(wrapper.find('input').exists()).to.equal(true);

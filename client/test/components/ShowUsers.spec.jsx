@@ -18,7 +18,7 @@ describe('ShowUsers Component', () => {
   const wrapper = setup();
   const deleteUser = wrapper.find('.btn-del');
 
-  it('should render the ShowUsers component', () => {
+  it('should render', () => {
     expect(wrapper.find('.show-users').exists()).to.equal(true);
     expect(wrapper.find('li').length).to.equal(1);
     expect(wrapper.find('.collection-item').exists()).to.equal(true);

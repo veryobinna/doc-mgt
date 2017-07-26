@@ -22,7 +22,7 @@ const onInputChangeSpy = spy(UpdateDocument.prototype, 'onInputChange');
 const onFormSubmitSpy = spy(UpdateDocument.prototype, 'onFormSubmit');
 const wrapper = shallow(<UpdateDocument {...props} />);
 describe('Edit Document Component', () => {
-  it('should render the Edit Document component', () => {
+  it('should render', () => {
     expect(wrapper.find('.update-document').exists()).to.equal(true);
     expect(wrapper.find('.input-field').exists()).to.equal(true);
   });

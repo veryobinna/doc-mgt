@@ -1,4 +1,4 @@
-import '../../../client/test/browser';
+import '../../../client/test/Browser';
 
 import '../../../client/test/actions/AuthAction.spec';
 import '../../../client/test/actions/DocumentAction.spec';

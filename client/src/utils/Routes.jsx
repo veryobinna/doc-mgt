@@ -12,7 +12,10 @@ import GetUsers from '../containers/GetUsers';
 import CheckAuthentication from '../containers/CheckAuthentication';
 import NotFound from '../components/NotFound';
 
-
+/**
+ * handles routing
+ * @returns {null} no return
+ */
 const routes = (
   <HashRouter>
     <div className="row">

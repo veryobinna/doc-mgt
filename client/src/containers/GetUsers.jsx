@@ -9,8 +9,6 @@ import ShowUsers from '../components/ShowUsers';
 import SearchBar from '../components/SearchBar';
 
 /**
- *
- *
  * @class GetUsers
  * @extends {Component}
  */
@@ -18,7 +16,6 @@ export class GetUsers extends Component {
   /**
    * Creates an instance of GetUsers.
    * @param {any} props
-   *
    * @memberof GetUsers
    */
   constructor(props) {
@@ -28,7 +25,6 @@ export class GetUsers extends Component {
       holder: 'Search Users',
       query: '',
       offset: 0,
-      limit: 12,
       paginate: {
         pageCount: 0
       },
@@ -39,13 +35,12 @@ export class GetUsers extends Component {
     };
     this.deleteUser = this.deleteUser.bind(this);
     this.onSearch = this.onSearch.bind(this);
-    this.onPageClick = this.onPageClick.bind(this);
+    this.handlePagination = this.handlePagination.bind(this);
     this.getUsers = this.getUsers.bind(this);
   }
 
   /**
-   *
-   *
+   * calls the getUser function on mount
    * @returns {null} no return
    * @memberof GetUsers
    */
@@ -55,8 +50,7 @@ export class GetUsers extends Component {
 
 
   /**
-   *
-   *
+   * sets the state to the new props
    * @param {any} nextProps
    * @returns {null} no return
    * @memberof GetUsers
@@ -68,8 +62,7 @@ export class GetUsers extends Component {
   }
 
   /**
-   *
-   *
+   * cals the search action
    * @param {any} event
    * @returns {null} no return
    * @memberof GetUsers
@@ -84,18 +77,29 @@ export class GetUsers extends Component {
     });
 
     this.props.searchUsers(
-      this.state.query,
-    this.state.limit,
-    this.state.offset);
+      this.state.query, this.state.offset);
   }
+
   /**
-   *
-   *
+   * calls the getUsers action
+   * @returns {null} no return
+   * @memberof GetUsers
+   */
+  getUsers() {
+    this.setState({
+      search: false,
+      getUsers: true,
+    });
+    this.props.getUsers(this.state.offset);
+  }
+
+  /**
+   * handles pagination
    * @param {any} event
    * @returns {null} no return
    * @memberof GetUsers
    */
-  onPageClick(event) {
+  handlePagination(event) {
     const selected = event.selected;
     const offset = selected * 12;
 
@@ -110,22 +114,9 @@ export class GetUsers extends Component {
       );
     }
   }
+
   /**
-   *
-   *
-   * @returns {null} no return
-   * @memberof GetUsers
-   */
-  getUsers() {
-    this.setState({
-      search: false,
-      getUsers: true,
-    });
-    this.props.getUsers(this.state.limit, this.state.offset);
-  }
-  /**
-   *
-   *
+   * deletes a user
    * @param {any} id
    * @returns {null} no return
    * @memberof GetUsers
@@ -151,11 +142,10 @@ export class GetUsers extends Component {
       }
     });
   }
+
   /**
-   *
-   *
+   * renders the GetUsers component
    * @returns {html} DOM element
-   *
    * @memberof GetUsers
    */
   render() {
@@ -202,7 +192,7 @@ export class GetUsers extends Component {
           pageCount={this.state.paginate.pageCount}
           marginPagesDisplayed={2}
           pageRangeDisplayed={5}
-          onPageChange={this.onPageClick}
+          onPageChange={this.handlePagination}
           containerClassName={'pagination'}
           subContainerClassName={'pages pagination'}
           activeClassName={'active'}

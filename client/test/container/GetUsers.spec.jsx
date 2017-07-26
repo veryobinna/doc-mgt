@@ -37,7 +37,7 @@ wrapper.setState({ users: [{ Role: {} }],
   loaded: true });
 
 describe('Get Users Component', () => {
-  it('should render the Get Users component', () => {
+  it('should render', () => {
     expect(wrapper.find('.get-users').exists()).to.equal(true);
     expect(wrapper.find('SearchBar').exists()).to.equal(true);
     expect(wrapper.find('div').exists()).to.equal(true);
@@ -49,7 +49,7 @@ describe('Get Users Component', () => {
 
   it('should call the next page of Get Users on pageclick', () => {
     wrapper.setState({ getUsers: true });
-    wrapper.instance().onPageClick(event);
+    wrapper.instance().handlePagination(event);
     expect(props.getUsers.called).to.equal(true);
   });
 
@@ -60,7 +60,7 @@ describe('Get Users Component', () => {
 
   it('should call the next page of Search Users on pageclick', () => {
     wrapper.setState({ search: true });
-    wrapper.instance().onPageClick(event);
+    wrapper.instance().handlePagination(event);
     expect(props.searchUsers.called).to.equal(true);
   });
 

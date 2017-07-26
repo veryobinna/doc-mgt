@@ -9,9 +9,9 @@ const props = {
   }
 };
 describe('Dashboard Component', () => {
-  it('should render the Dashboard component', () => {
+  it('should render', () => {
     const wrapper = shallow(<Dashboard {...props} />);
-    expect(wrapper.find('.dashboard').exists()).to.equal(true);  
+    expect(wrapper.find('.dashboard').exists()).to.equal(true);
     expect(wrapper.find('div').length).to.equal(2);
   });
 });

@@ -45,7 +45,6 @@ export default(sequelize, DataTypes) => {
   }, {
     classMethods: {
       associate: (models) => {
-        // associations can be defined here
         Documents.belongsTo(models.Users, {
           foreignKey: 'ownerID',
           onDelete: 'CASCADE',

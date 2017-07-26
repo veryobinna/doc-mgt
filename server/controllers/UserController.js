@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import models from '../models/';
+import helpers from '../helpers/helper';
 
 require('dotenv').config();
 
@@ -10,6 +11,12 @@ const Role = models.Roles;
 const secret = process.env.SECRET;
 
 export default {
+  /**
+   * creates a user
+   * @param {any} req
+   * @param {any} res
+   * @returns {object} User object
+   */
   create(req, res) {
     return User
       .create({
@@ -41,6 +48,13 @@ export default {
         message: error.errors[0].message
       }));
   },
+
+  /**
+   * logs in a user
+   * @param {any} req
+   * @param {any} res
+   * @returns {object} User object
+   */
   login(req, res) {
     if (req.body.loginId === '' || req.body.password === '') {
       return res.status(400).json({
@@ -93,6 +107,13 @@ export default {
         message: 'server error'
       }));
   },
+
+  /**
+   * lists all users
+   * @param {any} req
+   * @param {any} res
+   * @returns {object} User object
+   */
   list(req, res) {
     const offset = Number.parseInt(req.query.offset, 10) || 0,
       limit = Number.parseInt(req.query.limit, 10) || 12;
@@ -107,7 +128,7 @@ export default {
         order: [['id', 'DESC']]
       })
       .then((users) => {
-        const data = users.rows.map(user => Object.assign({},
+        const userData = users.rows.map(user => Object.assign({},
           {
             id: user.id,
             firstName: user.firstName,
@@ -117,15 +138,9 @@ export default {
             roleID: user.roleID,
             Role: user.Role
           }));
-        const paginate = {
-          page: Math.floor(offset / limit) + 1,
-          pageSize: users.rows.length,
-          totalCount: users.count,
-          pageCount: Math.ceil(users.count / limit)
-
-        };
+        const paginate = helpers(users, offset, limit);
         res.status(200).send({
-          users: data,
+          users: userData,
           paginate
         });
       })
@@ -133,6 +148,13 @@ export default {
         message: error
       }));
   },
+
+  /**
+   * fetches a user
+   * @param {any} req
+   * @param {any} res
+   * @returns {object} User object
+   */
   find(req, res) {
     return User
       .findById(Number.parseInt(req.params.id, 10))
@@ -148,6 +170,13 @@ export default {
         message: error
       }));
   },
+
+  /**
+   * shows a user that matches the search query
+   * @param {any} req
+   * @param {any} res
+   * @returns {object} User object
+   */
   search(req, res) {
     const offset = Number.parseInt(req.query.offset, 10) || 0,
       limit = Number.parseInt(req.query.limit, 10) || 10;
@@ -167,13 +196,7 @@ export default {
         }
       })
       .then((users) => {
-        const paginate = {
-          page: Math.floor(offset / limit) + 1,
-          pageSize: users.rows.length,
-          totalCount: users.count,
-          pageCount: Math.ceil(users.count / limit)
-
-        };
+        const paginate = helpers(users, offset, limit);
         res.status(200).send({
           users: users.rows,
           paginate
@@ -183,6 +206,13 @@ export default {
         message: error
       }));
   },
+
+  /**
+   * updates a user
+   * @param {any} req
+   * @param {any} res
+   * @returns {object} User object
+   */
   update(req, res) {
     if (Number.parseInt(req.params.id, 10) !==
     Number.parseInt(req.decoded.id, 10) && req.decoded.roleID === 1) {
@@ -208,6 +238,12 @@ export default {
     });
   },
 
+  /**
+   * deletes a user
+   * @param {any} req
+   * @param {any} res
+   * @returns {object} User object
+   */
   destroy(req, res) {
     if (Number.parseInt(req.params.id, 10) !==
     Number.parseInt(req.decoded.id, 10) && req.decoded.roleID === 1) {

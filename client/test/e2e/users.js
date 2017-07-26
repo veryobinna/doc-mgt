@@ -1,5 +1,5 @@
 import faker from 'faker';
-import url from './config';
+import url from './Config';
 
 module.exports = {
   'Update User Profile': (browser) => {

@@ -1,7 +1,7 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import log from 'npmlog';
-import app from '../../../server';
+import app from '../../../serverDev';
 import fakeData from '../helpers/FakeData';
 import db from '../../models';
 import SeedData from '../helpers/SeedData';
@@ -9,12 +9,12 @@ import SeedData from '../helpers/SeedData';
 chai.use(chaiHttp);
 
 const request = chai.request(app),
-  adminUser = fakeData.validAdmin,
+  adminUser = fakeData.adminUser,
   validUser = fakeData.generateRandomUser(3),
   invalidEmailUser = fakeData.invalidEmailUser,
   invalidPasswordUser = fakeData.invalidPasswordUser,
-  validRegularUser1 = fakeData.validRegularUser1,
-  validRegularUser2 = fakeData.validRegularUser2;
+  firstRegularUser = fakeData.firstRegularUser,
+  secondRegularUser = fakeData.secondRegularUser;
 let adminToken, regularToken;
 
 describe('Routes : Users', () => {
@@ -88,8 +88,8 @@ describe('Routes : Users', () => {
     it('it should registered users login and return a token.', (done) => {
       request
         .post('/login')
-        .send({ loginID: validRegularUser1.email,
-          password: validRegularUser1.password })
+        .send({ loginID: firstRegularUser.email,
+          password: firstRegularUser.password })
         .end((err, res) => {
           regularToken = res.body.token;
           expect(res).to.have.status(200);
@@ -116,7 +116,7 @@ describe('Routes : Users', () => {
        invalid password login.`, (done) => {
       request
           .post('/login')
-          .send({ loginID: validRegularUser1.email, password: 'invalid' })
+          .send({ loginID: firstRegularUser.email, password: 'invalid' })
           .end((err, res) => {
             expect(res).to.have.status(400);
             expect(res.body.token).to.equal(undefined);
@@ -160,7 +160,7 @@ describe('Routes : Users', () => {
         .set({ 'x-access-token': adminToken })
         .end((err, res) => {
           expect(res).to.have.status(200);
-          expect(res.body.username).to.equal(validRegularUser1.username);
+          expect(res.body.username).to.equal(firstRegularUser.username);
           expect(res.body).to.be.an('object');
           done();
         });
@@ -195,7 +195,7 @@ describe('Routes : Users', () => {
       request
         .put('/users/3')
         .set({ 'x-access-token': regularToken })
-        .send({ validRegularUser2 })
+        .send({ secondRegularUser })
         .end((err, res) => {
           expect(res).to.have.status(401);
           expect(res.body.message).to.equal('Access Denied');
@@ -222,8 +222,8 @@ describe('Routes : Users', () => {
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body.roleID).to.equal(2);
-          expect(res.body.firstName).to.not.equal(validRegularUser2.firstName);
-          expect(res.body.lastName).to.not.equal(validRegularUser2.lastName);
+          expect(res.body.firstName).to.not.equal(secondRegularUser.firstName);
+          expect(res.body.lastName).to.not.equal(secondRegularUser.lastName);
           expect(res.body.firstName).to.equal('musa');
           expect(res.body.lastName).to.equal('asmu');
           done();

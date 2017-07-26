@@ -2,8 +2,7 @@ import types from '../actions/ActionTypes';
 import TokenValidator from '../utils/TokenValidator';
 
 /**
- *
- *
+ * Reducer for  signin, login, logout
  * @param {any} [state=TokenValidator()]
  * @param {any} action
  * @returns {object} payload

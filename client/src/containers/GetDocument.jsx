@@ -30,7 +30,6 @@ export class GetDocument extends Component {
       documents: [{ User: {} }],
       query: '',
       offset: 0,
-      limit: 12,
       holder: 'Search Documents',
       search: false,
       getDocument: false,
@@ -44,11 +43,11 @@ export class GetDocument extends Component {
     this.onSearch = this.onSearch.bind(this);
     this.getDocument = this.getDocument.bind(this);
     this.getMyDocument = this.getMyDocument.bind(this);
-    this.onPageClick = this.onPageClick.bind(this);
+    this.handlePagination = this.handlePagination.bind(this);
   }
 
   /**
-   *
+   * calls the function to get all documents or all users' document
    *
    * @returns {null} no returns
    * @memberof GetDocument
@@ -64,8 +63,7 @@ export class GetDocument extends Component {
 
 
   /**
-   *
-   *
+   *Sets state to the new props
    * @param {any} nextProps
    * @returns {null} no return
    * @memberof GetDocument
@@ -81,15 +79,14 @@ export class GetDocument extends Component {
   }
 
 /**
- *
- *
+ * handles search
  * @param {any} event
  * @returns {null} no return
  * @memberof GetDocument
  */
   onSearch(event) {
     let { query } = { ...this.state };
-    const { limit, offset } = this.state;
+    const { offset } = this.state;
     if (event) {
       query = event.target.value;
     }
@@ -99,17 +96,36 @@ export class GetDocument extends Component {
       getDocument: false,
       getMyDocument: false,
     });
-    this.props.searchDocument(query, limit, offset);
+    this.props.searchDocument(query, offset);
+  }
+
+  /**
+   * calls the action to get users document
+   * @returns {null} no return
+   * @memberof GetDocument
+   */
+  getMyDocument() {
+    this.setState({ search: false, getDocument: false, getMyDocument: true });
+    this.props.getMyDocument(
+      this.props.match.params.id, this.state.offset);
+  }
+  /**
+   * calls the action to get all document
+   * @returns {null} no return
+   * @memberof GetDocument
+   */
+  getDocument() {
+    this.setState({ search: false, getDocument: true, getMyDocument: false });
+    this.props.getDocument(this.state.offset);
   }
 
 /**
- *
- *
+ * handles the pagination
  * @param {any} event
  * @returns {null} no return
  * @memberof GetDocument
  */
-  onPageClick(event) {
+  handlePagination(event) {
     const selected = event.selected;
     const offset = selected * 12;
 
@@ -128,34 +144,9 @@ export class GetDocument extends Component {
     }
   }
 
-  /**
-   *
-   *
-   * @returns {null} no return
-   * @memberof GetDocument
-   */
-  getMyDocument() {
-    this.setState({ search: false, getDocument: false, getMyDocument: true });
-    this.props.getMyDocument(
-      this.props.match.params.id,
-      this.state.limit,
-      this.state.offset);
-  }
-  /**
-   *
-   *
-   * @returns {null} no return
-   * @memberof GetDocument
-   */
-  getDocument() {
-    this.setState({ search: false, getDocument: true, getMyDocument: false });
-    this.props.getDocument(this.state.limit, this.state.offset);
-  }
-
 
   /**
-   *
-   *
+   * deletes a document
    * @param {any} id
    * @returns {null} no return
    * @memberof GetDocument
@@ -189,9 +180,8 @@ export class GetDocument extends Component {
 
   /**
    *
-   *
+   *render the get document component
    * @returns {html} DOM elements
-   *
    * @memberof GetDocument
    */
   render() {
@@ -239,7 +229,7 @@ export class GetDocument extends Component {
           pageCount={this.state.paginate.pageCount}
           marginPagesDisplayed={2}
           pageRangeDisplayed={5}
-          onPageChange={this.onPageClick}
+          onPageChange={this.handlePagination}
           containerClassName={'pagination'}
           subContainerClassName={'pages pagination'}
           activeClassName={'active'}

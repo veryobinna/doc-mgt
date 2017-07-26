@@ -29,7 +29,7 @@ wrapper.setState({ documents: [{ User: {} }],
   loaded: true });
 
 describe('Get Document Component', () => {
-  it('should render the Get Document component', () => {
+  it('should render', () => {
     expect(wrapper.find('.get-document').exists()).to.equal(true);
     expect(wrapper.find('SearchBar').exists()).to.equal(true);
     expect(wrapper.find('div').exists()).to.equal(true);
@@ -37,7 +37,7 @@ describe('Get Document Component', () => {
 
   it('should call the next page of Get Document on page click', () => {
     wrapper.setState({ getDocument: true });
-    wrapper.instance().onPageClick(event);
+    wrapper.instance().handlePagination(event);
     expect(props.getDocument.called).to.equal(true);
   });
 
@@ -49,7 +49,7 @@ describe('Get Document Component', () => {
 
   it('should call the next page of getMyDocument on page click', () => {
     wrapper.setState({ getDocument: false, getMyDocument: true });
-    wrapper.instance().onPageClick(event);
+    wrapper.instance().handlePagination(event);
     expect(props.getMyDocument.called).to.equal(true);
   });
 
@@ -62,7 +62,7 @@ describe('Get Document Component', () => {
 
   it('should call the next page of searchDocument on page click', () => {
     wrapper.setState({ search: true });
-    wrapper.instance().onPageClick(event);
+    wrapper.instance().handlePagination(event);
     expect(props.searchDocument.called).to.equal(true);
   });
 

@@ -5,7 +5,7 @@ import toastr from 'toastr';
 import configureStore from '../src/store/configureStore';
 import routes from '../src/utils/Routes';
 import setAuthorizationToken from '../src/utils/Authenticate';
-import './index.scss';
+import './Index.scss';
 
 toastr.options.timeOut = 1000;
 const store = configureStore();

@@ -1,7 +1,7 @@
 import React from 'react';
 
 /**
- * renders the footer component
+ * renders the NotFound component
  * @returns {null} no return
  *
  */

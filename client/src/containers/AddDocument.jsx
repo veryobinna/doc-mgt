@@ -27,6 +27,7 @@ export class AddDocument extends Component {
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
   /**
+   * replace the text input area to CKEDITOR after component mounts
    * @returns{null} no return
    * @memberof AddDocument
    */
@@ -35,7 +36,7 @@ export class AddDocument extends Component {
   }
 
   /**
-   *
+   * This changes th route when props is recieved
    * @param {any} nextProps
    * @returns{null} no return
    * @memberof AddDocument
@@ -48,8 +49,7 @@ export class AddDocument extends Component {
 
 
   /**
-   *
-   *
+   * set the state to the inut value
    * @param {any} event
    * @returns{null} no return
    * @memberof AddDocument
@@ -60,8 +60,7 @@ export class AddDocument extends Component {
     this.setState({ [name]: value });
   }
   /**
-   *
-   *
+   * calls the addDocument() function with the new document data
    * @param {any} event
    * @returns{null} no return
    * @memberof AddDocument
@@ -75,8 +74,7 @@ export class AddDocument extends Component {
   }
 
   /**
-   *
-   *
+   * renders the Add document component
    * @returns {html} DOM elements
    * @memberof AddDocument
    */
