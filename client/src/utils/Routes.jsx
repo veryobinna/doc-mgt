@@ -58,7 +58,7 @@ const routes = (
           path="/dashboard/users"
           component={CheckAuthentication(GetUsers)}
         />
-        <Route exact path="*" component={NotFound} />
+        <Route exact path="*" component={CheckAuthentication(NotFound)} />
       </Switch>
     </div>
   </HashRouter>
