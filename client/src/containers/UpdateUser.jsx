@@ -14,7 +14,6 @@ export class UpdateUser extends Component {
   /**
    * Creates an instance of UpdateUser.
    * @param {any} props
-   *
    * @memberof UpdateUser
    */
   constructor(props) {
@@ -31,8 +30,7 @@ export class UpdateUser extends Component {
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
   /**
-   *
-   *
+   * calls the getSingleUser action on mount
    * @returns {null} no return
    * @memberof UpdateUser
    */
@@ -41,8 +39,7 @@ export class UpdateUser extends Component {
   }
 
   /**
-   *
-   *
+   * sets the state to the new props
    * @param {any} nextProps
    * @returns {null} no return
    * @memberof UpdateUser
@@ -58,8 +55,7 @@ export class UpdateUser extends Component {
     });
   }
   /**
-   *
-   *
+   * sets the istate to the input value
    * @param {any} event
    * @returns {null} no return
    * @memberof UpdateUser
@@ -70,8 +66,7 @@ export class UpdateUser extends Component {
     this.setState({ [name]: value });
   }
   /**
-   *
-   *
+   * calls the updatedocument action and redirects to users component
    * @param {any} event
    * @returns {null} no return
    * @memberof UpdateUser
@@ -83,15 +78,13 @@ export class UpdateUser extends Component {
   }
 
   /**
-   *
-   *
+   * renders the UpdateUser component
    * @returns {html} DOM element
-   *
    * @memberof UpdateUser
    */
   render() {
     return (
-      <div className="row container col s12 m12 l9">
+      <div className="update-users row container col s12 m12 l9">
         <form onSubmit={this.onFormSubmit} className="col s12">
           <div className="row">
             <div className="input-field col s6">

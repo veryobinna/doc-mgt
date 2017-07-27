@@ -2,15 +2,19 @@
   "name": "doc-mgt",
   "version": "1.0.0",
   "description": "A document management system",
+  "engines": {
+    "node": "6.11.1"
+  },
   "main": "index.js",
   "scripts": {
     "build": "./node_modules/.bin/webpack -p",
+    "buildDev": "./node_modules/.bin/webpack -w",
     "migration": "./node_modules/sequelize db:migrate",
     "start:selenium": "java -jar selenium-server-standalone-3.4.0.jar",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "e2e": "./node_modules/.bin/nightwatch --config nightwatch.js",
-    "start": "./node_modules/.bin/webpack -p && babel-node server.js",
-    "start:dev": "nodemon server.js --exec babel-node",
+    "start": "./node_modules/.bin/webpack -p && babel-node serverProd.js",
+    "start:dev": "nodemon serverDev.js --exec babel-node",
     "test:server": "NODE_ENV=test nyc --reporter=lcov --reporter=text --reporter=html mocha \"server/test/**/*.spec.js\" --timeout 10000",
     "test:client": "NODE_ENV=test nyc --reporter=html --reporter=text --extension .jsx mocha  --compilers js:babel-core/register --require client/test/browser.js client/test/**/*.spec.{js,jsx}",
     "test": "npm run test:server"
@@ -25,7 +29,8 @@
     ],
     "exclude": [
       "server/test",
-      "client/test"
+      "client/test",
+      "server/routes"
     ],
     "extension": [
       ".jsx",

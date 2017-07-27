@@ -2,11 +2,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+/**
+ * Renders the lists of users
+ * @param {any} props
+ * @returns{html} DOM elements
+ */
 const ShowUsers = ({
   id, firstName, lastName, email, roleName, deleteUser }) => (
 
 
-    <ul className="collection">
+    <ul className="show-users collection">
       <li className="collection-item avatar ">
         <span className="title">{`${firstName} ${lastName}`}</span>
         <p>{email}</p>

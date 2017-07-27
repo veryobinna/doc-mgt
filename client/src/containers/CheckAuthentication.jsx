@@ -17,7 +17,7 @@ export default (ComposedConmponent) => {
     /**
      * Creates an instance of Authenticate.
      * @param {object} props
-     * @memberOf Authenticate
+     * @memberof Authenticate
      */
     constructor(props) {
       super(props);
@@ -27,8 +27,9 @@ export default (ComposedConmponent) => {
     }
 
     /**
+     * Renders the prop
      * @returns {element} DOM element ComposedConmponent
-     * @memberOf Authenticate
+     * @memberof Authenticate
      */
     render() {
       if (!this.props.status.valid) {

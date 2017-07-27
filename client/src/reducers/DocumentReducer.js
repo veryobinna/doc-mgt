@@ -1,8 +1,7 @@
 import types from '../actions/ActionTypes';
 
 /**
- *
- *
+ * document reducer
  * @param {any} [state={ documents: {} }]
  * @param {any} action
  * @returns {object} payload
@@ -26,6 +25,10 @@ const documentReducer = (state = { documents: {} }, action) => {
       return { ...state, ...docs }; }
 
     case types.UPDATE_DOCUMENT: {
+      const docs = { documents: action.payload };
+      return { ...state, ...docs }; }
+
+    case types.DELETE_DOCUMENT: {
       const docs = { documents: action.payload };
       return { ...state, ...docs }; }
 

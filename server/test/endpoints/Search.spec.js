@@ -1,7 +1,7 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import log from 'npmlog';
-import app from '../../../server';
+import app from '../../../serverDev';
 import fakeData from '../helpers/FakeData';
 import db from '../../models';
 import SeedData from '../helpers/SeedData';
@@ -9,11 +9,11 @@ import SeedData from '../helpers/SeedData';
 
 chai.use(chaiHttp);
 const request = chai.request(app),
-  privateDocument = fakeData.document2,
-  adminUser = fakeData.validAdmin,
-  validRegularUser1 = fakeData.validRegularUser1;
+  privateDocument = fakeData.secondDocument,
+  adminUser = fakeData.adminUser,
+  firstRegularUser = fakeData.firstRegularUser;
 
-let adminToken, regular1Token;
+let adminToken, firstRegularUserToken;
 
 describe('Routes : Search', () => {
   before((done) => {
@@ -26,10 +26,10 @@ describe('Routes : Search', () => {
         });
       request
         .post('/login')
-        .send({ loginID: validRegularUser1.email,
-          password: validRegularUser1.password })
+        .send({ loginID: firstRegularUser.email,
+          password: firstRegularUser.password })
         .end((err, res) => {
-          regular1Token = res.body.token;
+          firstRegularUserToken = res.body.token;
           done();
         });
     });
@@ -41,17 +41,19 @@ describe('Routes : Search', () => {
       done();
     });
   });
+
   describe('GET /search/documents/?q={}', () => {
     it('it should allow users search for documents', (done) => {
       request
         .get('/search/documents/?q=a')
-        .set({ 'x-access-token': regular1Token })
+        .set({ 'x-access-token': firstRegularUserToken })
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body.document).to.be.an('array');
           done();
         });
     });
+
     it('it should allow Admin search for private document', (done) => {
       request
         .get(`/search/documents/?q=${privateDocument.title}`)
@@ -71,31 +73,33 @@ describe('Routes : Search', () => {
         });
     });
   });
+
   describe('GET /search/users/?q={}', () => {
     it('it should allow Admin search for users', (done) => {
       request
-        .get(`/search/users/?q=${validRegularUser1.firstName}`)
+        .get(`/search/users/?q=${firstRegularUser.firstName}`)
         .set({ 'x-access-token': adminToken })
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body.users).to.be.an('array');
           const searchUser = res.body.users.filter((user) => {
-            if (user.firstName === validRegularUser1.firstName) {
+            if (user.firstName === firstRegularUser.firstName) {
               return user;
             }
             return undefined;
           });
           expect(res.body.users[0].firstName)
-          .to.equal(validRegularUser1.firstName);
-          expect(searchUser[0].lastName).to.equal(validRegularUser1.lastName);
-          expect(searchUser[0].email).to.equal(validRegularUser1.email);
+          .to.equal(firstRegularUser.firstName);
+          expect(searchUser[0].lastName).to.equal(firstRegularUser.lastName);
+          expect(searchUser[0].email).to.equal(firstRegularUser.email);
           done();
         });
     });
+
     it('it should not allow regular user search for users', (done) => {
       request
-        .get(`/search/users/?q=${validRegularUser1.firstName}`)
-        .set({ 'x-access-token': regular1Token })
+        .get(`/search/users/?q=${firstRegularUser.firstName}`)
+        .set({ 'x-access-token': firstRegularUserToken })
         .end((err, res) => {
           expect(res).to.have.status(401);
           expect(res.body.users).to.equal(undefined);

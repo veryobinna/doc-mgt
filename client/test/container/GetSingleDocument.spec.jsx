@@ -23,7 +23,7 @@ const updateDocumentSpy = spy(GetSingleDocument.prototype, 'updateDocument');
 const wrapper = shallow(<GetSingleDocument {...props} />);
 
 describe('Get Single Document Component', () => {
-  it('should render the Get Single Document component', () => {
+  it('should render', () => {
     expect(wrapper.find('ShowSingleDocument').exists()).to.equal(true);
     expect(wrapper.find('div').exists()).to.equal(true);
   });

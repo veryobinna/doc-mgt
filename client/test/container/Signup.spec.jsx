@@ -24,7 +24,7 @@ const onInputChangeSpy = spy(Signup.prototype, 'onInputChange');
 const onFormSubmitSpy = spy(Signup.prototype, 'onFormSubmit');
 const wrapper = shallow(<Signup {...props} />);
 describe('Signup Component', () => {
-  it('should render the Signup component', () => {
+  it('should render', () => {
     expect(wrapper.find('.landing-page').exists()).to.equal(true);
     expect(wrapper.find('form').exists()).to.equal(true);
   });
@@ -33,6 +33,7 @@ describe('Signup Component', () => {
     wrapper.instance().onInputChange(event);
     assert.calledOnce(onInputChangeSpy);
   });
+
   it('should handle onFormSubmit', () => {
     wrapper.find('form').simulate('submit', { preventDefault: () => {} });
     assert.calledOnce(onFormSubmitSpy);

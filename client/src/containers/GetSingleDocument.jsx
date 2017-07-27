@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { getSingleDocument } from '../actions/DocumentActions';
@@ -18,7 +17,6 @@ export class GetSingleDocument extends Component {
   /**
    * Creates an instance of GetSingleDocument.
    * @param {any} props
-   *
    * @memberof GetSingleDocument
    */
   constructor(props) {
@@ -51,10 +49,8 @@ export class GetSingleDocument extends Component {
   }
 
   /**
-   *
-   *
+   * calls the action to update a document
    * @returns {html} DOM element
-   *
    * @memberof GetSingleDocument
    */
   updateDocument() {
@@ -64,10 +60,8 @@ export class GetSingleDocument extends Component {
 
 
   /**
-   *
-   *
+   *renders the getSigleDocument component
    * @returns {html} DOM element
-   *
    * @memberof GetSingleDocument
    */
   render() {

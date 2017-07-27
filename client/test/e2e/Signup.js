@@ -4,6 +4,7 @@ import url from './config';
 module.exports = {
   'Signup Users': (browser) => {
     browser
+      .resizeWindow(1200, 900)
       .url(url.signup)
       .waitForElementVisible('body')
       .pause(1000)
@@ -16,11 +17,14 @@ module.exports = {
       .setValue('input[id=confirmPassword]', 'passkey')
       .click('button')
       .pause(1000)
+      .assert.containsText('.toast-success', 'successful')
       .assert.urlContains('dashboard')
+      .pause(1000)
       .end();
   },
   'invalid User signup': (browser) => {
     browser
+      .resizeWindow(1200, 900)
       .url(url.signup)
       .waitForElementVisible('body')
       .pause(1000)
@@ -33,7 +37,10 @@ module.exports = {
       .setValue('input[id=confirmPassword]', 'passkey')
       .click('button')
       .pause(1000)
+      .assert.elementPresent('.toast-error')
+      .assert.containsText('.toast-error', 'Invalid Email')
       .assert.urlEquals(url.signup)
+      .pause(1000)
       .end();
   }
 };

@@ -2,10 +2,10 @@ import log from 'npmlog';
 import fakeData from './FakeData';
 import db from '../../models';
 
-const validAdmin = fakeData.validAdmin,
-  validRegularUser1 = fakeData.validRegularUser1,
-  validRegularUser2 = fakeData.validRegularUser2,
-  validRegularUser3 = fakeData.validRegularUser3;
+const adminUser = fakeData.adminUser,
+  firstRegularUser = fakeData.firstRegularUser,
+  secondRegularUser = fakeData.secondRegularUser,
+  thirdRegularUser = fakeData.thirdRegularUser;
 /**
  * @class SeedData
  */
@@ -57,10 +57,10 @@ class SeedData {
    * @memberof SeedData
    */
   static populateUserTable() {
-    return db.Users.create(validAdmin)
-     .then(() => db.Users.create(validRegularUser1)
-       .then(() => db.Users.create(validRegularUser2)
-         .then(() => db.Users.create(validRegularUser3))));
+    return db.Users.create(adminUser)
+     .then(() => db.Users.create(firstRegularUser)
+       .then(() => db.Users.create(secondRegularUser)
+         .then(() => db.Users.create(thirdRegularUser))));
   }
   /**
    * @desc it popultes the document table
@@ -70,16 +70,16 @@ class SeedData {
    */
   static populateDocumentTable() {
     const documents = [
-      fakeData.document1,
-      fakeData.document2,
-      fakeData.document3,
-      fakeData.document4,
-      fakeData.document5,
-      fakeData.document6,
-      fakeData.document7,
-      fakeData.document8,
-      fakeData.document9,
-      fakeData.document10,
+      fakeData.firstDocument,
+      fakeData.secondDocument,
+      fakeData.thirdDocument,
+      fakeData.fourthDocument,
+      fakeData.fifthDocument,
+      fakeData.sixthDocument,
+      fakeData.seventhDocument,
+      fakeData.eightDocument,
+      fakeData.ninthDocument,
+      fakeData.tenthDocument,
     ];
     return db.Documents.bulkCreate(documents);
   }

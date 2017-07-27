@@ -10,6 +10,15 @@ const event = {
     value: 3
   },
 };
+
+const newProps = {
+  users: [{
+    Role: 'new val',
+    map: () => {},
+  }],
+  paginate: {
+    pageCount: 0
+  } };
 const props = {
   match: {
     params: {
@@ -23,8 +32,13 @@ const props = {
 };
 const wrapper = shallow(<GetUsers {...props} />);
 
+wrapper.setState({ users: [{ Role: {} }],
+  paginate: { pageCount: 0 },
+  loaded: true });
+
 describe('Get Users Component', () => {
-  it('should render the Get Ussers component', () => {
+  it('should render', () => {
+    expect(wrapper.find('.get-users').exists()).to.equal(true);
     expect(wrapper.find('SearchBar').exists()).to.equal(true);
     expect(wrapper.find('div').exists()).to.equal(true);
   });
@@ -32,9 +46,10 @@ describe('Get Users Component', () => {
   it('should call getUsers on mount', () => {
     expect(props.getUsers.called).to.equal(true);
   });
+
   it('should call the next page of Get Users on pageclick', () => {
     wrapper.setState({ getUsers: true });
-    wrapper.instance().onPageClick(event);
+    wrapper.instance().handlePagination(event);
     expect(props.getUsers.called).to.equal(true);
   });
 
@@ -42,9 +57,17 @@ describe('Get Users Component', () => {
     wrapper.instance().onSearch(event);
     expect(props.searchUsers.called).to.equal(true);
   });
+
   it('should call the next page of Search Users on pageclick', () => {
     wrapper.setState({ search: true });
-    wrapper.instance().onPageClick(event);
+    wrapper.instance().handlePagination(event);
     expect(props.searchUsers.called).to.equal(true);
+  });
+
+  it('should set state on componentWillMount', () => {
+    expect(wrapper.instance().state.users).to.eql([{ Role: {} }]);
+    wrapper.setProps({ users: newProps.users, paginate: newProps.paginate });
+    wrapper.update();
+    expect(wrapper.instance().state.users).to.eql(newProps.users);
   });
 });

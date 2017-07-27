@@ -6,7 +6,7 @@ module.exports = {
     tls: 'empty',
     dns: 'empty'
   },
-  entry: './client/public/index.jsx',
+  entry: './client/public/Index.jsx',
   output: {
     filename: 'public/bundle.js',
     path: path.resolve(__dirname, 'client')

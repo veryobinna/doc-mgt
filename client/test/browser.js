@@ -18,17 +18,16 @@ const localStorage = {
   },
   setItem(key, val) {
     this.store[key] = val;
+  },
+  removeItem(key) {
+    this.store[key] = null;
   }
 };
 global.localStorage = localStorage;
 
 global.window = window;
 global.$ = spy(() => ({
-  validate: (context) => {
-    Object.keys(context.rules).forEach(key => new Promise((resolve) => {
-      if (context.rules[key].required) {
-      }
-    }));
+  validate: () => {
   },
   data: () => true,
   validator: {

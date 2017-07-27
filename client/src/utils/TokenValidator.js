@@ -2,8 +2,7 @@ import jwt from 'jsonwebtoken';
 
 
 /**
- *
- *
+ * Checks if a token is valid and decodes it
  * @returns {object} user status
  */
 const TokenValidator = () => {

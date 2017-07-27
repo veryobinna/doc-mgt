@@ -15,12 +15,11 @@ const getUsersSuccess = payload => ({
 /**
  * getUsers gets users from the API and sends it to
  * getUSerSuccess
- * @param {any} limit
  * @param {any} offset
  * @returns{promise} returns a promise
  */
-const getUsers = (limit, offset) => dispatch => axios
-  .get(`/users/?limit=${limit}&offset=${offset}`)
+const getUsers = offset => dispatch => axios
+  .get(`/users/?offset=${offset}`)
   .then((res) => {
     dispatch(getUsersSuccess(res.data));
   })
@@ -41,12 +40,11 @@ const searchUsersSuccess = payload => ({
  * searchUsers gets users from the API and sends it to
  * searchUserSuccess
  * @param {any} query
- * @param {any} limit
  * @param {any} offset
  * @returns{promise} returns a promise
  */
-const searchUsers = (query, limit, offset) => dispatch => axios
-  .get(`/search/users/?q=${query}&limit=${limit}&offset=${offset}`)
+const searchUsers = (query, offset) => dispatch => axios
+  .get(`/search/users/?q=${query}&offset=${offset}`)
   .then((res) => {
     dispatch(searchUsersSuccess(res.data));
   })

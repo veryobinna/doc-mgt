@@ -18,7 +18,7 @@ const fakeData = {
     roleID: 3,
   },
 
-  validAdmin: {
+  adminUser: {
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
     username: faker.name.firstName(),
@@ -26,7 +26,7 @@ const fakeData = {
     password: faker.internet.password(),
     roleID: 1,
   },
-  validRegularUser1: {
+  firstRegularUser: {
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
     username: faker.name.firstName(),
@@ -34,7 +34,7 @@ const fakeData = {
     password: faker.internet.password(),
     roleID: 3,
   },
-  validRegularUser2: {
+  secondRegularUser: {
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
     username: faker.name.firstName(),
@@ -42,29 +42,13 @@ const fakeData = {
     password: faker.internet.password(),
     roleID: 3,
   },
-  validRegularUser3: {
+  thirdRegularUser: {
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
     username: faker.name.firstName(),
     email: faker.internet.email(),
     password: faker.internet.password(),
     roleID: 3,
-  },
-  validRegularUser4: {
-    firstName: faker.name.firstName(),
-    lastName: faker.name.lastName(),
-    username: faker.name.firstName(),
-    email: faker.internet.email(),
-    password: faker.internet.password(),
-    roleID: 3,
-  },
-  validRegularUser5: {
-    firstName: faker.name.firstName(),
-    lastName: faker.name.lastName(),
-    username: faker.name.firstName(),
-    email: faker.internet.email(),
-    password: faker.internet.password(),
-    roleID: 2,
   },
   emtptyTitleDocument: {
     title: '',
@@ -81,70 +65,70 @@ const fakeData = {
     content: faker.lorem.paragraphs(),
     access: 'random',
   },
-  document1: {
+  firstDocument: {
     title: faker.lorem.word(),
     content: faker.lorem.paragraphs(),
     access: 'public',
     ownerID: 1,
     roleID: 1,
   },
-  document2: {
+  secondDocument: {
     title: faker.lorem.word(),
     content: faker.lorem.paragraphs(),
     access: 'private',
     ownerID: 3,
     roleID: 1,
   },
-  document3: {
+  thirdDocument: {
     title: faker.lorem.word(),
     content: faker.lorem.paragraphs(),
     access: 'role',
     ownerID: 1,
     roleID: 1,
   },
-  document4: {
+  fourthDocument: {
     title: faker.lorem.word(),
     content: faker.lorem.paragraphs(),
     access: 'role',
     ownerID: 2,
     roleID: 3
   },
-  document5: {
+  fifthDocument: {
     title: faker.lorem.word(),
     content: faker.lorem.paragraphs(),
     access: 'private',
     ownerID: 2,
     roleID: 3,
   },
-  document6: {
-    title: faker.lorem.word(),
-    content: faker.lorem.paragraphs(),
-    access: 'public',
-    ownerID: 2,
-    roleID: 3
-  },
-  document7: {
-    title: faker.lorem.word(),
-    content: faker.lorem.paragraphs(),
-    access: 'role',
-    ownerID: 3,
-    roleID: 3
-  },
-  document8: {
+  sixthDocument: {
     title: faker.lorem.word(),
     content: faker.lorem.paragraphs(),
     access: 'role',
     ownerID: 4,
     roleID: 3
   },
-  document9: {
+  seventhDocument: {
+    title: faker.lorem.word(),
+    content: faker.lorem.paragraphs(),
+    access: 'public',
+    ownerID: 2,
+    roleID: 3
+  },
+  eightDocument: {
+    title: faker.lorem.word(),
+    content: faker.lorem.paragraphs(),
+    access: 'role',
+    ownerID: 3,
+    roleID: 3
+  },
+  ninthDocument: {
     title: faker.lorem.word(),
     content: faker.lorem.paragraphs(),
     access: 'private',
     ownerID: 2,
     roleID: 3,
   },
-  document10: {
+  tenthDocument: {
     title: faker.lorem.word(),
     content: faker.lorem.paragraphs(),
     access: 'public',

@@ -62,34 +62,30 @@ describe('Auth Action', () => {
     });
   });
   describe('Signup Action', () => {
-    describe('signupDetails ', () => {
-      it('should create a SIGNUP_DETAILS action type', () => {
-        const expected = {
-          type: types.SIGNUP_DETAILS,
-          payload
-        };
-        expect(signupDetails(payload)).to.eql(expected);
-      });
+    it('should create a SIGNUP_DETAILS action type', () => {
+      const expected = {
+        type: types.SIGNUP_DETAILS,
+        payload
+      };
+      expect(signupDetails(payload)).to.eql(expected);
     });
   });
-  describe('Signup Action', () => {
-    it('should sign up the user and set token', () => {
-      const expected = [
-        { type: types.SIGNUP_DETAILS, payload },
-      ];
+  it('should sign up the user and set token', () => {
+    const expected = [
+      { type: types.SIGNUP_DETAILS, payload },
+    ];
 
-      const userParams = {
-        fisrtName: 'fred',
-        password: 'test'
-      };
+    const userParams = {
+      fisrtName: 'fred',
+      password: 'test'
+    };
 
-      const store = mockStore({});
+    const store = mockStore({});
 
-      return store.dispatch(signupAction(userParams)).then(() => {
-        const action = store.getActions();
-        expect(action).to.eql(expected);
-        expect(localStorage.getItem('token')).to.eql(payload.token);
-      });
+    return store.dispatch(signupAction(userParams)).then(() => {
+      const action = store.getActions();
+      expect(action).to.eql(expected);
+      expect(localStorage.getItem('token')).to.eql(payload.token);
     });
   });
 });

@@ -2,6 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+/**
+ * Renders the side bar
+ * @param {any} props
+ * @returns {html} DOM element
+ */
 const Sidebar = props => (
   <div className="side-bar">
     <ul id="slide-out" className="side-nav fixed">

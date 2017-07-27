@@ -1,15 +1,15 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import log from 'npmlog';
-import app from '../../../server';
+import app from '../../../serverDev';
 import fakeData from '../helpers/FakeData';
 import db from '../../models';
 import SeedData from '../helpers/SeedData';
 
 chai.use(chaiHttp);
 const request = chai.request(app),
-  adminUser = fakeData.validAdmin,
-  validRegularUser1 = fakeData.validRegularUser1,
+  adminUser = fakeData.adminUser,
+  firstRegularUser = fakeData.firstRegularUser,
   emptyRole = fakeData.emptyRole,
   invalidRole = fakeData.invalidRole,
   randomRole1 = fakeData.generateRandomRole('random'),
@@ -30,8 +30,8 @@ describe('Roles', () => {
       request
         .post('/login')
         .send({
-          loginID: validRegularUser1.email,
-          password: validRegularUser1.password
+          loginID: firstRegularUser.email,
+          password: firstRegularUser.password
         })
         .end((err, res) => {
           regularToken = res.body.token;
@@ -46,6 +46,7 @@ describe('Roles', () => {
       done();
     });
   });
+
   describe('POST /roles/', () => {
     it('should allow admin to create roles', (done) => {
       request
@@ -57,6 +58,7 @@ describe('Roles', () => {
           done();
         });
     });
+
     it(`should not allow regular users to create roles 
         `, (done) => {
       request
@@ -69,6 +71,7 @@ describe('Roles', () => {
             done();
           });
     });
+
     it(`should not allow admin to create roles 
         with existing names`, (done) => {
       request
@@ -81,6 +84,7 @@ describe('Roles', () => {
             done();
           });
     });
+
     it('should not allow admin to create roles with empty Name', (done) => {
       request
         .post('/roles')
@@ -92,6 +96,7 @@ describe('Roles', () => {
           done();
         });
     });
+
     it(`should not allow admin to create roles with 
         invalid characters to be created`, (done) => {
       request
@@ -118,6 +123,7 @@ describe('Roles', () => {
           done();
         });
     });
+
     it('should not allow admin to get non existent role', (done) => {
       request
         .get('/roles/0')
@@ -128,6 +134,7 @@ describe('Roles', () => {
           done();
         });
     });
+
     it('should not allow regular user to get all role', (done) => {
       request
         .get('/roles/2')
@@ -167,6 +174,7 @@ describe('Roles', () => {
             done();
           });
     });
+
     it(`should not allow admin to update
      roles with existing titles`, (done) => {
       request
@@ -179,6 +187,7 @@ describe('Roles', () => {
             done();
           });
     });
+
     it('should not allow regular users to update roles', (done) => {
       request
         .put('/roles/2')
@@ -203,6 +212,7 @@ describe('Roles', () => {
           done();
         });
     });
+
     it(`it should not allow admin to delete non
        existent roles`, (done) => {
       request
@@ -214,6 +224,7 @@ describe('Roles', () => {
             done();
           });
     });
+
     it('it should allow admin to delete non admin roles', (done) => {
       request
         .delete('/roles/4')
@@ -223,6 +234,7 @@ describe('Roles', () => {
           done();
         });
     });
+
     it('it should not allow regular users to delete roles', (done) => {
       request
         .delete('/roles/4')

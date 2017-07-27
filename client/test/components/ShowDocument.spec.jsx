@@ -20,11 +20,12 @@ describe('ShowDocument Component', () => {
   const wrapper = setup();
   const deleteButton = wrapper.find('.card-btn-delete');
 
-  it('should render the ShowDocument component', () => {
+  it('should render', () => {
     expect(wrapper.find('div').length).to.equal(8);
     expect(wrapper.find('.card-title').text()).to.equal('title');
     expect(wrapper.find('.card-name').text()).to.equal('Optimus Prime');
   });
+
   it('should click run the delete function when clicked', () => {
     expect(wrapper.find('.card-name').text()).to.equal('Optimus Prime');
     deleteButton.simulate('click');

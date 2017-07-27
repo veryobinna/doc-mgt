@@ -7,7 +7,6 @@ import { LoginAction } from '../actions/AuthAction';
 
 /**
  *
- *
  * @class Login
  * @extends {Component}
  */
@@ -15,7 +14,6 @@ export class Login extends Component {
   /**
    * Creates an instance of Login.
    * @param {any} props
-   *
    * @memberof Login
    */
   constructor(props) {
@@ -28,8 +26,7 @@ export class Login extends Component {
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
   /**
-   *
-   *
+   * sets the state to the valu of the current input
    * @param {any} event
    * @returns {null} no return
    * @memberof Login
@@ -40,8 +37,7 @@ export class Login extends Component {
     this.setState({ [name]: value });
   }
   /**
-   *
-   *
+   * calls the login action
    * @param {any} event
    * @returns {null} no return
    * @memberof Login
@@ -51,10 +47,8 @@ export class Login extends Component {
     this.props.LoginAction(this.state);
   }
   /**
-   *
-   *
+   * Renders the Login component
    * @returns {html} DOM elements
-   *
    * @memberof Login
    */
   render() {
@@ -91,7 +85,7 @@ export class Login extends Component {
                 onChange={this.onInputChange}
               />
               <button className="btn waves-effect waves-light"> Submit </button>
-              <span className="loginPS">
+              <span className="login-option">
                 Have no account? <Link to="/signup">signup here</Link>
               </span>
             </form>

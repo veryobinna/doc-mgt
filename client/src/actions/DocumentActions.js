@@ -38,12 +38,11 @@ const getDocumentSuccess = payload => ({
 
 /**
  * gets document via an API call
- * @param {any} limit
  * @param {any} offset
   * @returns{promise} returns a promise
  */
-const getDocument = (limit, offset) => dispatch => axios
-  .get(`/documents/?limit=${limit}&offset=${offset}`)
+const getDocument = offset => dispatch => axios
+  .get(`/documents/?offset=${offset}`)
   .then((res) => {
     dispatch(getDocumentSuccess(res.data));
   })
@@ -63,12 +62,11 @@ const getMyDocumentSuccess = payload => ({
 /**
  * Gets a user document via an API call
  * @param {any} id
- * @param {any} limit
  * @param {any} offset
  * @returns{promise} returns a promise
  */
-const getMyDocument = (id, limit, offset) => dispatch => axios
-  .get(`/users/${id}/documents/?limit=${limit}&offset=${offset}`)
+const getMyDocument = (id, offset) => dispatch => axios
+  .get(`/users/${id}/documents/?offset=${offset}`)
   .then((res) => {
     dispatch(getMyDocumentSuccess(res.data));
   })
@@ -88,12 +86,11 @@ const searchDocumentSuccess = payload => ({
 /**
  * serch for a document via an API call
  * @param {any} query
- * @param {any} limit
  * @param {any} offset
  * @returns{promise} returns a promise
  */
-const searchDocument = (query, limit, offset) => dispatch => axios
-  .get(`/search/documents/?q=${query}&limit=${limit}&offset=${offset}`)
+const searchDocument = (query, offset) => dispatch => axios
+  .get(`/search/documents/?q=${query}&offset=${offset}`)
   .then((res) => {
     dispatch(searchDocumentSuccess(res.data));
   })

@@ -9,8 +9,6 @@ import ShowUsers from '../components/ShowUsers';
 import SearchBar from '../components/SearchBar';
 
 /**
- *
- *
  * @class GetUsers
  * @extends {Component}
  */
@@ -18,7 +16,6 @@ export class GetUsers extends Component {
   /**
    * Creates an instance of GetUsers.
    * @param {any} props
-   *
    * @memberof GetUsers
    */
   constructor(props) {
@@ -28,21 +25,22 @@ export class GetUsers extends Component {
       holder: 'Search Users',
       query: '',
       offset: 0,
-      limit: 12,
-      paginate: '',
+      paginate: {
+        pageCount: 0
+      },
       search: false,
-      getUsers: false
+      getUsers: false,
+      loaded: false
 
     };
     this.deleteUser = this.deleteUser.bind(this);
     this.onSearch = this.onSearch.bind(this);
-    this.onPageClick = this.onPageClick.bind(this);
+    this.handlePagination = this.handlePagination.bind(this);
     this.getUsers = this.getUsers.bind(this);
   }
 
   /**
-   *
-   *
+   * calls the getUser function on mount
    * @returns {null} no return
    * @memberof GetUsers
    */
@@ -52,19 +50,19 @@ export class GetUsers extends Component {
 
 
   /**
-   *
-   *
+   * sets the state to the new props
    * @param {any} nextProps
    * @returns {null} no return
    * @memberof GetUsers
    */
   componentWillReceiveProps(nextProps) {
-    this.setState({ users: nextProps.users, paginate: nextProps.paginate });
+    this.setState({ users: nextProps.users,
+      paginate: nextProps.paginate,
+      loaded: true });
   }
 
   /**
-   *
-   *
+   * cals the search action
    * @param {any} event
    * @returns {null} no return
    * @memberof GetUsers
@@ -79,20 +77,31 @@ export class GetUsers extends Component {
     });
 
     this.props.searchUsers(
-      this.state.query,
-    this.state.limit,
-    this.state.offset);
+      this.state.query, this.state.offset);
   }
+
   /**
-   *
-   *
+   * calls the getUsers action
+   * @returns {null} no return
+   * @memberof GetUsers
+   */
+  getUsers() {
+    this.setState({
+      search: false,
+      getUsers: true,
+    });
+    this.props.getUsers(this.state.offset);
+  }
+
+  /**
+   * handles pagination
    * @param {any} event
    * @returns {null} no return
    * @memberof GetUsers
    */
-  onPageClick(event) {
+  handlePagination(event) {
     const selected = event.selected;
-    const offset = selected * 5;
+    const offset = selected * 12;
 
     if (this.state.search) {
       this.setState({ offset, users: [{ Role: {} }] },
@@ -105,22 +114,9 @@ export class GetUsers extends Component {
       );
     }
   }
+
   /**
-   *
-   *
-   * @returns {null} no return
-   * @memberof GetUsers
-   */
-  getUsers() {
-    this.setState({
-      search: false,
-      getUsers: true,
-    });
-    this.props.getUsers(this.state.limit, this.state.offset);
-  }
-  /**
-   *
-   *
+   * deletes a user
    * @param {any} id
    * @returns {null} no return
    * @memberof GetUsers
@@ -146,14 +142,27 @@ export class GetUsers extends Component {
       }
     });
   }
+
   /**
-   *
-   *
+   * renders the GetUsers component
    * @returns {html} DOM element
-   *
    * @memberof GetUsers
    */
   render() {
+    if (this.state.loaded === false) {
+      return (
+        <div className="preloader-wrapper active">
+          <div className="spinner-layer spinner-red-only">
+            <div className="circle-clipper left">
+              <div className="circle" />
+            </div><div className="gap-patch">
+              <div className="circle" />
+            </div><div className="circle-clipper right">
+              <div className="circle" />
+            </div>
+          </div>
+        </div>);
+    }
     const users = this.state.users.map((user) => {
       const items = {
         id: user.id,
@@ -168,7 +177,7 @@ export class GetUsers extends Component {
       return <ShowUsers key={Math.random()} {...items} />;
     });
     return (
-      <div className="col s12 m12 l9">
+      <div className="get-users col s12 m12 l9">
         <SearchBar onSearch={this.onSearch} holder={this.state.holder} />
         <div className="row">
           {users}
@@ -183,7 +192,7 @@ export class GetUsers extends Component {
           pageCount={this.state.paginate.pageCount}
           marginPagesDisplayed={2}
           pageRangeDisplayed={5}
-          onPageChange={this.onPageClick}
+          onPageChange={this.handlePagination}
           containerClassName={'pagination'}
           subContainerClassName={'pages pagination'}
           activeClassName={'active'}

@@ -13,7 +13,7 @@ import {
 } from '../../src/actions/UserActions';
 
 axios.defaults.baseURL = 'http://localhost:3000/';
-const middlewares = [thunk]; // add your middlewares like `redux-thunk`
+const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 describe('Signup Action', () => {
@@ -46,7 +46,7 @@ describe('Signup Action', () => {
     });
   });
   describe('updateUserSuccess ', () => {
-    it('should create a UPDATE_USER action type', () => {
+    it('should create an UPDATE_USER action type', () => {
       const expected = {
         type: types.UPDATE_USER,
         payload

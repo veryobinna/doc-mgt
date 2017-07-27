@@ -11,6 +11,7 @@ The application is available on [heroku] (https://docs-mgt.herokuapp.com/)
 
   - Functionalities
   - Technologies
+  - API Documentation
   - Setup and Installation
   - Testing
   - How to contribute
@@ -19,11 +20,23 @@ The application is available on [heroku] (https://docs-mgt.herokuapp.com/)
   
 ### Functionalities
 
-Documents
-- Create documents
-- Update document
-- Delete document
-- Search for documents
+The following features are available to a user:
+- Create an account and login to the app
+- View public documents of other registered users
+- Create document and specify the audience of the document, either public, private or role.
+- Update a document created by the user
+- Delete document a document created by the user
+- View user's private document
+- Search for a document via the document title.
+
+In addition to the features available to the user, an admin can do the following:
+- Update users profile
+- Delete users account from the system
+- Search for users
+- View users public, private and role document
+- Update any document in the system
+- Delete any document in the system
+
 
 ### Technologies 
 The technologies used are:
@@ -37,19 +50,9 @@ The technologies used are:
 * [Materialize Css](http://breakdance.io) - Materialize is a UI component library created with CSS, JavaScript, and HTML.
 * [Babel](https://babeljs.io/) -The compiler for writing next generation JavaScript.
 
-
-
-Users
-- Create users
-- Update users
-- Delete users
-- Search for users
-
-Role
-- Create roles( Admin and moderator and regular users)
  
-#### EndPoints
-The endpoints can be found [here](http://docs-mgt.herokuapp.com/docs/)
+#### API Documentation
+The API documentation can be found [here](http://docs-mgt.herokuapp.com/docs/)
 
 ### Installation
 Doc-Mgt requires 
@@ -64,24 +67,24 @@ $ cd doc-mgt
 $ npm install
 $ npm run migrate
 ```
+- You can undo the migrations by running this command npm run `db:migrate:undo`.
 
 To run the app, use `npm start` and open `localhost:3000` on your browser.
 
 ### Testing 
 - Run Test `npm test` to run client and server side tests.
-- Run e2e test with `npm run e2e` (ensure application is running)
-- You can undo the migrations by running this command npm run `db:migrate:undo`.
+- Run e2e test with `npm run start:selenium` and on another console, run `npm run e2e` (ensure application is running).
 
 
 ### How to Contribute
 To contribute to this project:
-1. Fork the project & clone locally
-2. Create an upstream remote and sync your local copy before you branch
+1. Fork the project & clone locally.
+2. Create an upstream remote and sync your local copy before you branch.
 3. Branch for each separate piece of work.
-4. Do the work, write good commit messages, and read the CONTRIBUTING file if there is one.
-5. Push to your origin repository
-6. Create a new PR in GitHub.
-7. Respond to any code review feedback
+4. Do the work, write good commit messages, and push to your branch.
+5. Make sure all the tests are passing.
+5. Create a new PR in GitHub.
+6. Respond to any code review feedback.
 
 ### Limitations
 1. Only text document files can be created and managed with this application.
@@ -89,17 +92,9 @@ To contribute to this project:
 3. Users have to populate the database themselves.
 
 ### FAQ
-1. How can i contact the owner of this project?
+1. How can I contact the owner of this project?
 - You can send in a comment on this repository
-2. How can i contribute to this project?
-    To contribute to this project:
-    1. Fork the project & clone locally
-    2. Create an upstream remote and sync your local copy before you branch
-    3. Branch for each separate piece of work.
-    4. Do the work, write good commit messages, and read the CONTRIBUTING file if there is one.
-    5. Push to your origin repository
-    6. Create a new PR in GitHub.
-    7. Respond to any code review feedback
+
 
 ### License 
 MIT
