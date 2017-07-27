@@ -1,5 +1,5 @@
 import models from '../models/';
-import helpers from '../helpers/helper';
+import pagination from '../helpers/pagination';
 
 const Document = models.Documents;
 const User = models.Users;
@@ -81,7 +81,7 @@ export default {
         order: [['updatedAt', 'DESC']]
       })
       .then((document) => {
-        const paginate = helpers(document, offset, limit);
+        const paginate = pagination(document, offset, limit);
         res.status(200).send({
           document: document.rows,
           paginate
@@ -121,7 +121,7 @@ export default {
               order: [['updatedAt', 'DESC']]
             })
             .then((document) => {
-              const paginate = helpers(document, offset, limit);
+              const paginate = pagination(document, offset, limit);
               res.status(200).send({
                 document: document.rows,
                 paginate
@@ -240,7 +240,7 @@ export default {
         order: [['updatedAt', 'DESC']]
       })
       .then((document) => {
-        const paginate = helpers(document, offset, limit);
+        const paginate = pagination(document, offset, limit);
         res.status(200).send({
           document: document.rows,
           paginate

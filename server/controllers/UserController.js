@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import models from '../models/';
-import helpers from '../helpers/helper';
+import pagination from '../helpers/pagination';
 
 require('dotenv').config();
 
@@ -138,7 +138,7 @@ export default {
             roleID: user.roleID,
             Role: user.Role
           }));
-        const paginate = helpers(users, offset, limit);
+        const paginate = pagination(users, offset, limit);
         res.status(200).send({
           users: userData,
           paginate
@@ -196,7 +196,7 @@ export default {
         }
       })
       .then((users) => {
-        const paginate = helpers(users, offset, limit);
+        const paginate = pagination(users, offset, limit);
         res.status(200).send({
           users: users.rows,
           paginate
